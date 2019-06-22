@@ -16,6 +16,8 @@ Probably I'll use its parts in my ML course.
     -   [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
   - Practice
     -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
+  - Practice
+    -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
   -  Further Resources
     -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
 2.  Pandas
