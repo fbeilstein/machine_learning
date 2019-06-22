@@ -20,7 +20,7 @@ Probably I'll use its parts in my ML course.
     -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
 2.  Pandas
   -  Lecture
-    - [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
+    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
   -  Practice
   -  Further Resources
     -  [Pandas online documentation](http://pandas.pydata.org/)
