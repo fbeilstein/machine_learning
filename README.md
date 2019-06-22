@@ -15,7 +15,7 @@ Probably I'll use its parts in my ML course.
   -  Lecture
     -   [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
   - Lecture
-    -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
+    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
   - Practice
     -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
   -  Further Resources
