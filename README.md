@@ -11,8 +11,20 @@ Probably I'll use its parts in my ML course.
 
 ### Tools of ML
 
-1.  NumPy
+1.  NumPy Arrays
+  -  Lecture
+    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
+  - Practice
+    -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
+  -  Further Resources
+    -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
 2.  Pandas
+  -  Lecture
+    - [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
+  -  Practice
+  -  Further Resources
+    -  [Pandas online documentation](http://pandas.pydata.org/)
+    -  [book "Python for Data Analysis" by Wes McKinney (the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
 3.  MatPlotLib
 
 ### Methods of ML
