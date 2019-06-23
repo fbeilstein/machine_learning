@@ -44,3 +44,8 @@ Probably I'll use its parts in my ML course.
 9.  Kernel Density Estimation
 10.  Getting in touch with TF
 11.  Simple NN
+
+
+## For Curious Mind
+
+1.  [Applying machine learning to physics](https://physicsml.github.io/pages/papers.html)
