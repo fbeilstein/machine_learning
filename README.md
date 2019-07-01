@@ -32,6 +32,12 @@ Probably I'll use its parts in my ML course.
     
 3.  MatPlotLib
 
+  - Lecture
+    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
+  -  Practice
+  - Further Resources
+
+
 ### Methods of ML
 
 1.  Naive Bayes Classification
