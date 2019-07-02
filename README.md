@@ -37,7 +37,7 @@ Probably I'll use its parts in my ML course.
   -  Practice
   - Further Resources
     -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
-    -  [Basemap Documantation](https://matplotlib.org/basemap/)
+    -  [Basemap Documentation](https://matplotlib.org/basemap/)
 
 
 ### Methods of ML
