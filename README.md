@@ -36,6 +36,7 @@ Probably I'll use its parts in my ML course.
     -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
   -  Practice
   - Further Resources
+    -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
 
 
 ### Methods of ML
