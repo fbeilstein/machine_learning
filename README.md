@@ -36,6 +36,8 @@ Probably I'll use its parts in my ML course.
     -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
   -  Practice
   - Further Resources
+    -  [Matplotlib online documentation](https://matplotlib.org/)
+    -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
     -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [Basemap Documentation](https://matplotlib.org/basemap/)
 
