@@ -19,6 +19,8 @@ Probably I'll use its parts in my ML course.
     -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
   - Further Resources
     -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
+    -  [NumPy, HABR Article](https://habr.com/ru/post/352678/)
+    
     
 2.  **Pandas**
 
