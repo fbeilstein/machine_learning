@@ -52,7 +52,7 @@ Probably I'll use its parts in my ML course.
   - Lecture
     -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
   - Practice
-    -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_4_matplotlib_problems.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_4_matplotlib_problems.ipynb)
   - Further Resources
     -  [Matplotlib online documentation](https://matplotlib.org/)
     -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
