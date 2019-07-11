@@ -7,7 +7,22 @@ Probably I'll use its parts in my ML course.
 
 ### Intro
 
-1.  General Info
+1.  General Info, Python
+  - Lecture
+    -  In progress...
+  - Practice
+    -  In progress...
+  - Further Resources
+    -  In progress...
+    
+2.  More about Python
+  - Lecture
+    -  In progress...
+  - Practice
+    -  In progress...
+  - Further Resources
+    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
+    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
 
 ### Tools of ML
 
@@ -110,14 +125,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
-10.  **Getting in touch with TF**
-  - Lecture
-    -  In progress...
-  - Practice
-    -  In progress...
-  - Further Resources
-    -  In progress...
-11.  **Simple NN**
+10.  **What's next: NNs and beyond**
   - Lecture
     -  In progress...
   - Practice
