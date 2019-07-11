@@ -29,9 +29,9 @@ Probably I'll use its parts in my ML course.
 1.  **NumPy Arrays**
 
   - Lecture
-    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
   - Practice
-    -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
   - Further Resources
     -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
     -  [NumPy, HABR Article](https://habr.com/ru/post/352678/)
@@ -40,9 +40,9 @@ Probably I'll use its parts in my ML course.
 2.  **Pandas**
 
   - Lecture
-    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
   -  Practice
-      -  [Workbook in Colab](https://github.com/fbeilstein/machine_learning/blob/master/practice_3_pandas_problems.ipynb)
+      -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_3_pandas_problems.ipynb)
   - Further Resources
     -  [Pandas online documentation](http://pandas.pydata.org/) (please note [10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html) and [cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html))
     -  [book "Python for Data Analysis" by Wes McKinney (the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
@@ -50,7 +50,7 @@ Probably I'll use its parts in my ML course.
 3.  **MatPlotLib**
 
   - Lecture
-    -  [Comprehensive Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_4_matplotlib_problems.ipynb)
   - Further Resources
@@ -64,7 +64,7 @@ Probably I'll use its parts in my ML course.
 
 1.  **Naive Bayes Classification**
   - Lecture
-    -  [Notes in Colab](https://github.com/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
   - Practice
     -  In progress...
   - Further Resources
