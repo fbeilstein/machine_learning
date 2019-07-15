@@ -78,21 +78,7 @@ class Object:
         self.size = (image_size[0] * scale, image_size[1] * scale)
         self.radius = image_radius * scale
     
-    def __str__(self):
-        a = "OBJECT:" + "\n"
-        a += "Position: " + str(self.pos) + "\n"
-        a += "Velocity: " + str(self.vel) + "\n"
-        a += "Image: " + str(self.image) + "\n"
-        a += "Scale: " + str(self.scale) + "\n"
-        a += "Radius: " + str(self.radius) + "\n"
-        a += "Sound: " + str(self.sound) + "\n"
-        a += "\n"
-        return a
-    
     # Key Methods
-    def update(self):
-        pass
-    
     def move(self):
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
@@ -104,9 +90,6 @@ class Object:
         if distance < self.radius + obj.get_radius():
             return True
         return False
-    
-    def draw(self, canvas, offset):
-        canvas.draw_image(self.image, self.image_center, self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
     
     # Accessor Methods
     def get_pos(self):
@@ -121,28 +104,6 @@ class Object:
     def set_vel(self, v):
         self.vel = v
     
-    def get_image(self):
-        return [self.image, self.image_center, self.image_size, self.image_radius]
-    
-    def set_image(self, i, c, s, r):
-        self.image = i
-        self.image_center = c
-        self.image_size = s
-        self.image_radius = r
-        self.size = (s[0] * self.scale, s[1] * self.scale)
-        self.radius = r * self.scale
-        
-    def get_scale(self):
-        return self.scale
-    
-    def set_scale(self, s):
-        self.scale = s
-        self.size = (self.image_size[0] * s, self.image_size[1] * s)
-        self.radius = self.image_radius * s
-        
-    def get_size(self):
-        return self.size
-    
     def get_radius(self):
         return self.radius
     
@@ -152,14 +113,6 @@ class StableObject(Object):
         self.color = color
         self.time = 0
         Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
-       
-    def __str__(self):
-        a = "STABLE OBJECT: " + "\n"
-        a += "Interval: " + str(self.interval) + "\n"
-        a += "Color: " + str(self.color) + "\n"
-        a += "Time: " + str(self.time) + "\n"
-        a += "\n"
-        return Object.__str__(self) + a
         
     # Key Methods
     def update(self):
@@ -202,12 +155,6 @@ class Treat(StableObject):
         image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
         StableObject.__init__(self, pos, [0, .5], image, image_center, image_size, image_radius, 15, color, 1.2)
         
-    def __str__(self):
-        a = "TREAT:" + "\n"
-        a += "Platforms: " + str(self.platforms) + "\n"
-        a += "Collected: " + str(self.collected) + "\n"
-        return StableObject.__str__(self) + a + "\n"
-        
     # Key Methods
     def collect(self):
         self.collected = True
@@ -228,11 +175,10 @@ class Treat(StableObject):
             else:
                 canvas.draw_image(self.image, [self.image_center[0] + self.color * self.image_size[0] + self.color, self.image_center[1]], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
             
-    def collide(self, obj):
+    def collide(self, animal):
         if not self.collected:
-            if Object.collide(self, obj):
-                if type(obj) == Animal:
-                    obj.collect(self)
+            if Object.collide(self, animal):
+                animal.collect(self)
                 return True
         return False
         
@@ -266,19 +212,6 @@ class Platform(StableObject):
         self.orig_pos = [(points[0][0] + points[1][0]) / 2.0, (points[0][1] + points[1][1]) / 2.0]
         image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
         StableObject.__init__(self, pos, vel, image, image_center, image_size, points[1][0] - points[0][0], interval, color, 1)
-        
-    def __str__(self):
-        a = "PLATFORM:" + "\n"
-        a += "Active: " + str(self.active) + "\n"
-        a += "On: " + str(self.on) + "\n"
-        a += "Original State: " + str(self.orig_state) + "\n"
-        a += "Original Velocity: " + str(self.orig_vel) + "\n"
-        a += "Points: " + str(self.points) + "\n"
-        a += "Original Points: " + str(self.orig_points) + "\n"
-        a += "Dimensions: " + str(self.dimensions) + "\n"
-        a += "Original Position: " + str(self.orig_pos) + "\n"
-        a += "\n"
-        return StableObject.__str__(self) + a
         
     # Key Methods
     def update(self):
@@ -341,69 +274,6 @@ class Platform(StableObject):
         self.pos = [self.orig_pos[0], self.orig_pos[1]]
         self.vel = [self.orig_vel[0], self.orig_vel[1]]
         self.time = 0
-        
-    # Accessor Methods
-    def get_active(self):
-        return self.active
-    
-    def set_active(self, a):
-        self.active = a
-        
-    def switch_active(self):
-        self.active = not self.active
-        return self.active
-    
-    def get_on(self):
-        return self.on
-    
-    def set_on(self, o):
-        self.on = o
-        
-    def switch_on(self):
-        self.on = not self.on
-        return self.on
-    
-    def get_points(self):
-        return self.points
-    
-    def set_points(self, p):
-        self.points = p
-        self.pos = [(p[0][0] + p[1][0]) / 2.0, (p[0][1] + p[1][1]) / 2.0]
-        self.dimensions = [p[1][0] - p[0][0], self.image_size[1]]
-        
-    def set_pos(self, p):
-        n = p[0] - self.pos[0]
-        self.set_points([[self.points[0][0] + n, p[1]], [self.points[1][0] + n, p[1]]])
-        
-    def get_orig_state(self):
-        return self.orig_state
-    
-    def set_orig_state(self, o):
-        self.orig_state = o
-        
-    def get_dimensions(self):
-        return self.dimensions
-    
-    def set_dimensions(self, d):
-        self.dimensions = d
-        
-    def get_orig_points(self):
-        return self.orig_points
-    
-    def set_orig_points(self, o):
-        self.orig_points = o
-        
-    def get_orig_pos(self):
-        return self.orig_pos
-    
-    def set_orig_pos(self, o):
-        self.orig_pos = o
-        
-    def get_orig_vel(self):
-        return self.orig_vel
-    
-    def set_orig_vel(self, v):
-        self.orig_vel = v
     
 class PeriodicImage(StableObject):
     def __init__(self, pos, vel, image, image_center, image_size, interval, wait, tiles, rotation = 0, rotation_speed = 0, bonus = False, scale = 1):
@@ -416,19 +286,6 @@ class PeriodicImage(StableObject):
         self.t = 0
         self.tile = 0
         StableObject.__init__(self, pos, vel, image, image_center, image_size, image_size[1], interval, "White", scale)
-        
-    def __str__(self):
-        a = "PERIODIC IMAGE: " + "\n"
-        a += "Wait: " + str(self.wait) + "\n"
-        a += "Tiles: " + str(self.tiles) + "\n"
-        a += "Rotation: " + str(self.rotation) + "\n"
-        a += "Rotation Speed: " + str(self.rotation_speed) + "\n"
-        a += "Bonus: " + str(self.bonus) + "\n"
-        a += "r: " + str(self.r) + "\n"
-        a += "t: " + str(self.t) + "\n"
-        a += "Tile: " + str(self.tile) + "\n"
-        a += "\n"
-        return StableObject.__str__(self) + a
     
     def draw(self, canvas):
         self.update()
@@ -454,21 +311,6 @@ class UnstableObject(Object):
         self.count = 0
         self.moving = False
         Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
-    
-    def __str__(self):
-        a = "UNSTABLE OBJECT: " + "\n"
-        a += "Gravity: " + str(self.gravity) + "\n"
-        a += "Speed: " + str(self.speed) + "\n"
-        a += "Jump Height: " + str(self.jump_height) + "\n"
-        a += "Direction: " + str(self.direction) + "\n"
-        a += "Bonus Velocity: " + str(self.bonus_vel) + "\n"
-        a += "Num Jumps: " + str(self.num_jumps) + "\n"
-        a += "Max Jumps: " + str(self.max_jumps) + "\n"
-        a += "Tile: " + str(self.tile) + "\n"
-        a += "Count: " + str(self.count) + "\n"
-        a += "Moving: " + str(self.moving) + "\n"
-        a += "\n"
-        return Object.__str__(self) + a
     
     # Key Methods
     def update(self):
@@ -525,70 +367,17 @@ class UnstableObject(Object):
     def get_gravity(self):
         return self.gravity
     
-    def set_gravity(self, g):
-        self.gravity = g
-        
-    def get_speed(self):
-        return self.get_speed
-    
-    def set_speed(self, s):
-        self.speed = s
-        
-    def get_jump_height(self):
-        return self.jump_height
-    
-    def set_jump_height(self, j):
-        self.jump_height = j
-    
-    def get_direction(self):
-        return self.direction
-    
-    def set_direction(self, d):
-        self.direction = d
-        
-    def get_bonus_vel(self):
-        return self.bonus_vel
-    
     def set_bonus_vel(self, v):
         self.bonus_vel = v
         
-    def get_num_jumps(self):
-        return self.num_jumps
-    
     def set_num_jumps(self, n):
         self.num_jumps = n
         
-    def get_max_jumps(self):
-        return self.max_jumps
-    
-    def set_max_jumps(self, m):
-        self.max_jumps = m
-        
-    def get_tile(self):
-        return self.tile
-    
-    def set_tile(self, t):
-        self.tile = t
-        
-    def get_count(self):
-        return self.count
-    
-    def set_count(self, c):
-        self.count = c
-        
-    def get_moving(self):
-        return self.moving
-        
-    def set_moving(self, m):
-        self.moving = m
         
 class Animal(UnstableObject):
     def __init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, controls, direction = 0, scale = 1, num_treats = 2):
         self.treats = [None, None]
         self.num_treats = num_treats
-        self.treats = []
-        for i in range(self.num_treats):
-            self.treats.append(None)
         # 0 = left, 1 = right, 2 = jump, 3 = throw
         self.controls = controls
         self.control_state = [False, False, False, False]
@@ -850,7 +639,7 @@ class Game:
             elif objs[0] == 'P':
                 params = deserialize(objs[2:])
                 self.platforms.append(Platform(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]))
-                print "Platform: ", params
+                #print "Platform: ", params
             elif objs[0] == 'C':
                 params = deserialize(objs[2:])
                 p = []
@@ -860,10 +649,10 @@ class Game:
                     for x in params[5]:
                         p.append(self.platforms[int(x)])
                 self.treats.append(Treat(params[0], params[1], params[2], params[3], params[4], p))
-                print "Treat: ", params
+                #print "Treat: ", params
             elif objs[0] == 'T':
                 self.text = deserialize(objs[2:])
-                print "Text: ", self.text
+                #print "Text: ", self.text
         
         if self.level <= 10:
             self.screen = self.easy_screen
