@@ -1,0 +1,952 @@
+# Bunny's Big Adventure!
+# Created by: Jenna Netland
+# Copyright (c) 2012 All Rights Reserved, Jenna Netland
+# All images and music are also Copyright (c) 2012 All Rights Reserved, Jenna Netland
+
+# Good luck, and hope you enjoy :)
+
+
+# Copyright (c) 2012 All Rights Reserved, Jenna Netland
+
+import math
+import random
+import simplegui
+import urllib2
+import codeskulptor
+
+def deserialize(string, splitters=[' ', ';', ',']):
+    lst = []
+#    print "RAW: ", string
+    for sub_str in string.split(splitters[0]):
+        if sub_str[0] == 'T':
+            lst.append(True)
+        elif sub_str[0] == 'F':
+            lst.append(False)
+        elif sub_str[0] == 'N':
+            lst.append(None)
+        elif sub_str[0] == '[' and sub_str[-1] == ']':
+            lst.append(deserialize(sub_str[1:-1], splitters[1:]))
+        elif sub_str[0] == '"' and sub_str[-1] == '"':
+            lst.append(sub_str[1:-1].replace('_', ' '))
+        else:
+            #print(sub_str)
+            lst.append(float(sub_str))
+    return lst
+
+
+class Menu:
+    def __init__(self, screen, buttons = []):
+        self.buttons = buttons
+        self.screen = screen
+            
+    def draw(self, canvas):
+        canvas.draw_image(self.screen[0], self.screen[1], self.screen[2], self.screen[3], self.screen[4], self.screen[5])
+        for b in self.buttons:
+            b.draw(canvas)
+                   
+    def click(self, pos):
+        for b in self.buttons:
+            b.activate_if_in(pos)
+                
+      
+class Button:
+    def __init__(self, pos, image, image_center, image_size, action):
+        self.pos = pos
+        self.image = image
+        self.image_center = image_center
+        self.image_size = image_size
+        self.action = action
+    
+    def draw(self, canvas):
+        canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size)
+        
+    def activate_if_in(self, pos):
+        if pos[0] < self.pos[0] + self.image_size[0] / 2 and pos[0] > self.pos[0] - self.image_size[0] / 2:
+            if pos[1] < self.pos[1] + self.image_size[1] / 2 and pos[1] > self.pos[1] - self.image_size[1] / 2:
+                self.action()
+
+               
+class Object:
+    def __init__(self, pos, vel, image, image_center, image_size, image_radius, scale = 1):
+        self.pos = pos
+        self.vel = vel
+        self.image = image
+        self.image_center = image_center
+        self.image_size = image_size
+        self.image_radius = image_radius
+        self.scale = scale
+        self.size = (image_size[0] * scale, image_size[1] * scale)
+        self.radius = image_radius * scale
+    
+    def __str__(self):
+        a = "OBJECT:" + "\n"
+        a += "Position: " + str(self.pos) + "\n"
+        a += "Velocity: " + str(self.vel) + "\n"
+        a += "Image: " + str(self.image) + "\n"
+        a += "Scale: " + str(self.scale) + "\n"
+        a += "Radius: " + str(self.radius) + "\n"
+        a += "Sound: " + str(self.sound) + "\n"
+        a += "\n"
+        return a
+    
+    # Key Methods
+    def update(self):
+        pass
+    
+    def move(self):
+        self.pos[0] += self.vel[0]
+        self.pos[1] += self.vel[1]
+        
+    def collide(self, obj):
+        p1 = self.get_pos()
+        p2 = obj.get_pos()
+        distance = math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+        if distance < self.radius + obj.get_radius():
+            return True
+        return False
+    
+    def draw(self, canvas, offset):
+        canvas.draw_image(self.image, self.image_center, self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
+    
+    # Accessor Methods
+    def get_pos(self):
+        return self.pos
+    
+    def set_pos(self, p):
+        self.pos = p
+        
+    def get_vel(self):
+        return self.vel
+    
+    def set_vel(self, v):
+        self.vel = v
+    
+    def get_image(self):
+        return [self.image, self.image_center, self.image_size, self.image_radius]
+    
+    def set_image(self, i, c, s, r):
+        self.image = i
+        self.image_center = c
+        self.image_size = s
+        self.image_radius = r
+        self.size = (s[0] * self.scale, s[1] * self.scale)
+        self.radius = r * self.scale
+        
+    def get_scale(self):
+        return self.scale
+    
+    def set_scale(self, s):
+        self.scale = s
+        self.size = (self.image_size[0] * s, self.image_size[1] * s)
+        self.radius = self.image_radius * s
+        
+    def get_size(self):
+        return self.size
+    
+    def get_radius(self):
+        return self.radius
+    
+class StableObject(Object):
+    def __init__(self, pos, vel, image, image_center, image_size, image_radius, interval, color, scale = 1):
+        self.interval = interval
+        self.color = color
+        self.time = 0
+        Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
+       
+    def __str__(self):
+        a = "STABLE OBJECT: " + "\n"
+        a += "Interval: " + str(self.interval) + "\n"
+        a += "Color: " + str(self.color) + "\n"
+        a += "Time: " + str(self.time) + "\n"
+        a += "\n"
+        return Object.__str__(self) + a
+        
+    # Key Methods
+    def update(self):
+        self.time += 1
+        if self.time >= self.interval:
+            self.vel[0] *= -1
+            self.vel[1] *= -1
+            self.time = 0
+        self.move()
+            
+    def next_pos(self):
+        if self.time + 1 == self.interval:
+            return [self.pos[0] - self.vel[0], self.pos[1] - self.vel[1]]
+        return [self.pos[0] + self.vel[0], self.pos[1] + self.vel[1]]
+    
+    # Accessor Methods
+    def get_interval(self):
+        return self.interval
+    
+    def set_interval(self, i):
+        self.interval = i
+        
+    def get_color(self):
+        return self.color
+    
+    def set_color(self, c):
+        self.color = c
+        
+    def get_time(self):
+        return self.time
+    
+    def set_time(self, t):
+        self.time = t
+        
+class Treat(StableObject):
+    def __init__(self, pos, image_center, image_size, image_radius, color, platforms, collected = False):
+        # Platforms can be a list or None
+        self.platforms = platforms
+        self.collected = collected
+        image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
+        StableObject.__init__(self, pos, [0, .5], image, image_center, image_size, image_radius, 15, color, 1.2)
+        
+    def __str__(self):
+        a = "TREAT:" + "\n"
+        a += "Platforms: " + str(self.platforms) + "\n"
+        a += "Collected: " + str(self.collected) + "\n"
+        return StableObject.__str__(self) + a + "\n"
+        
+    # Key Methods
+    def collect(self):
+        self.collected = True
+        if self.platforms != None:
+            for p in self.platforms:
+                p.activate()
+                
+    def drop(self):
+        self.collected = False
+        if self.platforms != None:
+            for p in self.platforms:
+                p.deactivate()
+                
+    def draw(self, canvas, offset, visible = False):
+        if not self.collected or visible:
+            if self.vel[1] < 0:
+                canvas.draw_image(self.image, [self.image_center[0] + self.color * self.image_size[0] + self.color, self.image_center[1] + self.image_size[1] + 1], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
+            else:
+                canvas.draw_image(self.image, [self.image_center[0] + self.color * self.image_size[0] + self.color, self.image_center[1]], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
+            
+    def collide(self, obj):
+        if not self.collected:
+            if Object.collide(self, obj):
+                if type(obj) == Animal:
+                    obj.collect(self)
+                return True
+        return False
+        
+    # Accessor Methods
+    def get_platforms(self):
+        return self.platforms
+    
+    def set_platforms(self, p):
+        self.platforms = p
+        
+    def get_collected(self):
+        return self.collected
+    
+    def set_collected(self, c):
+        self.collected = c
+        
+    def switch_collected(self):
+        self.collected = not self.collected
+        return self.collected
+        
+class Platform(StableObject):
+    def __init__(self, points, vel, image_center, image_size, interval, color, active = False, on = True):
+        self.active = active
+        self.on = on
+        self.orig_state = [active, on]
+        self.orig_vel = [vel[0], vel[1]]
+        self.points = points
+        self.orig_points = [[points[0][0], points[0][1]], [points[1][0], points[1][1]]]
+        self.dimensions = [points[1][0] - points[0][0], image_size[1]]
+        pos = [(points[0][0] + points[1][0]) / 2.0, (points[0][1] + points[1][1]) / 2.0]
+        self.orig_pos = [(points[0][0] + points[1][0]) / 2.0, (points[0][1] + points[1][1]) / 2.0]
+        image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
+        StableObject.__init__(self, pos, vel, image, image_center, image_size, points[1][0] - points[0][0], interval, color, 1)
+        
+    def __str__(self):
+        a = "PLATFORM:" + "\n"
+        a += "Active: " + str(self.active) + "\n"
+        a += "On: " + str(self.on) + "\n"
+        a += "Original State: " + str(self.orig_state) + "\n"
+        a += "Original Velocity: " + str(self.orig_vel) + "\n"
+        a += "Points: " + str(self.points) + "\n"
+        a += "Original Points: " + str(self.orig_points) + "\n"
+        a += "Dimensions: " + str(self.dimensions) + "\n"
+        a += "Original Position: " + str(self.orig_pos) + "\n"
+        a += "\n"
+        return StableObject.__str__(self) + a
+        
+    # Key Methods
+    def update(self):
+        if self.active:
+            StableObject.update(self)
+            
+    def move(self):
+        if self.active:
+            self.points[0][0] += self.vel[0]
+            self.points[0][1] += self.vel[1]
+            self.points[1][0] += self.vel[0]
+            self.points[1][1] += self.vel[1]
+            StableObject.move(self)
+            
+    def next_points(self):
+        if self.time + 1 == self.interval and self.active:
+            return [[self.points[0][0] - self.vel[0], self.points[0][1] - self.vel[1]], [self.points[1][0] - self.vel[0], self.points[1][1] - self.vel[1]]]
+        elif self.active:
+            return [[self.points[0][0] + self.vel[0], self.points[0][1] + self.vel[1]], [self.points[1][0] + self.vel[0], self.points[1][1] + self.vel[1]]]
+        return self.points
+            
+    def collide(self, unstable_obj):
+        """Determines if an object will fall through the platform the next time it moves"""
+        if unstable_obj.get_vel()[1] > 0 and self.on:
+            p = [unstable_obj.get_pos()[0], unstable_obj.get_pos()[1] + unstable_obj.get_radius()]
+            p2 = [unstable_obj.next_pos()[0], unstable_obj.next_pos()[1] + unstable_obj.get_radius()]
+            if p[1] <= self.points[0][1]:
+                if self.points[0][1] - p[1] <= unstable_obj.get_vel()[1] + unstable_obj.get_gravity() or self.points[0][1] - p[1] <= unstable_obj.get_vel()[1] + unstable_obj.get_gravity() - self.vel[1]:
+                    if p[0] >= self.points[0][0] and p[0] <= self.points[1][0] or p2[0] >= self.points[0][0] and p2[0] <= self.points[1][0]:
+                        unstable_obj.set_vel([unstable_obj.get_vel()[0], 0])
+                        unstable_obj.set_pos([unstable_obj.get_pos()[0], self.next_points()[0][1] - unstable_obj.get_radius() - 1])
+                        if self.active:
+                            unstable_obj.set_bonus_vel(self.vel[0])      
+                        unstable_obj.set_num_jumps(0)
+                        return True
+        return False
+    
+    def draw(self, canvas, offset):
+        if self.on:
+            c = self.image_center[1]
+        else:
+            c = self.image_center[1] + self.image_size[1]
+        # Center
+        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]), c], [self.image_size[0] - 12, self.image_size[1]], [self.pos[0] + offset[0], self.pos[1] + offset[1] + self.image_size[1] / 2.0], self.dimensions)
+        # Left
+        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]) - self.image_size[0] / 2.0 + 3, c], [6, self.image_size[1]], [self.points[0][0] + offset[0], self.points[0][1] + offset[1] + self.image_size[1] / 2.0], [6, self.dimensions[1]])
+        # Right
+        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]) + self.image_size[0] / 2.0 - 3, c], [6, self.image_size[1]], [self.points[1][0] + offset[0], self.points[1][1] + offset[1] + self.image_size[1] / 2.0], [6, self.dimensions[1]])
+        
+    def activate(self):
+        self.active = True
+        self.on = True
+        
+    def deactivate(self):
+        self.active = self.orig_state[0]
+        self.on = self.orig_state[1]
+        
+    def reset_points(self):
+        self.points = [[self.orig_points[0][0], self.orig_points[0][1]], [self.orig_points[1][0], self.orig_points[1][1]]]
+        self.pos = [self.orig_pos[0], self.orig_pos[1]]
+        self.vel = [self.orig_vel[0], self.orig_vel[1]]
+        self.time = 0
+        
+    # Accessor Methods
+    def get_active(self):
+        return self.active
+    
+    def set_active(self, a):
+        self.active = a
+        
+    def switch_active(self):
+        self.active = not self.active
+        return self.active
+    
+    def get_on(self):
+        return self.on
+    
+    def set_on(self, o):
+        self.on = o
+        
+    def switch_on(self):
+        self.on = not self.on
+        return self.on
+    
+    def get_points(self):
+        return self.points
+    
+    def set_points(self, p):
+        self.points = p
+        self.pos = [(p[0][0] + p[1][0]) / 2.0, (p[0][1] + p[1][1]) / 2.0]
+        self.dimensions = [p[1][0] - p[0][0], self.image_size[1]]
+        
+    def set_pos(self, p):
+        n = p[0] - self.pos[0]
+        self.set_points([[self.points[0][0] + n, p[1]], [self.points[1][0] + n, p[1]]])
+        
+    def get_orig_state(self):
+        return self.orig_state
+    
+    def set_orig_state(self, o):
+        self.orig_state = o
+        
+    def get_dimensions(self):
+        return self.dimensions
+    
+    def set_dimensions(self, d):
+        self.dimensions = d
+        
+    def get_orig_points(self):
+        return self.orig_points
+    
+    def set_orig_points(self, o):
+        self.orig_points = o
+        
+    def get_orig_pos(self):
+        return self.orig_pos
+    
+    def set_orig_pos(self, o):
+        self.orig_pos = o
+        
+    def get_orig_vel(self):
+        return self.orig_vel
+    
+    def set_orig_vel(self, v):
+        self.orig_vel = v
+    
+class PeriodicImage(StableObject):
+    def __init__(self, pos, vel, image, image_center, image_size, interval, wait, tiles, rotation = 0, rotation_speed = 0, bonus = False, scale = 1):
+        self.wait = wait
+        self.tiles = tiles
+        self.rotation = rotation
+        self.rotation_speed = rotation_speed
+        self.bonus = bonus
+        self.r = rotation
+        self.t = 0
+        self.tile = 0
+        StableObject.__init__(self, pos, vel, image, image_center, image_size, image_size[1], interval, "White", scale)
+        
+    def __str__(self):
+        a = "PERIODIC IMAGE: " + "\n"
+        a += "Wait: " + str(self.wait) + "\n"
+        a += "Tiles: " + str(self.tiles) + "\n"
+        a += "Rotation: " + str(self.rotation) + "\n"
+        a += "Rotation Speed: " + str(self.rotation_speed) + "\n"
+        a += "Bonus: " + str(self.bonus) + "\n"
+        a += "r: " + str(self.r) + "\n"
+        a += "t: " + str(self.t) + "\n"
+        a += "Tile: " + str(self.tile) + "\n"
+        a += "\n"
+        return StableObject.__str__(self) + a
+    
+    def draw(self, canvas):
+        self.update()
+        canvas.draw_image(self.image, [self.image_center[0] + self.tile * self.image_size[0], self.image_center[1]], self.image_size, self.pos, self.size, self.r)
+        if self.bonus:
+            canvas.draw_image(self.image, [self.image_center[0] + (self.tile + 3) * self.image_size[0], self.image_center[1]], self.image_size, self.pos, self.size, self.r + .9)
+        self.t += 1
+        if self.t == self.wait:
+            self.tile = (self.tile + 1) % self.tiles
+            self.t = 0
+            self.r += self.rotation_speed
+    
+class UnstableObject(Object):
+    def __init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, direction = 0, scale = 1):
+        self.gravity = gravity
+        self.speed = speed
+        self.jump_height = jump_height
+        self.direction = direction
+        self.bonus_vel = 0
+        self.num_jumps = 0
+        self.max_jumps = 2
+        self.tile = [0, 0]
+        self.count = 0
+        self.moving = False
+        Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
+    
+    def __str__(self):
+        a = "UNSTABLE OBJECT: " + "\n"
+        a += "Gravity: " + str(self.gravity) + "\n"
+        a += "Speed: " + str(self.speed) + "\n"
+        a += "Jump Height: " + str(self.jump_height) + "\n"
+        a += "Direction: " + str(self.direction) + "\n"
+        a += "Bonus Velocity: " + str(self.bonus_vel) + "\n"
+        a += "Num Jumps: " + str(self.num_jumps) + "\n"
+        a += "Max Jumps: " + str(self.max_jumps) + "\n"
+        a += "Tile: " + str(self.tile) + "\n"
+        a += "Count: " + str(self.count) + "\n"
+        a += "Moving: " + str(self.moving) + "\n"
+        a += "\n"
+        return Object.__str__(self) + a
+    
+    # Key Methods
+    def update(self):
+        self.move()
+    
+    def move(self):
+        self.vel[1] += self.gravity
+        self.vel[0] = self.direction * self.speed + self.bonus_vel
+        self.bonus_vel = 0
+        Object.move(self)
+        
+    def next_pos(self):
+        ans = [0, 0]
+        ans[1] = self.pos[1] + self.vel[1] + self.gravity
+        ans[0] = self.pos[0] + self.vel[0]
+        return ans
+    
+    def jump(self):
+        if self.num_jumps < self.max_jumps:
+            self.vel[1] = -math.sqrt(math.fabs(2 * self.gravity * self.jump_height))
+            self.is_falling = True
+            self.num_jumps += 1
+
+    
+    def draw(self, canvas, offset):
+        if self.direction == -1:
+            self.tile[1] = 1
+        elif self.direction == 1:
+            self.tile[1] = 0
+        if self.num_jumps > 0:
+            if self.vel[1] > 0:
+                self.tile[0] = 2
+            elif self.vel[1] < 0:
+                self.tile[0] = 1
+            else:
+                self.tile[0] = 0
+        elif self.direction != 0:
+            if not self.moving:
+                self.count = 8
+                self.moving = True
+            else:
+                self.count += 1
+            if self.count > 8:
+                self.tile[0] = (self.tile[0] + 1) % 3
+                self.count = 0
+        else:
+            self.tile[0] = 0
+            self.count = 0
+            self.moving = False
+        
+        canvas.draw_image(self.image, [self.image_center[0] + self.tile[0] * self.image_size[0], self.image_center[1] + self.tile[1] * self.image_size[1]], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
+    
+    # Accessor Methods
+    def get_gravity(self):
+        return self.gravity
+    
+    def set_gravity(self, g):
+        self.gravity = g
+        
+    def get_speed(self):
+        return self.get_speed
+    
+    def set_speed(self, s):
+        self.speed = s
+        
+    def get_jump_height(self):
+        return self.jump_height
+    
+    def set_jump_height(self, j):
+        self.jump_height = j
+    
+    def get_direction(self):
+        return self.direction
+    
+    def set_direction(self, d):
+        self.direction = d
+        
+    def get_bonus_vel(self):
+        return self.bonus_vel
+    
+    def set_bonus_vel(self, v):
+        self.bonus_vel = v
+        
+    def get_num_jumps(self):
+        return self.num_jumps
+    
+    def set_num_jumps(self, n):
+        self.num_jumps = n
+        
+    def get_max_jumps(self):
+        return self.max_jumps
+    
+    def set_max_jumps(self, m):
+        self.max_jumps = m
+        
+    def get_tile(self):
+        return self.tile
+    
+    def set_tile(self, t):
+        self.tile = t
+        
+    def get_count(self):
+        return self.count
+    
+    def set_count(self, c):
+        self.count = c
+        
+    def get_moving(self):
+        return self.moving
+        
+    def set_moving(self, m):
+        self.moving = m
+        
+class Animal(UnstableObject):
+    def __init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, controls, direction = 0, scale = 1, num_treats = 2):
+        self.treats = [None, None]
+        self.num_treats = num_treats
+        self.treats = []
+        for i in range(self.num_treats):
+            self.treats.append(None)
+        # 0 = left, 1 = right, 2 = jump, 3 = throw
+        self.controls = controls
+        self.control_state = [False, False, False, False]
+        self.orig_pos = [pos[0], pos[1]]
+        UnstableObject.__init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, direction, scale)
+        
+    # Key Methods        
+    def reset(self):
+        self.pos = [self.orig_pos[0], self.orig_pos[1]]
+        self.vel = [0, 0]
+        self.direction = 0
+        self.clear_treats()
+        self.control_state = [False, False, False, False]
+        self.num_jumps = 0
+    
+    def collect(self, treat):
+        t = self.treats[0]
+        if t != None:
+            t.drop()
+        self.treats.pop(0)
+        self.treats.append(treat)
+        treat.collect()
+        return t
+     
+    def drop_treat(self):
+        popped = False
+        for i in range(self.num_treats):
+            if self.treats[i] != None and not popped:
+                self.treats[i].drop()
+                self.treats.pop(i)
+                self.treats.insert(i, None)
+                popped = True
+    
+    def key_handler(self, key, sign):
+        for i in range(0, 4):
+            if key == simplegui.KEY_MAP[self.controls[i]]:
+                if sign == 'down':
+                    self.control_state[i] = True
+                    self.update_direction()
+                elif sign == 'up':
+                    self.control_state[i] = False
+                    self.update_direction()
+                else:
+                    print(sign)
+                    print("Error: Animal.key_handler(): incorrect sign")
+                    
+    def update_direction(self):
+        if self.control_state[0] and not self.control_state[1]:
+            self.direction = -1
+        elif not self.control_state[0] and self.control_state[1]:
+            self.direction = 1
+        else:
+            self.direction = 0
+        if self.control_state[2]:
+            self.jump()
+            self.control_state[2] = False
+        if self.control_state[3]:
+            self.drop_treat()
+            self.control_state[3] = False
+            
+    # Accessor Methods
+    def get_treats(self):
+        return self.treats
+    
+    def clear_treats(self):
+        for i in range(0, len(self.treats)):
+            self.drop_treat() 
+            
+    def get_num_treats(self):
+        return self.num_treats
+    
+    def set_num_treats(self, n):
+        self.num_treats = n
+        self.clear_treats()
+    
+    def get_orig_pos(self):
+        return self.orig_pos
+    
+    def set_orig_pos(self, p):
+        self.orig_pos = p
+  
+
+
+
+import codeskulptor
+
+
+# -----------------------
+# Images and Sound
+# -----------------------
+
+# Images
+button_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_Buttons.png"))
+sparkle_images = [simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_Sparkles.png")), simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_RedSparkles.png")), simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_BlueSparkles.png"))]
+
+easy_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Easy.png"))
+medium_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Medium.png"))
+hard_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Hard.png"))
+
+paused_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Pause.png"))
+level_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_LevelWin.png"))
+final_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_AllWin.png"))
+
+# -----------------------
+# Class Definitions
+# -----------------------
+       
+    
+
+class Game:
+    def __init__(self, level, controls, theme):
+        
+        self.easy_screen = [easy_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
+        self.medium_screen = [medium_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
+        self.hard_screen = [hard_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
+
+        self.platform_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
+        self.animal_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Bunnies.png"))
+        self.treat_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
+        
+        resume_button = Button([300, 350], button_image, [3875, 50], [251, 100], lambda : self.unpause())
+        self.pause_menu = Menu([paused_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [resume_button])
+            
+        self.animal = None
+        self.theme_index = theme
+        self.controls = controls
+        self.yellow_sparkle = PeriodicImage([150, 150], [0, 0], sparkle_images[0], [34, 35], [70, 70], 1, 3, 7, 0, .05, True, 1.5)
+        self.pink_sparkle = PeriodicImage([150, 150], [0, 0], sparkle_images[1], [34, 35], [70, 70], 1, 3, 7, math.pi / 3, .05, True, 1.5)
+        self.blue_sparkle = PeriodicImage([150, 150], [0, 0], sparkle_images[2], [34, 35], [70, 70], 1, 3, 7, 2 * math.pi / 3, .05, True, 1.5)
+        self.sparkles = [self.yellow_sparkle, self.pink_sparkle, self.blue_sparkle]
+        
+        self.camera_offset = [0, 0]
+        self.levels = []
+        self.next_level_timer = simplegui.create_timer(1000, self.level_end)
+        
+        self.level = level
+        self.level_max = 900
+        self.treats = []
+        self.platforms = []
+        self.text = None
+        self.screen = None
+        
+        self.in_level = False
+        self.is_ending = False
+        self.paused = False
+        self.start_game()
+    
+    def create_levels(self):
+        self.levels = []
+        a_file = urllib2.urlopen('https://raw.githubusercontent.com/fbeilstein/machine_learning/master/test.txt')
+        data = a_file.read().split('L')
+        for level in data:
+            if len(level) > 2:
+                self.levels.append(level)
+        
+        
+    def start_game(self):
+        self.create_levels()
+        self.animal = Animal([450, 300], [0,0], self.animal_image, [22, 26], [45, 52], 21, .5, 3, 120, self.controls, 0, 1, 2)
+        self.get_level()
+        self.in_level = True
+    
+    def main(self, canvas):
+        pass
+    
+    def update(self):
+        
+        self.animal.update()
+        
+        for p in self.platforms:
+            p.collide(self.animal)
+            p.update()
+        for t in self.treats:
+            t.update()
+            t.collide(self.animal)
+            
+        p = self.animal.get_pos()
+        self.camera_offset = [450 - p[0], 300 - p[1]]
+        
+        if p[1] > self.level_max:
+            self.reset_level()
+    
+    def draw(self, canvas):
+        
+        # Scene
+        canvas.draw_image(self.screen[0], self.screen[1], self.screen[2], self.screen[3], self.screen[4], self.screen[5])
+        canvas.draw_text(self.text[0], [self.text[1][0] + self.camera_offset[0], self.text[1][1] + self.camera_offset[1]], self.text[2], self.text[3])
+        
+        # Objects
+        self.animal.draw(canvas, self.camera_offset)
+        for p in self.platforms:
+            p.draw(canvas, self.camera_offset)
+        for t in self.treats:
+            t.draw(canvas, self.camera_offset)
+
+        # Current Treats Box
+        canvas.draw_polygon([(25, 30), (100, 30), (100, 70), (25, 70)], 5, "White")
+        t = self.animal.get_treats()
+        for i in range(len(t)):
+            if t[i] != None:
+                if t[i].get_color() == 0 and self.in_level:
+                    self.in_level = False
+                    self.is_ending = True
+                    self.next_level_timer.start()
+                    for s in self.sparkles:
+                        s.set_pos([t[i].get_pos()[0] + self.camera_offset[0], t[i].get_pos()[1] + self.camera_offset[1]])
+                else:
+                    t[i].draw(canvas, [44 + 35 * i - t[i].get_pos()[0], 50 - t[i].get_pos()[1]], True)
+                    
+        # Display
+        canvas.draw_text("Level: " + str(self.level), [110, 70], 40, "White")
+        
+        # Sparkles
+        if self.is_ending:
+            for s in self.sparkles:
+                s.draw(canvas)
+
+    def keydown_handler(self, key):
+        if key == simplegui.KEY_MAP['P']:
+            self.paused = not self.paused
+        elif self.paused:
+            self.pause_menu.keyhandler(key)
+        elif self.in_level:
+            self.animal.key_handler(key, 'down')
+            
+    def click(self, pos):
+        if self.paused:
+            self.pause_menu.click(pos)
+    
+    def keyup_handler(self, key):
+        if self.in_level and not self.paused:
+            self.animal.key_handler(key, 'up')
+        
+    def unpause(self):
+        self.paused = False
+        
+    def level_end(self):
+        pass
+    
+    def next_level(self):
+        if self.level < len(self.levels) - 1:
+            self.level += 1
+            self.in_level = True
+            self.animal.reset()
+            self.treats = []
+            self.platforms = []
+            self.get_level()
+    
+    def reset_level(self):
+        self.animal.reset()
+        for p in self.platforms:
+            p.reset_points()
+    
+    def get_level(self):
+        level_str = self.levels[self.level]
+        for objs in level_str.split('\n'):
+            if len(objs) < 1:
+                pass
+            elif objs[0] == 'P':
+                params = deserialize(objs[2:])
+                self.platforms.append(Platform(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]))
+                print "Platform: ", params
+            elif objs[0] == 'C':
+                params = deserialize(objs[2:])
+                p = []
+                if not params[5]:
+                    p = None
+                else:
+                    for x in params[5]:
+                        p.append(self.platforms[int(x)])
+                self.treats.append(Treat(params[0], params[1], params[2], params[3], params[4], p))
+                print "Treat: ", params
+            elif objs[0] == 'T':
+                self.text = deserialize(objs[2:])
+                print "Text: ", self.text
+        
+        if self.level <= 10:
+            self.screen = self.easy_screen
+        elif self.level <= 20:
+            self.screen = self.medium_screen
+        else:
+            self.screen = self.hard_screen
+
+        
+     
+class PuzzleGame(Game):
+    def __init__(self, level, runner):
+        Game.__init__(self, level, ['left', 'right', 'up', 'space'], 0)
+        next_button = Button([625, 350], button_image, [625, 50], [251, 100], self.next_level)
+        replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.replay_level)
+        self.level_menu = Menu([level_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [replay_button, next_button])
+        self.final_menu = Menu([final_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [replay_button])
+        
+    def __str__(self):
+        a = "PUZZLE GAME:" + "\n"
+        a += "Num Levels: " + str(len(self.levels) - 1) + "\n"
+        a += "\n"
+        return Game.__str__(self) + a
+        
+    def main(self, canvas):
+        if self.paused:
+            self.pause_menu.draw(canvas)
+        elif self.in_level:
+            self.update()
+            self.draw(canvas)
+        elif self.is_ending:
+            self.draw(canvas)
+        elif self.level == len(self.levels) - 1:
+            self.final_menu.draw(canvas)
+        else:
+            self.level_menu.draw(canvas)
+        
+    def keydown_handler(self, key):
+        if key == simplegui.KEY_MAP['p']:
+            self.paused = not self.paused
+        elif self.paused:
+            pass
+        elif self.in_level:
+            self.animal.key_handler(key, 'down')
+        elif self.level == len(self.levels) - 1:
+            self.final_menu.keyhandler(key)
+        else:
+            pass
+        
+    def click(self, pos):
+        if self.paused:
+            self.pause_menu.click(pos)
+        elif self.in_level:
+            pass
+        elif self.level == len(self.levels) - 1:
+            self.final_menu.click(pos)
+        else:
+            self.level_menu.click(pos)
+        
+    def replay_level(self):
+        self.reset_level()
+        self.in_level = True
+        
+    def level_end(self):
+        self.next_level_timer.stop()
+        self.is_ending = False
+        
+         
+# -----------------------
+# Starting Game and Frame
+# -----------------------
+    
+width = 900
+height = 600
+
+frame = simplegui.create_frame("Bunny's Big Adventure!", width, height, 100)
+
+_puzzle_game = PuzzleGame(1, 0)
+
+frame.set_draw_handler(_puzzle_game.main)
+frame.set_keydown_handler(_puzzle_game.keydown_handler)
+frame.set_keyup_handler(_puzzle_game.keyup_handler)
+frame.set_mouseclick_handler(_puzzle_game.click)
+
+frame.set_canvas_background("Green")
+frame.start()
