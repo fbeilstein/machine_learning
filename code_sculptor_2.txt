@@ -16,7 +16,6 @@ import codeskulptor
 
 def deserialize(string, splitters=[' ', ';', ',']):
     lst = []
-#    print "RAW: ", string
     for sub_str in string.split(splitters[0]):
         if sub_str[0] == 'T':
             lst.append(True)
@@ -29,7 +28,6 @@ def deserialize(string, splitters=[' ', ';', ',']):
         elif sub_str[0] == '"' and sub_str[-1] == '"':
             lst.append(sub_str[1:-1].replace('_', ' '))
         else:
-            #print(sub_str)
             lst.append(float(sub_str))
     return lst
 
@@ -106,55 +104,29 @@ class Object:
     
     def get_radius(self):
         return self.radius
-    
-class StableObject(Object):
-    def __init__(self, pos, vel, image, image_center, image_size, image_radius, interval, color, scale = 1):
-        self.interval = interval
-        self.color = color
-        self.time = 0
-        Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
+   
         
-    # Key Methods
-    def update(self):
-        self.time += 1
-        if self.time >= self.interval:
-            self.vel[0] *= -1
-            self.vel[1] *= -1
-            self.time = 0
-        self.move()
-            
-    def next_pos(self):
-        if self.time + 1 == self.interval:
-            return [self.pos[0] - self.vel[0], self.pos[1] - self.vel[1]]
-        return [self.pos[0] + self.vel[0], self.pos[1] + self.vel[1]]
-    
-    # Accessor Methods
-    def get_interval(self):
-        return self.interval
-    
-    def set_interval(self, i):
-        self.interval = i
-        
-    def get_color(self):
-        return self.color
-    
-    def set_color(self, c):
-        self.color = c
-        
-    def get_time(self):
-        return self.time
-    
-    def set_time(self, t):
-        self.time = t
-        
-class Treat(StableObject):
+class Treat():
     def __init__(self, pos, image_center, image_size, image_radius, color, platforms, collected = False):
         # Platforms can be a list or None
         self.platforms = platforms
         self.collected = collected
-        image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
-        StableObject.__init__(self, pos, [0, .5], image, image_center, image_size, image_radius, 15, color, 1.2)
+        self.color = color
+        self.image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
+        self.image_center = image_center
+        self.image_size = image_size
+        self.pos = pos
+        self.radius = image_radius
+        self.vel = [0, .5]
+        scale = 1.2
+        self.size = (image_size[0] * scale, image_size[1] * scale)
         
+    def get_color(self):
+        return self.color
+    
+    def get_pos(self):
+        return self.pos
+    
     # Key Methods
     def collect(self):
         self.collected = True
@@ -199,24 +171,27 @@ class Treat(StableObject):
         self.collected = not self.collected
         return self.collected
         
-class Platform(StableObject):
+class Platform():
     def __init__(self, points, vel, image_center, image_size, interval, color, active = False, on = True):
         self.active = active
         self.on = on
         self.orig_state = [active, on]
         self.orig_vel = [vel[0], vel[1]]
         self.points = points
-        self.orig_points = [[points[0][0], points[0][1]], [points[1][0], points[1][1]]]
         self.dimensions = [points[1][0] - points[0][0], image_size[1]]
-        pos = [(points[0][0] + points[1][0]) / 2.0, (points[0][1] + points[1][1]) / 2.0]
-        self.orig_pos = [(points[0][0] + points[1][0]) / 2.0, (points[0][1] + points[1][1]) / 2.0]
-        image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
-        StableObject.__init__(self, pos, vel, image, image_center, image_size, points[1][0] - points[0][0], interval, color, 1)
+        self.image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
+        self.interval = interval
+        self.time = 0
+        self.vel = vel
+        self.image_center = image_center
+        self.color = color
+        self.image_size = image_size
         
     # Key Methods
     def update(self):
         if self.active:
-            StableObject.update(self)
+            self.time_tick()
+            self.move()
             
     def move(self):
         if self.active:
@@ -224,7 +199,7 @@ class Platform(StableObject):
             self.points[0][1] += self.vel[1]
             self.points[1][0] += self.vel[0]
             self.points[1][1] += self.vel[1]
-            StableObject.move(self)
+            #StableObject.move(self)
             
     def next_points(self):
         if self.time + 1 == self.interval and self.active:
@@ -254,8 +229,9 @@ class Platform(StableObject):
             c = self.image_center[1]
         else:
             c = self.image_center[1] + self.image_size[1]
+        pos = [(self.points[0][0] + self.points[1][0])/2.0, (self.points[0][1] + self.points[1][1])/2.0]
         # Center
-        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]), c], [self.image_size[0] - 12, self.image_size[1]], [self.pos[0] + offset[0], self.pos[1] + offset[1] + self.image_size[1] / 2.0], self.dimensions)
+        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]), c], [self.image_size[0] - 12, self.image_size[1]], [pos[0] + offset[0], pos[1] + offset[1] + self.image_size[1] / 2.0], self.dimensions)
         # Left
         canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]) - self.image_size[0] / 2.0 + 3, c], [6, self.image_size[1]], [self.points[0][0] + offset[0], self.points[0][1] + offset[1] + self.image_size[1] / 2.0], [6, self.dimensions[1]])
         # Right
@@ -269,13 +245,14 @@ class Platform(StableObject):
         self.active = self.orig_state[0]
         self.on = self.orig_state[1]
         
-    def reset_points(self):
-        self.points = [[self.orig_points[0][0], self.orig_points[0][1]], [self.orig_points[1][0], self.orig_points[1][1]]]
-        self.pos = [self.orig_pos[0], self.orig_pos[1]]
-        self.vel = [self.orig_vel[0], self.orig_vel[1]]
-        self.time = 0
+    def time_tick(self):
+        self.time += 1
+        if self.time >= self.interval:
+            self.vel[0] *= -1
+            self.vel[1] *= -1
+            self.time = 0
     
-class PeriodicImage(StableObject):
+class PeriodicImage():
     def __init__(self, pos, vel, image, image_center, image_size, interval, wait, tiles, rotation = 0, rotation_speed = 0, bonus = False, scale = 1):
         self.wait = wait
         self.tiles = tiles
@@ -285,10 +262,13 @@ class PeriodicImage(StableObject):
         self.r = rotation
         self.t = 0
         self.tile = 0
-        StableObject.__init__(self, pos, vel, image, image_center, image_size, image_size[1], interval, "White", scale)
+        self.image_center = image_center
+        self.image = image
+        self.image_size = image_size
+        self.pos = pos
+        self.size = (image_size[0] * scale, image_size[1] * scale)
     
     def draw(self, canvas):
-        self.update()
         canvas.draw_image(self.image, [self.image_center[0] + self.tile * self.image_size[0], self.image_center[1]], self.image_size, self.pos, self.size, self.r)
         if self.bonus:
             canvas.draw_image(self.image, [self.image_center[0] + (self.tile + 3) * self.image_size[0], self.image_center[1]], self.image_size, self.pos, self.size, self.r + .9)
@@ -297,6 +277,9 @@ class PeriodicImage(StableObject):
             self.tile = (self.tile + 1) % self.tiles
             self.t = 0
             self.r += self.rotation_speed
+            
+    def set_pos(self, pos):
+        self.pos = pos
     
 class UnstableObject(Object):
     def __init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, direction = 0, scale = 1):
@@ -381,17 +364,7 @@ class Animal(UnstableObject):
         # 0 = left, 1 = right, 2 = jump, 3 = throw
         self.controls = controls
         self.control_state = [False, False, False, False]
-        self.orig_pos = [pos[0], pos[1]]
         UnstableObject.__init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, direction, scale)
-        
-    # Key Methods        
-    def reset(self):
-        self.pos = [self.orig_pos[0], self.orig_pos[1]]
-        self.vel = [0, 0]
-        self.direction = 0
-        self.clear_treats()
-        self.control_state = [False, False, False, False]
-        self.num_jumps = 0
     
     def collect(self, treat):
         t = self.treats[0]
@@ -452,15 +425,7 @@ class Animal(UnstableObject):
     def set_num_treats(self, n):
         self.num_treats = n
         self.clear_treats()
-    
-    def get_orig_pos(self):
-        return self.orig_pos
-    
-    def set_orig_pos(self, p):
-        self.orig_pos = p
   
-
-
 
 import codeskulptor
 
@@ -536,9 +501,7 @@ class Game:
         
     def start_game(self):
         self.create_levels()
-        self.animal = Animal([450, 300], [0,0], self.animal_image, [22, 26], [45, 52], 21, .5, 3, 120, self.controls, 0, 1, 2)
         self.get_level()
-        self.in_level = True
     
     def main(self, canvas):
         pass
@@ -551,14 +514,13 @@ class Game:
             p.collide(self.animal)
             p.update()
         for t in self.treats:
-            t.update()
             t.collide(self.animal)
             
         p = self.animal.get_pos()
         self.camera_offset = [450 - p[0], 300 - p[1]]
         
         if p[1] > self.level_max:
-            self.reset_level()
+            self.get_level()
     
     def draw(self, canvas):
         
@@ -620,18 +582,13 @@ class Game:
     def next_level(self):
         if self.level < len(self.levels) - 1:
             self.level += 1
-            self.in_level = True
-            self.animal.reset()
-            self.treats = []
-            self.platforms = []
             self.get_level()
     
-    def reset_level(self):
-        self.animal.reset()
-        for p in self.platforms:
-            p.reset_points()
-    
     def get_level(self):
+        self.animal    = Animal([450, 300], [0,0], self.animal_image, [22, 26], [45, 52], 21, .5, 3, 120, self.controls, 0, 1, 2)
+        self.treats    = []
+        self.platforms = []
+        self.in_level  = True
         level_str = self.levels[self.level]
         for objs in level_str.split('\n'):
             if len(objs) < 1:
@@ -713,8 +670,7 @@ class PuzzleGame(Game):
             self.level_menu.click(pos)
         
     def replay_level(self):
-        self.reset_level()
-        self.in_level = True
+        self.get_level()
         
     def level_end(self):
         self.next_level_timer.stop()
