@@ -82,7 +82,7 @@ class Object:
         self.pos[1] += self.vel[1]
         
     def collide(self, obj):
-        p1 = self.get_pos()
+        p1 = self.pos
         p2 = obj.get_pos()
         distance = math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
         if distance < self.radius + obj.get_radius():
@@ -208,21 +208,22 @@ class Platform():
             return [[self.points[0][0] + self.vel[0], self.points[0][1] + self.vel[1]], [self.points[1][0] + self.vel[0], self.points[1][1] + self.vel[1]]]
         return self.points
             
-    def collide(self, unstable_obj):
+    def collide(self, animal):
         """Determines if an object will fall through the platform the next time it moves"""
-        if unstable_obj.get_vel()[1] > 0 and self.on:
-            p = [unstable_obj.get_pos()[0], unstable_obj.get_pos()[1] + unstable_obj.get_radius()]
-            p2 = [unstable_obj.next_pos()[0], unstable_obj.next_pos()[1] + unstable_obj.get_radius()]
+        if animal.get_vel()[1] > 0 and self.on:
+            p = [animal.get_pos()[0], animal.get_pos()[1] + animal.get_radius()]
+            p2 = [animal.next_pos()[0], animal.next_pos()[1] + animal.get_radius()]
             if p[1] <= self.points[0][1]:
-                if self.points[0][1] - p[1] <= unstable_obj.get_vel()[1] + unstable_obj.get_gravity() or self.points[0][1] - p[1] <= unstable_obj.get_vel()[1] + unstable_obj.get_gravity() - self.vel[1]:
+                if self.points[0][1] <= p2[1] or self.points[0][1] + self.vel[1] <= p2[1]:
                     if p[0] >= self.points[0][0] and p[0] <= self.points[1][0] or p2[0] >= self.points[0][0] and p2[0] <= self.points[1][0]:
-                        unstable_obj.set_vel([unstable_obj.get_vel()[0], 0])
-                        unstable_obj.set_pos([unstable_obj.get_pos()[0], self.next_points()[0][1] - unstable_obj.get_radius() - 1])
+                        animal.set_vel([animal.get_vel()[0], 0])
+                        animal.set_pos([animal.get_pos()[0], self.next_points()[0][1] - animal.get_radius() - 1])
                         if self.active:
-                            unstable_obj.set_bonus_vel(self.vel[0])      
-                        unstable_obj.set_num_jumps(0)
+                            animal.set_bonus_vel(self.vel[0])      
+                        animal.set_num_jumps(0)
                         return True
         return False
+
     
     def draw(self, canvas, offset):
         if self.on:
