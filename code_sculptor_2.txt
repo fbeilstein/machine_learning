@@ -31,6 +31,13 @@ def deserialize(string, splitters=[' ', ';', ',']):
             lst.append(float(sub_str))
     return lst
 
+    
+def _inside_rect(point, rect):
+    if not ((rect[0][0] <= point[0] <= rect[1][0]) or (rect[0][0] >= point[0] >= rect[1][0])):
+        return False
+    if not ((rect[0][1] <= point[1] <= rect[1][1]) or (rect[0][1] >= point[1] >= rect[1][1])):
+        return False
+    return True
 
 class Menu:
     def __init__(self, screen, buttons = []):
@@ -54,16 +61,27 @@ class Button:
         self.image_center = image_center
         self.image_size = image_size
         self.action = action
+        d = [self.image_size[0] / 2, self.image_size[1] / 2]
+        self.rect = [[pos[0] + d[0], pos[1] + d[1]], [pos[0] - d[0], pos[1] - d[1]]]
     
     def draw(self, canvas):
         canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size)
         
     def activate_if_in(self, pos):
-        if pos[0] < self.pos[0] + self.image_size[0] / 2 and pos[0] > self.pos[0] - self.image_size[0] / 2:
-            if pos[1] < self.pos[1] + self.image_size[1] / 2 and pos[1] > self.pos[1] - self.image_size[1] / 2:
-                self.action()
+        if _inside_rect(pos, self.rect):
+            self.action()
 
-               
+class Image:
+    def __init__(self, image, image_center, image_size, scale=1):
+        self.image = image
+        self.image_center = image_center
+        self.image_size = image_size
+        self.size = (image_size[0] * scale, image_size[1] * scale)
+        
+    def draw(pos, tile=[0, 0], rot=0):
+        #canvas.draw_image(image, center_source, width_height_source, center_dest, width_height_dest, rotation)
+        canvas.draw_image(self.image, [self.image_center[0] + tile[0] * self.image_size[0], self.image_center[1] + tile[1] * self.image_size[1]], self.image_size, pos, self.size, rot)
+            
 class Object:
     def __init__(self, pos, vel, image, image_center, image_size, image_radius, scale = 1):
         self.pos = pos
@@ -154,23 +172,6 @@ class Treat():
                 return True
         return False
         
-    # Accessor Methods
-    def get_platforms(self):
-        return self.platforms
-    
-    def set_platforms(self, p):
-        self.platforms = p
-        
-    def get_collected(self):
-        return self.collected
-    
-    def set_collected(self, c):
-        self.collected = c
-        
-    def switch_collected(self):
-        self.collected = not self.collected
-        return self.collected
-        
 class Platform():
     def __init__(self, points, vel, image_center, image_size, interval, color, active = False, on = True):
         self.active = active
@@ -199,31 +200,9 @@ class Platform():
             self.points[0][1] += self.vel[1]
             self.points[1][0] += self.vel[0]
             self.points[1][1] += self.vel[1]
-            #StableObject.move(self)
             
-    def next_points(self):
-        if self.time + 1 == self.interval and self.active:
-            return [[self.points[0][0] - self.vel[0], self.points[0][1] - self.vel[1]], [self.points[1][0] - self.vel[0], self.points[1][1] - self.vel[1]]]
-        elif self.active:
-            return [[self.points[0][0] + self.vel[0], self.points[0][1] + self.vel[1]], [self.points[1][0] + self.vel[0], self.points[1][1] + self.vel[1]]]
+    def get_rect(self):
         return self.points
-            
-    def collide(self, animal):
-        """Determines if an object will fall through the platform the next time it moves"""
-        if animal.get_vel()[1] > 0 and self.on:
-            p = [animal.get_pos()[0], animal.get_pos()[1] + animal.get_radius()]
-            p2 = [animal.next_pos()[0], animal.next_pos()[1] + animal.get_radius()]
-            if p[1] <= self.points[0][1]:
-                if self.points[0][1] <= p2[1] or self.points[0][1] + self.vel[1] <= p2[1]:
-                    if p[0] >= self.points[0][0] and p[0] <= self.points[1][0] or p2[0] >= self.points[0][0] and p2[0] <= self.points[1][0]:
-                        animal.set_vel([animal.get_vel()[0], 0])
-                        animal.set_pos([animal.get_pos()[0], self.next_points()[0][1] - animal.get_radius() - 1])
-                        if self.active:
-                            animal.set_bonus_vel(self.vel[0])      
-                        animal.set_num_jumps(0)
-                        return True
-        return False
-
     
     def draw(self, canvas, offset):
         if self.on:
@@ -296,21 +275,25 @@ class UnstableObject(Object):
         self.moving = False
         Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
     
+    def with_platform(self, platform):
+        rect = [[y for y in x] for x in platform.get_rect()]
+        rect[1][1]  = rect[0][1] - self.radius - self.vel[1] - 1
+        if platform.on and self.vel[1] > 0 and _inside_rect(self.pos, rect):
+            self.pos[1] = rect[0][1] - 1 - self.radius
+            self.vel[1] = 0
+            if platform.active:
+                self.bonus_vel = platform.vel[0]
+            self.num_jumps = 0
+    
     # Key Methods
     def update(self):
         self.move()
     
     def move(self):
         self.vel[1] += self.gravity
-        self.vel[0] = self.direction * self.speed + self.bonus_vel
+        self.vel[0]  = self.direction * self.speed + self.bonus_vel
         self.bonus_vel = 0
         Object.move(self)
-        
-    def next_pos(self):
-        ans = [0, 0]
-        ans[1] = self.pos[1] + self.vel[1] + self.gravity
-        ans[0] = self.pos[0] + self.vel[0]
-        return ans
     
     def jump(self):
         if self.num_jumps < self.max_jumps:
@@ -346,16 +329,6 @@ class UnstableObject(Object):
             self.moving = False
         
         canvas.draw_image(self.image, [self.image_center[0] + self.tile[0] * self.image_size[0], self.image_center[1] + self.tile[1] * self.image_size[1]], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
-    
-    # Accessor Methods
-    def get_gravity(self):
-        return self.gravity
-    
-    def set_bonus_vel(self, v):
-        self.bonus_vel = v
-        
-    def set_num_jumps(self, n):
-        self.num_jumps = n
         
         
 class Animal(UnstableObject):
@@ -512,7 +485,7 @@ class Game:
         self.animal.update()
         
         for p in self.platforms:
-            p.collide(self.animal)
+            self.animal.with_platform(p)
             p.update()
         for t in self.treats:
             t.collide(self.animal)
