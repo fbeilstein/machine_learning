@@ -180,39 +180,32 @@ class Platform():
         self.active = active
         self.on = on
         self.orig_state = [active, on]
-        self.points = points
         self.interval = interval
         self.time = 0
         self.vel = vel
-        self.color = color
+        self.pos = [( points[0][0] + points[1][0])/2.0, ( points[0][1] + points[1][1])/2.0]
+        self.d   = [(-points[0][0] + points[1][0])/2.0, (-points[0][1] + points[1][1])/2.0]
 
         image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
-        self._image_center = Image(image, [image_center[0], image_center[1]], [image_size[0] - 12, image_size[1]], [points[1][0] - points[0][0], image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
-        self._image_left   = Image(image, [3 , image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
-        self._image_right  = Image(image, [image_size[0] - 3, image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1]/2], [image_size[0], image_size[1]])
+        self._image_center = Image(image, [image_center[0] + color * image_size[0], image_center[1]], [image_size[0] - 12, image_size[1]], [2 * self.d[0], image_size[1]], [0, image_size[1] / 2.0], [0, image_size[1]])
+        self._image_left   = Image(image, [3  + color * image_size[0], image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
+        self._image_right  = Image(image, [image_size[0] - 3 + color * image_size[0], image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1]/2], [image_size[0], image_size[1]])
                 
     # Key Methods
     def update(self):
         if self.active:
-            self.time_tick()
-            self.move()
-            
-    def move(self):
-        if self.active:
-            self.points[0][0] += self.vel[0]
-            self.points[0][1] += self.vel[1]
-            self.points[1][0] += self.vel[0]
-            self.points[1][1] += self.vel[1]
+            self.time = (self.time + 1) % (2 * self.interval)
+            self.pos[0] += self.vel[0] * (-1) ** (self.time // self.interval)
+            self.pos[1] += self.vel[1] * (-1) ** (self.time // self.interval)
             
     def get_rect(self):
-        return self.points
+        return [[self.pos[0] - self.d[0], self.pos[1] - self.d[1]], [self.pos[0] + self.d[0], self.pos[1] + self.d[1]]]
     
     def draw(self, canvas, offset):
         t = 0 if self.on else 1
-        pos = [(self.points[0][0] + self.points[1][0])/2.0, (self.points[0][1] + self.points[1][1])/2.0]
-        self._image_center.draw(canvas, [pos[0] + offset[0], pos[1] + offset[1]], [self.color, t])
-        self._image_left.draw(canvas, [self.points[0][0] + offset[0], self.points[0][1] + offset[1]], [self.color, t])
-        self._image_right.draw(canvas, [self.points[1][0] + offset[0], self.points[1][1] + offset[1]], [self.color, t])
+        self._image_center.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], [0, t])
+        self._image_left.draw(canvas, [self.pos[0] - self.d[0] + offset[0], self.pos[1] - self.d[1] + offset[1]], [0, t])
+        self._image_right.draw(canvas, [self.pos[0] + self.d[0] + offset[0], self.pos[1] + self.d[1] + offset[1]], [0, t])
         
     def activate(self):
         self.active = True
@@ -222,13 +215,9 @@ class Platform():
         self.active = self.orig_state[0]
         self.on = self.orig_state[1]
         
-    def time_tick(self):
-        self.time += 1
-        if self.time >= self.interval:
-            self.vel[0] *= -1
-            self.vel[1] *= -1
-            self.time = 0
-    
+    def get_x_vel(self):
+        return self.vel[0] * (-1) ** (self.time // self.interval)
+            
 class PeriodicImage():
     def __init__(self, pos, vel, image, image_center, image_size, interval, wait, tiles, rotation = 0, rotation_speed = 0, bonus = False, scale = 1):
         self.wait = wait
@@ -273,13 +262,13 @@ class UnstableObject(Object):
         Object.__init__(self, pos, vel, image, image_center, image_size, image_radius, scale)
     
     def with_platform(self, platform):
-        rect = [[y for y in x] for x in platform.get_rect()]
+        rect = platform.get_rect()
         rect[1][1]  = rect[0][1] - self.radius - self.vel[1] - 1
         if platform.on and self.vel[1] > 0 and _inside_rect(self.pos, rect):
             self.pos[1] = rect[0][1] - 1 - self.radius
             self.vel[1] = 0
             if platform.active:
-                self.bonus_vel = platform.vel[0]
+                self.bonus_vel = platform.get_x_vel()
             self.num_jumps = 0
     
     # Key Methods
