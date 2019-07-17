@@ -71,17 +71,7 @@ class Button:
         if _inside_rect(pos, self.rect):
             self.action()
 
-class Image:
-    def __init__(self, image, image_center, image_size, scale=1):
-        self.image = image
-        self.image_center = image_center
-        self.image_size = image_size
-        self.size = (image_size[0] * scale, image_size[1] * scale)
-        
-    def draw(pos, tile=[0, 0], rot=0):
-        #canvas.draw_image(image, center_source, width_height_source, center_dest, width_height_dest, rotation)
-        canvas.draw_image(self.image, [self.image_center[0] + tile[0] * self.image_size[0], self.image_center[1] + tile[1] * self.image_size[1]], self.image_size, pos, self.size, rot)
-            
+           
 class Object:
     def __init__(self, pos, vel, image, image_center, image_size, image_radius, scale = 1):
         self.pos = pos
@@ -171,23 +161,36 @@ class Treat():
                 animal.collect(self)
                 return True
         return False
+
+class Image:
+    def __init__(self, image, image_center, src_size, dest_size, dest_shift=[0,0], tile_skip=[0,0]):
+        self.image = image
+        self.image_center = image_center
+        self.src_size = src_size
+        self.dest_size = dest_size
+        self.dest_shift = dest_shift
+        self.tile_skip = tile_skip
         
+    def draw(self, canvas, pos, tile=[0, 0], rot=0):
+        canvas.draw_image(self.image, [self.image_center[0] + tile[0] * self.tile_skip[0], self.image_center[1] + tile[1] * self.tile_skip[1]], self.src_size, [pos[0] + self.dest_shift[0], pos[1] + self.dest_shift[1]], self.dest_size, rot)
+
+    
 class Platform():
     def __init__(self, points, vel, image_center, image_size, interval, color, active = False, on = True):
         self.active = active
         self.on = on
         self.orig_state = [active, on]
-        self.orig_vel = [vel[0], vel[1]]
         self.points = points
-        self.dimensions = [points[1][0] - points[0][0], image_size[1]]
-        self.image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
         self.interval = interval
         self.time = 0
         self.vel = vel
-        self.image_center = image_center
         self.color = color
-        self.image_size = image_size
-        
+
+        image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Platforms.png"))
+        self._image_center = Image(image, [image_center[0], image_center[1]], [image_size[0] - 12, image_size[1]], [points[1][0] - points[0][0], image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
+        self._image_left   = Image(image, [3 , image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
+        self._image_right  = Image(image, [image_size[0] - 3, image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1]/2], [image_size[0], image_size[1]])
+                
     # Key Methods
     def update(self):
         if self.active:
@@ -205,17 +208,11 @@ class Platform():
         return self.points
     
     def draw(self, canvas, offset):
-        if self.on:
-            c = self.image_center[1]
-        else:
-            c = self.image_center[1] + self.image_size[1]
+        t = 0 if self.on else 1
         pos = [(self.points[0][0] + self.points[1][0])/2.0, (self.points[0][1] + self.points[1][1])/2.0]
-        # Center
-        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]), c], [self.image_size[0] - 12, self.image_size[1]], [pos[0] + offset[0], pos[1] + offset[1] + self.image_size[1] / 2.0], self.dimensions)
-        # Left
-        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]) - self.image_size[0] / 2.0 + 3, c], [6, self.image_size[1]], [self.points[0][0] + offset[0], self.points[0][1] + offset[1] + self.image_size[1] / 2.0], [6, self.dimensions[1]])
-        # Right
-        canvas.draw_image(self.image, [self.image_center[0] + (self.color * self.image_size[0]) + self.image_size[0] / 2.0 - 3, c], [6, self.image_size[1]], [self.points[1][0] + offset[0], self.points[1][1] + offset[1] + self.image_size[1] / 2.0], [6, self.dimensions[1]])
+        self._image_center.draw(canvas, [pos[0] + offset[0], pos[1] + offset[1]], [self.color, t])
+        self._image_left.draw(canvas, [self.points[0][0] + offset[0], self.points[0][1] + offset[1]], [self.color, t])
+        self._image_right.draw(canvas, [self.points[1][0] + offset[0], self.points[1][1] + offset[1]], [self.color, t])
         
     def activate(self):
         self.active = True
