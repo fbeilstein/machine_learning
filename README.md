@@ -109,7 +109,7 @@ Probably I'll use its parts in my ML course.
     -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)
 7.  **k-Means Clustering**
   - Lecture
-    -  In progress...
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_k_means_clustering.ipynb)
   - Practice
     -  In progress...
   - Further Resources
