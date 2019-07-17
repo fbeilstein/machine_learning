@@ -13,7 +13,10 @@ Probably I'll use its parts in my ML course.
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
+    -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
+    -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
+    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
+    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
     
 2.  More about Python
   - Lecture
@@ -21,10 +24,8 @@ Probably I'll use its parts in my ML course.
   - Practice
     -  In progress...
   - Further Resources
-    -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
-    -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
-    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
-    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
+    -  [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
+    -  [Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
 ### Tools of ML
 
