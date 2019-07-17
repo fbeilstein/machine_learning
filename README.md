@@ -7,7 +7,7 @@ Probably I'll use its parts in my ML course.
 
 ### Intro
 
-1.  General Info, Python
+1.  **General Info, Python**
   - Lecture
     -  In progress...
   - Practice
@@ -18,7 +18,7 @@ Probably I'll use its parts in my ML course.
     -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
     -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
     
-2.  More about Python
+2.  **More about Python**
   - Lecture
     -  In progress...
   - Practice
