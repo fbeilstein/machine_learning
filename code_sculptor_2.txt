@@ -368,7 +368,6 @@ class Game:
             if len(level) > 2:
                 self.levels.append(level)
         
-        
     def start_game(self):
         self.create_levels()
         self.get_level()
@@ -384,13 +383,16 @@ class Game:
             
         p = self.animal.get_pos()
         self.camera_offset = [450 - p[0], 300 - p[1]]
+        if p[1] > 999:	# condition to lose level
+            self.get_level()
 
     
     def draw(self, canvas):
         
         # Scene
         canvas.draw_image(self.screen[0], self.screen[1], self.screen[2], self.screen[3], self.screen[4], self.screen[5])
-        canvas.draw_text(self.text[0], [self.text[1][0] + self.camera_offset[0], self.text[1][1] + self.camera_offset[1]], self.text[2], self.text[3])
+        if self.text[0] != None:
+            canvas.draw_text(self.text[0], [self.text[1][0] + self.camera_offset[0], self.text[1][1] + self.camera_offset[1]], self.text[2], self.text[3])
         
         # Objects
         self.animal.draw(canvas, self.camera_offset)
@@ -478,7 +480,7 @@ class Game:
         
      
 class PuzzleGame(Game):
-    def __init__(self, level, runner):
+    def __init__(self, level):
         Game.__init__(self, level)
         next_button = Button([625, 350], button_image, [625, 50], [251, 100], self.next_level)
         replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.replay_level)
@@ -536,7 +538,7 @@ height = 600
 
 frame = simplegui.create_frame("Bunny's Big Adventure!", width, height, 100)
 
-_puzzle_game = PuzzleGame(1, 0)
+_puzzle_game = PuzzleGame(1) # initial level
 
 frame.set_draw_handler(_puzzle_game.main)
 frame.set_keydown_handler(_puzzle_game.keydown_handler)
