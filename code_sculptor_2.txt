@@ -17,7 +17,9 @@ import codeskulptor
 def deserialize(string, splitters=[' ', ';', ',']):
     lst = []
     for sub_str in string.split(splitters[0]):
-        if sub_str[0] == 'T':
+        if not sub_str:
+            break
+        elif sub_str[0] == 'T':
             lst.append(True)
         elif sub_str[0] == 'F':
             lst.append(False)
@@ -84,84 +86,13 @@ class Object:
         self.size = (image_size[0] * scale, image_size[1] * scale)
         self.radius = image_radius * scale
     
-    # Key Methods
     def move(self):
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
         
-    def collide(self, obj):
-        p1 = self.pos
-        p2 = obj.get_pos()
-        distance = math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
-        if distance < self.radius + obj.get_radius():
-            return True
-        return False
-    
-    # Accessor Methods
     def get_pos(self):
         return self.pos
-    
-    def set_pos(self, p):
-        self.pos = p
-        
-    def get_vel(self):
-        return self.vel
-    
-    def set_vel(self, v):
-        self.vel = v
-    
-    def get_radius(self):
-        return self.radius
-   
-        
-class Treat():
-    def __init__(self, pos, image_center, image_size, image_radius, color, platforms, collected = False):
-        # Platforms can be a list or None
-        self.platforms = platforms
-        self.collected = collected
-        self.color = color
-        self.image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
-        self.image_center = image_center
-        self.image_size = image_size
-        self.pos = pos
-        self.radius = image_radius
-        self.vel = [0, .5]
-        scale = 1.2
-        self.size = (image_size[0] * scale, image_size[1] * scale)
-        
-    def get_color(self):
-        return self.color
-    
-    def get_pos(self):
-        return self.pos
-    
-    # Key Methods
-    def collect(self):
-        self.collected = True
-        if self.platforms != None:
-            for p in self.platforms:
-                p.activate()
-                
-    def drop(self):
-        self.collected = False
-        if self.platforms != None:
-            for p in self.platforms:
-                p.deactivate()
-                
-    def draw(self, canvas, offset, visible = False):
-        if not self.collected or visible:
-            if self.vel[1] < 0:
-                canvas.draw_image(self.image, [self.image_center[0] + self.color * self.image_size[0] + self.color, self.image_center[1] + self.image_size[1] + 1], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
-            else:
-                canvas.draw_image(self.image, [self.image_center[0] + self.color * self.image_size[0] + self.color, self.image_center[1]], self.image_size, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.size)
-            
-    def collide(self, animal):
-        if not self.collected:
-            if Object.collide(self, animal):
-                animal.collect(self)
-                return True
-        return False
-
+       
 class Image:
     def __init__(self, image, image_center, src_size, dest_size, dest_shift=[0,0], tile_skip=[0,0]):
         self.image = image
@@ -173,6 +104,44 @@ class Image:
         
     def draw(self, canvas, pos, tile=[0, 0], rot=0):
         canvas.draw_image(self.image, [self.image_center[0] + tile[0] * self.tile_skip[0], self.image_center[1] + tile[1] * self.tile_skip[1]], self.src_size, [pos[0] + self.dest_shift[0], pos[1] + self.dest_shift[1]], self.dest_size, rot)
+
+
+class Treat():
+    def __init__(self, pos, image_center, image_size, image_radius, color, platforms, collected = False):
+        self.platforms = platforms
+        self.collected = collected
+        self.color = color
+        self.pos = pos
+        self.radius = image_radius
+        
+        _img = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Carrots.png"))
+        self.image = Image(_img, [image_center[0] + color * (image_size[0]+1), image_center[1]], image_size, [image_size[0] * 1.2, image_size[1] * 1.2])
+        
+    def get_color(self):
+        return self.color
+    
+    def get_pos(self):
+        return self.pos
+    
+    def get_radius(self):
+        return self.radius
+    
+    def is_collected(self):
+        return self.collected
+    
+    def collect(self):
+        self.collected = True
+        for p in self.platforms:
+            p.activate()
+                
+    def drop(self):
+        self.collected = False
+        for p in self.platforms:
+            p.deactivate()
+                
+    def draw(self, canvas, offset, visible = False):
+        if not self.collected or visible:
+            self.image.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]])
 
     
 class Platform():
@@ -191,7 +160,6 @@ class Platform():
         self._image_left   = Image(image, [3  + color * image_size[0], image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1] / 2.0], [image_size[0], image_size[1]])
         self._image_right  = Image(image, [image_size[0] - 3 + color * image_size[0], image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1]/2], [image_size[0], image_size[1]])
                 
-    # Key Methods
     def update(self):
         if self.active:
             self.time = (self.time + 1) % (2 * self.interval)
@@ -316,14 +284,14 @@ class Animal(UnstableObject):
         self.control_state = [False, False, False, False]
         UnstableObject.__init__(self, pos, vel, image, image_center, image_size, image_radius, gravity, speed, jump_height, direction, scale)
     
-    def collect(self, treat):
-        t = self.treats[0]
-        if t != None:
-            t.drop()
-        self.treats.pop(0)
-        self.treats.append(treat)
-        treat.collect()
-        return t
+    def with_carrot(self, carrot):
+        d = math.sqrt((self.pos[0] - carrot.get_pos()[0]) ** 2 + (self.pos[1] - carrot.get_pos()[1]) ** 2)
+        if d > self.radius + carrot.get_radius() or carrot.is_collected():
+            return
+        if self.treats[0] != None:
+            self.treats[0].drop()
+        self.treats = [self.treats[1], carrot]
+        carrot.collect()
      
     def drop_treat(self):
         popped = False
@@ -462,7 +430,7 @@ class Game:
             self.animal.with_platform(p)
             p.update()
         for t in self.treats:
-            t.collide(self.animal)
+            self.animal.with_carrot(t)
             
         p = self.animal.get_pos()
         self.camera_offset = [450 - p[0], 300 - p[1]]
@@ -545,12 +513,7 @@ class Game:
                 #print "Platform: ", params
             elif objs[0] == 'C':
                 params = deserialize(objs[2:])
-                p = []
-                if not params[5]:
-                    p = None
-                else:
-                    for x in params[5]:
-                        p.append(self.platforms[int(x)])
+                p = [self.platforms[int(idx)] for idx in params[5]]
                 self.treats.append(Treat(params[0], params[1], params[2], params[3], params[4], p))
                 #print "Treat: ", params
             elif objs[0] == 'T':
@@ -616,7 +579,6 @@ class PuzzleGame(Game):
         self.next_level_timer.stop()
         self.is_ending = False
         
-         
 # -----------------------
 # Starting Game and Frame
 # -----------------------
