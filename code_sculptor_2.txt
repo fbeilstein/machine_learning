@@ -420,18 +420,6 @@ class Game:
         # Sparkles
         if self.is_ending:
             self.sparkles.draw(canvas)
-
-    def keydown_handler(self, key):
-        if key == simplegui.KEY_MAP['P']:
-            self.paused = not self.paused
-        elif self.paused:
-            self.pause_menu.keyhandler(key)
-        elif self.in_level:
-            self.animal.key_handler(key, 'down')
-            
-    def click(self, pos):
-        if self.paused:
-            self.pause_menu.click(pos)
     
     def keyup_handler(self, key):
         if self.in_level and not self.paused:
