@@ -24,6 +24,7 @@ Probably I'll use its parts in my ML course.
   - Practice
     -  In progress...
   - Further Resources
+    -  [Tutorial, Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
     -  [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
     -  [Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
