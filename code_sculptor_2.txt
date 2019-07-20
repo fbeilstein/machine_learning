@@ -1,12 +1,7 @@
 # Bunny's Big Adventure!
-# Created by: Jenna Netland
+# Originally created by: Jenna Netland
 # Copyright (c) 2012 All Rights Reserved, Jenna Netland
-# All images and music are also Copyright (c) 2012 All Rights Reserved, Jenna Netland
-
-# Good luck, and hope you enjoy :)
-
-
-# Copyright (c) 2012 All Rights Reserved, Jenna Netland
+# All images and music are Copyright (c) 2012 All Rights Reserved, Jenna Netland
 
 import math
 import random
@@ -40,6 +35,7 @@ def _inside_rect(point, rect):
     if not ((rect[0][1] <= point[1] <= rect[1][1]) or (rect[0][1] >= point[1] >= rect[1][1])):
         return False
     return True
+
 
 class Menu:
     def __init__(self, screen, buttons = []):
@@ -182,6 +178,7 @@ class Sparkles():
     def set_pos(self, pos):
         self.pos = pos
     
+    
 class CarrotBox:
     def __init__(self, complete_func):
         self.carrots = []
@@ -204,6 +201,7 @@ class CarrotBox:
         canvas.draw_polygon([(25, 30), (100, 30), (100, 70), (25, 70)], 5, "White")
         for c,i in zip(self.carrots, range(len(self.carrots))):
             c.draw(canvas, [44 + 35 * i - c.get_pos()[0], 50 - c.get_pos()[1]], True)
+    
     
 class Animal():
     def __init__(self, pos, vel, gravity, speed, jump_height, direction, scale, complete_func):
@@ -270,21 +268,8 @@ class Animal():
         if key_state['space']:
             key_state['space'] = False
             self._carrot_box.drop()
-        
 
-import codeskulptor
-
-# Images
-button_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_Buttons.png"))
-
-paused_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Pause.png"))
-level_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_LevelWin.png"))
-final_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_AllWin.png"))
-
-# -----------------------
-# Class Definitions
-# -----------------------
-       
+            
 class Screen:
     def __init__(self):
         _easy = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Easy.png"))
@@ -299,31 +284,24 @@ class Screen:
     def draw(self, canvas):
         self._screen.draw(canvas, [450, 300])
 
+        
 class Game:
-    def __init__(self, level):
-        
+    def __init__(self, level, pause_callback, win_callback):
         self.animal = None
-        self.controls = ['left', 'right', 'up', 'space']
-
         self.sparkles = Sparkles(.05)
-        
         self.camera_offset = [0, 0]
         self.levels = []
-        
         self.level = level
         self.treats = []
         self.platforms = []
         self.text = None
         self.screen = Screen()
-        
-        self.in_level = False
         self.is_ending = False
-        self.paused = False
-        
+        self._pause_callback = pause_callback
+        self._win = win_callback
+
         self.create_levels()
         self.get_level()
-        
-        self._sparkle_timer = simplegui.create_timer(1000, self.next_level)
     
     def create_levels(self):
         self.levels = []
@@ -335,8 +313,8 @@ class Game:
                 
     def level_complete(self, sparkle_pos):
         self.sparkles.set_pos(sparkle_pos)
-        self._sparkle_timer.start()
-        self.is_ending = True            
+        self.is_ending = True
+        self._win(self.level >= len(self.levels) - 1)
     
     def update(self):
         if self.is_ending:
@@ -355,7 +333,9 @@ class Game:
             self.get_level()
 
     
-    def draw(self, canvas):        
+    def draw(self, canvas):
+        self.update()
+        
         # Scene
         self.screen.draw(canvas)
         if self.text[0] != None:
@@ -374,12 +354,8 @@ class Game:
         # Sparkles
         if self.is_ending:
             self.sparkles.draw(canvas, self.camera_offset)
-        
-    def unpause(self):
-        self.paused = False
             
     def next_level(self):
-        self._sparkle_timer.stop()
         self.is_ending = False
         if self.level < len(self.levels) - 1:
             self.level += 1
@@ -387,6 +363,7 @@ class Game:
         self.screen.set_level(self.level)
     
     def get_level(self):
+        self.is_ending = False
         self.animal    = Animal([450, 300], [0,0], .5, 3, 120, 0, 1, self.level_complete)
         self.treats    = []
         self.platforms = []
@@ -405,68 +382,73 @@ class Game:
             elif objs[0] == 'T':
                 self.text = deserialize(objs[2:])
 
-        
+    def key(self, state):
+        if state['p']:
+            self._pause_callback()
+        self.animal.key_handler(state)
      
-class PuzzleGame(Game):
+class PuzzleGame():
     def __init__(self, level):
-        Game.__init__(self, level)
+        self._game = Game(level, self.pause, self.win_level)
         
+        button_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_Buttons.png"))        
         next_button = Button([625, 350], button_image, [625, 50], [251, 100], self.next_level)
-        replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.get_level)
+        replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.replay_level)
         resume_button = Button([300, 350], button_image, [3875, 50], [251, 100], self.unpause)
+
+        paused_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Pause.png"))
+        level_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_LevelWin.png"))
+        final_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_AllWin.png"))
         self.level_menu = Menu(level_screen_image, [replay_button, next_button])
         self.final_menu = Menu(final_screen_image, [replay_button])
         self.pause_menu = Menu(paused_screen_image,[resume_button])
 
         self._key_state = {'left':False, 'right':False, 'up':False, 'space':False, 'p':False}
-        self._key_handler = self.animal.key_handler
-#        self.animal.set_callbacks()
+        self._forwards = {'play':  {'draw': self._game.draw, 'key':self._game.key, 'mouse': lambda _: None}, 
+                          'next':  {'draw': self.level_menu.draw, 'key':lambda _: None, 'mouse': self.level_menu.click}, 
+                          'pause': {'draw': self.pause_menu.draw, 'key':lambda _: None, 'mouse': self.pause_menu.click}}
+        self._forward = self._forwards['play']
+        
+        self._ending_timer = simplegui.create_timer(1000, self.menu_next)
+        
+    def win_level(self, is_last):
+        self._ending_timer.start()
+        if is_last:
+            self.level_menu = self.final_menu
+
+    def menu_next(self):
+        self._ending_timer.stop()
+        self._forward = self._forwards['next']
+        
+    def next_level(self):
+        self._forward = self._forwards['play']
+        self._game.next_level()
+
+    def replay_level(self):
+        self._game.get_level()
+        self._forward = self._forwards['play']
+        
+    def unpause(self):
+        self._forward = self._forwards['play']
+        
+    def pause(self):
+        self._forward = self._forwards['pause']
         
     def main(self, canvas):
-        if self.paused:
-            self.pause_menu.draw(canvas)
-        elif self.in_level:
-            self.update()
-            self.draw(canvas)
-        elif self.is_ending:
-            self.draw(canvas)
-        elif self.level == len(self.levels) - 1:
-            self.final_menu.draw(canvas)
-        else:
-            self.level_menu.draw(canvas)
+        self._forward['draw'](canvas)
         
     def keydown_handler(self, key):
         self._key_state = dict([(k, self._key_state[k] or (key == simplegui.KEY_MAP[k])) for k in self._key_state.keys()])
-        #self._key_handler(self._key_state)
-        if key == simplegui.KEY_MAP['p']:
-            self.paused = not self.paused
-        elif self.paused:
-            pass
-        elif not self.is_ending:
-            self.animal.key_handler(self._key_state)
-        else:
-            pass
+        self._forward['key'](self._key_state)
     
     def keyup_handler(self, key):
         self._key_state = dict([(k, self._key_state[k] and (key != simplegui.KEY_MAP[k])) for k in self._key_state.keys()])
-        if self.in_level and not self.paused:
-            self.animal.key_handler(self._key_state)
+        self._forward['key'](self._key_state)
         
     def click(self, pos):
-        if self.paused:
-            self.pause_menu.click(pos)
-        elif self.in_level:
-            pass
-        elif self.level == len(self.levels) - 1:
-            self.final_menu.click(pos)
-        else:
-            self.level_menu.click(pos)
+        self._forward['mouse'](pos)
+
         
-        
-# -----------------------
-# Starting Game and Frame
-# -----------------------
-    
 frame = simplegui.create_frame("Bunny's Big Adventure!", 900, 600, 100)
 
 _puzzle_game = PuzzleGame(1) # initial level
