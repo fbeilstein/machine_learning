@@ -115,7 +115,7 @@ class Treat():
     def drop(self):
         self.collected = False
         for p in self.platforms:
-            p.deactivate()
+            p.restore_state()
                 
     def draw(self, canvas, offset, visible = False):
         if not self.collected or visible:
@@ -139,25 +139,23 @@ class Platform():
         self._image_right  = Image(image, [image_size[0] - 3 + color * image_size[0], image_center[1]], [6, image_size[1]], [6, image_size[1]], [0, image_size[1]/2], [image_size[0], image_size[1]])
                 
     def update(self):
-        if self.active:
-            self.time = (self.time + 1) % (2 * self.interval)
-            self.pos[0] += self.vel[0] * (-1) ** (self.time // self.interval)
-            self.pos[1] += self.vel[1] * (-1) ** (self.time // self.interval)
+        self.time = (self.time + self.active) % (2 * self.interval)
+        self.pos[0] += self.active * self.vel[0] * (-1) ** (self.time // self.interval)
+        self.pos[1] += self.active * self.vel[1] * (-1) ** (self.time // self.interval)
             
     def get_rect(self):
         return [[self.pos[0] - self.d[0], self.pos[1] - self.d[1]], [self.pos[0] + self.d[0], self.pos[1] + self.d[1]]]
     
     def draw(self, canvas, offset):
-        t = 0 if self.on else 1
-        self._image_center.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], [0, t])
-        self._image_left.draw(canvas, [self.pos[0] - self.d[0] + offset[0], self.pos[1] - self.d[1] + offset[1]], [0, t])
-        self._image_right.draw(canvas, [self.pos[0] + self.d[0] + offset[0], self.pos[1] + self.d[1] + offset[1]], [0, t])
+        self._image_center.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], [0, not self.on])
+        self._image_left.draw(canvas, [self.pos[0] - self.d[0] + offset[0], self.pos[1] - self.d[1] + offset[1]], [0, not self.on])
+        self._image_right.draw(canvas, [self.pos[0] + self.d[0] + offset[0], self.pos[1] + self.d[1] + offset[1]], [0, not self.on])
         
     def activate(self):
         self.active = True
         self.on = True
         
-    def deactivate(self):
+    def restore_state(self):
         self.active = self.orig_state[0]
         self.on = self.orig_state[1]
         
