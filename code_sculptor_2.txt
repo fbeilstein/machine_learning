@@ -47,7 +47,7 @@ class Menu:
         self.screen = screen
             
     def draw(self, canvas):
-        canvas.draw_image(self.screen[0], self.screen[1], self.screen[2], self.screen[3], self.screen[4], self.screen[5])
+        canvas.draw_image(self.screen, [450, 300], [900, 600], [450, 300], [900, 600], 0)
         for b in self.buttons:
             b.draw(canvas)
                    
@@ -173,18 +173,40 @@ class Sparkles():
         self.sparkles = [(Image(simplegui.load_image(i), [34, 35], [70, 70], [105, 105], tile_skip=[70, 0])) for i in _paths]
         self.rots = [0.0, math.pi / 3.0, 2.0 * math.pi / 3.0]        
     
-    def draw(self, canvas):
+    def draw(self, canvas, offset):
         for sparkle, _r in zip(self.sparkles, self.rots):
-            sparkle.draw(canvas, self.pos, [(self.t // 3) % 7, 0], rot = self.t * self.rotation_speed + _r)
-            sparkle.draw(canvas, self.pos, [(3 + self.t // 3) % 7, 0], rot = self.t * self.rotation_speed + .9 + _r)
+            sparkle.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], [(self.t // 3) % 7, 0], rot = self.t * self.rotation_speed + _r)
+            sparkle.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], [(3 + self.t // 3) % 7, 0], rot = self.t * self.rotation_speed + .9 + _r)
         self.t = (self.t + 1) % 21000
             
     def set_pos(self, pos):
         self.pos = pos
     
+class CarrotBox:
+    def __init__(self, complete_func):
+        self.carrots = []
+        self.won_level = complete_func
+        
+    def collect(self, carrot):
+        self.carrots.append(carrot)
+        carrot.collect()
+        if len(self.carrots) > 2:
+            self.drop()
+        if carrot.get_color() == 0:
+            self.won_level(carrot.get_pos())
+            
+    def drop(self):
+        if len(self.carrots) >= 1:
+            self.carrots[0].drop()
+            self.carrots = self.carrots[1:]
+            
+    def draw(self, canvas):
+        canvas.draw_polygon([(25, 30), (100, 30), (100, 70), (25, 70)], 5, "White")
+        for c,i in zip(self.carrots, range(len(self.carrots))):
+            c.draw(canvas, [44 + 35 * i - c.get_pos()[0], 50 - c.get_pos()[1]], True)
     
-class UnstableObject():
-    def __init__(self, pos, vel, gravity, speed, jump_height, direction = 0, scale = 1):
+class Animal():
+    def __init__(self, pos, vel, gravity, speed, jump_height, direction, scale, complete_func):
         self.gravity = gravity
         self.speed = speed
         self.jump_height = jump_height
@@ -198,6 +220,7 @@ class UnstableObject():
         self.radius = 21
         _image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Object_Image_Bunnies.png"))
         self._image = Image(_image, [22, 26], [45, 52], [45, 52], tile_skip=[45, 52])
+        self._carrot_box = CarrotBox(complete_func)
     
     def with_platform(self, platform):
         rect = platform.get_rect()
@@ -208,7 +231,12 @@ class UnstableObject():
             if platform.active:
                 self.relative_vel = platform.get_x_vel()
             self.num_jumps = 0
-        
+
+    def with_carrot(self, carrot):
+        d = math.sqrt((self.pos[0] - carrot.get_pos()[0]) ** 2 + (self.pos[1] - carrot.get_pos()[1]) ** 2)
+        if d < self.radius + carrot.get_radius() and not carrot.is_collected():
+            self._carrot_box.collect(carrot)
+            
     def get_pos(self):
         return self.pos        
     
@@ -232,91 +260,22 @@ class UnstableObject():
         else:
             self.tile[0] = [0, (self.tile[0] + _cnt[0] // 8) % 3][self.direction != 0]        
         self._image.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.tile)
+        self._carrot_box.draw(canvas)
         
-        
-class Animal(UnstableObject):
-    def __init__(self, pos, vel,  gravity, speed, jump_height, controls, direction = 0, scale = 1, num_treats = 2):
-        self.treats = [None, None]
-        self.num_treats = num_treats
-        # 0 = left, 1 = right, 2 = jump, 3 = throw
-        self.controls = controls
-        self.control_state = [False, False, False, False]
-        UnstableObject.__init__(self, pos, vel,   gravity, speed, jump_height, direction, scale)
-    
-    def with_carrot(self, carrot):
-        d = math.sqrt((self.pos[0] - carrot.get_pos()[0]) ** 2 + (self.pos[1] - carrot.get_pos()[1]) ** 2)
-        if d > self.radius + carrot.get_radius() or carrot.is_collected():
-            return
-        if self.treats[0] != None:
-            self.treats[0].drop()
-        self.treats = [self.treats[1], carrot]
-        carrot.collect()
-     
-    def drop_treat(self):
-        popped = False
-        for i in range(self.num_treats):
-            if self.treats[i] != None and not popped:
-                self.treats[i].drop()
-                self.treats.pop(i)
-                self.treats.insert(i, None)
-                popped = True
-    
-    def key_handler(self, key, sign):
-        for i in range(0, 4):
-            if key == simplegui.KEY_MAP[self.controls[i]]:
-                if sign == 'down':
-                    self.control_state[i] = True
-                    self.update_direction()
-                elif sign == 'up':
-                    self.control_state[i] = False
-                    self.update_direction()
-                else:
-                    print(sign)
-                    print("Error: Animal.key_handler(): incorrect sign")
-                    
-    def update_direction(self):
-        if self.control_state[0] and not self.control_state[1]:
-            self.direction = -1
-        elif not self.control_state[0] and self.control_state[1]:
-            self.direction = 1
-        else:
-            self.direction = 0
-        if self.control_state[2]:
+    def key_handler(self, key_state):
+        self.direction = key_state['right'] - key_state['left']
+        if key_state['up']:
+            key_state['up'] = False
             self.jump()
-            self.control_state[2] = False
-        if self.control_state[3]:
-            self.drop_treat()
-            self.control_state[3] = False
-            
-    # Accessor Methods
-    def get_treats(self):
-        return self.treats
-    
-    def clear_treats(self):
-        for i in range(0, len(self.treats)):
-            self.drop_treat() 
-            
-    def get_num_treats(self):
-        return self.num_treats
-    
-    def set_num_treats(self, n):
-        self.num_treats = n
-        self.clear_treats()
-  
+        if key_state['space']:
+            key_state['space'] = False
+            self._carrot_box.drop()
+        
 
 import codeskulptor
 
-
-# -----------------------
-# Images and Sound
-# -----------------------
-
 # Images
 button_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Image_Buttons.png"))
-
-easy_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Easy.png"))
-medium_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Medium.png"))
-hard_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Hard.png"))
 
 paused_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Pause.png"))
 level_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Menu_Screen_LevelWin.png"))
@@ -326,18 +285,23 @@ final_screen_image = simplegui.load_image(codeskulptor.file2url("assets-bunnyadv
 # Class Definitions
 # -----------------------
        
+class Screen:
+    def __init__(self):
+        _easy = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Easy.png"))
+        _medium = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Medium.png"))
+        _hard = simplegui.load_image(codeskulptor.file2url("assets-bunnyadventure-Game_Screen_Hard.png"))
+        self._screens = [Image(screen, [450, 300], [900, 600], [900, 600]) for screen in [_easy, _medium, _hard]]
+        self._screen = self._screens[0]
+        
+    def set_level(self, level):
+        self._screen = self._screens[(10 < level) + (20 < level)]
     
+    def draw(self, canvas):
+        self._screen.draw(canvas, [450, 300])
 
 class Game:
     def __init__(self, level):
         
-        self.easy_screen = [easy_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
-        self.medium_screen = [medium_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
-        self.hard_screen = [hard_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0]
-
-        resume_button = Button([300, 350], button_image, [3875, 50], [251, 100], lambda : self.unpause())
-        self.pause_menu = Menu([paused_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [resume_button])
-            
         self.animal = None
         self.controls = ['left', 'right', 'up', 'space']
 
@@ -345,18 +309,21 @@ class Game:
         
         self.camera_offset = [0, 0]
         self.levels = []
-        self.next_level_timer = simplegui.create_timer(1000, self.level_end)
         
         self.level = level
         self.treats = []
         self.platforms = []
         self.text = None
-        self.screen = None
+        self.screen = Screen()
         
         self.in_level = False
         self.is_ending = False
         self.paused = False
-        self.start_game()
+        
+        self.create_levels()
+        self.get_level()
+        
+        self._sparkle_timer = simplegui.create_timer(1000, self.next_level)
     
     def create_levels(self):
         self.levels = []
@@ -365,14 +332,17 @@ class Game:
         for level in data:
             if len(level) > 2:
                 self.levels.append(level)
-        
-    def start_game(self):
-        self.create_levels()
-        self.get_level()
+                
+    def level_complete(self, sparkle_pos):
+        self.sparkles.set_pos(sparkle_pos)
+        self._sparkle_timer.start()
+        self.is_ending = True            
     
     def update(self):
-        self.animal.move()
+        if self.is_ending:
+            return
         
+        self.animal.move()
         for p in self.platforms:
             self.animal.with_platform(p)
             p.update()
@@ -381,14 +351,13 @@ class Game:
             
         p = self.animal.get_pos()
         self.camera_offset = [450 - p[0], 300 - p[1]]
-        if p[1] > 999:	# condition to lose level
+        if p[1] > 999:  # condition to lose level
             self.get_level()
 
     
-    def draw(self, canvas):
-        
+    def draw(self, canvas):        
         # Scene
-        canvas.draw_image(self.screen[0], self.screen[1], self.screen[2], self.screen[3], self.screen[4], self.screen[5])
+        self.screen.draw(canvas)
         if self.text[0] != None:
             canvas.draw_text(self.text[0], [self.text[1][0] + self.camera_offset[0], self.text[1][1] + self.camera_offset[1]], self.text[2], self.text[3])
         
@@ -399,43 +368,26 @@ class Game:
         for t in self.treats:
             t.draw(canvas, self.camera_offset)
 
-        # Current Treats Box
-        canvas.draw_polygon([(25, 30), (100, 30), (100, 70), (25, 70)], 5, "White")
-        t = self.animal.get_treats()
-        for i in range(len(t)):
-            if t[i] != None:
-                if t[i].get_color() == 0 and self.in_level:
-                    self.in_level = False
-                    self.is_ending = True
-                    self.next_level_timer.start()
-                    self.sparkles.set_pos([t[i].get_pos()[0] + self.camera_offset[0], t[i].get_pos()[1] + self.camera_offset[1]])
-                else:
-                    t[i].draw(canvas, [44 + 35 * i - t[i].get_pos()[0], 50 - t[i].get_pos()[1]], True)
-                    
-        # Display
+        # Text
         canvas.draw_text("Level: " + str(self.level), [110, 70], 40, "White")
         
         # Sparkles
         if self.is_ending:
-            self.sparkles.draw(canvas)
-    
-    def keyup_handler(self, key):
-        if self.in_level and not self.paused:
-            self.animal.key_handler(key, 'up')
+            self.sparkles.draw(canvas, self.camera_offset)
         
     def unpause(self):
         self.paused = False
-        
-    def level_end(self):
-        pass
-    
+            
     def next_level(self):
+        self._sparkle_timer.stop()
+        self.is_ending = False
         if self.level < len(self.levels) - 1:
             self.level += 1
             self.get_level()
+        self.screen.set_level(self.level)
     
     def get_level(self):
-        self.animal    = Animal([450, 300], [0,0], .5, 3, 120, self.controls, 0, 1, 2)
+        self.animal    = Animal([450, 300], [0,0], .5, 3, 120, 0, 1, self.level_complete)
         self.treats    = []
         self.platforms = []
         self.in_level  = True
@@ -446,32 +398,29 @@ class Game:
             elif objs[0] == 'P':
                 params = deserialize(objs[2:])
                 self.platforms.append(Platform(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]))
-                #print "Platform: ", params
             elif objs[0] == 'C':
                 params = deserialize(objs[2:])
                 p = [self.platforms[int(idx)] for idx in params[5]]
                 self.treats.append(Treat(params[0], params[1], params[2], params[3], params[4], p))
-                #print "Treat: ", params
             elif objs[0] == 'T':
                 self.text = deserialize(objs[2:])
-                #print "Text: ", self.text
-        
-        if self.level <= 10:
-            self.screen = self.easy_screen
-        elif self.level <= 20:
-            self.screen = self.medium_screen
-        else:
-            self.screen = self.hard_screen
 
         
      
 class PuzzleGame(Game):
     def __init__(self, level):
         Game.__init__(self, level)
+        
         next_button = Button([625, 350], button_image, [625, 50], [251, 100], self.next_level)
-        replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.replay_level)
-        self.level_menu = Menu([level_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [replay_button, next_button])
-        self.final_menu = Menu([final_screen_image, [450, 300], [900, 600], [450, 300], [900, 600], 0], [replay_button])
+        replay_button = Button([275, 350], button_image, [375, 50], [251, 100], self.get_level)
+        resume_button = Button([300, 350], button_image, [3875, 50], [251, 100], self.unpause)
+        self.level_menu = Menu(level_screen_image, [replay_button, next_button])
+        self.final_menu = Menu(final_screen_image, [replay_button])
+        self.pause_menu = Menu(paused_screen_image,[resume_button])
+
+        self._key_state = {'left':False, 'right':False, 'up':False, 'space':False, 'p':False}
+        self._key_handler = self.animal.key_handler
+#        self.animal.set_callbacks()
         
     def main(self, canvas):
         if self.paused:
@@ -487,16 +436,21 @@ class PuzzleGame(Game):
             self.level_menu.draw(canvas)
         
     def keydown_handler(self, key):
+        self._key_state = dict([(k, self._key_state[k] or (key == simplegui.KEY_MAP[k])) for k in self._key_state.keys()])
+        #self._key_handler(self._key_state)
         if key == simplegui.KEY_MAP['p']:
             self.paused = not self.paused
         elif self.paused:
             pass
-        elif self.in_level:
-            self.animal.key_handler(key, 'down')
-        elif self.level == len(self.levels) - 1:
-            self.final_menu.keyhandler(key)
+        elif not self.is_ending:
+            self.animal.key_handler(self._key_state)
         else:
             pass
+    
+    def keyup_handler(self, key):
+        self._key_state = dict([(k, self._key_state[k] and (key != simplegui.KEY_MAP[k])) for k in self._key_state.keys()])
+        if self.in_level and not self.paused:
+            self.animal.key_handler(self._key_state)
         
     def click(self, pos):
         if self.paused:
@@ -508,21 +462,12 @@ class PuzzleGame(Game):
         else:
             self.level_menu.click(pos)
         
-    def replay_level(self):
-        self.get_level()
-        
-    def level_end(self):
-        self.next_level_timer.stop()
-        self.is_ending = False
         
 # -----------------------
 # Starting Game and Frame
 # -----------------------
     
-width = 900
-height = 600
-
-frame = simplegui.create_frame("Bunny's Big Adventure!", width, height, 100)
+frame = simplegui.create_frame("Bunny's Big Adventure!", 900, 600, 100)
 
 _puzzle_game = PuzzleGame(1) # initial level
 
