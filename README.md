@@ -22,7 +22,8 @@ Probably I'll use its parts in my ML course.
   - Lecture
     -  In progress...
   - Practice
-    -  In progress...
+    -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
+    -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
   - Further Resources
     -  [Tutorial, Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
     -  [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
