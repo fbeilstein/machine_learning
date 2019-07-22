@@ -27,6 +27,7 @@ Probably I'll use its parts in my ML course.
     -  [Tutorial, Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
     -  [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
     -  [Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
+    -  [How to Think Like a Computer Scientist: Interactive Edition](https://runestone.academy/runestone/books/published/thinkcspy/index.html)
 
 ### Tools of ML
 
