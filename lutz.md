@@ -213,10 +213,6 @@ Why Use Built-in Types?
  line.split(',')
 ```
 
-72
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  S = 'spam'
 ```
@@ -241,19 +237,18 @@ Introducing Python Object Types
  line
 ```
 
-Getting Help
+####Getting Help
+
 ```python
  dir(S)
 ```
 
-Strings
-
-73
 ```python
  help(S.index)
 ```
 
-Other Ways to Code Strings
+####Other Ways to Code Strings
+
 ```python
  S = 'A\nB\tC'
 ```
@@ -278,15 +273,12 @@ Other Ways to Code Strings
  msg = &quot;&quot;&quot;
 ```
 
-74
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  msg
 ```
 
-Pattern Matching
+####Pattern Matching
+
 ```python
  import re
 ```
@@ -307,11 +299,11 @@ Pattern Matching
  match.groups( )
 ```
 
-Lists
-Lists
+###Lists
 
-75
-Sequence Operations
+
+####Sequence Operations
+
 ```python
  L = [123, 'spam', 1.23]
 ```
@@ -336,7 +328,8 @@ Sequence Operations
  L
 ```
 
-Type-Speciﬁc Operations
+####Type-Speciﬁc Operations
+
 ```python
  L.append('NI')
 ```
@@ -365,10 +358,6 @@ Type-Speciﬁc Operations
  M
 ```
 
-76
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  M.reverse( )
 ```
@@ -377,7 +366,8 @@ Introducing Python Object Types
  M
 ```
 
-Bounds Checking
+####Bounds Checking
+
 ```python
  L
 ```
@@ -390,7 +380,8 @@ Bounds Checking
  L[99] = 1
 ```
 
-Nesting
+####Nesting
+
 ```python
  M = [[1, 2, 3],
 ```
@@ -407,10 +398,8 @@ Nesting
  M[1][2]
 ```
 
-Lists
+####List Comprehensions
 
-77
-List Comprehensions
 ```python
  col2 = [row[1] for row in M]
 ```
@@ -431,10 +420,6 @@ List Comprehensions
  [row[1] for row in M if row[1] % 2 == 0]
 ```
 
-78
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  diag = [M[i][i] for i in [0, 1, 2]]
 ```
@@ -451,8 +436,10 @@ Introducing Python Object Types
  doubles
 ```
 
-Dictionaries
-Mapping Operations
+###Dictionaries
+
+####Mapping Operations
+
 ```python
  D = {'food': 'Spam', 'quantity': 4, 'color': 'pink'}
 ```
@@ -469,9 +456,6 @@ Mapping Operations
  D
 ```
 
-Dictionaries
-
-79
 ```python
  D = {}
 ```
@@ -496,7 +480,8 @@ Dictionaries
  print D['name']
 ```
 
-Nesting Revisited
+####Nesting Revisited
+
 ```python
  rec = {'name': {'first': 'Bob', 'last': 'Smith'},
 ```
@@ -513,10 +498,6 @@ Nesting Revisited
  rec['job']
 ```
 
-80
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  rec['job'][-1]
 ```
@@ -533,10 +514,8 @@ Introducing Python Object Types
  rec = 0
 ```
 
-Sorting Keys: for Loops
-Dictionaries
+####Sorting Keys: for Loops
 
-81
 ```python
  D = {'a': 1, 'b': 2, 'c': 3}
 ```
@@ -573,15 +552,12 @@ Dictionaries
  for key in sorted(D):
 ```
 
-82
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  for c in 'spam':
 ```
 
-Iteration and Optimization
+####Iteration and Optimization
+
 ```python
  squares = [x ** 2 for x in [1, 2, 3, 4, 5]]
 ```
@@ -602,10 +578,8 @@ Iteration and Optimization
  squares
 ```
 
-Dictionaries
+####Missing Keys: if Tests
 
-83
-Missing Keys: if Tests
 ```python
  D
 ```
@@ -630,11 +604,8 @@ Missing Keys: if Tests
  if not D.has_key('f'):
 ```
 
-84
+###Tuples
 
-##Chapter 4:
-Introducing Python Object Types
-Tuples
 ```python
  T = (1, 2, 3, 4)
 ```
@@ -651,8 +622,8 @@ Tuples
  T[0] = 2
 ```
 
-Why Tuples?
-Files
+###Files
+
 ```python
  f = open('data.txt', 'w')
 ```
@@ -669,9 +640,6 @@ Files
  f.close( )
 ```
 
-Files
-
-85
 ```python
  f = open('data.txt')
 ```
@@ -700,12 +668,10 @@ Files
  help(file.seek)
 ```
 
-Other File-Like Tools
-86
+####Other File-Like Tools
 
-##Chapter 4:
-Introducing Python Object Types
-Other Core Types
+###Other Core Types
+
 ```python
  X = set('spam')
 ```
@@ -774,10 +740,8 @@ Other Core Types
  type(type(L))
 ```
 
-Other Core Types
+####How to Break Your Code’s Flexibility
 
-87
-How to Break Your Code’s Flexibility
 ```python
  if type(L) == type([]):
 ```
@@ -790,15 +754,12 @@ How to Break Your Code’s Flexibility
  if isinstance(L, list):
 ```
 
-User-Deﬁned Classes
+####User-Deﬁned Classes
+
 ```python
  class Worker:
 ```
 
-88
-
-##Chapter 4:
-Introducing Python Object Types
 ```python
  bob = Worker('Bob Smith', 50000)
 ```
@@ -823,51 +784,10 @@ Introducing Python Object Types
  sue.pay
 ```
 
-And Everything Else
-Other Core Types
+##Chapter 5: Numeric Types
 
-89
-##Chapter Summary
-90
-
-##Chapter 4:
-Introducing Python Object Types
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
-
-91
-92
-
-##Chapter 4:
-Introducing Python Object Types
-CHAPTER 5
-Numbers5
-Python Numeric Types
-93
-Numeric Literals
-Literal
-Interpretation
-94
-
-##Chapter 5: Numbers
-Built-in Numeric Tools and Extensions
-Python Numeric Types
-
-95
-Python Expression Operators
-Operators
-Description
-96
-
-##Chapter 5: Numbers
-Mixed Operators Follow Operator Precedence
-Parentheses Group Subexpressions
-Mixed Types Are Converted Up
-Python Expression Operators
-
-97
 ```python
+# convert types manually
  int(3.1415)
 ```
 
@@ -879,12 +799,10 @@ Python Expression Operators
  long(4)
 ```
 
-Preview: Operator Overloading
-98
+###Numbers in Action
 
-##Chapter 5: Numbers
-Numbers in Action
-Variables and Basic Expressions
+####Variables and Basic Expressions
+
 ```python
  a = 3
 ```
@@ -905,9 +823,6 @@ Variables and Basic Expressions
  a % 2, b ** 2
 ```
 
-Numbers in Action
-
-99
 ```python
  2 + 4.0, 2.0 ** b
 ```
@@ -924,10 +839,8 @@ Numbers in Action
  print b / (2.0 + a)
 ```
 
-Numeric Display Formats
-100
+####Numeric Display Formats
 
-##Chapter 5: Numbers
 ```python
  b / (2.0 + a)
 ```
@@ -960,7 +873,6 @@ Numeric Display Formats
  &quot;%2.2f&quot; % num
 ```
 
-str and repr Display Formats
 ```python
  repr(num)
 ```
@@ -969,10 +881,8 @@ str and repr Display Formats
  str(num)
 ```
 
-Numbers in Action
+####Division: Classic, Floor, and True
 
-101
-Division: Classic, Floor, and True
 ```python
  (5 / 2), (5 / 2.0), (5 / -2.0), (5 / -2)
 ```
@@ -997,14 +907,11 @@ Division: Classic, Floor, and True
  (5 // 2), (5 // 2.0), (5 // -2.0), (5 // -2)
 ```
 
-102
-
-##Chapter 5: Numbers
 ```python
  (9 / 3), (9.0 / 3), (9 // 3), (9 // 3.0)
 ```
 
-Bitwise Operations
+####Bitwise Operations
 ```python
  x = 1
 ```
@@ -1021,14 +928,11 @@ Bitwise Operations
  x &amp; 1
 ```
 
-Long Integers
+####Long Integers
 ```python
  9999999999999999999999999999999999999L + 1
 ```
 
-Numbers in Action
-
-103
 ```python
  9999999999999999999999999999999999999 + 1
 ```
@@ -1045,7 +949,7 @@ Numbers in Action
  2 ** 200
 ```
 
-Complex Numbers
+####Complex Numbers
 ```python
  1j * 1J
 ```
@@ -1058,10 +962,7 @@ Complex Numbers
  (2 + 1j) * 3
 ```
 
-104
-
-##Chapter 5: Numbers
-Hexadecimal and Octal Notation
+####Hexadecimal and Octal Notation
 ```python
  01, 010, 0100
 ```
@@ -1086,10 +987,7 @@ Hexadecimal and Octal Notation
  &quot;%o %x %X&quot; % (64, 64, 255)
 ```
 
-Numbers in Action
-
-105
-Other Built-in Numeric Tools
+####Other Built-in Numeric Tools
 ```python
  import math
 ```
@@ -1142,17 +1040,16 @@ Other Built-in Numeric Tools
  random.choice(['Life of Brian', 'Holy Grail', 'Meaning of Life'])
 ```
 
-106
+####Other Numeric Types
 
-##Chapter 5: Numbers
-Other Numeric Types
-Decimal Numbers
+#####Decimal Numbers
+
 ```python
  0.1 + 0.1 + 0.1 - 0.3
 ```
 
  ```python
- print 0.1 + 0.1 + 0.1 - 0.3
+ print(0.1 + 0.1 + 0.1 - 0.3)
 ```
 
 ```python
@@ -1163,9 +1060,6 @@ Decimal Numbers
  Decimal('0.1') + Decimal('0.1') + Decimal('0.1') - Decimal('0.3')
 ```
 
-Other Numeric Types
-
-107
 ```python
  Decimal('0.1') + Decimal('0.10') + Decimal('0.10') - Decimal('0.30')
 ```
@@ -1182,7 +1076,8 @@ Other Numeric Types
  decimal.Decimal(1) / decimal.Decimal(7)
 ```
 
-Sets
+#####Sets
+
 ```python
  x = set('abcde')
 ```
@@ -1211,9 +1106,6 @@ Sets
  x &amp; y
 ```
 
-108
-
-##Chapter 5: Numbers
 ```python
  engineers = set(['bob', 'sue', 'ann', 'vic'])
 ```
@@ -1239,41 +1131,21 @@ Sets
 ```
 
 ```python
-
+ engineers - managers
 ```
 
-```python
- engineers – managers
-```
+##CHAPTER 6 The Dynamic Typing Interlude
 
-Booleans
-Other Numeric Types
+###The Case of the Missing Declaration Statements
 
-109
-Third-#Party Extensions
-##Chapter Summary
-110
+####Variables, Objects, and References
 
-##Chapter 5: Numbers
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
-
-111
-CHAPTER 6
-The Dynamic Typing Interlude
-6
-The Case of the Missing Declaration Statements
-Variables, Objects, and References
-112
 ```python
  a = 3
 ```
 
-The Case of the Missing Declaration Statements
+####Types Live with Objects, Not Variables
 
-113
-Types Live with Objects, Not Variables
 ```python
  a = 3
 ```
@@ -1286,10 +1158,8 @@ Types Live with Objects, Not Variables
  a = 1.23
 ```
 
-114
+####Objects Are Garbage-Collected
 
-##Chapter 6: The Dynamic Typing Interlude
-Objects Are Garbage-Collected
 ```python
  a = 3
 ```
@@ -1314,10 +1184,8 @@ Objects Are Garbage-Collected
  x = [1,2,3]
 ```
 
-The Case of the Missing Declaration Statements
+###Shared References
 
-115
-Shared References
 ```python
  a = 3
 ```
@@ -1338,9 +1206,6 @@ Shared References
  a = 'spam'
 ```
 
-116
-
-##Chapter 6: The Dynamic Typing Interlude
 ```python
  a = 3
 ```
@@ -1353,10 +1218,8 @@ Shared References
  a = a + 2
 ```
 
-Shared References
+####Shared References and In-Place Changes
 
-117
-Shared References and In-Place Changes
 ```python
  L1 = [2, 3, 4]
 ```
@@ -1389,9 +1252,6 @@ Shared References and In-Place Changes
  L2
 ```
 
-118
-
-##Chapter 6: The Dynamic Typing Interlude
 ```python
  L1 = [2, 3, 4]
 ```
@@ -1412,7 +1272,8 @@ Shared References and In-Place Changes
  L2
 ```
 
-Shared References and Equality
+####Shared References and Equality
+
 ```python
  x = 42
 ```
@@ -1421,9 +1282,6 @@ Shared References and Equality
  x = 'shrubbery'
 ```
 
-Shared References
-
-119
 ```python
  L = [1, 2, 3]
 ```
@@ -1472,9 +1330,6 @@ Shared References
  X is Y
 ```
 
-120
-
-##Chapter 6: The Dynamic Typing Interlude
 ```python
  import sys
 ```
@@ -1483,32 +1338,18 @@ Shared References
  sys.getrefcount(1)
 ```
 
-Dynamic Typing Is Everywhere
-##Chapter Summary
-##Chapter Summary
+##CHAPTER 7 Strings
 
-121
-##Chapter Quiz
-Quiz Answers
-122
+###String Literals
 
-##Chapter 6: The Dynamic Typing Interlude
-CHAPTER 7
-Strings7
-123
-Operation
-Interpretation
-String Literals
-124
+####Single- and Double-Quoted Strings Are the Same
 
-##Chapter 7: Strings
-Single- and Double-Quoted Strings Are the Same
 ```python
  'shrubbery', &quot;shrubbery&quot;
 ```
 
 ```python
- 'knight&quot;s', &quot;knight's&quot;
+ 'knight"s', "knight's"
 ```
 
 ```python
@@ -1523,14 +1364,12 @@ Single- and Double-Quoted Strings Are the Same
  'knight\'s', &quot;knight\&quot;s&quot;
 ```
 
-Escape Sequences Represent Special Bytes
+####Escape Sequences Represent Special Bytes
+
 ```python
  s = 'a\nb\tc'
 ```
 
-String Literals
-
-125
 ```python
  s
 ```
@@ -1543,11 +1382,6 @@ String Literals
  len(s)
 ```
 
-Escape
-Meaning
-126
-
-##Chapter 7: Strings
 ```python
  s = 'a\0b\0c'
 ```
@@ -1584,10 +1418,8 @@ Meaning
  len(x)
 ```
 
-Raw Strings Suppress Escapes
-String Literals
+####Raw Strings Suppress Escapes
 
-127
 ```python
  path = r'C:\new\text.dat'
 ```
@@ -1604,10 +1436,8 @@ String Literals
  len(path)
 ```
 
-128
+####Triple Quotes Code Multiline Block Strings
 
-##Chapter 7: Strings
-Triple Quotes Code Multiline Block Strings
 ```python
  mantra = &quot;&quot;&quot;Always look
 ```
@@ -1620,10 +1450,7 @@ Triple Quotes Code Multiline Block Strings
  mantra
 ```
 
-String Literals
-
-129
-Unicode Strings Encode Larger Character Sets
+####Unicode Strings Encode Larger Character Sets
 ```python
  u'spam'
 ```
@@ -1640,9 +1467,6 @@ Unicode Strings Encode Larger Character Sets
  unicode('spam')
 ```
 
-130
-
-##Chapter 7: Strings
 ```python
  u'ab\x20cd'
 ```
@@ -1655,11 +1479,10 @@ Unicode Strings Encode Larger Character Sets
  u'ab\U00000020cd'
 ```
 
-String Literals
+###Strings in Action
 
-131
-Strings in Action
-Basic Operations
+####Basic Operations
+
 ```python
  len('abc')
 ```
@@ -1680,9 +1503,6 @@ Basic Operations
  print '-'*80
 ```
 
-132
-
-##Chapter 7: Strings
 ```python
  myjob = &quot;hacker&quot;
 ```
@@ -1699,7 +1519,7 @@ Basic Operations
  &quot;z&quot; in myjob
 ```
 
-Indexing and Slicing
+####Indexing and Slicing
 ```python
  S = 'spam'
 ```
@@ -1712,13 +1532,8 @@ Indexing and Slicing
  S[1:3], S[1:], S[:-1]
 ```
 
-Strings in Action
+#####Extended slicing: the third limit
 
-133
-134
-
-##Chapter 7: Strings
-Extended slicing: the third limit
 ```python
  S = 'abcdefghijklmnop'
 ```
@@ -1731,9 +1546,6 @@ Extended slicing: the third limit
  S[::2]
 ```
 
-Strings in Action
-
-135
 ```python
  S = 'hello'
 ```
@@ -1750,7 +1562,8 @@ Strings in Action
  S[5:1:-1]
 ```
 
-String Conversion Tools
+####String Conversion Tools
+
 ```python
  &quot;42&quot; + 1
 ```
@@ -1763,10 +1576,8 @@ String Conversion Tools
  repr(42), `42`
 ```
 
-136
+#####Why You Will Care: Slices
 
-##Chapter 7: Strings
-Why You Will Care: Slices
 ```python
  S = &quot;42&quot;
 ```
@@ -1779,9 +1590,6 @@ Why You Will Care: Slices
  S + I
 ```
 
-Strings in Action
-
-137
 ```python
  int(S) + I
 ```
@@ -1802,7 +1610,7 @@ Strings in Action
  float(text)
 ```
 
-Character code conversions
+#####Character code conversions
 ```python
  ord('s')
 ```
@@ -1839,9 +1647,6 @@ Character code conversions
  ord('5') - ord('0')
 ```
 
-138
-
-##Chapter 7: Strings
 ```python
  B = '1101'
 ```
@@ -1858,7 +1663,8 @@ Character code conversions
  I
 ```
 
-Changing Strings
+####Changing Strings
+
 ```python
  S = 'spam'
 ```
@@ -1895,14 +1701,12 @@ Changing Strings
  S
 ```
 
-Strings in Action
-
-139
 ```python
  'That is %d %s bird!' % (1, 'dead')
 ```
 
-String Formatting
+####String Formatting
+
 ```python
  exclamation = &quot;Ni&quot;
 ```
@@ -1919,15 +1723,8 @@ String Formatting
  &quot;%s -- %s -- %s&quot; % (42, 3.14159, [1, 2, 3])
 ```
 
-140
+#####Advanced String Formatting
 
-##Chapter 7: Strings
-Advanced String Formatting
-Code
-Meaning
-String Formatting
-
-141
 ```python
  x = 1234
 ```
@@ -1960,14 +1757,12 @@ String Formatting
  &quot;%s&quot; % x, str(x)
 ```
 
-Dictionary-Based String Formatting
+#####Dictionary-Based String Formatting
+
 ```python
  &quot;%(n)d %(x)s&quot; % {&quot;n&quot;:1, &quot;x&quot;:&quot;spam&quot;}
 ```
 
-142
-
-##Chapter 7: Strings
 ```python
  reply = &quot;&quot;&quot;
 ```
@@ -1996,14 +1791,10 @@ Dictionary-Based String Formatting
  &quot;%(age)d %(food)s&quot; % vars( )
 ```
 
-String Methods
-String Methods
+###String Methods
 
-143
-String Method Examples: Changing Strings
-144
+####String Method Examples: Changing Strings
 
-##Chapter 7: Strings
 ```python
  S = 'spammy'
 ```
@@ -2064,9 +1855,6 @@ String Method Examples: Changing Strings
  S.replace('SPAM', 'EGGS', 1)
 ```
 
-String Methods
-
-145
 ```python
  S = 'spammy'
 ```
@@ -2103,7 +1891,8 @@ String Methods
  'SPAM'.join(['eggs', 'sausage', 'ham', 'toast'])
 ```
 
-String Method Examples: Parsing Text
+####String Method Examples: Parsing Text
+
 ```python
  line = 'aaa bbb ccc'
 ```
@@ -2124,9 +1913,6 @@ String Method Examples: Parsing Text
  col3
 ```
 
-146
-
-##Chapter 7: Strings
 ```python
  line = 'aaa bbb  ccc'
 ```
@@ -2155,7 +1941,8 @@ String Method Examples: Parsing Text
  line.split(&quot;SPAM&quot;)
 ```
 
-Other Common String Methods in Action
+####Other Common String Methods in Action
+
 ```python
  line = &quot;The knights who sy Ni!\n&quot;
 ```
@@ -2184,9 +1971,6 @@ Other Common String Methods in Action
  line.find('Ni') != -1
 ```
 
-String Methods
-
-147
 ```python
  'Ni' in line
 ```
@@ -2203,66 +1987,14 @@ String Methods
  line[-len(sub):] == sub
 ```
 
-The Original string Module
-```python
- S = 'a+b+c+'
-```
+##CHAPTER 8 Lists and Dictionaries
 
-```python
- x = S.replace('+', 'spam')
-```
+###Lists
 
-148
+###Lists in Action
 
-##Chapter 7: Strings
-```python
- x
-```
+####Basic List Operations
 
-```python
- import string
-```
-
-```python
- y = string.replace(S, '+', 'spam')
-```
-
-```python
- y
-```
-
-General Type Categories
-Types Share Operation Sets by Categories
-General Type Categories
-
-149
-Mutable Types Can Be Changed In-Place
-##Chapter Summary
-150
-
-##Chapter 7: Strings
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
-
-151
-CHAPTER 8
-Lists and Dictionaries
-8
-Lists
-152
-Operation
-Interpretation
-Lists
-
-153
-Operation
-Interpretation
-Lists in Action
-Basic List Operations
-154
-
-##Chapter 8: Lists and Dictionaries
 ```python
  len([1, 2, 3])
 ```
@@ -2291,7 +2023,8 @@ Basic List Operations
  [1, 2] + list(&quot;34&quot;)
 ```
 
-Indexing, Slicing, and Matrixes
+####Indexing, Slicing, and Matrixes
+
 ```python
  L = ['spam', 'Spam', 'SPAM!']
 ```
@@ -2308,9 +2041,6 @@ Indexing, Slicing, and Matrixes
  L[1:]
 ```
 
-Lists in Action
-
-155
 ```python
  matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 ```
@@ -2335,8 +2065,10 @@ Lists in Action
  matrix[1][1]
 ```
 
-Changing Lists In-Place
-Index and slice assignments
+####Changing Lists In-Place
+
+#####Index and slice assignments
+
 ```python
  L = ['spam', 'Spam', 'SPAM!']
 ```
@@ -2357,10 +2089,8 @@ Index and slice assignments
  L
 ```
 
-156
+#####List method calls
 
-##Chapter 8: Lists and Dictionaries
-List method calls
 ```python
  L.append('please')
 ```
@@ -2377,9 +2107,6 @@ List method calls
  L
 ```
 
-Lists in Action
-
-157
 ```python
  L = [1, 2]
 ```
@@ -2408,9 +2135,6 @@ Lists in Action
  L
 ```
 
-158
-
-##Chapter 8: Lists and Dictionaries
 ```python
  L = []
 ```
@@ -2435,7 +2159,8 @@ Lists in Action
  L
 ```
 
-Other common list operations
+#####Other common list operations
+
 ```python
  L
 ```
@@ -2476,20 +2201,10 @@ Other common list operations
  L
 ```
 
-Lists in Action
+###Dictionaries
 
-159
-Dictionaries
-160
+####Basic Dictionary Operations
 
-##Chapter 8: Lists and Dictionaries
-Operation
-Interpretation
-Dictionaries in Action
-Dictionaries in Action
-
-161
-Basic Dictionary Operations
 ```python
  d2 = {'spam': 2, 'ham': 1, 'eggs': 3}
 ```
@@ -2518,10 +2233,8 @@ Basic Dictionary Operations
  d2.keys( )
 ```
 
-162
+####Changing Dictionaries In-Place
 
-##Chapter 8: Lists and Dictionaries
-Changing Dictionaries In-Place
 ```python
  d2['ham'] = ['grill', 'bake', 'fry']
 ```
@@ -2546,7 +2259,8 @@ Changing Dictionaries In-Place
  d2
 ```
 
-More Dictionary Methods
+####More Dictionary Methods
+
 ```python
  d2 = {'spam': 2, 'ham': 1, 'eggs': 3}
 ```
@@ -2559,9 +2273,6 @@ More Dictionary Methods
  d2.items( )
 ```
 
-Dictionaries in Action
-
-163
 ```python
  d2.get('spam')
 ```
@@ -2626,10 +2337,8 @@ Dictionaries in Action
  L
 ```
 
-164
+####A Languages Table
 
-##Chapter 8: Lists and Dictionaries
-A Languages Table
 ```python
  table = {'Python':  'Guido van Rossum',
 ```
@@ -2650,11 +2359,10 @@ A Languages Table
  for lang in table.keys( ):
 ```
 
-Dictionaries in Action
+####Dictionary Usage Notes
 
-165
-Dictionary Usage Notes
-Using dictionaries to simulate ﬂexible lists
+#####Using dictionaries to simulate ﬂexible lists
+
 ```python
  L = []
 ```
@@ -2679,10 +2387,8 @@ Using dictionaries to simulate ﬂexible lists
  D
 ```
 
-166
+#####Using dictionaries for sparse data structures
 
-##Chapter 8: Lists and Dictionaries
-Using dictionaries for sparse data structures
 ```python
  Matrix = {}
 ```
@@ -2715,14 +2421,12 @@ Using dictionaries for sparse data structures
  Matrix[(2,3,6)]
 ```
 
-Avoiding missing-key errors
+#####Avoiding missing-key errors
+
 ```python
  if Matrix.has_key((2,3,6)):
 ```
 
-Dictionaries in Action
-
-167
 ```python
  try:
 ```
@@ -2735,7 +2439,8 @@ Dictionaries in Action
  Matrix.get((2,3,6), 0)
 ```
 
-Using dictionaries as “records”
+#####Using dictionaries as "records"
+
 ```python
  rec = {}
 ```
@@ -2750,10 +2455,6 @@ Using dictionaries as “records”
 
 ```python
  rec['job']  = 'trainer/writer'
-```
-
-```python
-
 ```
 
 ```python
@@ -2780,35 +2481,18 @@ Using dictionaries as “records”
  mel['home']['zip']
 ```
 
-168
+####Other ways to make dictionaries
 
-##Chapter 8: Lists and Dictionaries
-Other ways to make dictionaries
-Why You Will Care: Dictionary Inter faces
-Dictionaries in Action
-
-169
 ```python
  dict.fromkeys(['a', 'b'], 0)
 ```
 
-##Chapter Summary
-170
+##CHAPTER 9 Tuples, Files, and Everything Else
 
-##Chapter 8: Lists and Dictionaries
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
+###Tuples
 
-171
-CHAPTER 9
-Tuples, Files, and Everything Else
-9
-Tuples
-172
-Operation
-Interpretation
-Tuples in Action
+####Tuples in Action
+
 ```python
  (1, 2) + (3, 4)
 ```
@@ -2817,9 +2501,6 @@ Tuples in Action
  (1, 2) * 4
 ```
 
-Tuples
-
-173
 ```python
  T = (1, 2, 3, 4)
 ```
@@ -2828,7 +2509,8 @@ Tuples
  T[0], T[1:3]
 ```
 
-Tuple syntax peculiarities: commas and parentheses
+#####Tuple syntax peculiarities: commas and parentheses
+
 ```python
  x = (40)
 ```
@@ -2845,7 +2527,8 @@ Tuple syntax peculiarities: commas and parentheses
  y
 ```
 
-Conversions and immutability
+#####Conversions and immutability
+
 ```python
  T = ('cc', 'aa', 'dd', 'bb')
 ```
@@ -2862,9 +2545,6 @@ Conversions and immutability
  tmp
 ```
 
-174
-
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  T = tuple(tmp)
 ```
@@ -2901,24 +2581,10 @@ Conversions and immutability
  T
 ```
 
-Why Lists and Tuples?
-Tuples
+###Files
 
-175
-Files
-Opening Files
-Operation
-Interpretation
-176
+####Files in Action
 
-##Chapter 9: Tuples, Files, and Everything Else
-Operation
-Interpretation
-Using Files
-Files
-
-177
-Files in Action
 ```python
  myfile = open('myfile', 'w')
 ```
@@ -2943,7 +2609,8 @@ Files in Action
  myfile.readline( )
 ```
 
-Storing and parsing Python objects in ﬁles
+#####Storing and parsing Python objects in ﬁles
+
 ```python
  X, Y, Z = 43, 44, 45
 ```
@@ -2972,9 +2639,6 @@ Storing and parsing Python objects in ﬁles
  F.write(S + '\n')
 ```
 
-178
-
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  F.write('%s,%s,%s\n' % (X, Y, Z))
 ```
@@ -3043,9 +2707,6 @@ Storing and parsing Python objects in ﬁles
  numbers
 ```
 
-Files
-
-179
 ```python
  line = F.readline( )
 ```
@@ -3074,7 +2735,8 @@ Files
  objects
 ```
 
-Storing native Python objects with pickle
+#####Storing native Python objects with pickle
+
 ```python
  F = open('datafile.txt', 'w')
 ```
@@ -3103,14 +2765,12 @@ Storing native Python objects with pickle
  E
 ```
 
-180
-
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  open('datafile.txt').read( )
 ```
 
-Storing and parsing packed binary data in ﬁles
+#####Storing and parsing packed binary data in ﬁles
+
 ```python
  F = open('data.bin', 'wb')
 ```
@@ -3155,22 +2815,8 @@ Storing and parsing packed binary data in ﬁles
  values
 ```
 
-Files
+###Object Flexibility
 
-181
-Other File Tools
-Type Categories Revisited
-182
-
-##Chapter 9: Tuples, Files, and Everything Else
-Why You Will Care: Operator Overloading
-Object type
-Category
-Mutable?
-Object Flexibility
-Object Flexibility
-
-183
 ```python
  L = ['abc', [(1, 2), ([3], 4)], 5]
 ```
@@ -3191,10 +2837,8 @@ Object Flexibility
  L[1][1][0][0]
 ```
 
-References Versus Copies
-184
+###References Versus Copies
 
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  X = [1, 2, 3]
 ```
@@ -3219,9 +2863,6 @@ References Versus Copies
  D
 ```
 
-References Versus Copies
-
-185
 ```python
  L = [1,2,3]
 ```
@@ -3270,10 +2911,8 @@ References Versus Copies
  D = {'x':X[:], 'y':2}
 ```
 
-Comparisons, Equality, and Truth
-186
+###Comparisons, Equality, and Truth
 
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  L1 = [1, ('a', 3)]
 ```
@@ -3322,15 +2961,8 @@ Comparisons, Equality, and Truth
  L1 &lt; L2, L1 == L2, L1 &gt; L2
 ```
 
-Comparisons, Equality, and Truth
+####The Meaning of True and False in Python
 
-187
-The Meaning of True and False in Python
-Object
-Value
-188
-
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  L = [None] * 100
 ```
@@ -3343,16 +2975,10 @@ Value
  L
 ```
 
-Python’s Type Hierarchies
-Python’s Type Hierarchies
+###Built-in Type Gotchas
 
-189
-190
+####Assignment Creates References, Not Copies
 
-##Chapter 9: Tuples, Files, and Everything Else
-Other Types in Python
-Built-in Type Gotchas
-Assignment Creates References, Not Copies
 ```python
  L = [1, 2, 3]
 ```
@@ -3373,9 +2999,6 @@ Assignment Creates References, Not Copies
  M
 ```
 
-Built-in Type Gotchas
-
-191
 ```python
  L = [1, 2, 3]
 ```
@@ -3396,7 +3019,8 @@ Built-in Type Gotchas
  M
 ```
 
-Repetition Adds One Level Deep
+####Repetition Adds One Level Deep
+
 ```python
  L = [4, 5, 6]
 ```
@@ -3429,10 +3053,8 @@ Repetition Adds One Level Deep
  Y
 ```
 
-192
+####Beware of Cyclic Data Structures
 
-##Chapter 9: Tuples, Files, and Everything Else
-Beware of Cyclic Data Structures
 ```python
  L = ['grail']
 ```
@@ -3445,32 +3067,15 @@ Beware of Cyclic Data Structures
  L
 ```
 
-Immutable Types Can’t Be Changed In-Place
-##Chapter Summary
-##Chapter Summary
-
-193
-194
-
-##Chapter 9: Tuples, Files, and Everything Else
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
-
-195
-#Part II Exercises
-196
-
-##Chapter 9: Tuples, Files, and Everything Else
 ```python
  X = 'spam'
 ```
 
-    ```python
+```python
  Y = 'eggs'
 ```
 
-    ```python
+```python
  X, Y = Y, X
 ```
 
@@ -3478,11 +3083,11 @@ Quiz Answers
  D = {}
 ```
 
-    ```python
+```python
  D[1] = 'a'
 ```
 
-    ```python
+```python
  D[2] = 'b'
 ```
 
@@ -3490,74 +3095,20 @@ Quiz Answers
  D[(1, 2, 3)] = 'c'
 ```
 
-    ```python
+```python
  D
 ```
 
-#Part II Exercises
+#PART III Statements and Syntax
 
-197
-198
-
-##Chapter 9: Tuples, Files, and Everything Else
-PART III
-III.Statements and Syntax
-CHAPTER 10
-Introducing Python Statements10
-Python Program Structure Revisited
-201
-Python’s Statements
-Statement
-Role
-Example
-202
+##Chapter 10: Introducing Python Statements
 
 ##Chapter 10:
-Introducing Python Statements
-Statement
-Role
-Example
-A Tale of Two ifs
-A Tale of Two ifs
 
-203
-What Python Adds
-What Python Removes
-Parentheses are optional
-End of line is end of statement
-204
+###A Quick Example: Interactive Loops
 
-##Chapter 10:
-Introducing Python Statements
-End of indentation is end of block
-A Tale of Two ifs
+####Doing Math on User Inputs
 
-205
-Why Indentation Syntax?
-206
-
-##Chapter 10:
-Introducing Python Statements
-A Tale of Two ifs
-
-207
-A Few Special Cases
-Statement rule special cases
-208
-
-##Chapter 10:
-Introducing Python Statements
-Block rule special case
-A Tale of Two ifs
-
-209
-A Quick Example: Interactive Loops
-A Simple Interactive Loop
-210
-
-##Chapter 10:
-Introducing Python Statements
-Doing Math on User Inputs
 ```python
  reply = '20'
 ```
@@ -3570,10 +3121,8 @@ Doing Math on User Inputs
  int(reply) ** 2
 ```
 
-A Quick Example: Interactive Loops
+####Handling Errors by Testing Inputs
 
-211
-Handling Errors by Testing Inputs
 ```python
  S = '123'
 ```
@@ -3586,40 +3135,12 @@ Handling Errors by Testing Inputs
  S.isdigit( ), T.isdigit( )
 ```
 
-212
-
-##Chapter 10:
-Introducing Python Statements
-Handling Errors with try Statements
-A Quick Example: Interactive Loops
-
-213
-Nesting Code Three Levels Deep
-214
-
-##Chapter 10:
-Introducing Python Statements
-##Chapter Summary
-##Chapter Summary
-
-215
-##Chapter Quiz
-Quiz Answers
-216
-
-##Chapter 10:
-Introducing Python Statements
-CHAPTER 11
-Assignment, Expressions, and print11
-Assignment Statements
-217
-Assignment Statement Forms
-Operation
-Interpretation
-218
-
 ##Chapter 11: Assignment, Expressions, and print
-Sequence Assignments
+
+###Assignment Statements
+
+####Sequence Assignments
+
 ```python
  nudge = 1
 ```
@@ -3660,9 +3181,6 @@ Sequence Assignments
  nudge, wink
 ```
 
-Assignment Statements
-
-219
 ```python
  [a, b, c] = (1, 2, 3)
 ```
@@ -3679,7 +3197,8 @@ Assignment Statements
  a, c
 ```
 
-Advanced sequence assignment patterns
+#####Advanced sequence assignment patterns
+
 ```python
  string = 'SPAM'
 ```
@@ -3732,9 +3251,6 @@ Advanced sequence assignment patterns
  a, b, c
 ```
 
-220
-
-##Chapter 11: Assignment, Expressions, and print
 ```python
  ((a, b), c) = ('SP', 'AM')
 ```
@@ -3763,10 +3279,8 @@ Advanced sequence assignment patterns
  while L:
 ```
 
-Assignment Statements
+####Multiple-Target Assignments
 
-221
-Multiple-Target Assignments
 ```python
  a = b = c = 'spam'
 ```
@@ -3787,7 +3301,8 @@ Multiple-Target Assignments
  a = b
 ```
 
-Multiple-target assignment and shared references
+#####Multiple-target assignment and shared references
+
 ```python
  a = b = 0
 ```
@@ -3812,9 +3327,6 @@ Multiple-target assignment and shared references
  a, b
 ```
 
-222
-
-##Chapter 11: Assignment, Expressions, and print
 ```python
  a = []
 ```
@@ -3831,7 +3343,8 @@ Multiple-target assignment and shared references
  a, b
 ```
 
-Augmented Assignments
+####Augmented Assignments
+
 ```python
  x = 1
 ```
@@ -3864,9 +3377,6 @@ Augmented Assignments
  S
 ```
 
-Assignment Statements
-
-223
 ```python
  L = [1, 2]
 ```
@@ -3903,9 +3413,6 @@ Assignment Statements
  L
 ```
 
-224
-
-##Chapter 11: Assignment, Expressions, and print
 ```python
  L += [9, 10]
 ```
@@ -3914,7 +3421,8 @@ Assignment Statements
  L
 ```
 
-Augmented assignment and shared references
+#####Augmented assignment and shared references
+
 ```python
  L = [1, 2]
 ```
@@ -3947,15 +3455,10 @@ Augmented assignment and shared references
  L, M
 ```
 
-Variable Name Rules
-Assignment Statements
+####Variable Name Rules
 
-225
-226
+#####Names have no type, but objects do
 
-##Chapter 11: Assignment, Expressions, and print
-Naming conventions
-Names have no type, but objects do
 ```python
  x = 0
 ```
@@ -3968,16 +3471,10 @@ Names have no type, but objects do
  x = [1, 2, 3]
 ```
 
-Assignment Statements
+###Expression Statements
 
-227
-Expression Statements
-Operation
-Interpretation
-228
+####Expression Statements and In-Place Changes
 
-##Chapter 11: Assignment, Expressions, and print
-Expression Statements and In-Place Changes
 ```python
  L = [1, 2]
 ```
