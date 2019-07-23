@@ -3495,12 +3495,8 @@ Why Use Built-in Types?
  print L
 ```
 
-print Statements
-print Statements
+###print Statements
 
-229
-Operation
-Interpretation
 ```python
  x = 'a'
 ```
@@ -3521,7 +3517,8 @@ Interpretation
  print '%s...%s' % (x, y)
 ```
 
-The Python “Hello World” Program
+####The Python "Hello World" Program
+
 ```python
  print 'hello world'
 ```
@@ -3538,14 +3535,8 @@ The Python “Hello World” Program
  sys.stdout.write('hello world\n')
 ```
 
-230
+####The print >> ﬁle Extension
 
-##Chapter 11: Assignment, Expressions, and print
-Redirecting the Output Stream
-print Statements
-
-231
-The print &gt;&gt; ﬁle Extension
 ```python
  import sys
 ```
@@ -3606,9 +3597,6 @@ The print &gt;&gt; ﬁle Extension
  print open('log.txt').read( )
 ```
 
-232
-
-##Chapter 11: Assignment, Expressions, and print
 ```python
  import sys
 ```
@@ -3621,26 +3609,12 @@ The print &gt;&gt; ﬁle Extension
  print &gt;&gt; sys.stderr, 'Bad!' * 8
 ```
 
-Why You Will Care: print and stdout
-print Statements
+##CHAPTER 12 if Tests
 
-233
-##Chapter Summary
-234
+###if Statements
 
-##Chapter 11: Assignment, Expressions, and print
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
+####Basic Examples
 
-235
-CHAPTER 12
-if Tests
-12
-if Statements
-General Format
-236
-Basic Examples
 ```python
  if 1:
 ```
@@ -3649,7 +3623,7 @@ Basic Examples
  if not 1:
 ```
 
-Multiway Branching
+####Multiway Branching
 ```python
  x = 'killer rabbit'
 ```
@@ -3658,9 +3632,6 @@ Multiway Branching
  if x == 'roger':
 ```
 
-if Statements
-
-237
 ```python
  choice = 'ham'
 ```
@@ -3685,29 +3656,8 @@ if Statements
  print branch.get('bacon', 'Bad choice')
 ```
 
-238
+###Truth Tests
 
-##Chapter 12:
-if Tests
-Python Syntax Rules
-Python Syntax Rules
-
-239
-Block Delimiters
-240
-
-##Chapter 12:
-if Tests
-Statement Delimiters
-Python Syntax Rules
-
-241
-A Few Special Cases
-242
-
-##Chapter 12:
-if Tests
-Truth Tests
 ```python
  2 &lt; 3, 3 &lt; 2
 ```
@@ -3716,9 +3666,6 @@ Truth Tests
  2 or 3, 3 or 2
 ```
 
-Truth Tests
-
-243
 ```python
  [ ] or 3
 ```
@@ -3739,11 +3686,8 @@ Truth Tests
  3 and [ ]
 ```
 
-The if/else Ternary Expression
-244
+####The if/else Ternary Expression
 
-##Chapter 12:
-if Tests
 ```python
  A = 't' if 'spam' else 'f'
 ```
@@ -3768,27 +3712,12 @@ if Tests
  ['f', 't'][bool('spam')]
 ```
 
-Truth Tests
+##CHAPTER 13 while and for Loops
 
-245
-Why You Will Care: Booleans
-##Chapter Summary
-246
+###while Loops
 
-##Chapter 12:
-if Tests
-##Chapter Quiz
-Quiz Answers
-##Chapter Quiz
+####Examples
 
-247
-CHAPTER 13
-while and for Loops
-13
-while Loops
-248
-General Format
-Examples
 ```python
  while True:
 ```
@@ -3809,15 +3738,9 @@ Examples
  while a &lt; b:
 ```
 
-while Loops
+###break, continue, pass, and the Loop else
 
-249
-break, continue, pass, and the Loop else
-General Loop Format
-250
-
-##Chapter 13: while and for Loops
-Examples
+####Examples
 pass
 continue
 break, continue, pass, and the Loop else
