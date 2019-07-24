@@ -9,7 +9,7 @@ Probably I'll use its parts in my ML course.
 
 1.  **General Info, Python**
   - Lecture
-    -  In progress...
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
   - Practice
     -  In progress...
   - Further Resources
@@ -20,7 +20,7 @@ Probably I'll use its parts in my ML course.
     
 2.  **More about Python**
   - Lecture
-    -  In progress...
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
