@@ -8,21 +8,23 @@ Probably I'll use its parts in my ML course.
 ### Intro
 
 1.  **General Info, Python**
-  - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
-  - Practice
-    -  In progress...
-  - Further Resources
-    -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
-    -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
-    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
-    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
-    
-2.  **More about Python**
+
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
+  - Further Resources
+    -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
+    -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
+    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
+    -  [Viz Mode CodeSculptor (Python2 only)](http://www.codeskulptor.org/viz/index.html)
+    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
+    
+2.  **More about Python**
+
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
+  - Practice
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
   - Further Resources
     -  [Tutorial, Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
