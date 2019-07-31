@@ -8,13 +8,13 @@ def push(obj):
 def pop():
   global stack
   if not stack:
-    raise error, 'stack underflow' # raise local error
+    raise Exception(error, 'stack underflow') # raise local error
   top, stack = stack[0], stack[1:] # remove front item
   return top
 
 def top():
   if not stack: # raise local error
-    raise error, 'stack underflow' # or let IndexError
+    raise Exception(error, 'stack underflow') # or let IndexError
   return stack[0]
 
 def empty(): return not stack # is the stack []?
