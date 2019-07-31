@@ -1,5 +1,5 @@
 stack = [] # on first import
-error = 'stack1.error' # local exceptions
+error = 'mystack.error' # local exceptions
 
 def push(obj):
   global stack # 'global' to change
