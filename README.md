@@ -77,7 +77,8 @@ Probably I'll use its parts in my ML course.
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
+    -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
+    -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
 2.  **Linear Regression**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_6_linear_regression.ipynb)
