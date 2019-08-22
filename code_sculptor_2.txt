@@ -1,6 +1,4 @@
-# Bunny's Big Adventure!
 # Originally created by: Jenna Netland
-# Copyright (c) 2012 All Rights Reserved, Jenna Netland
 # All images and music are Copyright (c) 2012 All Rights Reserved, Jenna Netland
 
 import math
