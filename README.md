@@ -72,6 +72,14 @@ Probably I'll use its parts in my ML course.
 
 ### Methods of ML
 
+0.  **Statistics**
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_4_5_statistics.ipynb)
+  - Practice
+    -  In progress...
+  - Further Resources
+    -  In progress...
+
 1.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
