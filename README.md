@@ -78,7 +78,11 @@ Probably I'll use its parts in my ML course.
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
+    -  [How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
+    -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
+    -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
+
+    
 
 1.  **Naive Bayes Classification**
   - Lecture
