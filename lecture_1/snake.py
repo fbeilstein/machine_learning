@@ -100,7 +100,7 @@ def keydown(key):
 def keyup(key):
     pass
     
-frame = simplegui.create_frame('Tennis', 600, 400)
+frame = simplegui.create_frame('Snake', 600, 400)
 frame.set_draw_handler(draw_handler)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
