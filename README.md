@@ -13,6 +13,8 @@ Probably I'll use its parts in my ML course.
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
+    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/snake.py))
+    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/tennis.py))
   - Further Resources
     -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
     -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
@@ -82,8 +84,6 @@ Probably I'll use its parts in my ML course.
     -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
 
-    
-
 1.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
@@ -92,6 +92,7 @@ Probably I'll use its parts in my ML course.
   - Further Resources
     -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
+    
 2.  **Linear Regression**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_6_linear_regression.ipynb)
@@ -99,6 +100,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 3.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_7_svm.ipynb)
@@ -106,6 +108,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 4.  **Decision Trees and Random Forests**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_8_decision_trees.ipynb)
@@ -113,6 +116,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 5.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_9_pca.ipynb)
@@ -120,6 +124,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 6.  **Manifold Learning**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
@@ -127,6 +132,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)
+    
 7.  **k-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_k_means_clustering.ipynb)
@@ -134,6 +140,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 8.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_gaussian_mixture_models.ipynb)
@@ -141,6 +148,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 9.  **Kernel Density Estimation**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_kernel_density_estimation.ipynb)
@@ -148,6 +156,7 @@ Probably I'll use its parts in my ML course.
     -  In progress...
   - Further Resources
     -  In progress...
+    
 10.  **What's next: NNs and beyond**
   - Lecture
     -  In progress...
