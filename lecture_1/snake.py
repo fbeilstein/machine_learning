@@ -19,7 +19,9 @@ class Snake:
             self.g = False
     
     def set_direction(self, direction):
-        self.direction = direction
+        scalar_prod = self.direction[0] * direction[0] + self.direction[1] * direction[1]
+        if not scalar_prod:
+            self.direction = direction
     
     def get_snake(self):
         return self.pos
@@ -38,9 +40,8 @@ class Snake:
             return True
         if head[1] < 0 or head[1] > self.h:
             return True
-        for blk in self.pos[1:]:
-            if head[0] == blk[0] and head[1] == blk[1]:
-                return True
+        if head in self.pos[1:]:
+            return True
         return False
     
     
