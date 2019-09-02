@@ -70,6 +70,7 @@ Probably I'll use its parts in my ML course.
     -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
     -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [Basemap Documentation](https://matplotlib.org/basemap/)
+    -  [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/directory-of-visualizations.html)
 
 
 ### Methods of ML
