@@ -252,14 +252,14 @@ class Animal():
         self.tile[1] = [1, self.tile[1], 0][1 + self.direction]
         _cnt[0] = (_cnt[0] + 1) % 9            
         if self.num_jumps > 0:
-            self.tile[0] = [1, 0, 2][(self.vel[1] > 0) - (self.vel[1] < 0) + 1]
+            self.tile[0] = [1, 0, 2][int(self.vel[1] > 0) - (self.vel[1] < 0) + 1]
         else:
             self.tile[0] = [0, (self.tile[0] + _cnt[0] // 8) % 3][self.direction != 0]        
         self._image.draw(canvas, [self.pos[0] + offset[0], self.pos[1] + offset[1]], self.tile)
         self._carrot_box.draw(canvas)
         
     def key_handler(self, key_state):
-        self.direction = key_state['right'] - key_state['left']
+        self.direction = int(key_state['right']) - int(key_state['left'])
         if key_state['up']:
             key_state['up'] = False
             self.jump()
@@ -277,7 +277,7 @@ class Screen:
         self._screen = self._screens[0]
         
     def set_level(self, level):
-        self._screen = self._screens[(10 < level) + (20 < level)]
+        self._screen = self._screens[int(10 < level) + int(20 < level)]
     
     def draw(self, canvas):
         self._screen.draw(canvas, [450, 300])
