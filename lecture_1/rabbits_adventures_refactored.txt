@@ -303,7 +303,7 @@ class Game:
     
     def create_levels(self):
         self.levels = []
-        a_file = urllib2.urlopen('https://raw.githubusercontent.com/fbeilstein/machine_learning/master/test.txt')
+        a_file = urllib2.urlopen('https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_1/levels.txt')
         data = a_file.read().split('L')
         for level in data:
             if len(level) > 2:
