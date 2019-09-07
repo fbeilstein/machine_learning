@@ -41,7 +41,7 @@ Probably I'll use its parts in my ML course.
 1.  **NumPy Arrays**
 
   - Lecture
-  -  [Python Refresher](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/python_refresher.ipynb)
+    -  [Python Refresher](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/python_refresher.ipynb)
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
