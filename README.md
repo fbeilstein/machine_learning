@@ -1,5 +1,6 @@
 # schedule info
 New schedule: 11.20-13.30 (according to department's info)
+
 Next Wednesday: waiting for Mr. Pylypenko's return to discuss, info will be updated.
 
 # machine_learning
