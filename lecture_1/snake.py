@@ -96,7 +96,8 @@ def timer_handler():
 
 def keydown(key):
     _dirs = {"%":[-1, 0], "'":[+1,0], "&":[0,-1], "(":[0,+1]}
-    snake.set_direction(_dirs[chr(key)])
+    if chr(key) in _dirs.keys():
+        snake.set_direction(_dirs[chr(key)])
 
 def keyup(key):
     pass
