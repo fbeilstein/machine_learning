@@ -81,7 +81,7 @@ Probably I'll use its parts in my ML course.
 -----
 ### Module problem
 
-Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to get the nonebook with the problem statement. You can use it to store your drafts and final solution.
+Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to get the notebook with the problem statement. You can use it to store your drafts and final solution.
 
 -----
 
