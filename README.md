@@ -78,6 +78,12 @@ Probably I'll use its parts in my ML course.
     -  [Basemap Documentation](https://matplotlib.org/basemap/)
     -  [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
 
+-----
+### Module problem
+
+Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to get the nonebook with the problem statement. You can use it to store your drafts and final solution.
+
+-----
 
 ### Methods of ML
 
