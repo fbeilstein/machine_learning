@@ -91,7 +91,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_4_5_statistics.ipynb)
   - Practice
-    -  In progress...
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_4_5_statistics.ipynb)
   - Further Resources
     -  [How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
     -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
