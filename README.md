@@ -1,7 +1,7 @@
 # schedule info
 New schedule: 11.20-13.30 (according to department's info)
 
-Next Wednesday: waiting for Mr. Pylypenko's return to discuss, info will be updated.
+Next Wednesday: switching to new schedule 11.20-13.30 (lecture & practice on MatPlotLib expected)
 
 # machine_learning
 
