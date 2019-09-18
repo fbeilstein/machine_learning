@@ -1,7 +1,11 @@
 # schedule info
-New schedule: 11.20-13.30 (according to department's info)
 
-Next Wednesday: switching to new schedule 11.20-13.30 (lecture & practice on MatPlotLib expected)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/96px-Belgian_road_sign_A51.svg.png)
+Warning! Hiatus!
+
+We skip two lectures, e.g. **no ML on September 25 and October 2**. 
+Presumably, lecture on statistics will be held.
+
 
 # machine_learning
 
