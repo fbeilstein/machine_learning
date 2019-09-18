@@ -1,6 +1,7 @@
 # schedule info
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/96px-Belgian_road_sign_A51.svg.png)
+
 Warning! Hiatus!
 
 We skip two lectures, e.g. **no ML on September 25 and October 2**. 
