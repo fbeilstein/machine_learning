@@ -106,7 +106,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
   - Practice
-    -  In progress...
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_naive_bayes.ipynb)
   - Further Resources
     -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
