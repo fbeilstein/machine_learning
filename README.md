@@ -4,7 +4,7 @@
 
 Warning! Hiatus!
 
-We skip two lectures, e.g. **no ML on September 25 and October 2**. 
+We skip one (more) lecture, e.g. **no ML on October 2**. 
 Presumably, lecture on statistics will be held.
 
 
