@@ -123,7 +123,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_7_svm.ipynb)
   - Practice
-    -  In progress...
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_7_svm.ipynb)
   - Further Resources
     -  In progress...
     
