@@ -139,7 +139,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_9_pca.ipynb)
   - Practice
-    -  In progress...
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_9_pca.ipynb)
   - Further Resources
     -  In progress...
     
