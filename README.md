@@ -1,12 +1,6 @@
 # schedule info
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/96px-Belgian_road_sign_A51.svg.png)
-
-Warning! Hiatus!
-
-We skip one (more) lecture, e.g. **no ML on October 2**. 
-Presumably, lecture on statistics will be held.
-
+Next lecture as scheduled (Wednesday, 11:20).
 
 # machine_learning
 
