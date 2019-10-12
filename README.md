@@ -106,7 +106,10 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
-
+    -  [Spam Filtering with Naive Bayes - Which Naive Bayes?](https://www.researchgate.net/publication/221650814_Spam_Filtering_with_Naive_Bayes_-_Which_Naive_Bayes)
+    -  [A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
+    -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
+    
 1.5.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_5_optimization.ipynb)
