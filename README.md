@@ -96,7 +96,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="100px"/>
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="300px"/>
 
 1.  **Naive Bayes Classification**
   - Lecture
