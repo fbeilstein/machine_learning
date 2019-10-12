@@ -107,9 +107,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
 
 1.5.  **Mathematical optimization**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5.5_optimization.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_5_optimization.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5.5_optimization.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_5_optimization.ipynb)
   - Further Resources
     -  In progress...
 
