@@ -104,7 +104,15 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
-    
+
+1.5.  **Mathematical optimization**
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5.5_optimization.ipynb)
+  - Practice
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5.5_optimization.ipynb)
+  - Further Resources
+    -  In progress...
+
 2.  **Linear Regression**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_6_linear_regression.ipynb)
