@@ -97,9 +97,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
 <hr size="5" noshade="noshade" color="red"/>
-<font face="helvetica" color="black" size="6">
--- We are here --
-</font>
+```diff
+- We are here -
+```
 <hr size="5" noshade="noshade" color="red"/>    
 
 1.  **Naive Bayes Classification**
