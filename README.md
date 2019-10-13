@@ -109,6 +109,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Spam Filtering with Naive Bayes - Which Naive Bayes?](https://www.researchgate.net/publication/221650814_Spam_Filtering_with_Naive_Bayes_-_Which_Naive_Bayes)
     -  [A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
     -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
+    -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     
 1.5.  **Mathematical optimization**
   - Lecture
