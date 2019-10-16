@@ -131,6 +131,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
     - [Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
     - [1D regrression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
+    - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
   
 3.  **Support Vector Machines**
   - Lecture
