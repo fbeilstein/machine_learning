@@ -118,7 +118,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_5_optimization.ipynb)
   - Further Resources
-    -  In progress...
+  -  [SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
 
 2.  **Linear Regression**
   - Lecture
