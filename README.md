@@ -96,8 +96,6 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 1.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
@@ -111,6 +109,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
+    
+    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
     
 1.5.  **Mathematical optimization**
   - Lecture
