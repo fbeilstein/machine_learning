@@ -125,9 +125,13 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_6_linear_regression.ipynb)
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_6_regression.ipynb)
-  - Further Resources
-    -  In progress...
-    
+    - Further Resources
+  - [Gentle introduction to 1D regression](https://www.youtube.com/watch?v=ZkjP5RJLQF4&list=PLIeGtxpvyG-LoKUpV0fSY8BGKIMIdmfCi)
+  - [1D regression basics](https://www.youtube.com/watch?v=nk2CQITm_eo&t)
+  - [R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
+  - [Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
+  - [1D regrression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
+  
 3.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_7_svm.ipynb)
