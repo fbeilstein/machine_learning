@@ -119,6 +119,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_5_optimization.ipynb)
   - Further Resources
     - [SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
+    - [Momentum gradient descent method](https://distill.pub/2017/momentum/)
+    - [Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
+    - [Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
 
 2.  **Linear Regression**
   - Lecture
