@@ -124,6 +124,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
     - [HABR Newton method](https://habr.com/ru/post/469877/)
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
+    - [HABR Gradient descent methods](https://habr.com/ru/post/318970/)
 
 2.  **Linear Regression**
   - Lecture
