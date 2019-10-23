@@ -93,7 +93,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_4_5_statistics.ipynb)
   - Further Resources
     -  [How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
-    -  [How To Lie With Statistics, HABR Article](https://habr.com/ru/post/217545/)
+    -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
 1.  **Naive Bayes Classification**
@@ -102,13 +102,13 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_naive_bayes.ipynb)
   - Further Resources
-    -  [Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
+    -  [[VIDEO] Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
     -  [Spam Filtering with Naive Bayes - Which Naive Bayes?](https://www.researchgate.net/publication/221650814_Spam_Filtering_with_Naive_Bayes_-_Which_Naive_Bayes)
     -  [A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
     -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
-    -  [Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
+    -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
       
 1.5.  **Mathematical optimization**
   - Lecture
@@ -120,9 +120,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Momentum gradient descent method](https://distill.pub/2017/momentum/)
     - [Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
     - [Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
-    - [HABR Newton method](https://habr.com/ru/post/469877/)
+    - [[HABR] Newton method](https://habr.com/ru/post/469877/)
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
-    - [HABR Gradient descent methods](https://habr.com/ru/post/318970/)
+    - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
 
     <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
