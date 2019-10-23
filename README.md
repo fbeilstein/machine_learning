@@ -133,11 +133,11 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_6_regression.ipynb)
   - Further Resources
-    - [Gentle introduction to 1D regression](https://www.youtube.com/watch?v=ZkjP5RJLQF4&list=PLIeGtxpvyG-LoKUpV0fSY8BGKIMIdmfCi)
-    - [1D regression basics](https://www.youtube.com/watch?v=nk2CQITm_eo&t)
-    - [R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
-    - [Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
-    - [1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
+    - [[VIDEO] Gentle introduction to 1D regression](https://www.youtube.com/watch?v=ZkjP5RJLQF4&list=PLIeGtxpvyG-LoKUpV0fSY8BGKIMIdmfCi)
+    - [[VIDEO] 1D regression basics](https://www.youtube.com/watch?v=nk2CQITm_eo&t)
+    - [[VIDEO] R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
+    - [[VIDEO] Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
+    - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
   
 3.  **Support Vector Machines**
