@@ -109,9 +109,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
-    
-    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
-    
+      
 1.5.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_5_optimization.ipynb)
@@ -126,6 +124,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [HABR Gradient descent methods](https://habr.com/ru/post/318970/)
     - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
+
+    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
 
 2.  **Linear Regression**
   - Lecture
