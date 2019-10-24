@@ -1,4 +1,5 @@
-    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="700px"/> 
+    
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="700px"/> 
 
 # schedule info
 
