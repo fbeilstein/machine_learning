@@ -1,8 +1,8 @@
+    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="700px"/> 
+
 # schedule info
 
 Next lecture as scheduled (Wednesday, 11:20).
-
-# machine_learning
 
 This repo is intended for different tests.
 Probably I'll use its parts in my ML course.
