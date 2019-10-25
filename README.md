@@ -125,6 +125,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
+    - [Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)
 
     <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
 
