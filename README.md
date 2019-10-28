@@ -180,8 +180,15 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
-    
+     - [[VIDEO] K-Means overview](https://www.youtube.com/watch?v=YIGtalP1mv0)
+     - [[VIDEO] Cool K-Means demonstration](https://www.youtube.com/watch?v=BVFG7fd1H30)
+     - [[VIDEO] K-Means simple intro](https://www.youtube.com/watch?v=4b5d3muPQmA)
+     - [[VIDEO] K-Means and image segmentation](https://www.youtube.com/watch?v=yR7k19YBqiw)
+     - [[VIDEO] in depth K-Means with python examples](https://www.youtube.com/watch?v=9991JlKnFmk)
+     - [[HABR] K-Means and C-Means](https://habr.com/ru/post/67078/)
+     - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
+     
+
 8.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_gaussian_mixture_models.ipynb)
