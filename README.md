@@ -125,9 +125,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
-    - [Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)
-
-    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
+    - [Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
 
 2.  **Linear Regression**
   - Lecture
@@ -141,6 +139,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [[VIDEO] Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
+  
+  <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
   
 3.  **Support Vector Machines**
   - Lecture
