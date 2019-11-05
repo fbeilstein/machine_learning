@@ -148,7 +148,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_7_svm.ipynb)
   - Further Resources
-    -  [Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
+    -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
+    -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
     
 4.  **Decision Trees and Random Forests**
   - Lecture
