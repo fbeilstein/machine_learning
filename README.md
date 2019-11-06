@@ -140,8 +140,6 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
   
-  <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
-  
 3.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_7_svm.ipynb)
@@ -150,6 +148,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
+  
+    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
     
 4.  **Decision Trees and Random Forests**
   - Lecture
