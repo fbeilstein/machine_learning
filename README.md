@@ -166,7 +166,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_9_pca.ipynb)
   - Further Resources
-    -  In progress...
+   - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
+   - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
+    
     
 6.  **Manifold Learning**
   - Lecture
@@ -198,7 +200,9 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
+    - [[VIDEO] Madras University lecture on GMM](https://www.youtube.com/watch?v=Yz5pySyEtsU&t=)
+    - [[VIDEO] Madras University lecture on EM](https://www.youtube.com/watch?v=AyCtj0shjP8&t=)
+    - [[VIDEO] K-Means overview](https://www.youtube.com/watch?v=YIGtalP1mv0)
     
 9.  **Kernel Density Estimation**
   - Lecture
