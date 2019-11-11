@@ -202,7 +202,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     - [[VIDEO] Madras University lecture on GMM](https://www.youtube.com/watch?v=Yz5pySyEtsU&t=)
     - [[VIDEO] Madras University lecture on EM](https://www.youtube.com/watch?v=AyCtj0shjP8&t=)
-    - [[VIDEO] K-Means overview](https://www.youtube.com/watch?v=YIGtalP1mv0)
+
     
 9.  **Kernel Density Estimation**
   - Lecture
