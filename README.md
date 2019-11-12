@@ -231,3 +231,4 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
 1. David Barber. Bayesian Reasoning and Machine Learning (http://web4.cs.ucl.ac.uk/staff/D.Barber/textbook/090310.pdf)
 2. Trevor Hastie. Robert Tibshirani. Jerome Friedman. The Elements of Statistical Learning (https://web.stanford.edu/~hastie/ElemStatLearn/)
 3. Simon J.D. Prince. Computer vision: models, learning and inference (http://web4.cs.ucl.ac.uk/staff/s.prince/book/book.pdf)
+4. C. Bishop. Pattern Recognition and Machine Learning. (http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf)
