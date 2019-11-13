@@ -205,6 +205,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     - [[VIDEO] GMM and EM](https://www.youtube.com/watch?v=Rkl30Fr2S38&list=PLENoUUr0N3XnaeG_VxleLHurSnsHrbW6A)
     - [[VIDEO] Stanford lecture on GMM](https://www.youtube.com/watch?v=ZZGTuAkF-Hw&list=PL1MEH7AyGL-czoBtDB5grNwd8yM6oa5uQ)
     - [[VIDEO] 1D GMM](https://www.youtube.com/watch?v=REypj2sy_5U&list=PL1MEH7AyGL-czoBtDB5grNwd8yM6oa5uQ&index=4)
+    - [[ARTICLE] Easy intro to GMM]https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     
 9.  **Kernel Density Estimation**
   - Lecture
