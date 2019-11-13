@@ -148,10 +148,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
-    -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf)
-  
-    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
-    
+    -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf) 
+      
 4.  **Decision Trees and Random Forests**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_8_decision_trees.ipynb)
@@ -159,6 +157,8 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_8_decision_trees.ipynb)
   - Further Resources
     -  In progress...
+    
+    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
     
 5.  **Principal Component Analysis**
   - Lecture
