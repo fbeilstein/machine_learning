@@ -169,6 +169,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
    - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
    - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
    - [[HABR] How PCA works](https://habr.com/ru/post/304214/)
+   - [[ARTICLE] Introduction to PCA](https://towardsdatascience.com/tidying-up-with-pca-an-introduction-to-principal-components-analysis-f876599af383)
     
     
 6.  **Manifold Learning**
