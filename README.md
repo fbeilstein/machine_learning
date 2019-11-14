@@ -168,6 +168,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
    - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
    - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
+   - [[HABR] How PCA works](https://habr.com/ru/post/304214/)
     
     
 6.  **Manifold Learning**
