@@ -170,7 +170,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
    - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
    - [[HABR] How PCA works](https://habr.com/ru/post/304214/)
    - [[ARTICLE] Introduction to PCA](https://towardsdatascience.com/tidying-up-with-pca-an-introduction-to-principal-components-analysis-f876599af383)
-   - [[PDF] A Tutorial on Principal Component Analysis]https://arxiv.org/pdf/1404.1100.pdf)
+   - [[PDF] A Tutorial on Principal Component Analysis](https://arxiv.org/pdf/1404.1100.pdf)
     
     
 6.  **Manifold Learning**
