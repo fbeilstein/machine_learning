@@ -166,12 +166,12 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_9_pca.ipynb)
   - Further Resources
-   - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
-   - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
-   - [[HABR] How PCA works](https://habr.com/ru/post/304214/)
-   - [[ARTICLE] Introduction to PCA](https://towardsdatascience.com/tidying-up-with-pca-an-introduction-to-principal-components-analysis-f876599af383)
-   - [[PDF] A Tutorial on Principal Component Analysis](https://arxiv.org/pdf/1404.1100.pdf)
-   - [[ARTICLE] PCA and SVD explained with numpy](https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8)
+    - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
+    - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
+    - [[HABR] How PCA works](https://habr.com/ru/post/304214/)
+    - [[ARTICLE] Introduction to PCA](https://towardsdatascience.com/tidying-up-with-pca-an-introduction-to-principal-components-analysis-f876599af383)
+    - [[PDF] A Tutorial on Principal Component Analysis](https://arxiv.org/pdf/1404.1100.pdf)
+    - [[ARTICLE] PCA and SVD explained with numpy](https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8)
     
     
 6.  **Manifold Learning**
