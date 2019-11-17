@@ -146,7 +146,8 @@ Next lecture as scheduled (Wednesday, 11:20).
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_8_decision_trees.ipynb)
   - Further Resources
-    -  In progress...
+    -  [[VIDEO] Random Forests, StatQuest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
+    -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
     
