@@ -5,9 +5,6 @@
 
 Next lecture as scheduled (Wednesday, 11:20).
 
-This repo is intended for different tests.
-Probably I'll use its parts in my ML course.
-
 ## Curriculum
 
 ### Intro
@@ -77,13 +74,6 @@ Probably I'll use its parts in my ML course.
     -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [Basemap Documentation](https://matplotlib.org/basemap/)
     -  [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
-
------
-### Module problem
-
-Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to get the notebook with the problem statement. You can use it to store your drafts and final solution.
-
------
 
 ### Methods of ML
 
@@ -158,7 +148,7 @@ Use the following [Repository](https://github.com/kauMLstudent/ml_problems) to g
   - Further Resources
     -  In progress...
     
-    <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
     
 5.  **Principal Component Analysis**
   - Lecture
