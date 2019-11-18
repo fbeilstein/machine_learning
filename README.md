@@ -148,6 +148,7 @@ Next lecture as scheduled (Wednesday, 11:20).
   - Further Resources
     -  [[VIDEO] Random Forests, StatQuest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
+    -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
     
