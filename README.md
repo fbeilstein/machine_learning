@@ -165,6 +165,7 @@ Next lecture as scheduled (Wednesday, 11:20).
     - [[PDF] A Tutorial on Principal Component Analysis](https://arxiv.org/pdf/1404.1100.pdf)
     - [[ARTICLE] PCA and SVD explained with numpy](https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8)
     - [[ARTICLE] PCA: Application in Machine Learning](https://medium.com/apprentice-journal/pca-application-in-machine-learning-4827c07a61db)
+    - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
     
     
 6.  **Manifold Learning**
