@@ -149,9 +149,7 @@ Next lecture as scheduled (Wednesday, 11:20).
     -  [[VIDEO] Random Forests, StatQuest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
-    
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> 
-    
+      
 5.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_9_pca.ipynb)
@@ -167,7 +165,8 @@ Next lecture as scheduled (Wednesday, 11:20).
     - [[ARTICLE] PCA: Application in Machine Learning](https://medium.com/apprentice-journal/pca-application-in-machine-learning-4827c07a61db)
     - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
     
-    
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
+   
 6.  **Manifold Learning**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
