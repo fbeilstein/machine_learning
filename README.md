@@ -167,19 +167,11 @@ Next lecture as scheduled (Wednesday, 11:20).
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
    
-6.  **Manifold Learning**
-  - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
-  - Practice
-    -  In progress...
-  - Further Resources
-    -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)
-    
-7.  **k-Means Clustering**
+6.  **k-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_k_means_clustering.ipynb)
   - Practice
-    -  In progress...
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_11_k_means_clustering.ipynb)
   - Further Resources
      - [[VIDEO] K-Means overview](https://www.youtube.com/watch?v=YIGtalP1mv0)
      - [[VIDEO] Cool K-Means demonstration](https://www.youtube.com/watch?v=BVFG7fd1H30)
@@ -190,8 +182,7 @@ Next lecture as scheduled (Wednesday, 11:20).
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
      
-
-8.  **Gaussian Mixture Models**
+7.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_gaussian_mixture_models.ipynb)
   - Practice
@@ -205,6 +196,14 @@ Next lecture as scheduled (Wednesday, 11:20).
     - [[VIDEO] Univ. of Washington on Gaussian Mixture Models for Clustering](https://www.youtube.com/watch?v=DODphRRL79c&t)
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
+    
+8.  **Manifold Learning**
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
+  - Practice
+    -  In progress...
+  - Further Resources
+    -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)    
     
 9.  **Kernel Density Estimation**
   - Lecture
