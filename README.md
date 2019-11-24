@@ -204,6 +204,7 @@ Next lecture as scheduled (Wednesday, 11:20).
     -  In progress...
   - Further Resources
     -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)    
+    -  [[ARTICLE] How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
     
 9.  **Kernel Density Estimation**
   - Lecture
