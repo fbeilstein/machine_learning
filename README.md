@@ -164,9 +164,7 @@ Next lecture as scheduled (Wednesday, 11:20).
     - [[ARTICLE] PCA and SVD explained with numpy](https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8)
     - [[ARTICLE] PCA: Application in Machine Learning](https://medium.com/apprentice-journal/pca-application-in-machine-learning-4827c07a61db)
     - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
-    
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
-   
+     
 6.  **k-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_k_means_clustering.ipynb)
@@ -181,6 +179,8 @@ Next lecture as scheduled (Wednesday, 11:20).
      - [[HABR] K-Means and C-Means](https://habr.com/ru/post/67078/)
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
+     
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
      
 7.  **Gaussian Mixture Models**
   - Lecture
