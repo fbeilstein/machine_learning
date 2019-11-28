@@ -10,6 +10,7 @@
 
 # Regression lecture
 - [ ] Add Logistic regression
+- [ ] Mention orthogonal distance regression (scipy.odr)
 - [ ] Regression (to mean) visualization
 - [ ] Workbook, problem with error bars, add slider to change order of the fitting polynomial
 - [ ] Workbook, add problem to demonstrate LAD robustness (compared to OLS)
