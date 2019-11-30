@@ -17,3 +17,4 @@
 
 # Optimization lecture
 - [ ] Coordinate descent (has connections to SVM and E-M algo)
+- [ ] Use UI from GMM demo to set the initial point
