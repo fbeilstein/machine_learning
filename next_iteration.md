@@ -14,6 +14,7 @@
 - [ ] Regression (to mean) visualization
 - [ ] Workbook, problem with error bars, add slider to change order of the fitting polynomial
 - [ ] Workbook, add problem to demonstrate LAD robustness (compared to OLS)
+- [ ] Set feaures on click in demo
 
 # Optimization lecture
 - [ ] Coordinate descent (has connections to SVM and E-M algo)
