@@ -4,7 +4,8 @@ Colab platform is cool as it allows to merge executable code, nice formulae form
 However share features of being a book and a powerpoint so it requires a specific presentation (with some material scipping and handwaving) in order to keep the lectures swift. I used a laptop (with screen projected into the wall) with the drawing on the screen feature in order to highlight details. I also used the blackboard for sideline explanations.
 
 The backbone of the course are the python examples covered in the Python Data Science Handbook by Jake Vanderplas. However I realized I needed to add
-* python, matplotlib, numpy introduction (3 lectures);
+* python introduction (1.5 lectures);
+* matplotlib, pandas, and numpy introductions were extended with practical problems in workbooks (3 lectures);
 * statistics and mathematical optimization overview;
 * extensive theory injections in each lecture(2 lectures);
 * interactive examples;
