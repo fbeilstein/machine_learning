@@ -5,6 +5,8 @@
 
 Next lecture as scheduled (Wednesday, 11:20).
 
+Exam will be held on January 9 (Thursday, 9:00).
+
 ## Curriculum
 
 ### Intro
