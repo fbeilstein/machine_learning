@@ -18,7 +18,7 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 * Інструменти, що будуть використовуватися в процесі навчання: Google Colab, GitHub, CodeSculptor.
 * Вступ в Python. Запуск скриптів Google Colab. Чисельні типи даних. Умови та цикли.
 
-##### Завдання для самостійної роботи ( ```diff XXXXX``` год.)
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
 ```diff
@@ -31,7 +31,7 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 * Огляд обʼєктно-орієнтованого програмування. Клас та обʼєкт. Створення класів. 
 * Модулі. Імпорт модулів у Python. Лямбда-функції.
 
-##### Завдання для самостійної роботи ( ```diff XXXXX``` год.)
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
 ```diff
