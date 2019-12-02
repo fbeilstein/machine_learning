@@ -94,6 +94,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ## ЗМІСТОВИЙ МОДУЛЬ 2
 **Методи машинного навчання**
 
+### Тема 3. Методи класифікації та регресії.
 
 #### Лекція 6.
 
@@ -178,6 +179,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ```diff
 - THIS PART TO BE ADDED
 ```
+
+### Тема 4. Методи кластеризації та пониження розмірності.
 
 #### Лекція 12.
 
