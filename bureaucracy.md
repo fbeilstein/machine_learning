@@ -27,9 +27,9 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 
 #### Лекція 2.
 
-* Мова Python. Функції. Списки та словники в Python. Тип даних string (рядок).
+* Мова Python. Функції. Лямбда-функції. Списки та словники в Python. Тип даних string (рядок).
 * Огляд обʼєктно-орієнтованого програмування. Клас та обʼєкт. Створення класів. 
-* Модулі. Імпорт модулів у Python. Лямбда-функції.
+* Модулі. Імпорт модулів у Python.
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
