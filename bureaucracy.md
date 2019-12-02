@@ -38,6 +38,201 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 - THIS PART TO BE ADDED
 ```
 
+### Тема 2. Необхідні допоміжні бібліотеки.
+
+#### Лекція 3.
+
+* Бібліотека numpy. Масиви numpy.array. Переваги та недоліки numpy.array.
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 4.
+
+* Pandas
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 5.
+
+* MatPlotLib
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
 
 ## ЗМІСТОВИЙ МОДУЛЬ 2
 **Методи машинного навчання**
+
+
+#### Лекція 6.
+
+* Statistics
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 7.
+
+* Naive Bayes Classification
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 8.
+
+* Mathematical optimization
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 9.
+
+* Linear Regression
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 10.
+
+* Support Vector Machines
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 11.
+
+* Decision Trees and Random Forests
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 12.
+
+* Principal Component Analysis
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 13.
+
+* k-Means Clustering
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 14.
+
+* Gaussian Mixture Models
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 15.
+
+* Kernel Density Estimation
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
+
+#### Лекція 16.
+
+* What's next: NNs and beyond
+```diff
+- THIS PART TO BE ADDED
+```
+
+##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
+1. Вивчення матеріалу лекції.
+2. Опрацювання матеріалу, що винесений на самостійне вивчення:
+```diff
+- THIS PART TO BE ADDED
+```
