@@ -76,10 +76,13 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 5.
 
-* MatPlotLib
-```diff
-- THIS PART TO BE ADDED
-```
+* Бібліотека MatPlotLib для візуалізації.
+* Представлення наукових даних. Види графіків. Приклади вдалої та невдалої інфографіки. Типові помилки.
+* Прості графіки: line plot, scatter plot, errorbar.
+* Візуалізація тривимірних даних у двох вимірах. Contour plot та density plot.
+* Візуалізація тривимірних даних у трьох вимірах. 
+* Гістограми та бінаризація.
+* Налаштування відображень графіків. Множинні графіки.
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
