@@ -3,7 +3,7 @@
 > Чу́дище о́бло, озо́рно, огро́мно, стозе́вно и ла́яй
 
 Here I will place information needed to fill different bureaucratic forms.
-Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Word (which I don't have at the moment as Linux user).
+A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word (which I don't have at the moment as Linux user).
 
 ## ЗМІСТОВИЙ МОДУЛЬ 1
 **Інструменти машинного навчання**
@@ -43,6 +43,12 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 #### Лекція 3.
 
 * Бібліотека numpy. Масиви numpy.array. Переваги та недоліки numpy.array.
+* Розмірності, зрізи та підмасиви.
+* Універсальні функції. Переваги та приклади застосування.
+* Броадкастінг. Правила та приклади застосування.
+* Маски. Складні індекси.
+* Сортування масивів.
+
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
@@ -53,10 +59,13 @@ Most text will be provided in Ukrainian so I can copy-paste it into Microsoft Wo
 
 #### Лекція 4.
 
-* Pandas
-```diff
-- THIS PART TO BE ADDED
-```
+* Бібліотека Pandas. Об’єкти Series, DataFrame та Index.
+* Індексування та вибір даних. Універсальні функції.
+* Робота з пропусками у даних.
+* Ієрархічне індексування, мультиіндекси.
+* Поєднання різних таблиць: concat, join, merge.
+* Агрегація та групування. Техніка split-apply-combine.
+
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
