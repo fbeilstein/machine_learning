@@ -244,6 +244,6 @@ Exam will be held on January 9 (Thursday, 9:00).
 ## Future plans
   - [Modifications intended for the course restart](next_iteration.md)
   
-## Bureaucracy
+## Bureaucratic Shenanigans
   - [Different info to copy-paste into a variety of bureaucratic forms and documents](bureaucracy.md)
 
