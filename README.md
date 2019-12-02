@@ -214,7 +214,8 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  In progress...
   - Further Resources
-    -  In progress...
+    -  [[VIDEO] Intro to KDE](https://www.youtube.com/watch?v=x5zLaWT5KPs)
+    -  [[ARTICLE] Kernel Density Estimation with Python using Sklearn](https://medium.com/intel-student-ambassadors/kernel-density-estimation-with-python-using-sklearn-c50b3c337871)
     
 10.  **What's next: NNs and beyond**
   - Lecture
