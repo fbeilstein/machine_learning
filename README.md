@@ -131,6 +131,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[VIDEO] Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
+    - [[INTERACTIVE] Ordinary Least Squares Regression (http://setosa.io/ev/ordinary-least-squares-regression/)
   
 3.  **Support Vector Machines**
   - Lecture
