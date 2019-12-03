@@ -22,3 +22,6 @@
 
 # All lectures with demos
 - [ ] Pull out not only fitting but classification function as well (from visualization).
+
+# PCA
+- [ ] Add visualization as inhttp://setosa.io/ev/principal-component-analysis/
