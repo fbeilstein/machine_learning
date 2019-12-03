@@ -20,14 +20,14 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <td>індивідуальні</td>
   </tr>
   <tr>
-    <td>1</td> 
-    <td>2</td>
-    <td>3</td>
-    <td>4</td> 
-    <td>5</td>
-    <td>6</td>
-    <td>7</td>
-    <td>8</td>
+    <td>90</td> 
+    <td>48</td>
+    <td>32</td>
+    <td>-</td> 
+    <td>16</td>
+    <td>-</td>
+    <td>-</td>
+    <td>42</td>
   </tr>
 </table>
 
