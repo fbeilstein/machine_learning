@@ -12,6 +12,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <th rowspan="2">Самостійна робота (год)</th>
   </tr>
   <tr>
+    <td>всього<br>аудиторних</td> 
     <td>лекції</td> 
     <td>практичні</td>
     <td>семінарські</td>
