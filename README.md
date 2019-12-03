@@ -166,6 +166,8 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] PCA and SVD explained with numpy](https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8)
     - [[ARTICLE] PCA: Application in Machine Learning](https://medium.com/apprentice-journal/pca-application-in-machine-learning-4827c07a61db)
     - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
+    - [[ARTICLE] Principal Component Analysis Explained Visually](http://setosa.io/ev/principal-component-analysis/)
+     - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
      
 6.  **k-Means Clustering**
   - Lecture
