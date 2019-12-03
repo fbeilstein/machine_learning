@@ -21,13 +21,11 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <td></td>
   </tr>
   <tr>
-    <td>-</td>
-    <td>-</td> 
-    <td>-</td>
-    <td>-</td>
-    <td>-</td> 
-    <td>-</td>
-    <td>-</td>
+    <td>1</td> 
+    <td>2</td>
+    <td>3</td>
+    <td>4</td> 
+    <td>5</td>
   </tr>
 </table>
 
