@@ -5,12 +5,12 @@
 Here I will place information needed to fill different bureaucratic forms.
 A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word (which I don't have at the moment as Linux user).
 
-$$
+\[
 \begin{array}{c c c c}
 \multicolumn{3}{c}{R} & P \\
 0 & 0 & 0 & 1
 \end{array}
-$$
+\]
 
 ## ЗМІСТОВИЙ МОДУЛЬ 1
 **Інструменти машинного навчання**
