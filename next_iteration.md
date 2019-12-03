@@ -19,3 +19,6 @@
 # Optimization lecture
 - [ ] Coordinate descent (has connections to SVM and E-M algo)
 - [ ] Use UI from GMM demo to set the initial point
+
+# All lectures with demos
+- [ ] Pull out not only fitting but classification function as well (from visualization).
