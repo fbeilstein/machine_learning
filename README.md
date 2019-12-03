@@ -208,6 +208,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)    
     -  [[ARTICLE] How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
     -  [[WEBSITE] LLE algo, papers and more](https://cs.nyu.edu/~roweis/lle/)
+    -  [[ARTICLE] Locally Linear Embedding (LLE)](https://medium.com/analytics-vidhya/locally-linear-embedding-lle-data-mining-b956616d24e9)
     
 9.  **Kernel Density Estimation**
   - Lecture
