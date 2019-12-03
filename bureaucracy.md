@@ -7,18 +7,18 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 <table style="width:100%">
   <tr>
-    <th rowspan="2">Всього (год)</th>
-    <th colspan="6">Аудиторних</th> 
-    <th>Самостійна робота</th>
+    <th rowspan="2">загальний обсяг (год)</th>
+    <th colspan="6">Аудиторних (год)</th> 
+    <th rowspan="2">Самостійна робота (год)</th>
   </tr>
   <tr>
-    <td>-</td>
-    <td>-</td> 
-    <td>-</td>
-    <td>-</td>
-    <td>-</td> 
-    <td>-</td>
-    <td>-</td>
+    <td></td>
+    <td>лекції</td> 
+    <td>практичні</td>
+    <td>семінарські</td>
+    <td>лабораторні</td> 
+    <td>індивідуальні</td>
+    <td></td>
   </tr>
   <tr>
     <td>-</td>
