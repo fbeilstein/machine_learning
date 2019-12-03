@@ -98,10 +98,13 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 6.
 
-* Statistics
-```diff
-- THIS PART TO BE ADDED
-```
+* Елементи статистики для машинного навчання.
+* генеральна сукупність та вибірка. 
+* Деякі широковживані розподіли імовірностей: Бернуллі, нормальний, Пуассона, гіпергеометричний та інші.
+* Статистики та естіматори.
+* Оцінка максимальної правдоподібності, метод MLE.
+* Статистичні моделі. Коваріація та кореляція. Квартет Анкомбе.
+
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
@@ -112,10 +115,12 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 7.
 
-* Naive Bayes Classification
-```diff
-- THIS PART TO BE ADDED
-```
+* Наївний баєсів класифікатор.
+* Теорема Баєса. Приклади застосування, парадокс Монті Холла.
+* Задача класифікації. Класифікація на прикладі фільтрування спаму.
+* Гаусів наївний баєсів класифікатор.
+* Класифікація тексту. Мультиноміальний наївний баєсів класифікатор. Бернулів наївний баєсів класифікатор.
+
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
@@ -126,10 +131,11 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 8.
 
-* Mathematical optimization
-```diff
-- THIS PART TO BE ADDED
-```
+* Елементи теорії математичної оптимізації.
+* Типи задач оптимізації. Задачі з обмеженнями. Лагранжіан.
+* Дуальна задача.
+* Тестові функції. Типові "патології". Функція Розенброка та інші.
+* Ітеративні методи різних порядків. Метод Нелдера-Міда. Метод градієнтного спуску та його модифікації (Nesterov Momentum, AdaGrad, RMSprop та інші). Метод Ньютона. Методи довірчих інтервалів.
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
