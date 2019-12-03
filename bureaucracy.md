@@ -12,13 +12,11 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <th rowspan="2">Самостійна робота (год)</th>
   </tr>
   <tr>
-    <td></td>
     <td>лекції</td> 
     <td>практичні</td>
     <td>семінарські</td>
     <td>лабораторні</td> 
     <td>індивідуальні</td>
-    <td></td>
   </tr>
   <tr>
     <td>1</td> 
@@ -26,6 +24,9 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <td>3</td>
     <td>4</td> 
     <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
   </tr>
 </table>
 
