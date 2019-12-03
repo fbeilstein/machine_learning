@@ -24,4 +24,4 @@
 - [ ] Pull out not only fitting but classification function as well (from visualization).
 
 # PCA
-- [ ] Add visualization as inhttp://setosa.io/ev/principal-component-analysis/
+- [ ] Add visualization as in http://setosa.io/ev/principal-component-analysis/
