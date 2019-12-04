@@ -47,9 +47,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Неявна конвертація типів.
+* Вихід з циклу за умовою, break та continue.
 
 #### Лекція 2.
 
@@ -60,9 +59,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Генератори.
+* Використання списків та словників при ітерації. Одночасна ітерація за кількома списками, zip.
 
 ### Тема 2. Необхідні допоміжні бібліотеки.
 
@@ -79,9 +77,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Композиції універсальних функцій для прискорення виконання коду.
+* Порівняння роботи списків та масивів numpy.array.
 
 #### Лекція 4.
 
@@ -96,9 +93,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Індексування таблиці за вибраним стовпчиком.
+* Завантаження даних з файлу. Формат "дані, розділені комою" (csv).
 
 #### Лекція 5.
 
@@ -113,9 +109,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Налаштування відображення, кольори та товщини ліній.
+* Легенди графіків, різні налаштування, бібліотека стилів seaborn.
 
 ## ЗМІСТОВИЙ МОДУЛЬ 2
 **Методи машинного навчання**
@@ -125,7 +120,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 #### Лекція 6.
 
 * Елементи статистики для машинного навчання.
-* генеральна сукупність та вибірка. 
+* Генеральна сукупність та вибірка. 
 * Деякі широковживані розподіли імовірностей: Бернуллі, нормальний, Пуассона, гіпергеометричний та інші.
 * Статистики та естіматори.
 * Оцінка максимальної правдоподібності, метод MLE.
