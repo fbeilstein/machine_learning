@@ -184,9 +184,7 @@ Exam will be held on January 9 (Thursday, 9:00).
      - [[HABR] K-Means and C-Means](https://habr.com/ru/post/67078/)
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
-     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>  
-     
+       
 7.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_gaussian_mixture_models.ipynb)
@@ -201,6 +199,8 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[VIDEO] Univ. of Washington on Gaussian Mixture Models for Clustering](https://www.youtube.com/watch?v=DODphRRL79c&t)
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
+    
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>      
     
 8.  **Manifold Learning**
   - Lecture
