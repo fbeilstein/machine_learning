@@ -2,8 +2,9 @@
 - [ ] Discriminitive vs generative models
 - [ ] Introduce popular datasets we will work with: Fisher irises, Old Faithful, NIST, faces
 - [ ] Add more algorithmic details: computational complexity, etc.
-- [ ] Make a table where minimization functions for all of the topics are summerized.
+- [ ] Make a table where minimization functions for all of the topics are summarized.
 - [ ] Add conclusions at the end of EVERY lecture.
+- [ ] Make demo style consistent (consider using SNS).
 
 # Statistics lecture
 - [ ] add Polya  urn models (Beta distribution etc)
