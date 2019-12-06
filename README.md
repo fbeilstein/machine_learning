@@ -201,8 +201,19 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>      
-    
-8.  **Manifold Learning**
+
+8.  **Kernel Density Estimation**
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_kernel_density_estimation.ipynb)
+  - Practice
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_13_kernel_density_estimation.ipynb)
+  - Further Resources
+    -  [[VIDEO] Intro to KDE](https://www.youtube.com/watch?v=x5zLaWT5KPs)
+    -  [[ARTICLE] Kernel Density Estimation with Python using Sklearn](https://medium.com/intel-student-ambassadors/kernel-density-estimation-with-python-using-sklearn-c50b3c337871)
+    -  [[ARTICLE] Literature review on KDE & KDE python package](https://kdepy.readthedocs.io/en/stable/literature.html#literature)
+    -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
+
+9.  **Manifold Learning**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
   - Practice
@@ -212,18 +223,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[ARTICLE] How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
     -  [[WEBSITE] LLE algo, papers and more](https://cs.nyu.edu/~roweis/lle/)
     -  [[ARTICLE] Locally Linear Embedding (LLE)](https://medium.com/analytics-vidhya/locally-linear-embedding-lle-data-mining-b956616d24e9)
-    
-9.  **Kernel Density Estimation**
-  - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_kernel_density_estimation.ipynb)
-  - Practice
-    -  In progress...
-  - Further Resources
-    -  [[VIDEO] Intro to KDE](https://www.youtube.com/watch?v=x5zLaWT5KPs)
-    -  [[ARTICLE] Kernel Density Estimation with Python using Sklearn](https://medium.com/intel-student-ambassadors/kernel-density-estimation-with-python-using-sklearn-c50b3c337871)
-    -  [[ARTICLE] Literature review on KDE & KDE python package](https://kdepy.readthedocs.io/en/stable/literature.html#literature)
-    -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
-    
+        
 10.  **What's next: NNs and beyond**
   - Lecture
     -  In progress...
