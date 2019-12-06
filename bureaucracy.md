@@ -263,10 +263,13 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 15.
 
-* Kernel Density Estimation
-```diff
-- THIS PART TO BE ADDED
-```
+* Ядрова оцінка густини розподілу.
+* Гістограми. Проблема вибору розмірів комірок (бінів).
+* Мотивація виникнення ядрова оцінки густини розподілу. Часто вживані ядра.
+* Вибір розміру ядра: правило Сільвермана, алгоритм Шітера-Джонса та перехресна валідація.
+* Ядрова оцінка густини розподілу як модель суміші.
+* Приклади застосування.
+
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
@@ -277,10 +280,11 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 #### Лекція 16.
 
-* What's next: NNs and beyond
-```diff
-- THIS PART TO BE ADDED
-```
+* Куди рухатись далі: нейромережі та інші алгоритми машинного навчання.
+* Поняття про нейромережу. Нейромережа з функціональної точки зору.
+* Приклади застосування нейромереж на практиці. Їх можливості.
+* Поняття про згортку. Згорткова нейромережа (CNN).
+* Архітектури кількох популярних нейромереж.
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
