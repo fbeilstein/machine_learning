@@ -130,9 +130,9 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Парадокс Сімпсона.
+* Вивести MLE для нормального розподілу з наперед заданим середнім.
+* Вивести MLE для нормального розподілу з наперед заданимою варіацією.
 
 #### Лекція 7.
 
@@ -146,9 +146,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Ознаки для класифікації тексту: наявність слова, простий підрахунок слів та TFIDF (term frequency inverse document frequency).
 
 #### Лекція 8.
 
@@ -161,9 +159,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Метод оптимізованого градієнтного спуску.
+* Зв'язок між методом Ньютона та псевдооберненою матрицею. Типові проблеми методу.
 
 #### Лекція 9.
 
@@ -175,9 +172,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Коефіцієнт детермінації. Нормований коефіцієнт детермінації.
+* Регресія в базисі тригонометричних функції. Зв'язок з рокладом Фур'є.
 
 #### Лекція 10.
 
@@ -190,9 +186,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Параметр гамма ядра радіальних базисних функцій. Його значення та вплив на класифікацію.
+* Алгоритм послідовної мінімальної оптимізації (Sequential minimal optimization, SMO) для навчання машини опорних векторів.
 
 #### Лекція 11.
 
@@ -205,9 +200,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Регресія за допомогою випадкового лісу.
+* Методи обрізання дерева рішень (pruning).
 
 ### Тема 4. Методи кластеризації та пониження розмірності.
 
