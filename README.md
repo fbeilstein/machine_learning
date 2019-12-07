@@ -212,6 +212,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[ARTICLE] Kernel Density Estimation with Python using Sklearn](https://medium.com/intel-student-ambassadors/kernel-density-estimation-with-python-using-sklearn-c50b3c337871)
     -  [[ARTICLE] Literature review on KDE & KDE python package](https://kdepy.readthedocs.io/en/stable/literature.html#literature)
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
+    -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
 
 9.  **Manifold Learning**
   - Lecture
