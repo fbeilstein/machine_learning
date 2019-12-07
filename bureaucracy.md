@@ -217,9 +217,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Метод головних компонент та нормальні моди зв'язаних осциляторів.
+* Пониження розмірності графічної інформації, eigenfaces.
 
 #### Лекція 13.
 
@@ -228,15 +227,13 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 * Метод k-середніх. Алгоритми Ллойда, мак Квіна, Хартігана-Вонга. Метод k-середніх з точки зору діаграм Вороного.
 * Оцінка кількості кластерів. Метод плеча. Аналіз силуетів.
 * Проблема локальних мінімумів у методі k-середніх.
-* Модифікації методу k-середніх: Mini Batch, k-медіани, PAM-алгоритм, метод k-середніх++,нечітка кластеризація.
 * Приклади застосування: розпізнавання рукописних цифр, квантизація кольорів.
 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Модифікації методу k-середніх: Mini Batch, k-медіани, PAM-алгоритм, метод k-середніх++, нечітка кластеризація.
+
 
 #### Лекція 14.
 
@@ -251,9 +248,9 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Модель суміші гаусіан з точки зору оцінки максимальної правдоподібності (Maximum Likelihood Estimation).
+* ЕМ-алгоритм для методу k-середніх.
+
 
 #### Лекція 15.
 
