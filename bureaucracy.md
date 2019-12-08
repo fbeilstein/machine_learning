@@ -7,6 +7,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 
 <table style="width:100%">
   <tr>
+    <th rowspan="2">Кредити (всього)</th>
     <th rowspan="2">загальний обсяг (год)</th>
     <th colspan="6">Аудиторних (год)</th> 
     <th rowspan="2">Самостійна робота (год)</th>
@@ -20,6 +21,7 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
     <td>індивідуальні</td>
   </tr>
   <tr>
+    <td>3</td>
     <td>90</td> 
     <td>48</td>
     <td>32</td>
