@@ -265,9 +265,8 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Ядрова оцінка густини розподілу як ненаївний Баєс.
+* Застосування ядрової оцінки густини розподілу для ілюстрації.
 
 #### Лекція 16.
 
@@ -280,6 +279,4 @@ A text will be provided in Ukrainian so I can copy-paste it into Microsoft Word 
 ##### Завдання для самостійної роботи (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Belgian_road_sign_A51.svg/200px-Belgian_road_sign_A51.svg.png" width="20px"/> год.)
 1. Вивчення матеріалу лекції.
 2. Опрацювання матеріалу, що винесений на самостійне вивчення:
-```diff
-- THIS PART TO BE ADDED
-```
+* Загальний огляд існуючих популярних засобів розробки та тренування нейромереж.
