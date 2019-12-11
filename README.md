@@ -200,8 +200,6 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>      
-
 8.  **Kernel Density Estimation**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_kernel_density_estimation.ipynb)
@@ -213,6 +211,8 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[ARTICLE] Literature review on KDE & KDE python package](https://kdepy.readthedocs.io/en/stable/literature.html#literature)
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
 
 9.  **Manifold Learning**
   - Lecture
