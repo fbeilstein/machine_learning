@@ -230,12 +230,11 @@ Exam will be held on January 9 (Thursday, 9:00).
         
 10.  **What's next: NNs and beyond**
   - Lecture
-    -  In progress...
+    -  [Presentation (PDF)](lecture_14_neural_networks.pdf)
   - Practice
-    -  In progress...
+    -  Not planned
   - Further Resources
-    -  In progress...
-
+    -  [[VIDEO] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
 ## For the curious mind
 
@@ -255,6 +254,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     
 ## Future plans
   - [Modifications intended for the course restart](next_iteration.md)
+  - [Test Ground (drafts, differents tests, and just trash stockpiled here)](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/test_dynamic.ipynb)
   
 ## Bureaucratic Shenanigans
   - [Different info to copy-paste into a variety of bureaucratic forms and documents](bureaucracy.md)
