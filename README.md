@@ -218,7 +218,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_manifold_learning.ipynb)
   - Practice
-    -  In progress...
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_10_manifold_learning.ipynb)
   - Further Resources
     -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)    
     -  [[ARTICLE] How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
