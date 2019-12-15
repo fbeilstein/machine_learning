@@ -29,3 +29,6 @@
 
 # PCA
 - [ ] Add visualization as in http://setosa.io/ev/principal-component-analysis/
+
+# Manifold learning
+- [ ] Visualize surface (do Delaune triangulation and draw as a bunch of triangles)
