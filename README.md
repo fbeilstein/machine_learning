@@ -254,7 +254,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     
 ## Future plans
   - [Modifications intended for the course restart](next_iteration.md)
-  - [Test Ground (drafts, differents tests, and just trash stockpiled here)](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/test_dynamic.ipynb)
+  - [Test Ground (drafts, differents tests, and just trash stockpiled here)](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/test_ground.ipynb)
   
 ## Bureaucratic Shenanigans
   - [Different info to copy-paste into a variety of bureaucratic forms and documents](bureaucracy.md)
