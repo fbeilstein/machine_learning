@@ -226,6 +226,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[ARTICLE] Locally Linear Embedding (LLE)](https://medium.com/analytics-vidhya/locally-linear-embedding-lle-data-mining-b956616d24e9)
     -  [[VIDEO] Lecture on Locally Linear Embedding from Johns Hopkins University](https://www.youtube.com/watch?v=yBwpo-L80Mc)
     -  [[VIDEO] Lecture on from MDS, Isomap, LLE from University of Waterloo](https://www.youtube.com/watch?v=RPjPLlGefzw)
+    -  [[VIDEO] Dimensionality Reduction: Why we take Eigenvectors of the Similarity Matrix?](https://www.youtube.com/watch?v=3k9hwRCcT30)
         
 10.  **What's next: NNs and beyond**
   - Lecture
