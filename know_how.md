@@ -23,6 +23,7 @@ Adding interactive widgets is very important as it helps to develop intuition in
 I tried to inject as many multimedia as I could including:
 * pictures (drawn in Inkscape);
 * interdisciplinary references (biology, physics, math, you name it...);
-* pop culture references that are relevant to the topics discussed.
+* pop culture references that are relevant to the topics discussed;
+* datasets of historical value (John Snow cholera dataset, Pearson's son/fathers height dataset, Old Faithful dataset).
 
 I tried to inject humour and gags accidentally in order to keep student amused and lighthearted. I am not sure how that played out though)
