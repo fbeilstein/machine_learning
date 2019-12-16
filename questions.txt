@@ -58,13 +58,197 @@
 
 * Дерева рішень та випадковий ліс
 
+1. What is the approximate depth of a Decision Tree trained (without restrictions)
+on a training set with 1 million instances?
+2. Is a node’s Gini impurity generally lower or greater than its parent’s? Is it gener‐
+ally lower/greater, or always lower/greater?
+3. If a Decision Tree is overfitting the training set, is it a good idea to try decreasing
+max_depth ?
+4. If a Decision Tree is underfitting the training set, is it a good idea to try scaling
+the input features?
+5. If it takes one hour to train a Decision Tree on a training set containing 1 million
+instances, roughly how much time will it take to train another Decision Tree on a
+training set containing 10 million instances?
+6. If your training set contains 100,000 instances, will setting presort=True speed
+up training?
+
+1. The depth of a well-balanced binary tree containing m leaves is equal to log 2 (m) 3 ,
+rounded up. A binary Decision Tree (one that makes only binary decisions, as is
+the case of all trees in Scikit-Learn) will end up more or less well balanced at the
+end of training, with one leaf per training instance if it is trained without restric‐
+tions. Thus, if the training set contains one million instances, the Decision Tree
+will have a depth of log 2 (10 6 ) ≈ 20 (actually a bit more since the tree will generally
+not be perfectly well balanced).
+2. A node’s Gini impurity is generally lower than its parent’s. This is ensured by the
+CART training algorithm’s cost function, which splits each node in a way that
+minimizes the weighted sum of its children’s Gini impurities. However, if one
+child is smaller than the other, it is possible for it to have a higher Gini impurity
+than its parent, as long as this increase is more than compensated for by a
+decrease of the other child’s impurity. For example, consider a node containing
+1 2
+4 2
+four instances of class A and 1 of class B. Its Gini impurity is 1 − 5 − 5 = 0.32.
+Now suppose the dataset is one-dimensional and the instances are lined up in the
+following order: A, B, A, A, A. You can verify that the algorithm will split this
+node after the second instance, producing one child node with instances A, B,
+and the other child node with instances A, A, A. The first child node’s Gini
+1 2
+1 2
+impurity is 1 − 2 − 2 = 0.5, which is higher than its parent. This is compensated
+for by the fact that the other node is pure, so the overall weighted Gini impurity
+2
+3
+is 5 × 0.5 + 5 × 0 = 0.2 , which is lower than the parent’s Gini impurity.
+3. If a Decision Tree is overfitting the training set, it may be a good idea to decrease
+max_depth , since this will constrain the model, regularizing it.
+4. Decision Trees don’t care whether or not the training data is scaled or centered;
+that’s one of the nice things about them. So if a Decision Tree underfits the train‐
+ing set, scaling the input features will just be a waste of time.
 
 
 
+1. If you have trained five different models on the exact same training data, and
+they all achieve 95% precision, is there any chance that you can combine these
+models to get better results? If so, how? If not, why?
+2. What is the difference between hard and soft voting classifiers?
+3. Is it possible to speed up training of a bagging ensemble by distributing it across
+multiple servers? What about pasting ensembles, boosting ensembles, random
+forests, or stacking ensembles?
+4. What is the benefit of out-of-bag evaluation?
+5. What makes Extra-Trees more random than regular Random Forests? How can
+this extra randomness help? Are Extra-Trees slower or faster than regular Ran‐
+dom Forests?
+6. If your AdaBoost ensemble underfits the training data, what hyperparameters
+should you tweak and how?
+7. If your Gradient Boosting ensemble overfits the training set, should you increase
+or decrease the learning rate?
 
 
+1. If you have trained five different models and they all achieve 95% precision, you
+can try combining them into a voting ensemble, which will often give you even
+better results. It works better if the models are very different (e.g., an SVM classi‐
+fier, a Decision Tree classifier, a Logistic Regression classifier, and so on). It is
+even better if they are trained on different training instances (that’s the whole
+point of bagging and pasting ensembles), but if not it will still work as long as the
+models are very different.
+2. A hard voting classifier just counts the votes of each classifier in the ensemble
+and picks the class that gets the most votes. A soft voting classifier computes the
+average estimated class probability for each class and picks the class with the
+highest probability. This gives high-confidence votes more weight and often per‐
+forms better, but it works only if every classifier is able to estimate class probabil‐
+ities (e.g., for the SVM classifiers in Scikit-Learn you must set
+probability=True ).
+3. It is quite possible to speed up training of a bagging ensemble by distributing it
+across multiple servers, since each predictor in the ensemble is independent of
+the others. The same goes for pasting ensembles and Random Forests, for the
+same reason. However, each predictor in a boosting ensemble is built based on
+the previous predictor, so training is necessarily sequential, and you will not gain
+anything by distributing training across multiple servers. Regarding stacking
+ensembles, all the predictors in a given layer are independent of each other, so
+they can be trained in parallel on multiple servers. However, the predictors in one
+layer can only be trained after the predictors in the previous layer have all been
+trained.
+4. With out-of-bag evaluation, each predictor in a bagging ensemble is evaluated
+using instances that it was not trained on (they were held out). This makes it pos‐
+sible to have a fairly unbiased evaluation of the ensemble without the need for an
+additional validation set. Thus, you have more instances available for training,
+and your ensemble can perform slightly better.
+5. When you are growing a tree in a Random Forest, only a random subset of the
+features is considered for splitting at each node. This is true as well for Extra-
+Trees, but they go one step further: rather than searching for the best possible
+thresholds, like regular Decision Trees do, they use random thresholds for each
+feature. This extra randomness acts like a form of regularization: if a Random
+Forest overfits the training data, Extra-Trees might perform better. Moreover,
+since Extra-Trees don’t search for the best possible thresholds, they are much
+faster to train than Random Forests. However, they are neither faster nor slower
+than Random Forests when making predictions.
+6. If your AdaBoost ensemble underfits the training data, you can try increasing the
+number of estimators or reducing the regularization hyperparameters of the base
+estimator. You may also try slightly increasing the learning rate.
+7. If your Gradient Boosting ensemble overfits the training set, you should try
+decreasing the learning rate. You could also use early stopping to find the right
+number of predictors (you probably have too many).
 
 
+* PCA
 
+1. What are the main motivations for reducing a dataset’s dimensionality? What are
+the main drawbacks?
+2. What is the curse of dimensionality?
+3. Once a dataset’s dimensionality has been reduced, is it possible to reverse the
+operation? If so, how? If not, why?
+4. Can PCA be used to reduce the dimensionality of a highly nonlinear dataset?
+5. Suppose you perform PCA on a 1,000-dimensional dataset, setting the explained
+variance ratio to 95%. How many dimensions will the resulting dataset have?
+6. In what cases would you use vanilla PCA, Incremental PCA, Randomized PCA,
+or Kernel PCA?
+7. How can you evaluate the performance of a dimensionality reduction algorithm
+on your dataset?
+8. Does it make any sense to chain two different dimensionality reduction algo‐
+rithms?
+
+
+1. Motivations and drawbacks:
+• The main motivations for dimensionality reduction are:
+— To speed up a subsequent training algorithm (in some cases it may even
+remove noise and redundant features, making the training algorithm per‐
+form better).
+— To visualize the data and gain insights on the most important features.
+— Simply to save space (compression).
+• The main drawbacks are:
+— Some information is lost, possibly degrading the performance of subse‐
+quent training algorithms.
+— It can be computationally intensive.
+— It adds some complexity to your Machine Learning pipelines.
+— Transformed features are often hard to interpret.
+2. The curse of dimensionality refers to the fact that many problems that do not
+exist in low-dimensional space arise in high-dimensional space. In Machine
+Learning, one common manifestation is the fact that randomly sampled high-
+dimensional vectors are generally very sparse, increasing the risk of overfitting
+and making it very difficult to identify patterns in the data without having plenty
+of training data.
+3. Once a dataset’s dimensionality has been reduced using one of the algorithms we
+discussed, it is almost always impossible to perfectly reverse the operation,
+because some information gets lost during dimensionality reduction. Moreover,
+while some algorithms (such as PCA) have a simple reverse transformation pro‐
+cedure that can reconstruct a dataset relatively similar to the original, other algo‐
+rithms (such as T-SNE) do not.
+4. PCA can be used to significantly reduce the dimensionality of most datasets, even
+if they are highly nonlinear, because it can at least get rid of useless dimensions.
+However, if there are no useless dimensions—for example, the Swiss roll—then
+reducing dimensionality with PCA will lose too much information. You want to
+unroll the Swiss roll, not squash it.
+5. That’s a trick question: it depends on the dataset. Let’s look at two extreme exam‐
+ples. First, suppose the dataset is composed of points that are almost perfectly
+aligned. In this case, PCA can reduce the dataset down to just one dimension
+while still preserving 95% of the variance. Now imagine that the dataset is com‐
+posed of perfectly random points, scattered all around the 1,000 dimensions. In
+this case all 1,000 dimensions are required to preserve 95% of the variance. So the
+answer is, it depends on the dataset, and it could be any number between 1 and
+1,000. Plotting the explained variance as a function of the number of dimensions
+is one way to get a rough idea of the dataset’s intrinsic dimensionality.
+6. Regular PCA is the default, but it works only if the dataset fits in memory. Incre‐
+mental PCA is useful for large datasets that don’t fit in memory, but it is slower
+than regular PCA, so if the dataset fits in memory you should prefer regular
+PCA. Incremental PCA is also useful for online tasks, when you need to apply
+PCA on the fly, every time a new instance arrives. Randomized PCA is useful
+when you want to considerably reduce dimensionality and the dataset fits in
+memory; in this case, it is much faster than regular PCA. Finally, Kernel PCA is
+useful for nonlinear datasets.
+7. Intuitively, a dimensionality reduction algorithm performs well if it eliminates a
+lot of dimensions from the dataset without losing too much information. One
+way to measure this is to apply the reverse transformation and measure the
+reconstruction error. However, not all dimensionality reduction algorithms pro‐
+vide a reverse transformation. Alternatively, if you are using dimensionality
+reduction as a preprocessing step before another Machine Learning algorithm
+(e.g., a Random Forest classifier), then you can simply measure the performance
+of that second algorithm; if dimensionality reduction did not lose too much
+information, then the algorithm should perform just as well as when using the
+original dataset.
+8. It can absolutely make sense to chain two different dimensionality reduction
+algorithms. A common example is using PCA to quickly get rid of a large num‐
+ber of useless dimensions, then applying another much slower dimensionality
+reduction algorithm, such as LLE. This two-step approach will likely yield the
+same performance as using LLE only, but in a fraction of the time.
 
 
