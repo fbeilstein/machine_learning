@@ -212,7 +212,9 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
 
+<!--
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
+-->
 
 9.  **Manifold Learning**
   - Lecture
