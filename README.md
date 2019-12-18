@@ -238,7 +238,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Further Resources
     -  [[VIDEO] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
-<a href="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>
+<a href="https://github.com/fbeilstein/machine_learning/blob/master/end.gif" width="900px"/></a>
 
 ## For the curious mind
 
