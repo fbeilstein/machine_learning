@@ -253,6 +253,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 4. [C. Bishop. Pattern Recognition and Machine Learning.](http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf)
 
 ## How it was made
+  - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/test_ground.ipynb)
   - [Retrospection, tips and tricks for courses creators](know_how.md)
     
 ## Future plans
