@@ -65,9 +65,9 @@ Exam will be held on January 9 (Thursday, 9:00).
 3.  **MatPlotLib**
 
   - Lecture
-    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_4_matplotlib.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_05_matplotlib.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_4_matplotlib_problems.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_05_matplotlib.ipynb)
   - Further Resources
     -  [Matplotlib online documentation](https://matplotlib.org/)
     -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
