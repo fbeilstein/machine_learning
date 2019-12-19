@@ -79,9 +79,9 @@ Exam will be held on January 9 (Thursday, 9:00).
 
 0.  **Statistics**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_4_5_statistics.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_statistics.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_4_5_statistics.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_06_statistics.ipynb)
   - Further Resources
     -  [How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
