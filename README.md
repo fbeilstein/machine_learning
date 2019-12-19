@@ -12,11 +12,11 @@ Exam will be held on January 9 (Thursday, 9:00).
 1.  **General Info, Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
-    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/snake.py))
-    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_1/tennis.py))
+    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake.py))
+    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis.py))
   - Further Resources
     -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
     -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
@@ -28,7 +28,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 2.  **More about Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_1_intro_and_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
   - Further Resources
