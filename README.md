@@ -44,9 +44,9 @@ Exam will be held on January 9 (Thursday, 9:00).
 
   - Lecture
     -  [Python Refresher](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/python_refresher.ipynb)
-    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_2_numpy_arrays.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_03_numpy_arrays.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_2_numpy_problems.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_03_numpy_arrays.ipynb)
   - Further Resources
     -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
     -  [NumPy, HABR Article](https://habr.com/ru/post/352678/)
