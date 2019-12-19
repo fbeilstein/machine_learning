@@ -55,9 +55,9 @@ Exam will be held on January 9 (Thursday, 9:00).
 2.  **Pandas**
 
   - Lecture
-    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_3_pandas.ipynb)
+    -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_04_pandas.ipynb)
   -  Practice
-      -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/practice_3_pandas_problems.ipynb)
+      -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
   - Further Resources
     -  [Pandas online documentation](http://pandas.pydata.org/) (please note [10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html) and [cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html))
     -  [book "Python for Data Analysis" by Wes McKinney (the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
