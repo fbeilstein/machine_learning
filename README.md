@@ -103,9 +103,9 @@ Exam will be held on January 9 (Thursday, 9:00).
       
 1.5.  **Mathematical optimization**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_5_optimization.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_08_optimization.ipynb)
   - Practice
-    - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_5_optimization.ipynb)
+    - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_08_optimization.ipynb)
   - Further Resources
     - [SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
     - [Momentum gradient descent method](https://distill.pub/2017/momentum/)
