@@ -170,9 +170,9 @@ Exam will be held on January 9 (Thursday, 9:00).
      
 6.  **k-Means Clustering**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_k_means_clustering.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_k_means_clustering.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_11_k_means_clustering.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_13_k_means_clustering.ipynb)
   - Further Resources
      - [[VIDEO] K-Means overview](https://www.youtube.com/watch?v=YIGtalP1mv0)
      - [[VIDEO] Cool K-Means demonstration](https://www.youtube.com/watch?v=BVFG7fd1H30)
