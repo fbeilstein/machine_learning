@@ -200,9 +200,9 @@ Exam will be held on January 9 (Thursday, 9:00).
     
 8.  **Kernel Density Estimation**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_kernel_density_estimation.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_15_kernel_density_estimation.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_13_kernel_density_estimation.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_15_kernel_density_estimation.ipynb)
   - Further Resources
     -  [[VIDEO] Intro to KDE](https://www.youtube.com/watch?v=x5zLaWT5KPs)
     -  [[ARTICLE] Kernel Density Estimation with Python using Sklearn](https://medium.com/intel-student-ambassadors/kernel-density-estimation-with-python-using-sklearn-c50b3c337871)
