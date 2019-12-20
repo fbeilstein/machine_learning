@@ -153,9 +153,9 @@ Exam will be held on January 9 (Thursday, 9:00).
       
 5.  **Principal Component Analysis**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_9_pca.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_principal_component_analysis.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_9_pca.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_12_principal_component_analysis.ipynb)
   - Further Resources
     - [[VIDEO] MIT lecture on SVD](https://www.youtube.com/watch?v=mBcLRGuAFUk)
     - [[VIDEO] Numberphile video on PCA](https://www.youtube.com/watch?v=TJdH6rPA-TI)
