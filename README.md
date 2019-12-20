@@ -143,9 +143,9 @@ Exam will be held on January 9 (Thursday, 9:00).
       
 4.  **Decision Trees and Random Forests**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_8_decision_trees.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_decision_trees_and_random_forest.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_8_decision_trees.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_11_decision_trees_and_random_forest.ipynb)
   - Further Resources
     -  [[VIDEO] Random Forests, StatQuest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
