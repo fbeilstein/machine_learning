@@ -89,9 +89,9 @@ Exam will be held on January 9 (Thursday, 9:00).
     
 1.  **Naive Bayes Classification**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_5_naive_bayes.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_07_naive_bayes.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_5_naive_bayes.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_07_naive_bayes.ipynb)
   - Further Resources
     -  [[VIDEO] Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
     -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
