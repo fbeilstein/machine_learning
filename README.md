@@ -185,9 +185,9 @@ Exam will be held on January 9 (Thursday, 9:00).
        
 7.  **Gaussian Mixture Models**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_gaussian_mixture_models.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_14_gaussian_mixture_models.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_12_gaussian_mixture_models.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_14_gaussian_mixture_models.ipynb)
   - Further Resources
     - [[VIDEO] Madras University lecture on GMM](https://www.youtube.com/watch?v=Yz5pySyEtsU&t=)
     - [[VIDEO] Madras University lecture on EM](https://www.youtube.com/watch?v=AyCtj0shjP8&t=)
