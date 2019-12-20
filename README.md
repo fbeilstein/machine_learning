@@ -133,9 +133,9 @@ Exam will be held on January 9 (Thursday, 9:00).
   
 3.  **Support Vector Machines**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_7_svm.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_support_vector_machines.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/seminar_7_svm.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_10_support_vector_machines.ipynb)
   - Further Resources
     -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
