@@ -18,12 +18,12 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake.py))
     -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis.py))
   - Further Resources
-    -  [An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
-    -  [An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
-    -  [CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
-    -  [Viz Mode CodeSculptor (Python2 only)](http://www.codeskulptor.org/viz/index.html)
-    -  [Python 2 CodeSculptor](http://www.codeskulptor.org)
-    -  [Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
+    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
+    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
+    -  [[WEB SERVICE] CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
+    -  [[WEB SERVICE] Viz Mode CodeSculptor (Python2 only)](http://www.codeskulptor.org/viz/index.html)
+    -  [[WEB SERVICE] Python 2 CodeSculptor](http://www.codeskulptor.org)
+    -  [[WEB SERVICE] Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
     
 2.  **More about Python**
 
@@ -77,7 +77,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 
 ### Methods of ML
 
-0.  **Statistics**
+1.  **Statistics**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_statistics.ipynb)
   - Practice
@@ -87,7 +87,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
-1.  **Naive Bayes Classification**
+2.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_07_naive_bayes.ipynb)
   - Practice
@@ -101,7 +101,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
       
-1.5.  **Mathematical optimization**
+3.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_08_optimization.ipynb)
   - Practice
@@ -117,7 +117,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
     - [Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
 
-2.  **Linear Regression**
+4.  **Linear Regression**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_09_linear_regression.ipynb)
   - Practice
@@ -131,7 +131,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
   
-3.  **Support Vector Machines**
+5.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_support_vector_machines.ipynb)
   - Practice
@@ -141,7 +141,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
     -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf) 
       
-4.  **Decision Trees and Random Forests**
+6.  **Decision Trees and Random Forests**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_decision_trees_and_random_forest.ipynb)
   - Practice
@@ -151,7 +151,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
       
-5.  **Principal Component Analysis**
+7.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_principal_component_analysis.ipynb)
   - Practice
@@ -168,7 +168,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] Principal Component Analysis Explained Visually](http://setosa.io/ev/principal-component-analysis/)
      - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
      
-6.  **k-Means Clustering**
+8.  **k-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_k_means_clustering.ipynb)
   - Practice
@@ -183,7 +183,7 @@ Exam will be held on January 9 (Thursday, 9:00).
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
        
-7.  **Gaussian Mixture Models**
+9.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_14_gaussian_mixture_models.ipynb)
   - Practice
@@ -198,7 +198,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
     
-8.  **Kernel Density Estimation**
+10.  **Kernel Density Estimation**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_15_kernel_density_estimation.ipynb)
   - Practice
@@ -214,7 +214,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
 -->
 
-9.  **Manifold Learning**
+11.  **Manifold Learning**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_16_manifold_learning.ipynb)
   - Practice
@@ -228,7 +228,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[VIDEO] Lecture on from MDS, Isomap, LLE from University of Waterloo](https://www.youtube.com/watch?v=RPjPLlGefzw)
     -  [[VIDEO] Dimensionality Reduction: Why we take Eigenvectors of the Similarity Matrix?](https://www.youtube.com/watch?v=3k9hwRCcT30)
         
-10.  **What's next: NNs and beyond**
+12.  **What's next: NNs and beyond**
   - Lecture
     -  [Presentation (PDF)](lecture_17_neural_networks.pdf)
   - Practice
