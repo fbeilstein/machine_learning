@@ -230,7 +230,7 @@ Exam will be held on January 9 (Thursday, 9:00).
         
 10.  **What's next: NNs and beyond**
   - Lecture
-    -  [Presentation (PDF)](lecture_14_neural_networks.pdf)
+    -  [Presentation (PDF)](lecture_17_neural_networks.pdf)
   - Practice
     -  Not planned
   - Further Resources
