@@ -32,11 +32,8 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
   - Further Resources
-    -  [Tutorial, Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
-    -  [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
-    -  [Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
-    -  [How to Think Like a Computer Scientist: Interactive Edition](https://runestone.academy/runestone/books/published/thinkcspy/index.html)
-    -  [Algorithms](http://aliev.me/runestone/)
+    -  [[ONLINE TUTORIAL] Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
+    -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
 ### Tools of ML
 
@@ -48,8 +45,8 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_03_numpy_arrays.ipynb)
   - Further Resources
-    -  [NumPy and SciPy Documentation](https://docs.scipy.org/doc/)
-    -  [NumPy, HABR Article](https://habr.com/ru/post/352678/)
+    -  [[OFFICIAL DOCUMENTATION] NumPy and SciPy](https://docs.scipy.org/doc/)
+    -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
     
     
 2.  **Pandas**
@@ -57,9 +54,9 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Lecture
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_04_pandas.ipynb)
   -  Practice
-      -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
   - Further Resources
-    -  [Pandas online documentation](http://pandas.pydata.org/) (please note [10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html) and [cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html))
+    -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/) (please note [10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html) and [cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html))
     -  [book "Python for Data Analysis" by Wes McKinney (the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
     
 3.  **MatPlotLib**
@@ -69,7 +66,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_05_matplotlib.ipynb)
   - Further Resources
-    -  [Matplotlib online documentation](https://matplotlib.org/)
+    -  [[OFFICIAL DOCUMENTATION] Matplotlib online documentation](https://matplotlib.org/)
     -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
     -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [Basemap Documentation](https://matplotlib.org/basemap/)
@@ -246,11 +243,14 @@ Exam will be held on January 9 (Thursday, 9:00).
 
 ## Books
 
-0. [Jake Vanderplas. Python Data Science Handbook.](https://tanthiamhuat.files.wordpress.com/2018/04/pythondatasciencehandbook.pdf)
-1. [David Barber. Bayesian Reasoning and Machine Learning.](http://web4.cs.ucl.ac.uk/staff/D.Barber/textbook/090310.pdf)
-2. [Trevor Hastie. Robert Tibshirani. Jerome Friedman. The Elements of Statistical Learning.](https://web.stanford.edu/~hastie/ElemStatLearn/)
-3. [Simon J.D. Prince. Computer vision: models, learning and inference.](http://web4.cs.ucl.ac.uk/staff/s.prince/book/book.pdf)
-4. [C. Bishop. Pattern Recognition and Machine Learning.](http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf)
+0. [Jake Vanderplas, Python Data Science Handbook.](https://tanthiamhuat.files.wordpress.com/2018/04/pythondatasciencehandbook.pdf)
+1. [David Barber, Bayesian Reasoning and Machine Learning.](http://web4.cs.ucl.ac.uk/staff/D.Barber/textbook/090310.pdf)
+2. [Trevor Hastie, Robert Tibshirani, Jerome Friedman, The Elements of Statistical Learning.](https://web.stanford.edu/~hastie/ElemStatLearn/)
+3. [Simon J.D. Prince, Computer vision: models, learning and inference.](http://web4.cs.ucl.ac.uk/staff/s.prince/book/book.pdf)
+4. [C. Bishop, Pattern Recognition and Machine Learning.](http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf)
+5. [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
+6. [Jeffrey Elkner, Allen B. Downey, and Chris Meyers, How to Think Like a Computer Scientist: Interactive Edition](https://runestone.academy/runestone/books/published/thinkcspy/index.html)
+7. [Брэд Миллер и Дэвид Рэнум, Алгоритмы и структуры данных](http://aliev.me/runestone/)
 
 ## How it was made
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
