@@ -104,7 +104,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_08_optimization.ipynb)
   - Further Resources
-    - [SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
+    - [[OFFICIAL DOCUMENTATION] SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
     - [Momentum gradient descent method](https://distill.pub/2017/momentum/)
     - [Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
     - [Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
@@ -125,7 +125,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[VIDEO] R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
     - [[VIDEO] Multiple regression](https://www.youtube.com/watch?v=zITIFTsivN8)
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
-    - [Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
+    - [[LECTURE NOTES] Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
   
 5.  **Support Vector Machines**
@@ -163,7 +163,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] PCA: Application in Machine Learning](https://medium.com/apprentice-journal/pca-application-in-machine-learning-4827c07a61db)
     - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
     - [[ARTICLE] Principal Component Analysis Explained Visually](http://setosa.io/ev/principal-component-analysis/)
-     - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
+    - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
      
 8.  **k-Means Clustering**
   - Lecture
@@ -217,7 +217,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_16_manifold_learning.ipynb)
   - Further Resources
-    -  [Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)    
+    -  [[OFFICIAL DOCUMENTATION] Scikit-learn documentation on Manifold Learning](https://scikit-learn.org/stable/modules/manifold.html)
     -  [[ARTICLE] How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
     -  [[WEBSITE] LLE algo, papers and more](https://cs.nyu.edu/~roweis/lle/)
     -  [[ARTICLE] Locally Linear Embedding (LLE)](https://medium.com/analytics-vidhya/locally-linear-embedding-lle-data-mining-b956616d24e9)
