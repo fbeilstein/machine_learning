@@ -68,10 +68,9 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_05_matplotlib.ipynb)
   - Further Resources
     -  [[OFFICIAL DOCUMENTATION] Matplotlib online documentation](https://matplotlib.org/)
-    -  [Matplotlib gallery](https://matplotlib.org/gallery.html)
-    -  [Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
-    -  [Basemap Documentation](https://matplotlib.org/basemap/)
-    -  [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
+    -  [[GALLERY] Matplotlib gallery](https://matplotlib.org/gallery.html)
+    -  [[ARTICLE] Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
+    -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
 
 ### Methods of ML
 
@@ -253,6 +252,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 6. [Jeffrey Elkner, Allen B. Downey, and Chris Meyers, How to Think Like a Computer Scientist: Interactive Edition](https://runestone.academy/runestone/books/published/thinkcspy/index.html)
 7. [Брэд Миллер и Дэвид Рэнум, Алгоритмы и структуры данных](http://aliev.me/runestone/)
 8. [Wes McKinney, "Python for Data Analysis" (by the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
+9. [Claus O. Wilke, Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
 
 ## How it was made
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
