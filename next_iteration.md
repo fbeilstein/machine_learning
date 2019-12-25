@@ -23,6 +23,7 @@
 # Optimization lecture
 - [ ] Coordinate descent (has connections to SVM and E-M algo)
 - [ ] Use UI from GMM demo to set the initial point
+- [ ] Use maximum descent algo to get 2D maximum in a matrix of integers as is done in https://www.youtube.com/watch?v=HtSuA80QTyo&t=37s
 
 # All lectures with demos
 - [ ] Pull out not only fitting but classification function as well (from visualization).
