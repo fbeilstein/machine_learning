@@ -253,6 +253,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 7. [Брэд Миллер и Дэвид Рэнум, Алгоритмы и структуры данных](http://aliev.me/runestone/)
 8. [Wes McKinney, "Python for Data Analysis" (by the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
 9. [Claus O. Wilke, Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
+10. [Aurélien Géron, Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow](https://github.com/loveunk/Deep-learning-books/blob/master/1.%20Machine%20Leaning%20and%20Deep%20Learning/Hands%20on%20Machine%20Learning%20with%20Scikit%20Learn%20Keras%20and%20TensorFlow%202nd%20Edition-2019.pdf)
 
 ## How it was made
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
