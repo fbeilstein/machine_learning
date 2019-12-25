@@ -70,15 +70,14 @@
 - Що робить Extra-Trees більш випадковими за випадковий ліс? Як це може допомогти в класифікації? Чи є побудова такого дерева швидшою за побудову звичайного дерева рішень?
 - Які гіперпараметри та як варто змінювати, якщо ансамбль AdaBoost проявляє недонавчання?
 
+* Метод головних компонент
+
+- Для чого використовується пониження розмірності датасету? В чому полягають основні недоліки?
+- Що таке прокляття розмірності?
+- Чи можна інвертувати операцію пониження розмірності? Якщо так, то як? Якщо ні, то чому?
+- Чи можна використовувати метод головних компонент для пониження розмірності сильно нелінійного датасету?
 
 
-* PCA
-
-1. What are the main motivations for reducing a dataset’s dimensionality? What are
-the main drawbacks?
-2. What is the curse of dimensionality?
-3. Once a dataset’s dimensionality has been reduced, is it possible to reverse the
-operation? If so, how? If not, why?
 4. Can PCA be used to reduce the dimensionality of a highly nonlinear dataset?
 5. Suppose you perform PCA on a 1,000-dimensional dataset, setting the explained
 variance ratio to 95%. How many dimensions will the resulting dataset have?
