@@ -54,7 +54,7 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Lecture
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_04_pandas.ipynb)
   -  Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
+     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
   - Further Resources
     -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/)
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
