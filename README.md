@@ -56,8 +56,9 @@ Exam will be held on January 9 (Thursday, 9:00).
   -  Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_04_pandas.ipynb)
   - Further Resources
-    -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/) (please note [10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html) and [cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html))
-    -  [book "Python for Data Analysis" by Wes McKinney (the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
+    -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/)
+    -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
+    -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
     
 3.  **MatPlotLib**
 
@@ -251,6 +252,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 5. [Lutz M., Learning Python](https://cfm.ehu.es/ricardo/docs/python/Learning_Python.pdf)
 6. [Jeffrey Elkner, Allen B. Downey, and Chris Meyers, How to Think Like a Computer Scientist: Interactive Edition](https://runestone.academy/runestone/books/published/thinkcspy/index.html)
 7. [Брэд Миллер и Дэвид Рэнум, Алгоритмы и структуры данных](http://aliev.me/runestone/)
+8. [Wes McKinney, "Python for Data Analysis" (by the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
 
 ## How it was made
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
