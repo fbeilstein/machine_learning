@@ -58,52 +58,12 @@
 
 * Дерева рішень та випадковий ліс
 
-1. What is the approximate depth of a Decision Tree trained (without restrictions)
-on a training set with 1 million instances?
-2. Is a node’s Gini impurity generally lower or greater than its parent’s? Is it gener‐
-ally lower/greater, or always lower/greater?
-3. If a Decision Tree is overfitting the training set, is it a good idea to try decreasing
-max_depth ?
-4. If a Decision Tree is underfitting the training set, is it a good idea to try scaling
-the input features?
-5. If it takes one hour to train a Decision Tree on a training set containing 1 million
-instances, roughly how much time will it take to train another Decision Tree on a
-training set containing 10 million instances?
-6. If your training set contains 100,000 instances, will setting presort=True speed
-up training?
+- Яка очікувана висота дерева рішень, що побудоване на 1 мільйоні датапойнтів (жодні додаткові обмеження при побудові не використовуються)?
+- Чи є індекс Джині даного вузла зазвичай більший чи менший за індекс батьківського вузла? Зазвичай чи завжди більший чи менший?
+- Якщо дерево рішень перенавчилося, то чи є смисл зменшувати параметр max_depth? 
+- Якщо дерево рішень недонавчилося, то чи є смисл масштабувати ознаки?
 
-1. The depth of a well-balanced binary tree containing m leaves is equal to log 2 (m) ,
-rounded up. A binary Decision Tree (one that makes only binary decisions, as is
-the case of all trees in Scikit-Learn) will end up more or less well balanced at the
-end of training, with one leaf per training instance if it is trained without restric‐
-tions. Thus, if the training set contains one million instances, the Decision Tree
-will have a depth of log 2 (10 6 ) ≈ 20 (actually a bit more since the tree will generally
-not be perfectly well balanced).
-2. A node’s Gini impurity is generally lower than its parent’s. This is ensured by the
-CART training algorithm’s cost function, which splits each node in a way that
-minimizes the weighted sum of its children’s Gini impurities. However, if one
-child is smaller than the other, it is possible for it to have a higher Gini impurity
-than its parent, as long as this increase is more than compensated for by a
-decrease of the other child’s impurity. For example, consider a node containing
-1 2
-4 2
-four instances of class A and 1 of class B. Its Gini impurity is 1 − 5 − 5 = 0.32.
-Now suppose the dataset is one-dimensional and the instances are lined up in the
-following order: A, B, A, A, A. You can verify that the algorithm will split this
-node after the second instance, producing one child node with instances A, B,
-and the other child node with instances A, A, A. The first child node’s Gini
-1 2
-1 2
-impurity is 1 − 2 − 2 = 0.5, which is higher than its parent. This is compensated
-for by the fact that the other node is pure, so the overall weighted Gini impurity
-2
-3
-is 5 × 0.5 + 5 × 0 = 0.2 , which is lower than the parent’s Gini impurity.
-3. If a Decision Tree is overfitting the training set, it may be a good idea to decrease
-max_depth , since this will constrain the model, regularizing it.
-4. Decision Trees don’t care whether or not the training data is scaled or centered;
-that’s one of the nice things about them. So if a Decision Tree underfits the train‐
-ing set, scaling the input features will just be a waste of time.
+
 
 
 
@@ -251,4 +211,39 @@ ber of useless dimensions, then applying another much slower dimensionality
 reduction algorithm, such as LLE. This two-step approach will likely yield the
 same performance as using LLE only, but in a fraction of the time.
 
+
+
+-- Decision Trees Solutions --
+1. The depth of a well-balanced binary tree containing m leaves is equal to log 2 (m) ,
+rounded up. A binary Decision Tree (one that makes only binary decisions, as is
+the case of all trees in Scikit-Learn) will end up more or less well balanced at the
+end of training, with one leaf per training instance if it is trained without restric‐
+tions. Thus, if the training set contains one million instances, the Decision Tree
+will have a depth of log 2 (10 6 ) ≈ 20 (actually a bit more since the tree will generally
+not be perfectly well balanced).
+2. A node’s Gini impurity is generally lower than its parent’s. This is ensured by the
+CART training algorithm’s cost function, which splits each node in a way that
+minimizes the weighted sum of its children’s Gini impurities. However, if one
+child is smaller than the other, it is possible for it to have a higher Gini impurity
+than its parent, as long as this increase is more than compensated for by a
+decrease of the other child’s impurity. For example, consider a node containing
+1 2
+4 2
+four instances of class A and 1 of class B. Its Gini impurity is 1 − 5 − 5 = 0.32.
+Now suppose the dataset is one-dimensional and the instances are lined up in the
+following order: A, B, A, A, A. You can verify that the algorithm will split this
+node after the second instance, producing one child node with instances A, B,
+and the other child node with instances A, A, A. The first child node’s Gini
+1 2
+1 2
+impurity is 1 − 2 − 2 = 0.5, which is higher than its parent. This is compensated
+for by the fact that the other node is pure, so the overall weighted Gini impurity
+2
+3
+is 5 × 0.5 + 5 × 0 = 0.2 , which is lower than the parent’s Gini impurity.
+3. If a Decision Tree is overfitting the training set, it may be a good idea to decrease
+max_depth , since this will constrain the model, regularizing it.
+4. Decision Trees don’t care whether or not the training data is scaled or centered;
+that’s one of the nice things about them. So if a Decision Tree underfits the train‐
+ing set, scaling the input features will just be a waste of time.
 
