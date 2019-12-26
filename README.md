@@ -80,9 +80,8 @@ Exam will be held on January 9 (Thursday, 9:00).
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_06_statistics.ipynb)
   - Further Resources
-    -  [How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
-    -  [How to Display Data Badly. Howard Wainer. The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
+    -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
 2.  **Naive Bayes Classification**
   - Lecture
@@ -91,11 +90,11 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_07_naive_bayes.ipynb)
   - Further Resources
     -  [[VIDEO] Veritasium, Bayes](https://www.youtube.com/watch?v=R13BD8qKeTg)
-    -  [Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
-    -  [Spam Filtering with Naive Bayes - Which Naive Bayes?](https://www.researchgate.net/publication/221650814_Spam_Filtering_with_Naive_Bayes_-_Which_Naive_Bayes)
-    -  [A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
-    -  [Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
-    -  [Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
+    -  [[ARTICLE] Naive bayes in Python](https://medium.com/data-py-blog/naive-bayes-in-python-753f9140201)
+    -  [[ARTICLE] Spam Filtering with Naive Bayes - Which Naive Bayes?](https://www.researchgate.net/publication/221650814_Spam_Filtering_with_Naive_Bayes_-_Which_Naive_Bayes)
+    -  [[ARTICLE] A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
+    -  [[OFFICIAL DOCUMENTATION] Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
+    -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
       
 3.  **Mathematical optimization**
@@ -254,6 +253,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 8. [Wes McKinney, "Python for Data Analysis" (by the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
 9. [Claus O. Wilke, Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
 10. [Aurélien Géron, Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow](https://github.com/loveunk/Deep-learning-books/blob/master/1.%20Machine%20Leaning%20and%20Deep%20Learning/Hands%20on%20Machine%20Learning%20with%20Scikit%20Learn%20Keras%20and%20TensorFlow%202nd%20Edition-2019.pdf)
+11. [Darrell Huff, How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
 
 ## How it was made
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
