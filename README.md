@@ -104,9 +104,9 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_08_optimization.ipynb)
   - Further Resources
     - [[OFFICIAL DOCUMENTATION] SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
-    - [Momentum gradient descent method](https://distill.pub/2017/momentum/)
-    - [Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
-    - [Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
+    - [[ARTICLE] Momentum gradient descent method](https://distill.pub/2017/momentum/)
+    - [[ARTICLE] Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
+    - [[ARTICLE] Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
     - [[HABR] Newton method](https://habr.com/ru/post/469877/)
     - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
