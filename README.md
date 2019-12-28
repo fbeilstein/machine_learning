@@ -108,10 +108,10 @@ Exam will be held on January 9 (Thursday, 9:00).
     - [[ARTICLE] Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
     - [[ARTICLE] Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
     - [[HABR] Newton method](https://habr.com/ru/post/469877/)
-    - [Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
+    - [[ARTICLE] Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
-    - [MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
-    - [Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
+    - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
+    - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
 
 4.  **Linear Regression**
   - Lecture
