@@ -5,7 +5,7 @@ However share features of being a book and a powerpoint so it requires a specifi
 
 The backbone of the course are the python examples covered in the Python Data Science Handbook by Jake Vanderplas. However I realized I needed to add
 * python introduction (1.5 lectures);
-* matplotlib, pandas, and numpy introductions were extended with practical problems in workbooks (3 lectures);
+* matplotlib, pandas, and numpy introductions extended with practical problems in workbooks (3 lectures);
 * statistics and mathematical optimization overview (2 lectures);
 * extensive theory injections in each lecture;
 * interactive examples;
