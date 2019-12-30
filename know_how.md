@@ -11,7 +11,7 @@ The backbone of the course are the python examples covered in the Python Data Sc
 * interactive examples;
 * seminar tasks.
 
-I tried to watch and compile as many online youtube lectures or stand alone videos as I could in order to. I tried to do credit to all of them in the Further Resources section of each lecture.
+I tried to watch and compile as many online youtube lectures or stand alone videos as I could and tried credit all of them in the Further Resources section of each lecture.
 
 
 I also realized that scilearn documentation is very helpful and should be extensively used. There are references to actual scientific papers that scilearn algorithms are based on. If you want to go in depth you should check them out.
