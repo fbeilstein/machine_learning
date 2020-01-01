@@ -33,4 +33,4 @@
 - [ ] Use idea with finding dissimilar image from https://dou.ua/lenta/articles/computer-vision-magic/ 
 
 # Manifold learning
-- [ ] Visualize surface (do Delaune triangulation and draw as a bunch of triangles)
+- [X] Visualize surface (do Delaune triangulation and draw as a bunch of triangles)
