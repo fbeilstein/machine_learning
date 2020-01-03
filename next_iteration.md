@@ -6,6 +6,10 @@
 - [ ] Add conclusions at the end of EVERY lecture.
 - [ ] Make demo style consistent (consider using SNS).
 
+# Numpy lecture
+- [ ] add `np.einsum` consideration
+- [ ] think on some visualization for np.arrays
+
 # Statistics lecture
 - [ ] add Polya  urn models (Beta distribution etc)
 
