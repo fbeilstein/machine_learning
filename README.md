@@ -24,6 +24,7 @@ Exam will be held on January 9 (Thursday, 9:00).
     -  [[WEB SERVICE] Viz Mode CodeSculptor (Python2 only)](http://www.codeskulptor.org/viz/index.html)
     -  [[WEB SERVICE] Python 2 CodeSculptor](http://www.codeskulptor.org)
     -  [[WEB SERVICE] Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
+    -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     
 2.  **More about Python**
 
