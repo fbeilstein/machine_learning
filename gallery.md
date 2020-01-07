@@ -1,5 +1,11 @@
 # Lecture 7: Naive Bayes Classification
 
+## Monty Hall paradox 
+
+This demo should help to convince you that all the theory behind Monty Hall paradox actually makes sense.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_07_monty_hall.gif" width="800px"/>
+
 ## 2D Gaussian Naive Bayes
 
 This demo allows you to explore 2D Naive Bayes with Gaussian as an underlying model.
