@@ -1,3 +1,11 @@
+# Lecture 11: Decision Trees and Random Forests
+
+## Handwritten digits recognition  
+
+Draw any digit $0\dots 9$ and press "Do recognition".
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_11_mnist.gif" width="800px"/>
+
 # Lecture 12: Principal Component Analysis
 
 ## PCA on custom 2D datapoints
