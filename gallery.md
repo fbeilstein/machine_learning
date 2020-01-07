@@ -1,3 +1,9 @@
+# Lecture 13: k-Means Clustering
+
+## k-Means with Scikit Learn
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_13_k_means.gif" width="800px"/>
+
 # Lecture 14: Gaussian Mixture Models
 
 ## GMM in 2D
