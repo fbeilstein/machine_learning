@@ -1,3 +1,11 @@
+# Lecture 6: Statistics
+
+## Correlation of 2D points
+
+Explore correlation coefficient for 2D points 
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_correlation.gif" width="800px"/>
+
 # Lecture 7: Naive Bayes Classification
 
 ## Monty Hall paradox 
