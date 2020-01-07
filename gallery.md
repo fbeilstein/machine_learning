@@ -1,5 +1,11 @@
 # Lecture 15: Kernel Density Estimation (KDE)
 
+## 1D KDE exploration
+
+This demo aims to show how KDE with different kernels and bandwidths deal with data following Gaussian mixture (3 Gaussians) distribution.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_15_1d_kde.gif" width="800px"/> 
+
 ## KDE on 2D custom dataset
 
 This demo is the playground to explore 2D KDE with different bandwidth, kernels and metric for custom user datapoints.
