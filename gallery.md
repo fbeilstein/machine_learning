@@ -2,7 +2,7 @@
 
 ## Handwritten digits recognition  
 
-Draw any digit $0\dots 9$ and press "Do recognition".
+Draw any digit 0...9 and press "Do recognition".
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_11_mnist.gif" width="800px"/>
 
