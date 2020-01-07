@@ -1,5 +1,9 @@
 # Lecture 6: Statistics
 
+## MLE for Gaussian with fixed dispersion
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_mle.gif" width="800px"/>
+
 ## Correlation of 2D points
 
 Explore correlation coefficient for 2D points 
