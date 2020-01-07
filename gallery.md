@@ -1,5 +1,11 @@
 # Lecture 14: Gaussian Mixture Models
 
+## GMM in 2D
+
+This demo is the playground to provide intuition on how a 2D mixture model based on Gaussians works.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_14_2d_gmm.gif" width="800px"/> 
+
 ## Implement simple GMM algo (Expectation-Maximization)
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_14_EM.gif" width="800px"/> 
