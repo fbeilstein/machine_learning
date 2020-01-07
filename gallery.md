@@ -1,5 +1,9 @@
 # Lecture 6: Statistics
 
+## Correcting standart deviation for normal distribution
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_std.gif" width="800px"/>
+
 ## MLE for Gaussian with fixed dispersion
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_mle.gif" width="800px"/>
