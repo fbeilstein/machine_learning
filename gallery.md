@@ -1,3 +1,11 @@
+# Lecture 7: Naive Bayes Classification
+
+## 2D Gaussian Naive Bayes
+
+This demo allows you to explore 2D Naive Bayes with Gaussian as an underlying model.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_07_bayes.gif" width="800px"/>
+
 # Lecture 8: Mathematical optimization
 
 ## Explore different optimization methods
