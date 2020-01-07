@@ -1,3 +1,9 @@
+# Lecture 10: Support Vector Machines
+
+## Kernel SVM classification of custom 2D dataset
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_10_linear_vs_rbf.gif" width="800px"/>
+
 # Lecture 11: Decision Trees and Random Forests
 
 ## Decision tree classification of custom set of 2D points
