@@ -1,5 +1,11 @@
 # Lecture 11: Decision Trees and Random Forests
 
+## Decision tree classification of custom set of 2D points
+
+Explore how tree depth influences the resule of decision tree classification
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_11_decision_tree.gif" width="800px"/>
+
 ## Handwritten digits recognition  
 
 Draw any digit 0...9 and press "Do recognition".
