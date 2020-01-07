@@ -1,5 +1,9 @@
 # Lecture 10: Support Vector Machines
 
+## Linear Kernel SVM classification of custom 2D dataset
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_10_linear_svm.gif" width="800px"/>
+
 ## Kernel SVM classification of custom 2D dataset
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_10_linear_vs_rbf.gif" width="800px"/>
