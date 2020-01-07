@@ -1,5 +1,9 @@
 # Lecture 6: Statistics
 
+## Sample variance for normal distribution
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_variance.gif" width="800px"/>
+
 ## Correcting standart deviation for normal distribution
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_06_std.gif" width="800px"/>
