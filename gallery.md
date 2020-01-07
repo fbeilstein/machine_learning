@@ -1,3 +1,11 @@
+# Lecture 8: Mathematical optimization
+
+## Explore different optimization methods
+
+Here are a handful of optimization methods defined in `Scilearn` library. You can tweak starting point, number of iterations, method to compute Hessian and Jacobian (for the methods which use them). You can also choose function you want to find the minimum of.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_08.gif" width="800px"/>
+
 # Lecture 9: Regression
 
 ## Ridge and Lasso regularization
