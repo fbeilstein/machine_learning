@@ -1,3 +1,9 @@
+# Lecture 14: Gaussian Mixture Models
+
+## Implement simple GMM algo (Expectation-Maximization)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_14_EM.gif" width="800px"/> 
+
 # Lecture 15: Kernel Density Estimation (KDE)
 
 ## 1D KDE exploration
