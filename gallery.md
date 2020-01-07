@@ -1,3 +1,9 @@
+# Lecture 9: Regression
+
+## Custom regression with polynomials
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_09_regression.gif" width="800px"/>
+
 # Lecture 10: Support Vector Machines
 
 ## Linear Kernel SVM classification of custom 2D dataset
