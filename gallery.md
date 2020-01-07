@@ -1,5 +1,9 @@
 # Lecture 13: k-Means Clustering
 
+## k-Means, custom implementation
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_13_custom_k_means.gif" width="800px"/>
+
 ## k-Means with Scikit Learn
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_13_k_means.gif" width="800px"/>
