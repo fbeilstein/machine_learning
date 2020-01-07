@@ -1,5 +1,13 @@
 # Lecture 15: Kernel Density Estimation (KDE)
 
+## KDE on 2D custom dataset
+
+This demo is the playground to explore 2D KDE with different bandwidth, kernels and metric for custom user datapoints.
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_15_2d_kde.gif" width="800px"/> 
+
+## 1849 Broad Street cholera outbreak visualization
+
 The Broad Street cholera outbreak was a severe outbreak of cholera that occurred in 1854 near Broad Street (now Broadwick Street) in the Soho district of the City of Westminster, London, England, and occurred during the 1846–1860 cholera pandemic happening worldwide. This outbreak, which killed 616 people, is best known for the physician John Snow's study of its causes and his hypothesis that germ-contaminated water was the source of cholera, rather than particles in the air.This discovery came to influence public health and the construction of improved sanitation facilities beginning in the mid-19th century.
 
 ![](https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_15_kernel_density_estimation/snows_cholera_map.png) 
