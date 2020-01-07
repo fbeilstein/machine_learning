@@ -1,3 +1,9 @@
+# Lecture 12: Principal Component Analysis
+
+## PCA on custom 2D datapoints
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_12_pca.gif" width="800px"/>
+
 # Lecture 13: k-Means Clustering
 
 ## k-Means, custom implementation
