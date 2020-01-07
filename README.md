@@ -257,6 +257,7 @@ Exam will be held on January 9 (Thursday, 9:00).
 11. [Darrell Huff, How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
 
 ## How it was made
+  - [[GIF] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.md)
   - [[CODE] Demo Gallery](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/gallery.ipynb)
   - [Retrospection, tips and tricks for courses creators](know_how.md)
     
