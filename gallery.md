@@ -2,6 +2,8 @@
 
 ## Custom regression with polynomials
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_09_formulae.png" width="800px"/>
+
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/gallery/lecture_09_regression.gif" width="800px"/>
 
 # Lecture 10: Support Vector Machines
