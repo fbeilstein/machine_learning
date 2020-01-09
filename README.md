@@ -3,7 +3,7 @@
 
 # Schedule
 
-Exam will be held on January 9 (Thursday, 9:00).
+Course will restart in September.
 
 ## Curriculum
 
