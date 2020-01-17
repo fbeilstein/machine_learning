@@ -32,6 +32,7 @@ Course will restart in September.
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python.ipynb)
   - Practice
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_python.ipynb)
   - Further Resources
     -  [[ONLINE TUTORIAL] Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
