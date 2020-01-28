@@ -1,0 +1,64 @@
+;
+
+// 2. When the HTML document finishes loading, populate the div
+//    (traceDiv) with the visualization
+//    corresponding to the trace.
+$(document).ready(function() {
+
+  // 3. Create a new ExecutionVisualizer object for each visualization.
+  //    (See /static/pytutor/js/pytutor.js for the full specs of ExecutionVisualizer.)
+  //
+  //    The basic idea is that the parent div name is passed as the first argument,
+  //    and the trace object is passed as the second argument.
+  //
+  //    The third argument contains optional parameters.
+
+  // Note that "embeddedMode: true" makes the visualizer appear more compact on-screen.
+  // editCodeBaseURL is the base URL to prepend onto the 'Edit code' link.
+
+  // Render listSumTrace inside of listSumDiv
+  var traceVisualizer = new ExecutionVisualizer('traceDiv', traceOutput,
+                                                {embeddedMode: true,
+                                                 startingInstruction: 0,
+                                                 jumpToEnd: false,
+                                                 editCodeBaseURL: ""});
+
+  // The redrawConnectors() method needs to be called whenever
+  // HTML elements move around on-screen. This is because the SVG
+  // arrows rendered by jsPlumb don't automatically get redrawn
+  // in their new positions unless redrawConnectors() is called.
+
+  // Call redrawConnectors() whenever the window is resized,
+  // since HTML elements might have moved during a resize.
+  $(window).resize(function() {
+    traceVisualizer.redrawConnectors();
+  });
+
+
+  // A more subtle point is that when some div in your HTML webpage
+  // (such as a visualizer div) expands in height, it will "push down"
+  // all divs below it, but the SVG arrows rendered by jsPlumb
+  // WILL NOT MOVE. Thus, they will be in the incorrect location,
+  // unless you call redrawConnectors(). Here is one jQuery plugin
+  // that you can use to detect div height changes:
+  //
+  // http://benalman.com/projects/jquery-resize-plugin/
+  //
+  // As a concrete example, drag around the execution slider in
+  // "Towers of Hanoi" and notice how the arrows in "Happy Birthday"
+  // end up not properly aligned with the other elements.
+  //
+  // A related trick you can implement is to make a div never shrink
+  // in height once it's grown; that way, you can avoid lots of jarring
+  // jumps and redraws.
+  //
+  // Please email me if you want me to add more official support
+  // for this behavior.
+});
+</script>
+
+<div style="margin-right: 10px;">
+
+</div>
+  <p>
+  <div id="traceDiv"></div>
