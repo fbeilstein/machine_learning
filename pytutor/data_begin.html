@@ -4173,28 +4173,40 @@ function(objID, stepNum, d3DomElement, isTopLevel) {
     d3DomElement.append('<table class="customObjTbl"><tr><td class="customObjElt">' + strRepr + '</td></tr></table>');
   }
   else if (obj[0] == 'FUNCTION') {
-    assert(obj.length == 3);
-
-    // pretty-print lambdas and display other weird characters:
-    var funcName = htmlspecialchars(obj[1]).replace('&lt;lambda&gt;', '\u03bb');
-    var parentFrameID = obj[2]; // optional
-
-    if (!myViz.compactFuncLabels) {
-      d3DomElement.append('<div class="typeLabel">' + typeLabelPrefix + myViz.getRealLabel('function') + '</div>');
-    }
-
-    var funcPrefix = myViz.compactFuncLabels ? 'func' : '';
-
-    if (parentFrameID) {
-      d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + ' [parent=f'+ parentFrameID + ']</div>');
-    }
-    else if (myViz.showAllFrameLabels) {
-      d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + ' [parent=Global]</div>');
-    }
-    else {
-      d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + '</div>');
-    }
-  }
+            assert(obj.length == 3 || obj.length == 4);
+            // pretty-print lambdas and display other weird characters:
+            var funcName = htmlspecialchars(obj[1]).replace('&lt;lambda&gt;', '\u03bb');
+            var parentFrameID = obj[2]; // optional
+            if (!myViz.params.compactFuncLabels) {
+                d3DomElement.append('<div class="typeLabel">' + typeLabelPrefix + myViz.getRealLabel('function') + '</div>');
+            }
+            var funcPrefix = myViz.params.compactFuncLabels ? 'func' : '';
+            if (parentFrameID) {
+                d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + ' [parent=f' + parentFrameID + ']</div>');
+            }
+            else if (myViz.params.showAllFrameLabels) {
+                d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + ' [parent=Global]</div>');
+            }
+            else {
+                d3DomElement.append('<div class="funcObj">' + funcPrefix + ' ' + funcName + '</div>');
+            }
+            // render default argument names/values (see ../pg_encoder.py)
+            if (obj.length > 3) {
+                var funcProperties = obj[3];
+                assert(funcProperties.length > 0);
+                d3DomElement.append('<div class="typeLabel" style="margin-top: 3px;">default arguments:</div>');
+                d3DomElement.append('<table class="instTbl"></table>');
+                var tbl = d3DomElement.children('table');
+                $.each(funcProperties, function (ind, kvPair) {
+                    tbl.append('<tr class="instEntry"><td class="instKey"></td><td class="instVal"></td></tr>');
+                    var newRow = tbl.find('tr:last');
+                    var keyTd = newRow.find('td:first');
+                    var valTd = newRow.find('td:last');
+                    keyTd.append('<span class="keyObj">' + htmlspecialchars(kvPair[0]) + '</span>');
+                    myViz.renderNestedObject(kvPair[1], stepNum, valTd);
+                });
+            }
+        }
   else if (obj[0] == 'JS_FUNCTION') { /* TODO: refactor me */
     // JavaScript function
     assert(obj.length == 5);
