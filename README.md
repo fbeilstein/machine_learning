@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="900px"/> 
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Zeichen_123_-_Baustelle%2C_StVO_1992.svg/273px-Zeichen_123_-_Baustelle%2C_StVO_1992.svg.png" width="50px"/> 
-Updates are applied to makke this course better.
+Updates are applied to make this course better.
 Occasionally some parts may not work as expected.
 
 
