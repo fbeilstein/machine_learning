@@ -17,11 +17,12 @@ Course will restart in September.
 1.  **General Info, Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python.ipynb)
   - Practice
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_01_intro_and_python.ipynb)
     -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
-    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/snake.py))
-    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python/tennis.py))
+    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/snake.py))
+    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/tennis.py))
   - Further Resources
     -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
     -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
@@ -34,10 +35,10 @@ Course will restart in September.
 2.  **More about Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_and_lecture_02_intro_and_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_02_more_python.ipynb)
   - Practice
     -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_python.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_more_python.ipynb)
   - Further Resources
     -  [[ONLINE TUTORIAL] Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
