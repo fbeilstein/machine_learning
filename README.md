@@ -12,9 +12,9 @@ Course will restart in September.
 
 ## Curriculum
 
-### Intro
+### Tools of ML
 
-1.  **General Info, Python**
+1.  **Introduction**
 
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_introduction.ipynb)
@@ -26,12 +26,12 @@ Course will restart in September.
     -  [[WEB SERVICE] Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
 
     
-2.  **More about Python**
+2.  **Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_02_more_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_02_python.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_more_python.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_python.ipynb)
   - Further Resources
     -  [[WEB SERVICE] Hackerrank (All python)](https://www.hackerrank.com/domains/python)
     -  [[ONLINE TUTORIAL] Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
@@ -41,12 +41,10 @@ Course will restart in September.
     -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
-### Tools of ML
 
-1.  **NumPy Arrays**
+3.  **NumPy Arrays**
 
   - Lecture
-    -  [Python Refresher](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/python_refresher.ipynb)
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_03_numpy_arrays.ipynb)
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_03_numpy_arrays.ipynb)
@@ -55,7 +53,7 @@ Course will restart in September.
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
     
     
-2.  **Pandas**
+4.  **Pandas**
 
   - Lecture
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_04_pandas.ipynb)
@@ -66,7 +64,7 @@ Course will restart in September.
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
     
-3.  **MatPlotLib**
+5.  **MatPlotLib**
 
   - Lecture
     -  [Comprehensive Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_05_matplotlib.ipynb)
