@@ -17,30 +17,28 @@ Course will restart in September.
 1.  **General Info, Python**
 
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_01_introduction.ipynb)
   - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_01_intro_and_python.ipynb)
-    -  [Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
-    -  [Snake Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/snake_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/snake.py))
-    -  [Tennis Game Problem (use CodeSculptor)](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/tennis_partial_code.py) ([Solution](https://github.com/fbeilstein/machine_learning/blob/master/lecture_01_intro_and_python/tennis.py))
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_01_introduction.ipynb)
   - Further Resources
-    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
-    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
-    -  [[WEB SERVICE] CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
-    -  [[WEB SERVICE] Viz Mode CodeSculptor (Python2 only)](http://www.codeskulptor.org/viz/index.html)
-    -  [[WEB SERVICE] Python 2 CodeSculptor](http://www.codeskulptor.org)
-    -  [[WEB SERVICE] Games with CodeSculptor](http://www.codeskulptor.org/demos.html#tabs-Hall-of-Fame)
-    -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
+    -  [[BLOG] ML in simple words (RU)](https://vas3k.ru/blog/machine_learning/)
+    -  [[BLOG] ML in simple words (EN)](https://vas3k.com/blog/machine_learning/)
+    -  [[WEB SERVICE] Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
+
     
 2.  **More about Python**
 
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_02_more_python.ipynb)
   - Practice
-    -  [Hackerrank (All python)](https://www.hackerrank.com/domains/python)
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_02_more_python.ipynb)
   - Further Resources
+    -  [[WEB SERVICE] Hackerrank (All python)](https://www.hackerrank.com/domains/python)
     -  [[ONLINE TUTORIAL] Python Software Foundation](https://docs.python.org/3/tutorial/index.html)
+    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 1, Coursera](https://www.coursera.org/learn/interactive-python-1)
+    -  [[VIDEOLECTURES] An Introduction to Interactive Programming in Python 2, Coursera](https://www.coursera.org/learn/interactive-python-2)
+    -  [[WEB SERVICE] CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
+    -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
 ### Tools of ML
