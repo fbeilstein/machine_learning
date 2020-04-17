@@ -11,13 +11,13 @@ The backbone of the course are the python examples covered in the Python Data Sc
 * interactive examples;
 * seminar tasks.
 
-I tried to watch and compile as many online youtube lectures or stand alone videos as I could and tried credit all of them in the Further Resources section of each lecture.
+I tried to watch and compile as many online youtube lectures or stand alone videos as I could and tried to give credit to all of them in the Further Resources section of each lecture.
 
 
 I also realized that scilearn documentation is very helpful and should be extensively used. There are references to actual scientific papers that scilearn algorithms are based on. If you want to go in depth you should check them out.
 
 
-Adding interactive widgets is very important as it helps to develop intuition into what is going on in the lecture. Playing around with points is very engaging and fun for students. This widgets should be seen as laboratory device that student use to gain understanding on the "laws of nature" (as is done in physics classes). 
+Adding interactive widgets is very important as it helps to develop intuition into what is going on in the lecture. Playing around with points is very engaging and fun for students. This widgets should be seen as laboratory device that students use to gain understanding on the "laws of nature" (as is done in physics classes). 
 
 
 I tried to inject as many multimedia as I could including:
