@@ -77,16 +77,23 @@ Course will restart in September.
     -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
 
 ### Methods of ML
-
-1.  **Statistics**
-  - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_statistics.ipynb)
-  - Practice
-    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_06_statistics.ipynb)
-  - Further Resources
-    -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
-    -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](    http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
     
+1.  **Mathematical optimization**
+  - Lecture
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_optimization.ipynb)
+  - Practice
+    - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_06_optimization.ipynb)
+  - Further Resources
+    - [[OFFICIAL DOCUMENTATION] SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
+    - [[ARTICLE] Momentum gradient descent method](https://distill.pub/2017/momentum/)
+    - [[ARTICLE] Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
+    - [[ARTICLE] Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
+    - [[HABR] Newton method](https://habr.com/ru/post/469877/)
+    - [[ARTICLE] Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
+    - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
+    - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
+    - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
+
 2.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_07_naive_bayes.ipynb)
@@ -99,23 +106,16 @@ Course will restart in September.
     -  [[ARTICLE] A Comparison of Event Models for Naive Bayes Text Classification](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=31BD6753254C5417E0D93BBFE96BD84F?doi=10.1.1.46.1529&rep=rep1&type=pdf)
     -  [[OFFICIAL DOCUMENTATION] Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
-    -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)
-      
-3.  **Mathematical optimization**
+    -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
+
+3.  **Statistics**
   - Lecture
-    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_08_optimization.ipynb)
+    -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_08_statistics.ipynb)
   - Practice
-    - [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_08_optimization.ipynb)
+    -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_08_statistics.ipynb)
   - Further Resources
-    - [[OFFICIAL DOCUMENTATION] SciPy help](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize)
-    - [[ARTICLE] Momentum gradient descent method](https://distill.pub/2017/momentum/)
-    - [[ARTICLE] Gradient descent methods](https://towardsdatascience.com/10-gradient-descent-optimisation-algorithms-86989510b5e9)
-    - [[ARTICLE] Gradient descent methods overview](http://ruder.io/optimizing-gradient-descent/)
-    - [[HABR] Newton method](https://habr.com/ru/post/469877/)
-    - [[ARTICLE] Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
-    - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
-    - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
-    - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
+    -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
+    -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
 
 4.  **Linear Regression**
   - Lecture
