@@ -1,14 +1,11 @@
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="900px"/> 
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Zeichen_123_-_Baustelle%2C_StVO_1992.svg/273px-Zeichen_123_-_Baustelle%2C_StVO_1992.svg.png" width="50px"/> 
-Updates are applied to make this course better.
-Occasionally some parts may not work as expected.
-
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 # Schedule
 
-Course will restart in September.
+First lecture expected on Sep 18, Friday, 10:15 (may change).
 
 ## Curriculum
 
@@ -210,10 +207,6 @@ Course will restart in September.
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
 
-<!--
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
--->
-
 11.  **Manifold Learning**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_16_manifold_learning.ipynb)
@@ -236,8 +229,8 @@ Course will restart in September.
   - Further Resources
     -  [[VIDEO LECTURES] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
-<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/>  
+<!--<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/> -->
 
 ## For the curious mind
 
