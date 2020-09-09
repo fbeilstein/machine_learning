@@ -4,11 +4,11 @@
 - [ ] Add more algorithmic details: computational complexity, etc.
 - [ ] Make a table where minimization functions for all of the topics are summarized.
 - [ ] Add conclusions at the end of EVERY lecture.
-- [ ] Make demo style consistent (consider using SNS).
+- [X] Make demo style consistent (consider using SNS).
 
 # Numpy lecture
 - [ ] add `np.einsum` consideration
-- [ ] think on some visualization for np.arrays
+- [X] think on some visualization for np.arrays
 
 # Statistics lecture
 - [ ] add Polya  urn models (Beta distribution etc)
@@ -22,11 +22,11 @@
 - [ ] Regression (to mean) visualization
 - [ ] Workbook, problem with error bars, add slider to change order of the fitting polynomial
 - [ ] Workbook, add problem to demonstrate LAD robustness (compared to OLS)
-- [ ] Set feaures on click in demo
+- [X] Set feaures on click in demo
 
 # Optimization lecture
-- [ ] Coordinate descent (has connections to SVM and E-M algo)
-- [ ] Use UI from GMM demo to set the initial point
+- [X] Coordinate descent (has connections to SVM and E-M algo)
+- [X] Use UI from GMM demo to set the initial point
 - [ ] Use maximum descent algo to get 2D maximum in a matrix of integers as is done in https://www.youtube.com/watch?v=HtSuA80QTyo&t=37s
 
 # All lectures with demos
