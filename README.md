@@ -1,15 +1,15 @@
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="900px"/> 
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 # Schedule
 
-First lecture expected on Sep 18, Friday, 10:15 (may change).
+First lecture expected on Sep 18, Friday, 10:30.
 
 ## Curriculum
 
 ### Tools of ML
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Introduction**
 
