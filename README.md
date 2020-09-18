@@ -3,13 +3,11 @@
 
 # Schedule
 
-First lecture expected on Sep 18, Friday, 10:30.
+Every Friday, 10:00.
 
 ## Curriculum
 
 ### Tools of ML
-
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Introduction**
 
@@ -22,6 +20,7 @@ First lecture expected on Sep 18, Friday, 10:30.
     -  [[BLOG] ML in simple words (EN)](https://vas3k.com/blog/machine_learning/)
     -  [[WEB SERVICE] Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
     
 2.  **Python**
 
