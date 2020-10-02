@@ -36,7 +36,6 @@ Every Friday, 10:00.
     -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **NumPy Arrays**
 
@@ -48,7 +47,8 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] NumPy and SciPy](https://docs.scipy.org/doc/)
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
     
-    
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+
 4.  **Pandas**
 
   - Lecture
