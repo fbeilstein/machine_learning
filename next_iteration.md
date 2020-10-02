@@ -6,9 +6,18 @@
 - [ ] Add conclusions at the end of EVERY lecture.
 - [X] Make demo style consistent (consider using SNS).
 
+# Introductory lecture
+- [ ] Example with non-balanced dataset (terrorist/non-terrorist) is ambiguous, redo
+
+# Python
+- [ ] Too much attention to simple types, need more objects/classes
+
 # Numpy lecture
 - [ ] add `np.einsum` consideration
 - [X] think on some visualization for np.arrays
+- [ ] error in image with slicing
+- [ ] add list/array memory representation image
+- [ ] fix cycle/ufunction time comparison (add comparison with list)
 
 # Statistics lecture
 - [ ] add Polya  urn models (Beta distribution etc)
