@@ -47,7 +47,6 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] NumPy and SciPy](https://docs.scipy.org/doc/)
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 4.  **Pandas**
 
@@ -59,7 +58,9 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/)
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
-    
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+
 5.  **MatPlotLib**
 
   - Lecture
