@@ -59,8 +59,6 @@ Every Friday, 10:00.
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 5.  **MatPlotLib**
 
   - Lecture
@@ -74,7 +72,9 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
 
 ### Methods of ML
-    
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+
 1.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_optimization.ipynb)
