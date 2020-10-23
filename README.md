@@ -73,8 +73,6 @@ Every Friday, 10:00.
 
 ### Methods of ML
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 1.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_optimization.ipynb)
@@ -89,7 +87,9 @@ Every Friday, 10:00.
     - [[ARTICLE] Newton method overview](https://www.linkedin.com/pulse/20140906044926-58744538-visualizing-newton-s-method-for-optimization-ii/)
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
-    - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf)  
+    - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
+    
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
