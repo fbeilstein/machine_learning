@@ -89,8 +89,6 @@ Every Friday, 10:00.
     - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
     - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 2.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_07_naive_bayes.ipynb)
@@ -104,6 +102,8 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **Statistics**
   - Lecture
