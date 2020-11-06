@@ -103,8 +103,6 @@ Every Friday, 10:00.
     -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 3.  **Statistics**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_08_statistics.ipynb)
@@ -113,6 +111,8 @@ Every Friday, 10:00.
   - Further Resources
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 4.  **Linear Regression**
   - Lecture
