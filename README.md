@@ -147,6 +147,7 @@ Every Friday, 10:00.
     -  [[VIDEO] Random Forests, StatQuest](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
+    -  [[NOTES] Random Forests](https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm)
       
 7.  **Principal Component Analysis**
   - Lecture
