@@ -112,8 +112,6 @@ Every Friday, 10:00.
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 4.  **Linear Regression**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_09_linear_regression.ipynb)
@@ -128,7 +126,9 @@ Every Friday, 10:00.
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [[LECTURE NOTES] Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
-  
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+
 5.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_support_vector_machines.ipynb)
