@@ -120,6 +120,7 @@ Every Friday, 10:00.
   - Practice
     -  [Workbook in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/workbook_09_linear_regression.ipynb)
   - Further Resources
+    - [[HABR] Основы линейной регрессии](https://habr.com/ru/post/514818/)
     - [[VIDEO] Gentle introduction to 1D regression](https://www.youtube.com/watch?v=ZkjP5RJLQF4&list=PLIeGtxpvyG-LoKUpV0fSY8BGKIMIdmfCi)
     - [[VIDEO] 1D regression basics](https://www.youtube.com/watch?v=nk2CQITm_eo&t)
     - [[VIDEO] R^2 explained](https://www.youtube.com/watch?v=2AQKmw14mHM&t)
