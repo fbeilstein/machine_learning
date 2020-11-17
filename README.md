@@ -138,7 +138,7 @@ Every Friday, 10:30.
     -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=hd2FZml86f0)
 
 
 4.  **Linear Regression**
