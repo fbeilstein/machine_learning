@@ -3,7 +3,7 @@
 
 # Schedule
 
-Every Friday, 10:00.
+Every Friday, 10:30.
 
 ## Curriculum
 
@@ -125,7 +125,7 @@ Every Friday, 10:00.
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=PUAOorGtqe8)
 
 
 3.  **Statistics**
