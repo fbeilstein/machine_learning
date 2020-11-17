@@ -19,6 +19,9 @@ Every Friday, 10:00.
     -  [[BLOG] ML in simple words (RU)](https://vas3k.ru/blog/machine_learning/)
     -  [[BLOG] ML in simple words (EN)](https://vas3k.com/blog/machine_learning/)
     -  [[WEB SERVICE] Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=fme_nIv6Z-s)
 
     
 2.  **Python**
@@ -35,6 +38,9 @@ Every Friday, 10:00.
     -  [[WEB SERVICE] CodeSculptor](https://py3.codeskulptor.org/?fbclid=IwAR3_CiVIOxKYqhaBJAzAtGr8useXXTrEIezFO-UEV2sflXuXS_aWUuh2oBw)
     -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=hIrihC6GHTs)
 
 
 3.  **NumPy Arrays**
@@ -46,6 +52,9 @@ Every Friday, 10:00.
   - Further Resources
     -  [[OFFICIAL DOCUMENTATION] NumPy and SciPy](https://docs.scipy.org/doc/)
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=2G1jyzqW7nw)
     
 
 4.  **Pandas**
@@ -58,6 +67,10 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/)
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=px4nVrXfu1Y)
+
 
 5.  **MatPlotLib**
 
@@ -70,6 +83,10 @@ Every Friday, 10:00.
     -  [[GALLERY] Matplotlib gallery](https://matplotlib.org/gallery.html)
     -  [[ARTICLE] Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=319WtQlpe1Q)
+
 
 ### Methods of ML
 
@@ -88,7 +105,11 @@ Every Friday, 10:00.
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
     - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
-    
+  - Video
+    - English: sorry, no video available
+    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=cX0wdQhP-PM)
+
+
 2.  **Naive Bayes Classification**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_07_naive_bayes.ipynb)
@@ -102,6 +123,10 @@ Every Friday, 10:00.
     -  [[OFFICIAL DOCUMENTATION] Scikit help on Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html#naive-bayes)
     -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
 
 3.  **Statistics**
   - Lecture
@@ -111,6 +136,10 @@ Every Friday, 10:00.
   - Further Resources
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
 
 4.  **Linear Regression**
   - Lecture
@@ -126,6 +155,9 @@ Every Friday, 10:00.
     - [[VIDEO] 1D regression](https://www.youtube.com/watch?v=WWqE7YHR4Jc)
     - [[LECTURE NOTES] Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
@@ -138,7 +170,11 @@ Every Friday, 10:00.
     -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
     -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf) 
-      
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 6.  **Decision Trees and Random Forests**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_decision_trees_and_random_forest.ipynb)
@@ -149,7 +185,11 @@ Every Friday, 10:00.
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
     -  [[NOTES] Random Forests](https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm)
-      
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 7.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_principal_component_analysis.ipynb)
@@ -166,7 +206,11 @@ Every Friday, 10:00.
     - [[VIDEO] University of Waterloo:  Principal Component Analysis](https://www.youtube.com/watch?v=L-pQtGm3VS8&t=)
     - [[ARTICLE] Principal Component Analysis Explained Visually](http://setosa.io/ev/principal-component-analysis/)
     - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
-     
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 8.  **K-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_k_means_clustering.ipynb)
@@ -181,7 +225,11 @@ Every Friday, 10:00.
      - [[HABR] K-Means and C-Means](https://habr.com/ru/post/67078/)
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
-       
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 9.  **Gaussian Mixture Models**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_14_gaussian_mixture_models.ipynb)
@@ -196,7 +244,11 @@ Every Friday, 10:00.
     - [[VIDEO] Univ. of Washington on Gaussian Mixture Models for Clustering](https://www.youtube.com/watch?v=DODphRRL79c&t)
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
-    
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 10.  **Kernel Density Estimation**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_15_kernel_density_estimation.ipynb)
@@ -208,6 +260,10 @@ Every Friday, 10:00.
     -  [[ARTICLE] Literature review on KDE & KDE python package](https://kdepy.readthedocs.io/en/stable/literature.html#literature)
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
 
 11.  **Manifold Learning**
   - Lecture
@@ -222,7 +278,11 @@ Every Friday, 10:00.
     -  [[VIDEO] Lecture on Locally Linear Embedding from Johns Hopkins University](https://www.youtube.com/watch?v=yBwpo-L80Mc)
     -  [[VIDEO] Lecture on from MDS, Isomap, LLE from University of Waterloo](https://www.youtube.com/watch?v=RPjPLlGefzw)
     -  [[VIDEO] Dimensionality Reduction: Why we take Eigenvectors of the Similarity Matrix?](https://www.youtube.com/watch?v=3k9hwRCcT30)
-        
+  - Video
+    - English: sorry, no video available
+    - українська: на жаль, відео ще не доступні
+
+
 12.  **What's next: NNs and beyond**
   - Lecture
     -  [Presentation (PDF)](lecture_17_neural_networks.pdf)
