@@ -157,7 +157,7 @@ Every Friday, 10:30.
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020 (частково монтоване!)]](https://www.youtube.com/watch?v=Os46RvFtPHc)
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
