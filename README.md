@@ -3,7 +3,9 @@
 
 # Schedule
 
-Every Friday, 10:30.
+Every Friday, 10:30.<br>
+Additional Lecture 1: November 24, Tuesday, 10:30<br>
+Additional Lecture 2: December 1,  Tuesday, 10:30
 
 ## Curriculum
 
@@ -159,8 +161,6 @@ Every Friday, 10:30.
     - English: sorry, no video available
     - українська: [[осінь 2020 (частково монтоване!)]](https://www.youtube.com/watch?v=Os46RvFtPHc)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 5.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_support_vector_machines.ipynb)
@@ -174,6 +174,7 @@ Every Friday, 10:30.
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 6.  **Decision Trees and Random Forests**
   - Lecture
