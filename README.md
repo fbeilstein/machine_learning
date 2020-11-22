@@ -186,6 +186,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     -  [[VIDEO] AdaBoost, StatQuest](https://www.youtube.com/watch?v=LsK-xG1cLYA)
     -  [[ARTICLE] Feature Selection Using Random forest](https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f)
     -  [[NOTES] Random Forests](https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm)
+    -  [[ARTICLE] On Boosting: Theory and Applications](https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/383242/1/20190611_Boosting_Chapter_FINAL.pdf)
   - Video
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
