@@ -4,7 +4,7 @@
 # Schedule
 
 Every Friday, 10:30.<br>
-Additional Lecture 1: November 24, Tuesday, 10:30<br>
+Additional Lecture 1: November 24, Tuesday, 10:30 ✓ <b>done</b><br>
 Additional Lecture 2: December 1,  Tuesday, 10:30
 
 ## Curriculum
@@ -174,8 +174,6 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 6.  **Decision Trees and Random Forests**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_11_decision_trees_and_random_forest.ipynb)
@@ -191,6 +189,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 7.  **Principal Component Analysis**
   - Lecture
