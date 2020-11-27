@@ -189,7 +189,6 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 7.  **Principal Component Analysis**
   - Lecture
@@ -210,6 +209,8 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
   - Video
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 
 8.  **K-Means Clustering**
