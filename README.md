@@ -161,6 +161,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     - English: sorry, no video available
     - українська: [[осінь 2020 (частково монтоване!)]](https://www.youtube.com/watch?v=Os46RvFtPHc)
 
+
 5.  **Support Vector Machines**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_10_support_vector_machines.ipynb)
@@ -172,7 +173,8 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf) 
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
+
 
 6.  **Decision Trees and Random Forests**
   - Lecture
