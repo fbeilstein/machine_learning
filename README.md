@@ -189,7 +189,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     -  [[ARTICLE] On Boosting: Theory and Applications](https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/383242/1/20190611_Boosting_Chapter_FINAL.pdf)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=aJMC8tKWnDQ)
 
 
 7.  **Principal Component Analysis**
