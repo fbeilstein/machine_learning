@@ -229,6 +229,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
      - [[HABR] K-Means and C-Means](https://habr.com/ru/post/67078/)
      - [[DOCS] sklearn help page](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
+     - [[ARTICLE] A Tutorial on Spectral Clustering](https://arxiv.org/pdf/0711.0189.pdf)
   - Video
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
