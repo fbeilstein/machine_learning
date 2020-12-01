@@ -5,7 +5,7 @@
 
 Every Friday, 10:30.<br>
 Additional Lecture 1: November 24, Tuesday, 10:30 ✓ <b>done</b><br>
-Additional Lecture 2: December 1,  Tuesday, 10:30
+Additional Lecture 2: December 1,  Tuesday, 10:30 ✓ <b>done</b><br>
 
 ## Curriculum
 
@@ -212,8 +212,6 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 
 8.  **K-Means Clustering**
   - Lecture
@@ -233,6 +231,8 @@ Additional Lecture 2: December 1,  Tuesday, 10:30
   - Video
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 
 9.  **Gaussian Mixture Models**
