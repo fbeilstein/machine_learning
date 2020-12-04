@@ -4,8 +4,6 @@
 # Schedule
 
 Every Friday, 10:30.<br>
-Additional Lecture 1: November 24, Tuesday, 10:30 ✓ <b>done</b><br>
-Additional Lecture 2: December 1,  Tuesday, 10:30 ✓ <b>done</b><br>
 
 ## Curriculum
 
@@ -232,8 +230,6 @@ Additional Lecture 2: December 1,  Tuesday, 10:30 ✓ <b>done</b><br>
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 
 9.  **Gaussian Mixture Models**
   - Lecture
@@ -253,6 +249,7 @@ Additional Lecture 2: December 1,  Tuesday, 10:30 ✓ <b>done</b><br>
     - English: sorry, no video available
     - українська: на жаль, відео ще не доступні
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 10.  **Kernel Density Estimation**
   - Lecture
