@@ -208,7 +208,7 @@ Every Friday, 10:30.<br>
     - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020]](https://youtu.be/BKC4wlIkiSk)
+    - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
 
 8.  **K-Means Clustering**
