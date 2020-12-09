@@ -247,7 +247,7 @@ Every Friday, 10:30.<br>
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Z9xy1TIzQss)
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
