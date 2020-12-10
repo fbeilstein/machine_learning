@@ -228,7 +228,7 @@ Every Friday, 10:30.<br>
      - [[ARTICLE] A Tutorial on Spectral Clustering](https://arxiv.org/pdf/0711.0189.pdf)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=06lJOoFj9A4)
 
 
 9.  **Gaussian Mixture Models**
