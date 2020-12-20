@@ -247,7 +247,7 @@ Restart in September, stay tuned <br>
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Z9xy1TIzQss)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=qs4rUU9vQLM)
 
 
 10.  **Kernel Density Estimation**
