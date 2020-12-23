@@ -263,7 +263,7 @@ Restart in September, stay tuned <br>
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
   - Video
     - English: sorry, no video available
-    - українська: на жаль, відео ще не доступні
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=XMHNi1EWm1Q)
     
 <!-- <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> -->
 
