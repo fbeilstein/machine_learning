@@ -282,7 +282,7 @@ Restart in September, stay tuned <br>
     -  [[VIDEO] Dimensionality Reduction: Why we take Eigenvectors of the Similarity Matrix?](https://www.youtube.com/watch?v=3k9hwRCcT30)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=rBkPn5r9Fzo)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=o5SPvUXKl7M)
 
 
 12.  **What's next: NNs and beyond**
