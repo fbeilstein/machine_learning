@@ -54,7 +54,7 @@ Restart in September, stay tuned <br>
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=2G1jyzqW7nw)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=AOP9WjKHN-Y)
     
 
 4.  **Pandas**
