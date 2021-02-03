@@ -40,7 +40,7 @@ Restart in September, stay tuned <br>
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=hIrihC6GHTs)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Bx_TLOqSMbo)
 
 
 3.  **NumPy Arrays**
