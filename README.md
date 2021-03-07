@@ -168,7 +168,8 @@ Restart in September, stay tuned <br>
   - Further Resources
     -  [[ARTICLE] Sequential Minimal Optimization (SMO) Algorithm](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf)
     -  [[DEMO] Support Vector Machine (SVM) Explorer](https://dash-gallery.plotly.host/dash-svm/)
-    -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf) 
+    -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf)
+    -  [[HABR] Машина опорных векторов в 30 строчек](https://habr.com/ru/post/544282/)
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
