@@ -125,7 +125,7 @@ Restart in September, stay tuned <br>
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=PUAOorGtqe8)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=H0NdSLwssMw)
 
 
 3.  **Statistics**
