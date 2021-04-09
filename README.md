@@ -107,7 +107,7 @@ Restart in September, stay tuned <br>
     - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=cX0wdQhP-PM)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
 
 2.  **Naive Bayes Classification**
