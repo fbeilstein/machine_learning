@@ -85,7 +85,7 @@ Restart in September, stay tuned <br>
     -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=319WtQlpe1Q)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=pCB2rOBBPyI)
 
 
 ### Methods of ML
