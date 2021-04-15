@@ -69,7 +69,7 @@ Restart in September, stay tuned <br>
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (немонтоване!)]](https://www.youtube.com/watch?v=px4nVrXfu1Y)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=2umiVugC6qM)
 
 
 5.  **MatPlotLib**
