@@ -157,7 +157,7 @@ Restart in September, stay tuned <br>
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
   - Video
     - English: sorry, no video available
-    - українська: [[осінь 2020 (частково монтоване!)]](https://www.youtube.com/watch?v=Os46RvFtPHc)
+    - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
 
 5.  **Support Vector Machines**
