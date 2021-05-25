@@ -314,7 +314,7 @@ Restart in September, stay tuned <br>
 7. [Брэд Миллер и Дэвид Рэнум, Алгоритмы и структуры данных](http://aliev.me/runestone/)
 8. [Wes McKinney, "Python for Data Analysis" (by the original creator of Pandas)](https://www.cin.ufpe.br/~embat/Python%20for%20Data%20Analysis.pdf)
 9. [Claus O. Wilke, Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
-10. [Aurélien Géron, Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow](https://github.com/loveunk/Deep-learning-books/blob/master/1.%20Machine%20Leaning%20and%20Deep%20Learning/Hands%20on%20Machine%20Learning%20with%20Scikit%20Learn%20Keras%20and%20TensorFlow%202nd%20Edition-2019.pdf)
+10. [Aurélien Géron, Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow](https://learning.oreilly.com/library/view/hands-on-machine-learning/9781491962282/)
 11. [Darrell Huff, How to Lie With Statistics](https://archive.org/details/HowToLieWithStatistics)
 
 ## How it was made
