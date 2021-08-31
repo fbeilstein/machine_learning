@@ -3,11 +3,14 @@
 
 # Schedule
 
-Restart in September, stay tuned <br>
+<!-- Restart in September, stay tuned <br> -->
+Every Friday, 10:00 <br>
 
 ## Curriculum
 
 ### Tools of ML
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Introduction**
 
@@ -266,7 +269,6 @@ Restart in September, stay tuned <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=XMHNi1EWm1Q)
     
-<!-- <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> -->
 
 11.  **Manifold Learning**
   - Lecture
@@ -294,8 +296,8 @@ Restart in September, stay tuned <br>
   - Further Resources
     -  [[VIDEO LECTURES] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
-<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/>
+<!-- <a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>  -->
 
 ## For the curious mind
 
