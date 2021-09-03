@@ -1,5 +1,5 @@
 # Problem:
-* Go to (<a href="https://zno.testportal.com.ua/opendata">OpenData portal of Independent Final Examination (IFE)</a>)
+* Go to <a href="https://zno.testportal.com.ua/opendata">OpenData portal of Independent Final Examination (IFE)</a>
 * Download one or more datasetes available there
 * Analyze the dataset(s). I leave it as an open problem, thus you may perform any type of analysis you want. Few ideas listed below
    - Find the best school basing on the dataset(s) (define certain metric and perform anlysis, you should clearly state which metric and wy you use)
