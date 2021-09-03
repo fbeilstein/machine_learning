@@ -91,7 +91,9 @@ Every Friday, 10:00 <br>
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=pCB2rOBBPyI)
 
 <hr />
+
 **Midterm 1 (Basic Tools):** [Problem](https://github.com/fbeilstein/machine_learning/blob/master/midterm_1.md)
+
 <hr />
 
 ### Methods of ML
