@@ -1,5 +1,5 @@
 # Problem
-* Choose any dataset for multiclass classification on [Kaggle](https://www.kaggle.com/) (go to "Datasets" section, choose "Filter" and enter "multiclass classification" into the "Tags" field). For example, here is a nice [dataset for protein's secondary structure classification](https://www.kaggle.com/alfrandom/protein-secondarystructure). 
+* Choose any dataset for multiclass classification on [Kaggle](https://www.kaggle.com/) (go to "Datasets" section, choose "Filter" and enter "multiclass classification" into the "Tags" field). 
 * Perform classification with few methods. I expect you to use at least SVM (linear and rbf) and random forest.
 * Try getting the best result with each of the methods. I expect you to use at least GridSearch.
 * Try feature engineering. I expect you to use at least PCA for dimensionality reduction.
