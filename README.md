@@ -198,6 +198,11 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=aJMC8tKWnDQ)
 
+<hr />
+
+**Midterm 2 (ML Methods):** [Problem](https://github.com/fbeilstein/machine_learning/blob/master/midterm_2.md)
+
+<hr />
 
 7.  **Principal Component Analysis**
   - Lecture
