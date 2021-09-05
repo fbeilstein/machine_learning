@@ -10,4 +10,4 @@
 * I expect a confident usage of sklearn methods.
 * I expect understanding of basics of models assessment.
 * I expect you to be able to learn PCA method on your own.
-* I expect the ability of succinct, cohesive, and coherent expression of your thoughts, i.e. clearly state (in a few sentences) what is the problem you are solving, what approaches do you propose, and what conclusions can be done regarding these approaches in the context of the problem.
+* I expect the ability of succinct, cohesive, and coherent expression of your thoughts, i.e. clearly state (in a few sentences) what is the problem you are solving, what approaches do you propose, and what conclusions can be drawn regarding these approaches in the context of the problem.
