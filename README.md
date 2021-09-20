@@ -70,6 +70,7 @@ Every Friday, 10:00 <br>
     -  [[OFFICIAL DOCUMENTATION] Pandas online documentation](http://pandas.pydata.org/)
     -  [[ONLINE TUTORIAL] 10 minutes to Pandas](http://pandas.pydata.org/pandas-docs/stable/10min.html)
     -  [[ONLINE TUTORIAL] cookbook](http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
+    -  [[ONLINE TUTORIAL] SQL Interactive Tutorial (not Pandas but worth mentioning)](https://sql-academy.org/en/guide)
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=2umiVugC6qM)
