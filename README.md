@@ -58,7 +58,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=AOP9WjKHN-Y)
     
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 4.  **Pandas**
 
@@ -74,6 +73,8 @@ Every Friday, 10:00 <br>
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=2umiVugC6qM)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 
 5.  **MatPlotLib**
