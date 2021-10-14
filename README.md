@@ -114,6 +114,7 @@ Every Friday, 10:00 <br>
     - [[HABR] Gradient descent methods](https://habr.com/ru/post/318970/)
     - [[BOOK CHAPTER] MIT, Duality in Linear Programming](http://web.mit.edu/15.053/www/AMP-Chapter-04.pdf)
     - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
+    - [[VIDEO] Newton's Fractal](https://www.youtube.com/watch?v=-RdOwhmqP5s)
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
