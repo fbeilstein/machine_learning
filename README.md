@@ -184,7 +184,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 6.  **Decision Trees and Random Forests**
   - Lecture
@@ -206,6 +205,9 @@ Every Friday, 10:00 <br>
 **Midterm 2 (ML Methods):** [Problem](https://github.com/fbeilstein/machine_learning/blob/master/midterm_2.md)
 
 <hr />
+
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 7.  **Principal Component Analysis**
   - Lecture
