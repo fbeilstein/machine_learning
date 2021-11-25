@@ -207,8 +207,6 @@ Every Friday, 10:00 <br>
 <hr />
 
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 7.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_principal_component_analysis.ipynb)
@@ -228,6 +226,8 @@ Every Friday, 10:00 <br>
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 
 8.  **K-Means Clustering**
