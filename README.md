@@ -227,8 +227,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 
 8.  **K-Means Clustering**
   - Lecture
@@ -248,6 +246,8 @@ Every Friday, 10:00 <br>
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 
 9.  **Gaussian Mixture Models**
