@@ -247,8 +247,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 
 9.  **Gaussian Mixture Models**
   - Lecture
@@ -268,6 +266,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=qs4rUU9vQLM)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 10.  **Kernel Density Estimation**
   - Lecture
