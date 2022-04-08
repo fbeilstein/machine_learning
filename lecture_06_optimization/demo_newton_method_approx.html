@@ -1,0 +1,335 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+
+
+<script type="application/javascript">
+
+
+//temporary
+var func = 'sin(x/3)*sin(y/4)';
+
+function getMax(a){
+  return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+}
+function getMin(a){
+  return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
+}
+
+
+const x_min = -10.0
+const x_max =  10.0
+const y_min = -10.0
+const y_max =  10.0
+const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
+const xs = range(x_min, x_max, 30);
+const ys = range(y_min, y_max, 30);
+const x_for3d = range(x_min, x_max, 15);
+const y_for3d = range(y_min, y_max, 15);
+
+var func_obj = null;
+var gx_obj  = null;
+var gy_obj  = null;
+var hxx_obj = null;
+var hxy_obj = null;
+var hyy_obj = null;
+var F = [];
+var F2D = F;
+var z_min = 0.0;
+var z_max = 0.0;
+var F_for3d = [];
+
+function parse_func(func) {
+  func_obj = math.compile(func);
+  gx_obj = math.derivative(func, 'x');
+  gy_obj = math.derivative(func, 'y');
+  hxx_obj = math.derivative(gx_obj, 'x');
+  hxy_obj = math.derivative(gx_obj, 'y');
+  hyy_obj = math.derivative(gy_obj, 'y');
+  F = [];
+  for (var i = 0; i < ys.length; i++) {
+    var row = [];
+    for (var j = 0; j < xs.length; j++) {
+      row.push(func_obj.evaluate({x:xs[j], y:ys[i]}));
+    }
+    F.push(row);
+  }
+  z_min = getMin(F);
+  z_max = getMax(F);
+  F2D = F;
+  if (z_max - z_min > 100) {
+    for (var i = 0; i < F.length; i++) {
+      for (var j = 0; j < F[0].length; j++) {
+        const f = F[i][j];
+        F2D[i][j] = math.log(math.abs(f) + 1.0) * math.sign(f);
+      }
+    }
+  }
+  F_for3d = [];
+  for (var i = 0; i < y_for3d.length; i++) {
+    var row = [];
+    for (var j = 0; j < x_for3d.length; j++) {
+      row.push(func_obj.evaluate({x:x_for3d[j], y:y_for3d[i]}));
+    }
+    F_for3d.push(row);
+  }
+
+}
+
+var layout = null;
+
+function plot_potentials() {
+  // get x and y
+  var x = active_pt[0];
+  var y = active_pt[1];
+  x = x * (x_max - x_min) + x_min;
+  y = (1.0 - y) * (y_max - y_min) + y_min;
+
+
+  const f = func_obj.evaluate({x:x, y:y});
+  const g = [gx_obj.evaluate({x:x, y:y}), gy_obj.evaluate({x:x, y:y})];
+  const h = [[hxx_obj.evaluate({x:x, y:y}), hxy_obj.evaluate({x:x, y:y})],
+             [hxy_obj.evaluate({x:x, y:y}), hyy_obj.evaluate({x:x, y:y})]]
+
+  const trace = h[0][0] + h[1][1];
+  const det = h[0][0] * h[1][1] - h[1][0] * h[0][1];
+  var   delta = trace * trace - 4 * det;
+  if (delta < 0.0)
+    delta = 0.0;
+  const e1 = (trace + math.sqrt(delta))/2.0;
+  const e2 = (trace - math.sqrt(delta))/2.0;
+
+
+  // calculate approximation
+  var F_approx = [];
+  for (var j = 0; j < ys.length; ++j) {
+    var y_ = ys[j] - y;
+    var row = [];
+    for (var i = 0; i < xs.length; ++i) {
+      var x_ = xs[i] - x;
+      var approx = f + (g[0]*x_ + g[1]*y_) + ((h[0][0]*x_ + h[0][1]*y_)*x_ + (h[1][0]*x_ + h[1][1]*y_)*y_) / 2.0;
+      if (z_max - z_min > 100)
+        row.push(Math.log(Math.abs(approx)+1.0)*Math.sign(approx));
+      else
+        row.push(approx);
+    }
+    F_approx.push(row);
+  }
+
+  var F_approx_3d = [];
+  for (var j = 0; j < y_for3d.length; ++j) {
+    var y_ = y_for3d[j] - y;
+    var row = [];
+    for (var i = 0; i < x_for3d.length; ++i) {
+      var x_ = x_for3d[i] - x;
+      var approx = f + (g[0]*x_ + g[1]*y_) + ((h[0][0]*x_ + h[0][1]*y_)*x_ + (h[1][0]*x_ + h[1][1]*y_)*y_) / 2.0;
+      row.push(approx);
+    }
+    F_approx_3d.push(row);
+  }
+
+
+  var data = [{
+    x: [x], y: [y],
+    showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+    marker: {size: 15, color: 'red'},
+    hoverinfo: 'skip'
+  },{
+    'type': 'scatter3d', 
+    'mode': 'lines', 
+    'name': 's3', 
+    'x': [x, x], 
+    'y': [y, y], 
+    'z': [z_min, z_max], 
+    'line': {'color': 'blue', 'width': 3}
+  },{
+   type: 'surface', 
+    x: x_for3d,
+    y: y_for3d, 
+    z: F_for3d, 
+    opacity: 0.8, 
+    showscale: false,
+    scene: 'scene',
+    colorscale: 'Bluered'
+  },{
+    type: 'surface',
+    x: x_for3d, 
+    y: y_for3d, 
+    z: F_approx_3d,
+    opacity: 0.5, 
+    showscale: false,
+    scene: 'scene',
+    colorscale : [[0.0, 'rgb(0, 255, 0)'], [1.0, 'rgb(0, 254, 0)']]
+  },{
+    x: xs,
+    y: ys,
+    z: F2D, 
+    showscale: false, 
+    opacity: 0.9, 
+    type: 'contour',
+    hoverinfo: 'skip'
+  },{
+    x: xs,
+    y: ys,
+    z: F_approx, 
+    showscale: false, 
+    opacity: 1.0, 
+    type: 'contour',
+    hoverinfo: 'skip',
+    line: {
+      width: 2,
+      color: 'black'
+    },
+    contours: {
+      coloring: 'none',
+    }
+  }];
+
+  var cell_for_plot = document.getElementById("for_right_plot");
+
+  var plotted_once = true;
+  if (!layout) {
+    layout = {
+      title: 'Approximation. Eigenvalues: ' + e1.toFixed(3) + '; ' + e2.toFixed(3),
+      scene: {
+        domain: { 'x': [0.55, 1.0], 'y': [0.0, 1.0] }, 
+        zaxis: {'range': [z_min, z_max]},
+        aspectmode: 'cube',
+        camera: {
+          center: {x: 0, y: 0, z: 0},
+          eye: {x: 0.3, y: 1.8, z: 1.1},
+          projection: {type: "perspective"},
+          up: {x: 0, y: 0, z: 1}
+        }
+      },
+      xaxis1: {'range': [x_min, x_max], 'domain': [0.0, 0.44], 'fixedrange': true},
+      yaxis1: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+      width: 800,
+      height: 400,
+      autosize: false,
+      showlegend: false,
+      margin: {l: 50, r: 50, b: 50, t: 50}
+    };
+    plotted_once = false;
+  }
+  layout['title'] = 'Approximation. Eigenvalues: ' + e1.toFixed(3) + '; ' + e2.toFixed(3);
+  if (!plotted_once)
+    Plotly.newPlot(cell_for_plot, data, layout);
+  else
+    Plotly.react(cell_for_plot, data, layout);
+  
+  if (!plotted_once) {
+    console.log('EVETS!!!');
+    cell_for_plot.on('plotly_relayout', function(data){layout = cell_for_plot.layout;});
+    //cell_for_plot.addEventListener("mousedown", function(data){to_draw = false;});
+    //cell_for_plot.addEventListener("mouseup", function(data){to_draw = true;});
+  }
+
+}
+
+var active_pt = null;
+    
+    
+function change_function() {
+  func = document.getElementById("func_input").value;
+  layout = null;
+  parse_func(func);
+  plot_potentials();
+  console.log(layout);
+}
+
+  </script>
+</head>
+
+<body>
+
+<table><tr><td>
+f(x,y) = </td><td>
+      <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+        <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;"
+                onchange="document.getElementById('func_input').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+          <option></option>
+          <option value="one">(1-x/5)^2+10*(y/5-x^2/25)^2</option>
+          <option value="two">x^2 + y^2</option>
+          <option value="three">sin(x/3)*cos(y/4)</option>
+        </select>
+        <input type="text" name="displayValue" id="func_input" value="sin(x/3)*cos(y/4)"
+               placeholder="add/select a value" onfocus="this.select()"
+               style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;"  >
+        <input name="idValue" id="idValue" type="hidden">
+      </div>
+</td><td>
+<button onclick="change_function();">Recalculate</button>
+</td></tr></table>
+
+
+<div id="for_right_plot" style="user-select: none;">
+<div id="inner" style="position:absolute; left:0px; top:60px; width:50%; height:100%; zindex:1000;">
+</div>
+</div>
+
+
+</body>
+
+<script>
+var is_active = false;
+function init()
+{
+  // setup point params
+  active_pt = [0.5, 0.5];
+  //var x = 300;
+  //var y = 300;
+  func = document.getElementById("func_input").value;
+  parse_func(func);
+  plot_potentials();
+  
+  var plt_div = document.getElementById('for_right_plot');
+  //plt_div.on('plotly_relayout', function(data){layout = plt_div.layout;console.log(layout);});
+  var update_active_pt_if_close = function(evt) {
+    //evt.preventDefault();
+    //evt.stopPropagation();
+    let el = plt_div.getElementsByClassName('nsewdrag')[0];
+    let rect   = el.getBoundingClientRect();
+    let top    = parseInt(rect.top);
+    let left   = parseInt(rect.left);
+    let width  = parseInt(rect.width)
+    let height = parseInt(rect.height);
+    let x      = evt.clientX;
+    let y      = evt.clientY;
+    if (x < left || x > left + width || y < top || y > top + height)
+      return false;
+    let candidate = [(x - left) / width, (y - top) / height];
+    if ((active_pt[0] - candidate[0])*(active_pt[0] - candidate[0]) +
+        (active_pt[1] - candidate[1])*(active_pt[1] - candidate[1]) > 0.01)
+      return false;
+    active_pt = candidate;
+    return true;
+  };
+  evt_catcher = document.getElementById('inner');
+  evt_catcher.onmousedown = function(evt) {
+    //console.log('mousedown');
+    if (!update_active_pt_if_close(evt))
+      return;
+    plot_potentials();
+    is_active = true;
+  };
+  evt_catcher.onmousemove = function(evt) {
+    //console.log('mousemove');
+    if (is_active && update_active_pt_if_close(evt))
+      plot_potentials();
+    else
+      is_active = false;
+  };
+  evt_catcher.addEventListener('mouseup', function(evt) {
+    //console.log('mouseup');
+    is_active = false;
+  });
+
+
+}
+init();
+</script>
+
+</html>

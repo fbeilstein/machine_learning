@@ -1,0 +1,363 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+<script type="application/javascript">
+
+x_min = -10.0;
+x_max =  10.0;
+y_min = -10.0;
+y_max =  10.0;
+xs = [];
+ys = [];
+num_steps = 50;
+for (var i = 0; i <= num_steps; ++i)
+  xs.push(x_min + (x_max - x_min) / num_steps * i);
+for (var i = 0; i <= num_steps; ++i)
+  ys.push(y_min + (y_max - y_min) / num_steps * i);
+f_min = [-5.0, -3.0];
+f_v = [1, 1];
+f_u = [-f_v[1] * 0.5, f_v[0] * 0.5];
+f = [];
+f2d = [];
+for (var i = 0; i < ys.length; ++i) {
+  var temp2d = [];
+  var temp = [];
+  for (var j = 0; j < xs.length; ++j) {
+    var r = [xs[j] - f_min[0], ys[i] - f_min[1]];
+    var e1 = r[0] * f_v[0] + r[1] * f_v[1];
+    var e2 = r[0] * f_u[0] + r[1] * f_u[1];
+    temp2d.push(Math.sqrt(e1*e1 + e2*e2));
+    temp.push(e1*e1 + e2*e2);
+  }
+  f2d.push(temp2d);
+  f.push(temp);
+}
+g_min = [7.0, 5.0];
+g_v = [0, 1];
+g_u = [-f_v[1] * 0.5, f_v[0] * 0.5];
+g = [];
+g2d = [];
+for (var i = 0; i < ys.length; ++i) {
+  var temp2d = [];
+  var temp = [];
+  for (var j = 0; j < xs.length; ++j) {
+    var r = [xs[j] - g_min[0], ys[i] - g_min[1]];
+    var e1 = r[0] * g_v[0] + r[1] * g_v[1];
+    var e2 = r[0] * g_u[0] + r[1] * g_u[1];
+    temp2d.push(Math.sqrt(e1*e1 + e2*e2));
+    temp.push(e1*e1 + e2*e2);
+  }
+  g2d.push(temp2d);
+  g.push(temp);
+}
+var sep_x = [];
+var sep_y = [];
+var sepf_x = [];
+var sepf_y = [];
+g_sep = 100.0;
+
+function gradient_f(x,y) {
+  var r = [x - f_min[0], y - f_min[1]];
+  var d = [r[0] * f_v[0] + r[1] * f_v[1], r[0] * f_u[0] + r[1] * f_u[1]];
+  return [2 * d[0] * f_v[0] + 2 * d[1] * f_u[0], 2 * d[0] * f_v[1] + 2 * d[1] * f_u[1]];
+}
+function gradient_g(x,y) {
+  var r = [x - g_min[0], y - g_min[1]];
+  var d = [r[0] * g_v[0] + r[1] * g_v[1], r[0] * g_u[0] + r[1] * g_u[1]];
+  return [2 * d[0] * g_v[0] + 2 * d[1] * g_u[0], 2 * d[0] * g_v[1] + 2 * d[1] * g_u[1]];
+}
+
+
+function plot_left_func() {
+  var cell_for_plot = document.getElementById("for_left_plot");
+
+  var data = [{
+    x: xs,
+    y: ys,
+    z: f2d, 
+    showscale: false, 
+    opacity: 0.7, 
+    type: 'contour'
+  }, {
+    x: xs,
+    y: ys,
+    z: g2d, 
+    showscale: false, 
+    opacity: 0.3, 
+    type: 'contour',
+    line: {
+      width: 2,
+      color: 'black',
+      smoothing: 0.9,
+    },
+    contours: {
+      coloring: 'none',
+    }
+  }, {
+    x: sep_x,
+    y: sep_y,
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: 'black'
+    }
+  },{
+    x: sepf_x,
+    y: sepf_y,
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: 'red'
+    }
+  }, {
+    x: [f_min[0]],
+    y: [f_min[1]],
+    type: 'scatter',
+    mode: 'markers',
+    marker: {
+      symbol: 'asterisk',
+      size: 20,
+      line :{
+        width: 3,
+        color: 'rgb(0,40,230)'
+      }
+    }
+  }];
+
+  var layout = {
+      title: 'Inequality constraints',
+      xaxis: {title: 'x'},
+      yaxis: {title: 'y'},
+      autosize: false,
+      xaxis: {'domain': [0.0, 1.0], 'range': [x_min, x_max], 'fixedrange': true},
+      yaxis: {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': true},
+      width: 600,
+      height: 600,
+      showlegend: false,
+      margin: {l: 50, r: 50, b: 50, t: 50}
+    };
+  Plotly.newPlot(cell_for_plot, data, layout);
+}
+
+
+
+
+var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
+var middle_point = [0.0, 0.0];
+
+function draw() { 
+  var plt_div = document.getElementById('for_left_plot');
+  var el = plt_div.getElementsByClassName('plot')[0];
+  //el = el.getChildren()[0];
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint_left");
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  var w = canvas.width;
+  var h = canvas.height;
+
+
+  var canvas = document.getElementById("paint_left");
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, w, h);
+  ctx.globalAlpha = 1.0;
+
+  ctx.beginPath();
+  ctx.arc(middle_point[0], middle_point[1], 10, 0.0, 2.0 * Math.PI, 0);
+  ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
+  ctx.fill();
+
+  var x = middle_point[0]/w*(x_max-x_min)+x_min;
+  var y = (1-middle_point[1]/h)*(y_max-y_min)+y_min;
+
+  ctx.strokeStyle = "rgb(0,0,0)";
+  ctx.lineWidth = 2;
+  var Gg = gradient_g(x, y);
+  canvas_arrow(ctx, middle_point[0], 
+                    middle_point[1], 
+                    Gg[0]/(x_max-x_min)*w*0.3, 
+                   -Gg[1]/(y_max-y_min)*h*0.3);
+
+  ctx.strokeStyle = "rgb(255,0,0)";
+  ctx.lineWidth = 2;
+  Gf = gradient_f(x, y);
+  canvas_arrow(ctx, middle_point[0], 
+                    middle_point[1], 
+                    Gf[0]/(x_max-x_min)*w*0.1, 
+                   -Gf[1]/(y_max-y_min)*h*0.1);
+
+  if (active_state == 1)
+    return
+
+  var r = [x - g_min[0], y - g_min[1]];
+  var e1 = r[0] * g_v[0] + r[1] * g_v[1];
+  var e2 = r[0] * g_u[0] + r[1] * g_u[1];
+  var g = e1*e1 + e2*e2 - g_sep;
+  //var grad = [Math.sign(g)*(Gg[0]+Gf[0]), Math.sign(g)*(Gg[1]+Gf[1])];
+  var grad = [-Gf[0], -Gf[1]];
+  if (g > 0)
+    grad = [-Gg[0], -Gg[1]];
+  var l = Math.sqrt(grad[0]*grad[0] + grad[1]*grad[1]);
+  x += 0.02 * grad[0] / l;
+  y += 0.02 * grad[1] / l;
+  middle_point = [(x - x_min)/(x_max - x_min)*w, (1-(y - y_min)/(y_max - y_min))*h];
+
+
+      //ctx.fillStyle="#00FF00";
+      //ctx.fillRect(0, 0, canvas.width, canvas.height); // field
+}
+
+
+function canvas_arrow(context, fromx, fromy, dx, dy) {
+    context.beginPath();
+    var headlen = 10; // length of head in pixels
+    var tox = fromx + dx;
+    var toy = fromy + dy;
+    var angle = Math.atan2(dy, dx);
+    context.moveTo(fromx, fromy);
+    context.lineTo(tox, toy);
+    context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+    context.moveTo(tox, toy);
+    context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+    context.stroke();
+  }
+
+
+
+  function mdown_handle(evt) {
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var dm = [x - middle_point[0], y - middle_point[1]];
+    if (dm[0]*dm[0] + dm[1]*dm[1] < 100) {
+      active_state = 1;
+      draw();
+    }
+  }
+ 
+
+  function mmove_handle(evt) {
+    if (active_state == 0)
+        return;
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var canvas = document.getElementById("paint_left");
+    var w = canvas.width;
+    var h = canvas.height;
+    
+    var r = [x/w*(x_max-x_min)+x_min - g_min[0], (1-y/h)*(y_max-y_min)+y_min - g_min[1]];
+    var e1 = r[0] * g_v[0] + r[1] * g_v[1];
+    var e2 = r[0] * g_u[0] + r[1] * g_u[1];
+    var g = e1*e1 + e2*e2;
+    if (g < g_sep)
+      middle_point = [x, y];
+    else
+      active_state = 0;
+
+    draw();
+  }
+      
+  function mup_handle(evt) {
+    active_state = 0;
+    draw();
+  }
+
+  function calculate() {
+    var canvas = document.getElementById("paint_left");
+    var el = document.getElementById('gcut');
+    g_sep = parseInt(el.value);
+    sep_x = [];
+    sep_y = [];
+    var min_constr = 10000000;
+    for (var phi = 0.0; phi <= 2*Math.PI; phi += 0.01) {
+      var x = g_min[0] + Math.sqrt(g_sep) * (g_u[1] * Math.cos(phi) - g_v[1] * Math.sin(phi)) / (g_u[1] * g_v[0] - g_u[0] * g_v[1]);
+      var y = g_min[1] + Math.sqrt(g_sep) * (g_u[0] * Math.cos(phi) - g_v[0] * Math.sin(phi)) / (g_u[0] * g_v[1] - g_u[1] * g_v[0]);
+      if (x_min < x && x < x_max && y_min < y && y < y_max) {
+        sep_y.push(y);
+        sep_x.push(x);        
+      } else {
+        sep_y.push(null);
+        sep_x.push(null);      
+      }
+      //var d = (f_min[0] - x)*(f_min[0] - x) + (f_min[1] - y)*(f_min[1] - y);
+      var r = [x - f_min[0], y - f_min[1]];
+      var e1 = r[0] * f_v[0] + r[1] * f_v[1];
+      var e2 = r[0] * f_u[0] + r[1] * f_u[1];
+      if (min_constr > e1*e1 + e2*e2)
+        min_constr = e1*e1 + e2*e2;
+    }
+
+    sepf_x = [];
+    sepf_y = [];
+    for (var phi = 0.0; phi <= 2*Math.PI; phi += 0.01) {
+      var x = f_min[0] + Math.sqrt(min_constr) * (f_u[1] * Math.cos(phi) - f_v[1] * Math.sin(phi)) / (f_u[1] * f_v[0] - f_u[0] * f_v[1]);
+      var y = f_min[1] + Math.sqrt(min_constr) * (f_u[0] * Math.cos(phi) - f_v[0] * Math.sin(phi)) / (f_u[0] * f_v[1] - f_u[1] * f_v[0]);
+      if (x_min < x && x < x_max && y_min < y && y < y_max) {
+        sepf_y.push(y);
+        sepf_x.push(x);        
+      } else {
+        sepf_y.push(null);
+        sepf_x.push(null);
+      }
+    }
+
+
+    plot_left_func();
+    middle_point = [(g_min[0] - x_min)/(x_max-x_min)*canvas.width, (1-(g_min[1] - y_min)/(y_max-y_min))*canvas.height];
+    draw();
+  }
+
+  </script>
+</head>
+
+<body>
+<input type="range" 
+      min="1" 
+      max="100" 
+      value="50" 
+      id="gcut"
+      oninput="calculate()">
+<canvas id="paint_left"
+  onmousedown="mdown_handle(event)"
+  onmousemove="mmove_handle(event)"
+  onmouseup="mup_handle(event)"></canvas>
+
+<div id="everything" style="height:600px; width:600px; margin: 0px 0px 0px 0px;">
+<div id="for_left_plot" > </div>
+</div>
+
+</body>
+
+<script>
+function init()
+{
+  plot_left_func();
+
+  var plt_div = document.getElementById('for_left_plot');
+  var el = plt_div.getElementsByClassName('plot')[0];
+  //el = el.getChildren()[0];
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint_left");
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  console.log(rect);
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  calculate();  
+  timer = setInterval(draw, 5);
+}
+init();
+</script>
+
+</html>

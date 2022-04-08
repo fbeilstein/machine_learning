@@ -1,0 +1,804 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+#everything {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: green;
+  height: 500px;
+  width: 770px;
+  overflow: hidden;
+}
+#menu {
+  position: absolute;
+  left: 600px;
+  top: 0px;
+  width: 170px;
+  height: 500px;
+  background-color: white;
+  overflow: hidden;
+  border-left: 3px solid #556;
+  z-index: 2;
+}
+#options {
+  position: absolute;
+  top: 50px;
+  left: 600px;
+  width: 220px;
+  border: 3px solid black;
+  background-color: gray;
+  z-index: 1;
+}
+
+#func_input_div {
+  position: relative;
+  width: 150px;
+  height: 25px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#func_select {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 150px;
+  height: 25px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+#func_input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 130px;
+  height: 25px;
+  border: 1px solid #556;
+}
+
+#for_2d_plot {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 600px;
+  height: 500px;
+  visibility: visible;
+  z-index: 0;
+}
+
+#for_3d_plot {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 600px;
+  height: 500px;
+  visibility: hidden;
+}
+
+.hidden {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}
+input[type="checkbox"] + label {
+  background-color: #ccc;
+  font-size: 25;
+}
+input[type="checkbox"]:checked + label {
+  background-color: #888;
+  font-size: 25;
+  color: red;
+}
+.player {
+  font-size: 25;
+}
+label {
+  font-size: 12;
+}
+
+#func_error_text {
+  color: red;
+  visibility: hidden;
+}
+
+
+    </style>
+
+<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+
+    <script>
+
+//const math = create(all);
+
+class Function {
+  constructor(func) {
+    this.func_obj = math.compile(func);
+    this.gx_obj = math.derivative(func, "x");
+    this.gy_obj = math.derivative(func, "y");
+    this.hxx_obj = math.derivative(this.gx_obj, "x");
+    this.hxy_obj = math.derivative(this.gx_obj, "y");
+    this.hyy_obj = math.derivative(this.gy_obj, "y");
+  }
+  value(x, y) {
+    return this.func_obj.evaluate({ x: x, y: y });
+  }
+  gradient(x, y) {
+    return [
+      this.gx_obj.evaluate({ x: x, y: y }),
+      this.gy_obj.evaluate({ x: x, y: y })
+    ];
+  }
+  hessian(x, y) {
+    return [
+      [
+        this.hxx_obj.evaluate({ x: x, y: y }),
+        this.hxy_obj.evaluate({ x: x, y: y })
+      ],
+      [
+        this.hxy_obj.evaluate({ x: x, y: y }),
+        this.hyy_obj.evaluate({ x: x, y: y })
+      ]
+    ];
+  }
+  tabulate(x_extr, y_extr, ticks) {
+    const x_min = x_extr[0];
+    const x_max = x_extr[1];
+    const y_min = y_extr[0];
+    const y_max = y_extr[1];
+    const ticks_x = ticks[0];
+    const ticks_y = ticks[1];
+
+    const range = (start, stop, num) =>
+      Array.from(
+        { length: num + 1 },
+        (_, i) => start + (i * (stop - start)) / num
+      );
+    const xs = range(x_min, x_max, ticks_x);
+    const ys = range(y_min, y_max, ticks_y);
+
+    var F = [];
+    for (var i = 0; i < ys.length; i++) {
+      var row = [];
+      for (var j = 0; j < xs.length; j++) {
+        row.push(this.value(xs[j], ys[i]));
+      }
+      F.push(row);
+    }
+
+    const get_max = (a) =>
+      Math.max(...a.map((e) => (Array.isArray(e) ? get_max(e) : e)));
+    const get_min = (a) =>
+      Math.min(...a.map((e) => (Array.isArray(e) ? get_min(e) : e)));
+    const z_min = get_min(F);
+    const z_max = get_max(F);
+
+    return { F: F, xs: xs, ys: ys, z_min: z_min, z_max: z_max };
+  }
+}
+
+
+
+
+function minimize_nm(func, p0, params) {
+  var history = [];
+  var x0 = p0;
+  var x1 = [p0[0] + params["step"], p0[1]];
+  var x2 = [p0[0], p0[1] + params["step"]];
+
+  for (let i = 0; i < params["max_iter"]; ++i) {
+    //-------------- sort points --------------
+
+    let f_ = function (x_, y_) {
+      if (
+        x_ < params["x_min"] ||
+        x_ > params["x_max"] ||
+        y_ < params["y_min"] ||
+        y_ > params["y_max"]
+      )
+        return Infinity;
+      return func.value(x_, y_);
+    };
+
+    var temp;
+    var f_vals = [f_(x0[0], x0[1]), f_(x1[0], x1[1]), f_(x2[0], x2[1])];
+    if (f_vals[1] < f_vals[0] && f_vals[1] < f_vals[2]) {
+      temp = f_vals[0];
+      f_vals[0] = f_vals[1];
+      f_vals[1] = temp;
+      temp = x0;
+      x0 = x1;
+      x1 = temp;
+    }
+    if (f_vals[2] < f_vals[0] && f_vals[2] < f_vals[1]) {
+      temp = f_vals[0];
+      f_vals[0] = f_vals[2];
+      f_vals[2] = temp;
+      temp = x0;
+      x0 = x2;
+      x2 = temp;
+    }
+    if (f_vals[2] < f_vals[1]) {
+      temp = f_vals[1];
+      f_vals[1] = f_vals[2];
+      f_vals[2] = temp;
+      temp = x1;
+      x1 = x2;
+      x2 = temp;
+    }
+    //--------------------------------------------
+
+    var plt_xs = [x0[0], x1[0], x2[0], x0[0]];
+    var plt_ys = [x0[1], x1[1], x2[1], x0[1]];
+    var plt_zs = [f_vals[0], f_vals[1], f_vals[2], f_vals[0]];
+    history.push([plt_xs, plt_ys, plt_zs]);
+
+    //-------------------------------------
+
+    let sum = function (x_, y_) {
+      return [x_[0] + y_[0], x_[1] + y_[1]];
+    };
+    let sub = function (x_, y_) {
+      return [x_[0] - y_[0], x_[1] - y_[1]];
+    };
+    let mul = function (x_, y_) {
+      return [x_[0] * y_, x_[1] * y_];
+    };
+
+    var xc = mul(sum(x0, x1), 0.5);
+    var x_refl = sum(xc, mul(sub(xc, x2), params["alpha"]));
+    var f_refl = f_(x_refl[0], x_refl[1]);
+    if (f_refl < f_vals[1] && f_vals[0] < f_refl) {
+      x2 = x_refl;
+      //console.log("reflection", x0, x1, x2);
+    } else {
+      if (f_refl < f_vals[0]) {
+        var x_exp = sum(
+          xc,
+          mul(sub(xc, x2), params["alpha"] * params["gamma"])
+        );
+        var f_exp = f_(x_exp[0], x_exp[1]);
+        if (f_exp < f_refl) {
+          x2 = x_exp;
+          //console.log("expansion", x0, x1, x2);
+        } else {
+          x2 = x_refl;
+          //console.log("reflection", x0, x1, x2);
+        }
+      } else {
+        var x_cont = sub(xc, mul(sub(xc, x2), params["rho"]));
+        var f_cont = f_(x_cont[0], x_cont[1]);
+        if (f_cont < f_vals[2]) {
+          x2 = x_cont;
+          //console.log("contraction", x0, x1, x2);
+        } else {
+          x1 = sum(x0, mul(sub(x1, x0), params["sigma"]));
+          x2 = sum(x0, mul(sub(x2, x0), params["sigma"]));
+          //console.log("shrink", x0, x1, x2);
+        }
+      }
+    }
+  }
+  return history;
+}
+
+
+//const Plotly = plotly;
+
+class Plot2D {
+  constructor(elem_div, x_extr, y_extr, ticks) {
+    this.div = elem_div;
+    this.x_extr = x_extr;
+    this.y_extr = y_extr;
+    this.ticks = ticks;
+  }
+  redraw_function(func_obj) {
+    const layout = {
+      title: "",
+      width: this.div.offsetWidth,
+      height: this.div.offsetHeight,
+      autosize: false,
+      showlegend: false,
+      xaxis1: { domain: [0, 1], range: this.x_extr, fixedrange: true },
+      yaxis1: { domain: [0, 1], range: this.y_extr, fixedrange: true },
+      margin: { t: 0, b: 0, l: 0, r: 0 }
+    };
+    const ret = func_obj.tabulate(this.x_extr, this.y_extr, this.ticks);
+    const z_min = ret["z_min"];
+    const z_max = ret["z_max"];
+    var F = ret["F"];
+    if (z_max - z_min > 100) {
+      for (var i = 0; i < F.length; i++) {
+        for (var j = 0; j < F[0].length; j++) {
+          const f = F[i][j];
+          F[i][j] = Math.log(Math.abs(f) + 1.0) * Math.sign(f);
+        }
+      }
+    }
+
+    const data = [
+      {
+        type: "contour",
+        x: ret["xs"],
+        y: ret["ys"],
+        z: F,
+        showscale: false,
+        opacity: 1.0
+      },
+      {
+        type: "scatter"
+      }
+    ];
+    Plotly.newPlot(this.div, { data: data, layout: layout });
+  }
+  append_trace(trace) {
+    this.history = trace;
+    this.update_frame(0);
+  }
+  update_frame(number) {
+    Plotly.deleteTraces(this.div, 1);
+    var data = {
+      type: "scatter",
+      x: this.history[number][0],
+      y: this.history[number][1],
+      line: { color: "red", width: 2 }
+    };
+    Plotly.addTraces(this.div, data);
+  }
+}
+
+
+
+class Plot3D {
+  constructor(elem_div, x_extr, y_extr, ticks) {
+    this.div = elem_div;
+    this.x_extr = x_extr;
+    this.y_extr = y_extr;
+    this.ticks = ticks;
+  }
+  redraw_function(func_obj) {
+    const layout = {
+      title: "",
+      width: this.div.offsetWidth,
+      height: this.div.offsetHeight,
+      autosize: false,
+      showlegend: false,
+      scene: { domain: { x: [0, 1], y: [0, 1] } },
+      margin: { t: 0, b: 0, l: 0, r: 0 }
+    };
+    const ret = func_obj.tabulate(this.x_extr, this.y_extr, this.ticks);
+    const data = [
+      {
+        type: "surface",
+        x: ret["xs"],
+        y: ret["ys"],
+        z: ret["F"],
+        opacity: 0.8,
+        showscale: false,
+        scene: "scene",
+        colorscale: "Bluered"
+      },
+      {
+        type: "scatter3d"
+      }
+    ];
+    Plotly.newPlot(this.div, { data: data, layout: layout });
+  }
+
+  append_trace(trace) {
+    this.history = trace;
+    this.update_frame(0);
+  }
+
+  update_frame(number) {
+    Plotly.deleteTraces(this.div, 1);
+    var data = {
+      type: "scatter3d",
+      x: this.history[number][0],
+      y: this.history[number][1],
+      z: this.history[number][2],
+      line: { color: "red", width: 2 },
+      marker: { size: 4, colorscale: "Viridis" }
+    };
+    Plotly.addTraces(this.div, data);
+  }
+}
+
+
+
+class PointChooser {
+  constructor(canvas) {
+    this.canvas = canvas;
+    const plt_div = this.canvas.parentElement;
+    const el = plt_div.getElementsByClassName("xy")[0];
+    const plt = el.childNodes[0];
+    if (!plt) console.log("CANVAS ERROR!!");
+    const rect = plt.getBoundingClientRect();
+    this.canvas.style.cssText =
+      "position:absolute; top:" +
+      parseInt(rect.top, 10) +
+      "px; left: " +
+      parseInt(rect.left, 10) +
+      "px; width:" +
+      parseInt(rect.width, 10) +
+      "px; height:" +
+      parseInt(rect.height, 10) +
+      "px; z-index:1000;";
+    this.canvas.width = rect.width;
+    this.canvas.height = rect.height;
+    this.width = parseInt(rect.width, 10);
+    this.height = parseInt(rect.height, 10);
+    this.context = this.canvas.getContext("2d");
+    this.position = [this.width / 2, this.height / 2];
+    this.move = false;
+    const is_close = (pt1, pt2) => {
+      return (
+        (pt1[0] - pt2[0]) * (pt1[0] - pt2[0]) +
+          (pt1[1] - pt2[1]) * (pt1[1] - pt2[1]) <=
+        10 * 10
+      );
+    };
+    this.canvas.onmousedown = (evt) => {
+      this.move = is_close(this.position, [evt.offsetX, evt.offsetY]);
+    };
+    this.canvas.onmousemove = (evt) => {
+      if (!this.move) return;
+      this.position = [evt.offsetX, evt.offsetY];
+      this.draw();
+    };
+    this.canvas.onmouseup = (evt) => {
+      this.move = false;
+    };
+    this.draw();
+  }
+
+  get_normalized_position() {
+    return [this.position[0] / this.width, this.position[1] / this.height];
+  }
+
+  draw() {
+    this.context.clearRect(0, 0, this.width, this.height);
+    this.context.beginPath();
+    this.context.arc(
+      this.position[0],
+      this.position[1],
+      10,
+      0.0,
+      2.0 * Math.PI,
+      0
+    );
+    this.context.fillStyle = "rgba(210, 0, 0, 0.75)";
+    this.context.fill();
+  }
+}
+
+var step = 0.0;
+var alpha = 0.0;
+var gamma = 0.0;
+var rho = 0.0;
+var sigma = 0.0;
+
+function step_change() {
+  let slider = document.getElementById("step_opt");
+  step = (slider.value / 100.0).toPrecision(2) * 1.0;
+  document.getElementById("step_id").innerHTML = step;
+}
+function alpha_change() {
+  let slider = document.getElementById("alpha");
+  alpha = (slider.value / 50.0).toPrecision(2) * 1.0;
+  document.getElementById("alpha_id").innerHTML = alpha;
+}
+function gamma_change() {
+  let slider = document.getElementById("gamma");
+  gamma = (slider.value / 20.0).toPrecision(2) * 1.0;
+  document.getElementById("gamma_id").innerHTML = gamma;
+}
+function rho_change() {
+  let slider = document.getElementById("rho");
+  rho = (slider.value / 100.0).toPrecision(2) * 1.0;
+  document.getElementById("rho_id").innerHTML = rho;
+}
+function sigma_change() {
+  let slider = document.getElementById("sigma");
+  sigma = (slider.value / 100.0).toPrecision(2) * 1.0;
+  document.getElementById("sigma_id").innerHTML = sigma;
+}
+
+function my_select() {
+  let selector = document.getElementById("func_select");
+  let inputter = document.getElementById("func_input");
+  inputter.value = selector.options[selector.selectedIndex].text;
+}
+
+var funct = null;
+var plotter = null;
+var plotter_3d = null;
+var point_chooser = null;
+var is_playing = false;
+var showing_opts = true;
+
+
+function toggle_options() {
+  showing_opts = !showing_opts;
+}
+
+function reset_function() {
+  let inputter = document.getElementById("func_input");
+  try {
+    document.getElementById("func_error_text").style.visibility = "hidden";
+    funct = new Function(inputter.value);
+    funct.value(0, 0);
+  } catch (error) {
+    console.log("ERROR IN FUCTION!!");
+    document.getElementById("func_error_text").style.visibility = "visible";
+    return;
+  }
+  let params = {
+    max_iter: 50,
+    step: 0.5,
+    alpha: 1.0,
+    gamma: 2.5,
+    rho: 0.25,
+    sigma: 0.5,
+    x_min: -2,
+    x_max: 2,
+    y_min: -1,
+    y_max: 1
+  };
+  let output_2d = document.getElementById("for_2d_plot");
+  plotter = new Plot2D(
+    output_2d,
+    [params["x_min"], params["x_max"]],
+    [params["y_min"], params["y_max"]],
+    [100, 50]
+  );
+  plotter.redraw_function(funct);
+  let output_3d = document.getElementById("for_3d_plot");
+  plotter_3d = new Plot3D(
+    output_3d,
+    [params["x_min"], params["x_max"]],
+    [params["y_min"], params["y_max"]],
+    [100, 50]
+  );
+  plotter_3d.redraw_function(funct);
+  let canvas = document.getElementById("paint_here");
+  if (!point_chooser) point_chooser = new PointChooser(canvas);
+  let pt = point_chooser.get_normalized_position();
+  let initial = [
+    pt[0] * (params["x_max"] - params["x_min"]) + params["x_min"],
+    (1.0 - pt[1]) * (params["y_max"] - params["y_min"]) + params["y_min"]
+  ];
+  let min_path = minimize_nm(funct, initial, params);
+  plotter.append_trace(min_path);
+  plotter_3d.append_trace(min_path);
+  let timeline = document.getElementById("step");
+  timeline.min = 0;
+  timeline.max = params["max_iter"] - 1;
+  timeline.value = 0;
+  timeline.oninput = function () {
+    plotter.update_frame(timeline.value);
+    plotter_3d.update_frame(timeline.value);
+  };
+}
+
+function init() {
+  let timeline = document.getElementById("step");
+  let options = document.getElementById("options");
+  let timer = setInterval(() => {
+    if (
+      is_playing &&
+      parseInt(timeline.value, 10) < parseInt(timeline.max, 10)
+    ) {
+      timeline.value = parseInt(timeline.value, 10) + 1;
+      timeline.oninput();
+    }
+  }, 500);
+  let timer_opt = setInterval(() => {
+    var x_opts = parseInt(window
+    .getComputedStyle(options, null)
+    .getPropertyValue('left')
+    .match(/\d+/)[0], 10);
+    if (!showing_opts && x_opts >= 400) {
+      x_opts -= 10;
+    }
+    if (showing_opts && x_opts <= 600) {
+      x_opts += 10;
+    }
+    options.style.left = x_opts + "px";
+  }, 50);
+  let play_button = document.getElementById("play_button");
+  play_button.onchange = () => {
+    is_playing = play_button.checked;
+  };
+  let rewind_back_btn = document.getElementById("rewind_back");
+  let rewind_forward_btn = document.getElementById("rewind_forward");
+  rewind_back_btn.onclick = () => {
+    timeline.value = 0;
+    timeline.oninput();
+  };
+  rewind_forward_btn.onclick = () => {
+    timeline.value = timeline.max;
+    timeline.oninput();
+  };
+  let output_2d = document.getElementById("for_2d_plot");
+  let output_3d = document.getElementById("for_3d_plot");
+  let to_2d_btn = document.getElementById("r1");
+  let to_3d_btn = document.getElementById("r2");
+  to_2d_btn.onchange = () => {
+    output_3d.style.visibility = "hidden";
+    output_2d.style.visibility = "visible";
+  };
+  to_3d_btn.onchange = () => {
+    output_2d.style.visibility = "hidden";
+    output_3d.style.visibility = "visible";
+  };
+  document.getElementById("func_select").addEventListener("change", my_select);
+  document
+    .getElementById("start_button")
+    .addEventListener("click", reset_function);
+  document
+    .getElementById("options_button")
+    .addEventListener("click", toggle_options);
+  document.getElementById("step_opt").oninput = step_change;
+  step_change();
+  document.getElementById("alpha").oninput = alpha_change;
+  alpha_change();
+  document.getElementById("gamma").oninput = gamma_change;
+  gamma_change();
+  document.getElementById("rho").oninput = rho_change;
+  rho_change();
+  document.getElementById("sigma").oninput = sigma_change;
+  sigma_change();
+  reset_function();
+}
+
+
+    </script>
+  </head>
+
+  <body>
+    <div id="everything">
+      <div id="hidden" style="display: none;"></div>
+      <div id="for_2d_plot"><canvas id="paint_here"> </canvas></div>
+      <div id="for_3d_plot"></div>
+
+      <div id="menu">
+        Функція:
+        <div id="func_input_div">
+          <select id="func_select">
+            <option></option>
+            <option value="one">(1-x)^2+10*(y-x^2)^2</option>
+            <option value="two">x^2 + y^2</option>
+            <option value="three">x^2 + 10 * y^2</option>
+          </select>
+          <input
+            type="text"
+            id="func_input"
+            value="-sin(x)-cos(y)"
+            placeholder="add/select a value"
+            onfocus="this.select()"
+          />
+        </div>
+        <b id="func_error_text">Помилка в функції<br /></b>
+
+        <input type="button" value="Запуск" id="start_button" />
+        <input type="button" value="Настройки" id="options_button" />
+
+        <br /><br />
+        <label class="player" id="rewind_back">⏪</label>
+        <input
+          type="checkbox"
+          class="hidden"
+          name="play_button"
+          id="play_button"
+        />
+        <label for="play_button" class="player">&nbsp;▸&nbsp;</label>
+        <label class="player" id="rewind_forward">⏩</label>
+        <input type="range" class="slider" id="step" />
+
+        <br /><br />
+        <input type="radio" id="r1" name="rate" value="add" checked="checked" />
+        <label for="r1">2D</label>
+        <br />
+        <input type="radio" id="r2" name="rate" value="move" />
+        <label for="r2">3D</label>
+        <br />
+      </div>
+      <div id="options">
+        <table>
+          <tr>
+            <td>
+              s =
+              <label id="step_id"> </label>
+            </td>
+            <td>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="slider"
+                id="step_opt"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              α =
+              <label id="alpha_id"> </label>
+            </td>
+            <td>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="slider"
+                id="alpha"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              𝛾 =
+              <label id="gamma_id"> </label>
+            </td>
+            <td>
+              <input
+                type="range"
+                min="20"
+                max="100"
+                value="50"
+                class="slider"
+                id="gamma"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              ρ =
+              <label id="rho_id"> </label>
+            </td>
+            <td>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value="25"
+                class="slider"
+                id="rho"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              σ =
+              <label id="sigma_id"> </label>
+            </td>
+            <td>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="slider"
+                id="sigma"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      
+init();
+
+    </script>
+  </body>
+</html>
