@@ -1,0 +1,98 @@
+<html>
+<head>
+<style type="text/css">
+img {
+        height: 450px;
+        width: 220px;
+        float:left;
+}
+</style>
+<script type="text/javascript">
+
+tempImg = new Image()
+tempImg.src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/auto.png"
+
+var state = 0;
+var prize = Math.floor(Math.random() * 3) + 1;
+var stay = 0;
+var change = 0;
+
+var stay_correct = 0;
+var stay_incorrect = 0;
+var change_correct = 0;
+var change_incorrect = 0;
+
+function click_img(num) {
+  if (state == 0) {
+    let intersection = [1, 2, 3].filter(x => ![num, prize].includes(x));
+    var open = intersection[Math.floor(Math.random() * intersection.length)];
+    stay = num;
+    change = [1, 2, 3].filter(x => ![open, stay].includes(x))[0];
+    //document.getElementById("stay_incorrect").innerHTML = "c:" + change + ", o:" + open + ",s:" + stay + ",P:" + prize + "," + intersection;
+    
+    document.getElementById("d" + open).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/goat.png";
+    document.getElementById("d" + stay).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door_click_to_stay.png";
+    document.getElementById("d" + change).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door_click_to_swap.png";
+    state = 1;
+  } else if (state == 1 && (num == stay || num == change)) {
+    for (var i = 1; i < 4; ++i)
+      document.getElementById("d" + i).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/goat.png";
+    document.getElementById("d" + prize).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/auto.png";
+    if (num == prize && num == stay) stay_correct += 1;
+    if (num == prize && num == change) change_correct += 1;
+    if (num != prize && num == stay) stay_incorrect += 1;
+    if (num != prize && num == change) change_incorrect += 1;
+
+    document.getElementById("switch_correct").innerHTML = change_correct;
+    document.getElementById("stay_correct").innerHTML = stay_correct;
+    document.getElementById("switch_incorrect").innerHTML = change_incorrect;
+    document.getElementById("stay_incorrect").innerHTML = stay_incorrect;
+    document.getElementById("switch_proportion").innerHTML = Math.round((change_correct/(change_correct + change_incorrect + 0.000001))*1000)/1000;
+    document.getElementById("stay_proportion").innerHTML = Math.round((stay_correct/(stay_correct + stay_incorrect + 0.000001))*1000)/1000;
+    state = 2;
+  } else if (state == 2) {
+    for (var i = 1; i < 4; ++i)
+      document.getElementById("d" + i).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door.png";
+    prize = Math.floor(Math.random() * 3) + 1;
+    state = 0;
+  }
+}
+
+</script>
+</head>
+
+<body>
+
+<table>
+<tr>
+  <td><img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door.png" id = "d1" onclick="click_img(1)"></td>
+  <td><img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door.png" id = "d2" onclick="click_img(2)"></td>
+  <td><img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door.png" id = "d3" onclick="click_img(3)"></td>
+<tr/>
+</table>
+<table>
+<tr>
+  <td><b>Switch Trials</b></td><td></td>
+  <td><b>Stay Trials</b></td><td></td>
+</tr>
+<tr>
+  <td>Number Correct:</td>
+  <td id="switch_correct">0</td>
+  <td>Number Correct:</td>
+  <td id="stay_correct">0</td>
+<tr/>
+<tr>
+  <td>Number Incorrect:</td>
+  <td id="switch_incorrect">0</td>
+  <td>Number Incorrect:</td>
+  <td id="stay_incorrect">0</td>
+<tr/>
+<tr>
+  <td>Proportion Correct:</td>
+  <td id="switch_proportion">0</td>
+  <td>Proportion Correct:</td>
+  <td id="stay_proportion">0</td>
+<tr/>
+</table>
+</body>
+</html>
