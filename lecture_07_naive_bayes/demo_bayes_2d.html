@@ -36,6 +36,9 @@
       ys.push(y);
     var colors = ['blue', 'red'];
     var gen_nums = [0, 0];
+    var plotted_once = false;
+    var update = {'visible': []};
+    var plot_guesses = true;
 
 
     function loss_function_2d() {
@@ -92,6 +95,7 @@
 
       var estimated_gaussians = [];
       var generated_pts = [];
+      if (plot_guesses) {
       for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
         trace_x = [];
         trace_y = [];
@@ -115,9 +119,13 @@
         estimated_gaussians.push(get_params(trace_x));
         generated_pts.push(trace_x);
       }
+      } else {
+        estimated_gaussians = [[mu[0], sigma[0]], [mu[1], sigma[1]]];
+      }
       //console.log(estimated_gaussians);
 
-      for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
+      if (plot_guesses) {
+      for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
         var trace = [];
         for (var i = 0; i < xs.length; ++i) {
             var delta = (xs[i] - estimated_gaussians[trace_idx][0]) / estimated_gaussians[trace_idx][1]; 
@@ -138,7 +146,8 @@
               color: colors[trace_idx]
             },
           });
-      }
+      }
+      }
 
       p_red = [];
       p_blue = [];
@@ -201,6 +210,7 @@
          });
 
        
+       if (plot_guesses) {
        for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
          var tp = 0;
          var fp = 0;
@@ -224,28 +234,49 @@
          elem = document.getElementById(['bfp', 'rfp'][trace_idx]);
          elem.innerHTML = fp;
        }
+       } else {
+        for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
+         var elem = document.getElementById(['btp', 'rtp'][trace_idx]);
+         elem.innerHTML = '-';
+         elem = document.getElementById(['bfp', 'rfp'][trace_idx]);
+         elem.innerHTML = '-';
+        }
+       }
        var elem = document.getElementById('prior_label');
-       elem.innerHTML = prior_red.toFixed(3) + ' / ' + prior_blue.toFixed(3);
+       elem.innerHTML = '<b style="color:red">' + prior_red.toFixed(3) + '</b> / <b style="color:blue">' + prior_blue.toFixed(3) + '</b>';
 
-
+      var layout = {
+          title: 'Naive Bayes',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 800,
+          height: 600,
+          autosize: false,
+          showlegend: true,
+          margin: {
+              l: 50,
+              r: 50,
+              b: 50,
+              t: 50
+            }
+      };
 
       var cell_for_plot = document.getElementById("for_right_plot");
-      var layout = {
-          title: 'Naive Bayes',
-          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
-          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
-          width: 800,
-          height: 600,
-          autosize: false,
-          showlegend: true,
-          margin: {
-            l: 50,
-            r: 50,
-            b: 50,
-            t: 50
-          }
-        };
-      Plotly.newPlot(cell_for_plot, data, layout);
+
+      if (!plotted_once) {
+        Plotly.newPlot(cell_for_plot, data, layout);
+        cell_for_plot.on('plotly_restyle', function(){
+          update['visible'] = [];
+          for (i = 0; i < cell_for_plot.data.length; ++i)
+            update['visible'].push(cell_for_plot.data[i].visible);
+        });
+        plotted_once = true;  
+      } else {
+        Plotly.react(cell_for_plot, data, layout);
+        Plotly.restyle(cell_for_plot, update);
+      }
+      
+
     }
 
     var pts = [[100, 300], [500, 300]];
@@ -311,6 +342,15 @@
       loss_function_2d();
     }
 
+    function inf_checked()
+    {
+        elem = document.getElementById("inf");
+        plot_guesses = !elem.checked;
+        //plotted_once = false;
+        update['visible'] = [];
+        loss_function_2d();
+    }
+
   </script>
 
 <style>
@@ -334,6 +374,8 @@
 
 <table>
 <tr>
+  <td>x10<sup>100</sup></td>
+  <td><input type="checkbox" id="inf" name="inf" onchange="inf_checked();"></td>
   <td><b>red samples:</b> </td>
   <td><input type="range" class="slider" min = "0" max = "50" value="0" id="red_val" oninput="calculate();"></td>
   <td><div id="red_label" >0</div></td>
