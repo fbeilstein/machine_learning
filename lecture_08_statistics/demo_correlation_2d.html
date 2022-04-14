@@ -1,0 +1,189 @@
+<html>
+
+  <script type="application/javascript">
+  
+    var active_pt = null;
+    var all_pts = [];
+    var classAbtn = [650, 100];
+    var classBbtn = [650, 200];
+    var ptR = 10.0;
+    var params = null;
+    var debug_txt = "";
+    var bg_image = new Image();
+
+    function is_close(pt1, pt2) {
+      return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+            +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+            <= ptR*ptR;
+    }
+  
+    function circ(ctx, pos) {
+      ctx.beginPath();
+      ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.65)';
+      ctx.fill();
+    }
+    
+    function mean(idx) {
+      var sum = 0.0;
+      var num = 0;
+      if (active_pt && active_pt[0] > 0 && active_pt[0] < 600 && active_pt[1] > 0 && active_pt[1] < 600) {
+        sum = active_pt[idx];
+        num = 1;
+      }
+      all_pts.forEach(function (item, index) {
+          sum += item[idx];
+          num += 1;
+        });
+      return sum / num;
+    }
+
+    function correlation(m_x, m_y) {
+      cov_xy = 0.0;
+      s_x2 = 0.0;
+      s_y2 = 0.0;
+      if (active_pt && active_pt[0] > 0 && active_pt[0] < 600 && active_pt[1] > 0 && active_pt[1] < 600) {
+        dx = active_pt[0] - m_x;
+        dy = active_pt[1] - m_y;
+        cov_xy = dx * dy;
+        s_x2 = dx * dx;
+        s_y2 = dy * dy;
+      }
+      all_pts.forEach(function (item, index) {
+          dx = item[0] - m_x;
+          dy = item[1] - m_y;
+          cov_xy += dx * dy;
+          s_x2 += dx * dx;
+          s_y2 += dy * dy;
+        });
+      return - cov_xy / Math.sqrt(s_x2 * s_y2);
+    }
+    
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+        ctx.drawImage(bg_image, 0, 0, 600, 600);
+        ctx.strokeRect(0, 0, 600, 600); // field
+        ctx.strokeRect(650, 175, 100, 50);
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'black';
+        ctx.fillText('Correlation: ', 650, 200);
+        ctx.fillText(debug_txt, 200, 200);
+
+        var m_x = mean(0);
+        var m_y = mean(1);
+        ctx.fillStyle = 'rgba(0, 89, 208, 0.4)';
+        ctx.fillRect(m_x, m_y, 600-m_x, 600-m_y);
+        ctx.fillRect(0, 0, m_x, m_y);
+        ctx.fillStyle = 'rgba(200, 0, 0, 0.2)';
+        ctx.fillRect(m_x, 0, 600-m_x, m_y);
+        ctx.fillRect(0, m_y, m_x, 600-m_y);
+
+        var corr = correlation(m_x, m_y);
+        ctx.fillStyle = 'black';
+        ctx.fillText(corr.toFixed(5), 650, 220);
+        
+        if (active_pt) {
+          circ(ctx, [active_pt[0], active_pt[1]]);
+        }
+        all_pts.forEach(function (item, index) {
+          circ(ctx, [item[0], item[1]]);
+        });
+        
+      }
+    }
+    
+    var timer
+    function init() {
+      timer = setInterval(draw, 10);
+    }
+
+    function get_state() {
+      var rates = document.getElementsByName('rate');
+      for(var i = 0; i < rates.length; i++)
+        if(rates[i].checked)
+          return rates[i].value;
+      return "none";
+    }
+
+    
+    function mdown_handle(evt) {
+      x = evt.offsetX;
+      y = evt.offsetY;
+      state = get_state();
+      if (state == "add") {
+        if (x < 600)
+            all_pts.push([x, y]);
+        return;
+      }
+
+      idx = -1;
+      all_pts.forEach(function (item, index) {
+        if (is_close([x,y], [item[0], item[1]])) {
+          idx = index;
+        }
+      });
+      if (idx <= -1)
+          return;
+      if (state == "move") {
+        active_pt = all_pts[idx];
+        all_pts.splice(idx, 1);
+      }
+      if (state == "del")
+          all_pts.splice(idx, 1);
+    }
+    
+    function mmove_handle(evt) {
+      if (get_state() != "move")
+          return;
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (active_pt) {
+        active_pt[0] = x;
+        active_pt[1] = y;
+      }
+    }
+    
+    function mup_handle(evt) {
+      if (get_state() != "move")
+          return;
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (x >= 600) {
+        active_pt = null;
+      }
+      if (active_pt) {
+        all_pts.push(active_pt);
+        active_pt = null;
+      }
+    }
+    
+    function clear_field() {
+      active_pt = null;
+      all_pts = [];
+    }
+  </script>
+  <canvas id="canvas" width="800" height="600" 
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)"></canvas>
+  <div style="position:absolute; top:275px; left:625px; border-style: solid;">
+    <input type="radio" id="r1" name="rate" value="add" checked="checked"> 
+    <label for="r1">Add data point </label>
+    <br>
+    <input type="radio" id="r2" name="rate" value="move">
+    <label for="r2">Move data point</label>
+    <br>
+    <input type="radio" id="r3" name="rate" value="del">
+    <label for="r3">Delete data point</label>
+    <br>
+    <button type="button" onclick="clear_field();">
+      Clear
+    </button>
+  </div>
+  <script> init();</script>
+
+</html>

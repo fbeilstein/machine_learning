@@ -1,0 +1,192 @@
+<html>
+
+  <script type="application/javascript">
+  
+    var active_pt = null;
+    var all_pts = [];
+    var classAbtn = [650, 100];
+    var classBbtn = [650, 200];
+    var ptR = 9.0;
+    var params = null;
+    var debug_txt = "";
+    var bg_image = new Image();
+
+    function is_close(pt1, pt2) {
+      return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+            +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+            <= ptR*ptR;
+    }
+  
+    function circ(ctx, pos, cls) {
+      ctx.beginPath();
+      ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
+      ctx.fillStyle = (cls == 0 ? 'rgba(200, 0, 0, 0.5)' : 'rgba(0, 0, 200, 0.5)');
+      ctx.fill();
+    }
+
+    function in_rect(pos, rect) {
+      if (pos[0] < rect[0] || pos[0] > (rect[0] + rect[2]))
+        return false;
+      if (pos[1] < rect[1] || pos[1] > (rect[1] + rect[3]))
+        return false;
+      return true;
+    }
+
+    function get_survivals() {
+      var g1A = [0, 0];
+      var g1B = [0, 0];
+      var g2A = [0, 0];
+      var g2B = [0, 0];
+      all_pts.forEach(function (item, index) {
+        if (in_rect(item, [0, 100, 200, 250]))
+          g1A[item[2]] += 1;
+        if (in_rect(item, [400, 100, 200, 250]))
+          g1B[item[2]] += 1;
+        if (in_rect(item, [0, 350, 200, 250]))
+          g2A[item[2]] += 1;
+        if (in_rect(item, [400, 350, 200, 250]))
+          g2B[item[2]] += 1;
+      });
+        if (active_pt && in_rect(active_pt, [0, 100, 200, 250]))
+          g1A[active_pt[2]] += 1;
+        if (active_pt && in_rect(active_pt, [400, 100, 200, 250]))
+          g1B[active_pt[2]] += 1;
+        if (active_pt && in_rect(active_pt, [0, 350, 200, 250]))
+          g2A[active_pt[2]] += 1;
+        if (active_pt && in_rect(active_pt, [400, 350, 200, 250]))
+          g2B[active_pt[2]] += 1;      
+      return [g1A[0]/(g1A[0]+g1A[1]), 
+              g1B[0]/(g1B[0]+g1B[1]), 
+              g2A[0]/(g2A[0]+g2A[1]), 
+              g2B[0]/(g2B[0]+g2B[1]),
+              (g1A[0] + g2A[0])/(g1A[0]+g1A[1]+g2A[0]+g2A[1]),
+              (g1B[0] + g2B[0])/(g1B[0]+g1B[1]+g2B[0]+g2B[1])];
+    }
+
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+        ctx.strokeRect(0, 0, 600, 600); // field
+        ctx.strokeRect(0, 100, 200, 250);
+        ctx.strokeRect(400, 100, 200, 250);
+        ctx.strokeRect(0, 350, 200, 250);
+        ctx.strokeRect(400, 350, 200, 250);
+
+        
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'black';
+        ctx.fillText('Group 1', 50, 150);
+        ctx.fillText('Group 2', 50, 400);
+        ctx.fillText('Group 1', 450, 150);
+        ctx.fillText('Group 2', 450, 400);
+        ctx.fillText('Alive', 670, 105);
+        ctx.fillText('Dead', 670, 206);
+        ctx.fillText('Survival', 210, 200);
+        ctx.fillText('Survival', 320, 200);
+        ctx.fillText('Survival', 210, 450);
+        ctx.fillText('Survival', 320, 450);
+
+        var s = get_survivals();
+        ctx.fillText((s[0]*100.0).toFixed(1) + '%', 210, 220);
+        ctx.fillText((s[2]*100.0).toFixed(1) + '%', 210, 470);
+        ctx.fillText((s[1]*100.0).toFixed(1) + '%', 320, 220);
+        ctx.fillText((s[3]*100.0).toFixed(1) + '%', 320, 470);
+        ctx.fillText('Hospital A, Survival:'+(s[4]*100.0).toFixed(1) + '%', 50, 50);
+        ctx.fillText('Hospital B, Survival:'+(s[5]*100.0).toFixed(1) + '%', 350, 50);
+
+        ctx.font = '40px serif';
+        ctx.fillStyle = 'black';
+        if (s[0] > s[1])
+        	ctx.fillText('>', 290, 220);
+        if (s[0] < s[1])
+        	ctx.fillText('<', 290, 220);
+        if (s[0] == s[1])
+        	ctx.fillText('=', 290, 220);
+        if (s[2] > s[3])
+        	ctx.fillText('>', 290, 470);
+        if (s[2] < s[3])
+        	ctx.fillText('<', 290, 470);
+        if (s[2] == s[3])
+        	ctx.fillText('=', 290, 470);
+        if (s[4] > s[5])
+        	ctx.fillText('>', 290, 50);
+        if (s[4] < s[5])
+        	ctx.fillText('<', 290, 50);
+        if (s[4] == s[5])
+        	ctx.fillText('=', 290, 50);
+
+        ctx.fillText(debug_txt, 200, 200);
+        circ(ctx, classAbtn, 0);
+        circ(ctx, classBbtn, 1);
+        ctx.strokeRect(625, 75, 150, 50);
+        ctx.strokeRect(625, 175, 150, 50);
+        
+        if (active_pt) {
+          circ(ctx, [active_pt[0], active_pt[1]], active_pt[2]);
+        }
+        all_pts.forEach(function (item, index) {
+          circ(ctx, [item[0], item[1]], item[2]);
+        });
+        
+      }
+    }
+    
+    var timer
+    function init() {
+      timer = setInterval(draw, 10);
+    }
+    
+    function mdown_handle(evt) {
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (is_close([x,y], classAbtn)) {
+        active_pt = [x, y, 0]
+      }
+      if (is_close([x,y], classBbtn)) {
+        active_pt = [x, y, 1]
+      }
+      idx = -1;
+      all_pts.forEach(function (item, index) {
+        if (is_close([x,y], [item[0], item[1]])) {
+          idx = index;
+        }
+      });
+      if (idx > -1) {
+        active_pt = all_pts[idx];
+        all_pts.splice(idx, 1);
+      }
+    }
+    
+    function mmove_handle(evt) {
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (active_pt) {
+        active_pt[0] = x;
+        active_pt[1] = y;
+      }
+    }
+    
+    function mup_handle(evt) {
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (!in_rect([x,y], [0, 100, 200, 500]) && !in_rect([x,y], [400, 100, 200, 500])) {
+        active_pt = null;
+      }      
+      if (active_pt) {
+        all_pts.push(active_pt);
+        active_pt = null;
+      }
+    }
+    
+  </script>
+  <canvas id="canvas" width="800" height="600" 
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)"></canvas>
+  <script> init();</script>
+
+
+</html>

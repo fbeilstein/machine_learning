@@ -1,0 +1,369 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+
+  <script type="application/javascript">
+
+   function gaussian(x, mu, sigma) {
+   	 return Math.exp(-(x - mu)*(x - mu)/sigma/sigma/2)/sigma/Math.sqrt(2 * Math.PI);
+   }
+
+   function plot_gaussian(mu, sigma, is_control)
+   {
+   	 var cell_for_plot = document.getElementById("for_left_plot");
+     var pts_x = [];
+     var pts_y = [];
+     var N = 100;
+     for (var i = 1; i <= N; i++) {
+       var x = -50 + i * (50 - (-50)) / N;
+       var y = gaussian(x, mu, sigma);
+       pts_x.push(x);
+       pts_y.push(y);
+     }
+     var name = 'real distribution';
+     var color = 'red';
+     if (!is_control) {
+     	name = 'test distribution';
+     	color = 'blue';
+     }
+     var data = [{
+           x: pts_x,
+           y: pts_y,
+           name: name,
+           type: 'scatter',
+           mode: 'lines',
+           marker: {
+             size: 4,
+             color: color,
+             line: {
+               width: 2,
+               color: 'rgba(0, 0, 0, 0.5)'
+             }
+           }
+        }];
+     if (is_control) {
+       var layout = {
+            title: 'Gaussian Distribution',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'Probability Density of x'},
+            autosize: false,
+            width: 400,
+            height: 400,
+            showlegend: true,
+          };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    } else {
+    	Plotly.plot(cell_for_plot, data);
+    }
+   }
+
+   function random_point(mu, sigma) {
+   	 var z = Math.sqrt(-2.0 * Math.log(Math.random())) * Math.cos(2.0 * Math.PI * Math.random());
+   	 return z * sigma + mu;
+   }
+   function get_samples(mu, sigma, samples) {
+   	var pts = [];
+   	 for (var i = 1; i <= samples; i++) {
+       pts.push(random_point(mu, sigma));
+   	 }
+   	 return pts;
+   }
+
+   function plot_samples(mu, sigma, samples) {
+   	 var cell_for_plot = document.getElementById("for_left_plot");
+   	 var pts_x = [];
+   	 var pts_y = [];
+   	 for (var i = 0; i < samples.length; ++i) {
+   	 	pts_x.push(samples[i]);
+   	 	pts_y.push(0.0);
+   	 }
+   	 var data = [{
+           x: pts_x,
+           y: pts_y,
+           name: 'sampled from<br>real distribution',
+           type: 'scatter',
+           mode: 'markers',
+           marker: {
+             size: 8,
+             color: 'red',
+           }
+        }];
+     Plotly.plot(cell_for_plot, data);
+     pts_x = [];
+     pts_y = [];
+   	 for (var i = 0; i < samples.length; ++i) {
+   	 	pts_x.push(samples[i]);
+   	 	pts_y.push(0.0);
+   	 	pts_x.push(samples[i]);
+   	 	pts_y.push(gaussian(samples[i], mu, sigma));
+   	 	pts_x.push(null);
+   	 	pts_y.push(null);
+   	 }
+     var data = [{
+           x: pts_x,
+           y: pts_y,
+           name: 'projection to<br>test distribution',
+           type: 'scatter',
+           mode: 'lines',
+           line: {
+               width: 2,
+               color: 'blue',
+               dash: 'dot'
+             }
+        }];
+
+      Plotly.plot(cell_for_plot, data);
+    }
+
+
+    var mu_min = -25.0;
+    var mu_max =  25.0;
+    var sig_min = 1.0;
+    var sig_max = 20.0;
+    var mle_cache = []; 
+
+    var sigma_check = false;
+    var samples_arr = [];
+
+    function cache_mle() {
+      mle_cache = [];
+      for (var samples = 1; samples <= samples_arr.length; ++samples) {
+        var z = [];
+        for (var m = -25; m < 25; ++m) {
+        	var row = [];
+        	for (var s = 1; s < 21; ++s) {
+            var prod = 1.0;
+            for (var i = 0; i < samples; ++i) {
+              prod *= gaussian(samples_arr[i], m, s);
+            }
+            row.push(prod);
+        	}
+        	z.push(row);
+        }
+        mle_cache.push(z);
+      }
+    }
+
+var old_s_num = 0;
+
+    function log_mle_3d(mu, sigma, s_num)
+    {
+      var z = mle_cache[s_num - 1];
+    	var m_scale = [];
+    	var s_scale = [];
+      var cell_for_plot = document.getElementById("for_right_plot");
+      
+      if (old_s_num == s_num)
+      {
+          Plotly.deleteTraces(cell_for_plot, [1]);
+          data = [{
+              x: [parseInt(sigma)],
+              y: [parseInt(mu)],
+              z: [z[parseInt(mu)+25][parseInt(sigma)-1]], 
+              name: 'current parameters',
+	            mode: 'markers',
+	            marker: {
+		              size: 12,
+      		        opacity: 0.8
+              },
+	            type: 'scatter3d'
+          }];
+      Plotly.addTraces(cell_for_plot, data);
+          //update = {
+          //  x: 0, //[parseInt(sigma)],
+          //  y: 0, //[parseInt(mu)],
+          //  z: 0  //[z[parseInt(mu)+25][parseInt(sigma)-1]]
+          //};
+          //Plotly.restyle(cell_for_plot, update, [1]);
+          return;
+      }
+
+      for (var m = -25; m < 25; ++m)
+        	m_scale.push(m);
+      for (var s = 1; s < 21; ++s)
+        	s_scale.push(s);
+            
+        var data = [{
+        	x: s_scale,
+        	y: m_scale,
+        	z: z, 
+        	showscale: false, 
+        	opacity: 0.9, 
+        	type: 'surface'
+        }];
+        var layout = {
+            title: 'Likelihood',
+            scene: {
+              xaxis: {title: 'sigma'},
+              yaxis: {title: 'mu'},
+              autosize: false,
+              width: 600,
+              height: 600
+            },
+            showlegend: true,
+          };
+      Plotly.newPlot(cell_for_plot, data, layout);
+
+      //console.log(sigma);
+      //console.log(mu);
+      //console.log(z[parseInt(mu)+25][parseInt(sigma)-1]);
+
+      data = [{
+        x: [parseInt(sigma)],
+        y: [parseInt(mu)],
+        z: [z[parseInt(mu)+25][parseInt(sigma)-1]], 
+        name: 'current parameters',
+	      mode: 'markers',
+	      marker: {
+		      size: 12,
+      		opacity: 0.8
+        },
+	      type: 'scatter3d'
+      }];
+      
+      Plotly.plot(cell_for_plot, data);
+      old_s_num = s_num;
+
+    }
+
+    function log_mle_2d(mu, sigma, s_num) {
+      var cell_for_plot = document.getElementById("for_right_plot");
+    	var z = mle_cache[s_num - 1];
+    	var m_scale = [];
+      var y = [];
+      for (var m = -25; m < 25; ++m) {
+        m_scale.push(m);
+        y.push(z[m+25][parseInt(sigma)-1]);
+      }
+      
+     var data = [{
+           x: m_scale,
+           y: y,
+           name: 'likelihood',
+           type: 'scatter',
+           mode: 'lines',
+           marker: {
+             size: 4,
+             color: 'red',
+             line: {
+               width: 2,
+               color: 'rgba(0, 0, 0, 0.5)'
+             }
+           }
+        }];
+     var layout = {
+            title: 'Likelihood',
+            xaxis: {title: 'x'},
+            yaxis: {title: 'Probability Density of x'},
+            autosize: false,
+            width: 400,
+            height: 400,
+            showlegend: true,
+          };
+      Plotly.newPlot(cell_for_plot, data, layout);
+      
+      data = [{
+        x: [parseInt(mu)],
+        y: [z[parseInt(mu)+25][parseInt(sigma)-1]],
+        name: 'current<br> parameters',
+	      mode: 'markers',
+	      marker: {
+		      size: 12,
+      		opacity: 0.8
+        },
+	      type: 'scatter'
+      }];
+      Plotly.plot(cell_for_plot, data);
+
+    }
+
+
+  	function calculate()
+  	{
+      var elem = document.getElementById("mu_val");
+      var mu = elem.value;
+      elem = document.getElementById("mu_label");
+      elem.innerHTML = mu;
+      elem = document.getElementById("sigma_val");
+      var sigma = elem.value;
+      elem = document.getElementById("sigma_label");
+      elem.innerHTML = sigma;
+      elem = document.getElementById("samples_val");
+      var samples = elem.value;
+      elem = document.getElementById("samples_label");
+      elem.innerHTML = samples;
+
+      plot_gaussian(0, 10, true);
+      plot_gaussian(mu, sigma, false);
+
+      var smp = samples_arr.slice(0, samples); 
+      plot_samples(mu, sigma, smp);
+
+      if (sigma_check) {
+        log_mle_3d(mu, sigma, samples);
+      } else {
+        log_mle_2d(mu, sigma, samples);
+      }
+      
+  	}
+
+  	function show_sigma()
+    {
+        var checkBox = document.getElementById("show_sigma");
+        var slider = document.getElementById("sigma_val");
+        var text = document.getElementById("sigma_label");
+
+        if (checkBox.checked == true){
+          text.style.display = "block";
+          slider.style.display = "block";
+          sigma_check = true;
+          old_s_num = 0;
+        } else {
+          text.style.display = "none";
+          slider.style.display = "none";
+          sigma_check = false;
+        }
+        calculate();
+    }
+
+    function generate_samples()
+    {
+      old_s_num = 0;
+    	samples_arr = get_samples(0, 10, 20);
+      cache_mle();
+    	calculate();
+    }
+
+  </script>
+</head>
+
+<body>
+<div id="everything" style="height:400; width:800px;">
+  <table>
+    <tr>
+      <td><button onclick="generate_samples()">Generate Samples</button></td>
+      <td># of samples: </td>
+      <td><input type="range" class="slider" min = "1" max = "20" value="3" id="samples_val" oninput="calculate();"></td>
+      <td><div id="samples_label" >3</div></td>
+      <td>\[\mu\]</td>
+      <td><input type="range" class="slider" min = "-25" max = "25" value="10" id="mu_val" oninput="calculate();"></td>
+      <td><div id="mu_label" >10</div></td>
+      <td><input type="checkbox" id="show_sigma" onclick="show_sigma()"/></td>
+      <td>\[\sigma\]</td>
+      <td><input type="range" class="slider" min = "1" max = "20" value="10" id="sigma_val" style="display:none" oninput="calculate();"></td>
+      <td><div id="sigma_label" style="display:none">10</div></td>
+    </tr>
+  </table>
+
+  <div id="for_left_plot" style="position:absolute; top:50px; left:0px; height:400px; width:400px;"> </div>
+  <div id="for_right_plot" style="position:absolute; top:50px; left:400px; height:400px; width:400px;"> </div>
+</div>
+</body>
+
+<script>
+generate_samples();
+</script>
+
+</html>
