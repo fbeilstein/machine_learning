@@ -1,0 +1,293 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+
+  <script type="application/javascript">
+
+    function mean(idx) {
+      var sum = 0.0;
+      var num = 0;
+      if (active_pt && active_pt[0] > 0 && active_pt[0] < 600 && active_pt[1] > 0 && active_pt[1] < 600) {
+        sum = active_pt[idx];
+        num = 1;
+      }
+      all_pts.forEach(function (item, index) {
+          sum += item[idx];
+          num += 1;
+        });
+      return sum / num;
+    }
+
+    function coef(m_x, m_y) {
+      cov_xy = 0.0;
+      s_x2 = 0.0;
+      s_y2 = 0.0;
+      all_pts.forEach(function (item, index) {
+          dx = item[0] - m_x;
+          dy = item[1] - m_y;
+          cov_xy += dx * dy;
+          s_x2 += dx * dx;
+          s_y2 += dy * dy;
+        });
+      cov_xy /= all_pts.length;
+      s_x2 /= all_pts.length;
+      s_y2 /= all_pts.length;
+      return [s_x2, cov_xy];
+    }
+
+
+   function gaussian(x, mu, sigma) {
+   	 return Math.exp(-(x - mu)*(x - mu)/sigma/sigma/2)/sigma/Math.sqrt(2 * Math.PI);
+   }
+   function random_point(mu, sigma) {
+   	 var z = Math.sqrt(-2.0 * Math.log(Math.random())) * Math.cos(2.0 * Math.PI * Math.random());
+   	 return z * sigma + mu;
+   }
+
+    var active_pt = null;
+    var all_pts = [];
+    var ptR = 10.0;
+    var params = null;
+    var debug_txt = "";
+    var bg_image = new Image();
+
+    function regenerate() {
+      var elem = document.getElementById("samples_val");
+      var samples = parseInt(elem.value);
+      var pos = all_pts[0];
+      all_pts = [pos];
+      var vx = [pos[3] - pos[0], pos[4] - pos[1]];
+      var vy = [pos[5] - pos[0], pos[6] - pos[1]];
+      var rx = Math.sqrt(vx[0]*vx[0] + vx[1]*vx[1]);
+      var ry = Math.sqrt(vy[0]*vy[0] + vy[1]*vy[1]);
+      vx = [vx[0]/rx, vx[1]/rx];
+      vy = [vy[0]/ry, vy[1]/ry];
+      for (var i = 0; i < samples; ++i) {
+        var gaus_x = random_point(0, rx/2.0);
+        var gaus_y = random_point(0, ry/2.0);
+        all_pts.push([vx[0]*gaus_x + vy[0]*gaus_y + pos[0], vx[1]*gaus_x + vy[1]*gaus_y + pos[1], 0]);
+      }
+    }
+
+
+    function is_close(pt1, pt2) {
+      return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+            +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+            <= ptR*ptR;
+    }
+  
+    function circ(ctx, pos) {
+      ctx.beginPath();
+      if (pos[2] == 0) {
+      	  ctx.fillStyle = 'rgba(128, 128, 128, 0.5)';
+          ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
+          ctx.fill();
+      } else {
+      	  ctx.fillStyle = 'rgba(0, 89, 208, 0.4)';
+          ctx.fillRect(pos[0] - ptR, pos[1] - ptR, 2 * ptR, 2 * ptR);
+          ctx.fillStyle = 'rgba(128, 0, 0, 1.0)';
+          ctx.fillRect(pos[3] - ptR/2, pos[4] - ptR/2, ptR, ptR);
+          ctx.fillRect(pos[5] - ptR/2, pos[6] - ptR/2, ptR, ptR);
+          ctx.fillStyle = 'rgba(128, 0, 0, 0.1)';
+          var rx = Math.sqrt((pos[4] - pos[1])*(pos[4] - pos[1]) + (pos[3] - pos[0])*(pos[3] - pos[0]));
+          var ry = Math.sqrt((pos[6] - pos[1])*(pos[6] - pos[1]) + (pos[5] - pos[0])*(pos[5] - pos[0]));
+          ctx.ellipse(pos[0], pos[1], rx, ry, Math.atan2(pos[4] - pos[1], pos[3] - pos[0]), 0, Math.PI * 2.0);
+          ctx.fill();
+      }
+    }
+    
+    
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+        ctx.drawImage(bg_image, 0, 0, 600, 600);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2.0;
+        ctx.strokeRect(0, 0, 600, 600); // field
+        
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'black';
+        ctx.fillText(debug_txt, 200, 200);
+        
+        if (active_pt) {
+          circ(ctx, active_pt);
+        }
+        all_pts.forEach(function (item, index) {
+          circ(ctx, item);
+
+        });
+        circ(ctx, all_pts[0]);
+
+        if (!active_pt) {
+          var temp = all_pts.shift();
+          var m_x = mean(0);
+          var m_y = mean(1);
+          var corr = coef(m_x, m_y);
+          //ctx.fillStyle = 'black';
+          //ctx.fillText('Coef: ' + corr.toFixed(5), 20, 30);
+          all_pts.unshift(temp);
+
+          if (corr && corr[0] && corr[1]) {
+            //ctx.fillStyle = 'black';
+            //ctx.fillText('Coef: ' + corr[0].toFixed(5) + '    ' + corr[1].toFixed(5), 20, 30);
+            ctx.strokeStyle = 'blue';
+            ctx.beginPath();
+            ctx.moveTo(m_x - 100.0 * corr[0], m_y - 100.0 * corr[1]);
+            ctx.lineTo(m_x + 100.0 * corr[0], m_y + 100.0 * corr[1]);
+            ctx.stroke();          
+          }
+
+        }
+
+
+      }
+    }
+    
+    var timer
+
+    function mdown_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      idx = -1;
+      var item = all_pts[0];
+      var index = 0;
+      //all_pts.forEach(function (item, index) {
+        if (is_close([x,y], [item[0], item[1]])) {
+          idx = index;
+        if (item[2] == 1)
+          	item[7] = 0;
+        }
+        if (item[2] == 1 && is_close([x,y], [item[3], item[4]])) {
+        	item[7] = 1;
+        	idx = index;
+        }
+        if (item[2] == 1 && is_close([x,y], [item[5], item[6]])) {
+        	item[7] = 2;
+        	idx = index;
+        }
+      //});
+      if (idx <= -1)
+          return;
+
+    active_pt = all_pts[idx];
+    all_pts.splice(idx, 1);
+    }
+    
+    function mmove_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (active_pt) {
+      	if (active_pt[2] == 0) {
+      		active_pt[0] = x;
+        	active_pt[1] = y;
+      	}
+        if (active_pt[2] == 1) {
+        	if (active_pt[7] == 0) {
+            	active_pt[3] += x - active_pt[0];
+            	active_pt[4] += y - active_pt[1];
+            	active_pt[5] += x - active_pt[0];
+            	active_pt[6] += y - active_pt[1];
+            	active_pt[0] = x;
+        		active_pt[1] = y;
+            }
+            if (active_pt[7] == 1) {
+            	active_pt[3] = x;
+            	active_pt[4] = y;
+            	var v_x = active_pt[3] - active_pt[0];
+            	var v_y = active_pt[4] - active_pt[1];
+            	var r = Math.sqrt(v_x*v_x + v_y*v_y);
+            	var u_x = active_pt[5] - active_pt[0];
+            	var u_y = active_pt[6] - active_pt[1];
+            	var R = Math.sqrt(u_x*u_x + u_y*u_y);
+            	active_pt[5] = active_pt[0] - v_y / r * R;
+            	active_pt[6] = active_pt[1] + v_x / r * R;
+            }
+            if (active_pt[7] == 2) {
+            	active_pt[5] = x;
+            	active_pt[6] = y;
+            	var v_x = active_pt[3] - active_pt[0];
+            	var v_y = active_pt[4] - active_pt[1];
+            	var r = Math.sqrt(v_x*v_x + v_y*v_y);
+            	var u_x = active_pt[5] - active_pt[0];
+            	var u_y = active_pt[6] - active_pt[1];
+            	var R = Math.sqrt(u_x*u_x + u_y*u_y);
+            	active_pt[3] = active_pt[0] + u_y / R * r;
+            	active_pt[4] = active_pt[1] - u_x / R * r;
+
+            }         
+        }
+                
+      }
+    }
+    
+    function mup_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (x >= 600) {
+        active_pt = null;
+      }
+      if (active_pt) {
+        //all_pts.push(active_pt);
+        all_pts = [active_pt];
+        active_pt = null;
+        regenerate();
+      }
+    }
+    
+    function clear_field() {
+      active_pt = null;
+      var x = 300;
+      var y = 300;
+      all_pts = [[x, y, 1, x + 20, y, x, y + 20, 0]];
+    }
+
+
+  	function calculate()
+  	{
+      var elem = document.getElementById("samples_val");
+      var samples = elem.value;
+      elem = document.getElementById("samples_label");
+      elem.innerHTML = samples;    
+      regenerate();  
+  	}
+
+
+  </script>
+</head>
+
+<body>
+
+  <table>
+    <tr>
+      <td># of samples: </td>
+      <td><input type="range" class="slider" min = "0" max = "100" value="0" id="samples_val" oninput="calculate();"></td>
+      <td><div id="samples_label" >0</div></td>
+    </tr>
+  </table>
+
+  <canvas id="canvas" width="600" height="600" 
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)"></canvas>
+</body>
+
+<script>
+function init()
+{
+  clear_field();
+  calculate();
+  timer = setInterval(draw, 10);
+}
+
+init();
+</script>
+
+</html>

@@ -1,0 +1,577 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+
+
+
+    var xs = [];
+    var ys = [];
+    var x_min = -3.0;
+    var y_min = -3.0;
+    var x_max = +7.0;
+    var y_max = +7.0;
+    for (var x = x_min; x <= x_max; x += 0.1)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.1)
+      ys.push(y);
+    var sse = [];
+    var sse_log = [];
+    var lasso = [];
+    var lasso_fake = [];
+    var ridge = [];
+    var ridge_fake = [];
+
+
+    function loss_function_2d() {
+      plot_potentials();
+      return;
+    }
+
+    var layout = {
+        title: 'Regularization',
+        scene: {
+          domain: { 'x': [0.55, 1.0], 'y': [0.0, 1.0] }, 
+          zaxis: {'range': [0, 100.0]},
+          aspectmode: 'cube' 
+        },
+        xaxis1: {'range': [x_min, x_max], 'domain': [0.0, 0.44], 'fixedrange': true},
+        yaxis1: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+        width: 800,
+        height: 400,
+        autosize: false,
+        showlegend: false,
+        margin: {l: 50, r: 50, b: 50, t: 50}
+      };
+      var plotted_once = false;
+
+  function plot_potentials() {
+      elem = document.getElementById("reg_type");
+      var regtype = elem.options[elem.selectedIndex].value;
+      var reg_paint;
+      if (regtype == 'lasso')
+        reg_paint = lasso_fake;
+      else
+        reg_paint = ridge_fake;
+      var alpha = get_current_alpha();
+      var params = get_sse_params();
+      var p = params[0];
+      var ex = params[1];
+      var ey = params[2];
+      var cur_min = [0.0, 0.0];
+      if (regtype == 'lasso')
+        cur_min = l1_regularized_min(p, ex, ey, alpha);
+      else
+        cur_min = l2_regularized_min(p, ex, ey, alpha);
+      var data_3d = [
+      {
+       type: 'surface', 
+       x: xs,
+       y: ys, 
+       z: sse, 
+       opacity: 0.8, 
+       showscale: false,
+       scene: 'scene',
+       colorscale: 'Bluered'
+      },
+      {type: 'surface', 
+       x: xs, 
+       y: ys, 
+       z: reg, 
+       opacity: 0.8, 
+       showscale: false,
+       scene: 'scene',
+       colorscale: 'Greens'
+      }, 
+      {type: 'surface',
+       x: xs, 
+       y: ys, 
+       z: sum,
+       opacity: 0.7, 
+       showscale: false,
+       scene: 'scene',
+       colorscale : 'Hot'
+      }
+      ];
+      var data = [/**/{
+        x: xs,
+        y: ys,
+        z: sse_log, 
+        showscale: false, 
+        opacity: 0.9, 
+        type: 'contour'
+      },{
+        x: xs,
+        y: ys,
+        z: reg_paint, 
+        showscale: false, 
+        opacity: 1.0, 
+        type: 'contour',
+        line: {
+          width: 2,
+          color: 'black'
+        },
+        contours: {
+          coloring: 'none',
+        }
+      },{
+        x: alpha_xs,
+        y: alpha_ys,
+        name: 'minima',
+        mode: 'lines+markers',
+        marker: {
+          size: 5,
+          opacity: 0.8
+        },
+        type: 'scatter'
+      },{
+        x: [cur_min[0]],
+        y: [cur_min[1]],
+        name: 'minimum',
+        mode: 'markers',
+        marker: {
+          size: 7,
+          opacity: 0.8,
+          color: 'blue'
+        },
+        type: 'scatter'        
+      }];
+
+      if (document.getElementById("show_3d").checked)
+        data = data.concat(data_3d);
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      Plotly.react(cell_for_plot, data, layout);
+      if (!plotted_once) {
+        cell_for_plot.on('plotly_relayout', function(data){layout = cell_for_plot.layout;});
+        plotted_once = true;
+      }
+  }
+
+    var reg = [];
+    var sum = [];
+    function recalc_regularization(alpha, type) {
+      reg = [];
+      sum = [];
+      for (var i = 0; i < ys.length; ++i) {
+        var y = ys[i];
+        var temp = [];
+        var temps = [];
+        for (var j = 0; j < xs.length; ++j) {
+          var x = xs[j];
+          if (type == "lasso")
+            e = alpha * (Math.abs(x) + Math.abs(y));
+          else
+            e = alpha * (x*x + y*y);
+          temp.push(e);
+          temps.push(e + sse[i][j]);
+        }
+        reg.push(temp);
+        sum.push(temps);
+      }
+    }
+
+    function get_current_alpha() {
+      elem = document.getElementById("alpha_val");
+      var alpha = parseFloat(elem.value);
+      return alpha / 2.0;
+    }
+
+    function calculate() {
+      var elem = document.getElementById("alpha_label");
+      elem.innerHTML = get_current_alpha();
+      elem = document.getElementById("reg_type");
+      var regtype = elem.options[elem.selectedIndex].value;
+      recalc_regularization(get_current_alpha(), regtype);
+      recalc_sse();
+      //loss_function_2d();
+    }
+
+
+
+    function error_reg(x, p, ex, ey, alpha) {
+      var v = [x[0] - p[0], x[1] - p[1]];
+      var a = v[0]*ex[0] + v[1]*ex[1];
+      var b = v[0]*ey[0] + v[1]*ey[1];
+      return a*a + b*b + alpha * (Math.abs(x[0]) + Math.abs(x[1]));
+    }
+
+    function l1_regularized_min(p, ex, ey, alpha) {
+      denom = ex[1]*ey[0] - ex[0]*ey[1];
+      denom *= 2 * denom;
+      num1 = ex[0]*ex[1] + ey[0]*ey[1];
+      num2 = ex[1]*ex[1] + ey[1]*ey[1];
+      num3 = ex[0]*ex[0] + ey[0]*ey[0];
+      denom1 = ex[1]*ex[1] + ey[1]*ey[1];
+      denom2 = ex[0]*ex[0] + ey[0]*ey[0];
+
+      var C = [
+                [        p[0] + alpha * ( num1 - num2)/denom, p[1] + alpha * ( num1 - num3)/denom        ],
+                [        p[0] + alpha * ( num1 + num2)/denom, p[1] + alpha * (-num1 - num3)/denom        ],
+                [        p[0] + alpha * (-num1 - num2)/denom, p[1] + alpha * ( num1 + num3)/denom        ],
+                [        p[0] + alpha * (-num1 + num2)/denom, p[1] + alpha * (-num1 + num3)/denom        ],
+                [                                        0.0, p[1] + (p[0] * num1 - alpha / 2.0) / denom1],
+                [                                        0.0, p[1] + (p[0] * num1 + alpha / 2.0) / denom1],
+                [p[0] + (p[1] * num1 - alpha / 2.0) / denom2, 0.0                                        ],
+                [p[0] + (p[1] * num1 + alpha / 2.0) / denom2, 0.0                                        ],
+                [                                        0.0, 0.0                                        ]
+      ];
+      var res = [0, 0];
+      var min = 100000000.0;
+      for (var i = 0; i < C.length; ++i) {
+        var err = error_reg(C[i], p, ex, ey, alpha);
+        if (err < min) {
+          min = err;
+          res = C[i];
+        }
+      }
+      return res;
+      
+    }
+
+    function l2_regularized_min(p, ex, ey, alpha) {
+      var mul1 = ex[1]*ey[0] - ex[0]*ey[1];
+      var mul2 = ex[0]*ex[1] + ey[0]*ey[1];
+      var mul3 = ex[0]*ex[0] + ey[0]*ey[0];
+      var mul4 = ex[1]*ex[1] + ey[1]*ey[1];
+      var denom = mul1*mul1 + alpha*(mul3 + mul4) + alpha*alpha;
+      var num1 = mul1*mul1*p[0] + (mul3*p[0] + mul2*p[1])*alpha;
+      var num2 = mul1*mul1*p[1] + (mul2*p[0] + mul4*p[1])*alpha;
+      return [num1/denom, num2/denom];
+    }
+
+    var alpha_xs = [];
+    var alpha_ys = [];
+    function recalc_mins(p, ex, ey) {
+      alpha_xs = [];
+      alpha_ys = [];
+      var elem = document.getElementById("reg_type");
+      var regtype = elem.options[elem.selectedIndex].value;
+      var f = null;
+      if (regtype == 'lasso')
+        f = l1_regularized_min;
+      else
+        f = l2_regularized_min;
+      for (var alpha = 0.0; alpha <= 20.0; alpha += 0.5) {
+        v = f(p, ex, ey, alpha);
+        alpha_xs.push(v[0]);
+        alpha_ys.push(v[1]);
+      }
+
+
+    }
+
+
+    function get_sse_params() {
+      var act_pt = active_pt;
+      if (!active_pt)
+        act_pt = all_pts[0];
+
+      var canvas = document.getElementById("paint");
+      var w = canvas.width;
+      var h = canvas.height;
+      var p = [act_pt[0] / w * (x_max - x_min) + x_min, (1.0 - act_pt[1] / h) * (y_max - y_min) + y_min];
+      var ex = [(act_pt[3] - act_pt[0]) / w * (x_max - x_min), (act_pt[1] - act_pt[4]) / h * (y_max - y_min)];
+      var ey = [(act_pt[5] - act_pt[0]) / w * (x_max - x_min), (act_pt[1] - act_pt[6]) / h * (y_max - y_min)];
+      var lx2 = ex[0]*ex[0] + ex[1]*ex[1];
+      var ly2 = ey[0]*ey[0] + ey[1]*ey[1];
+      ex = [ex[0]/lx2, ex[1]/lx2];
+      ey = [ey[0]/ly2, ey[1]/ly2];
+      return [p, ex, ey]
+    }
+
+
+    
+    function recalc_sse() {
+      var params = get_sse_params();
+      var p = params[0];
+      var ex = params[1];
+      var ey = params[2];
+
+      sse = [];
+      sse_log = [];
+      for (var i = 0; i < xs.length; ++i) {
+        var y = ys[i];
+        var temp = [];
+        var temp_log = [];
+        var temps = [];
+        for (var j = 0; j < ys.length; ++j) {
+          var x = xs[j];
+          var v = [x - p[0], y - p[1]];
+          var a = v[0]*ex[0] + v[1]*ex[1];
+          var b = v[0]*ey[0] + v[1]*ey[1];
+          var e = a*a + b*b;
+          temp.push(e);
+          temp_log.push(Math.log(e + 1.0));
+        }
+
+        sse.push(temp);
+        sse_log.push(temp_log);
+      }
+
+      recalc_mins(p, ex, ey);
+
+      loss_function_2d();
+      //loss_function_3d();
+      //update_3d();
+    }
+    
+    var active_pt = null;
+    var all_pts = [];
+    var ptR = 10.0;
+    var debug_txt = "";
+
+    function is_close(pt1, pt2) {
+      return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+            +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+            <= ptR*ptR;
+    }
+  
+    function circ(ctx, pos) {
+      ctx.beginPath();
+      if (pos[2] == 0) {
+          ctx.fillStyle = 'rgba(128, 128, 128, 0.5)';
+          ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
+          ctx.fill();
+      } else {
+          ctx.fillStyle = 'rgba(0, 208, 0, 1.0)'; //'rgba(0, 89, 208, 0.4)';
+          ctx.fillRect(pos[0] - ptR, pos[1] - ptR, 2 * ptR, 2 * ptR);
+          ctx.fillStyle = 'rgba(128, 0, 0, 1.0)';
+          ctx.fillRect(pos[3] - ptR/2, pos[4] - ptR/2, ptR, ptR);
+          ctx.fillRect(pos[5] - ptR/2, pos[6] - ptR/2, ptR, ptR);
+          ctx.fillStyle = 'rgba(128, 0, 0, 0.1)';
+          var rx = Math.sqrt((pos[4] - pos[1])*(pos[4] - pos[1]) + (pos[3] - pos[0])*(pos[3] - pos[0]));
+          var ry = Math.sqrt((pos[6] - pos[1])*(pos[6] - pos[1]) + (pos[5] - pos[0])*(pos[5] - pos[0]));
+          ctx.ellipse(pos[0], pos[1], rx, ry, Math.atan2(pos[4] - pos[1], pos[3] - pos[0]), 0, Math.PI * 2.0);
+          ctx.fill();
+      }
+    }
+    
+    
+    function draw() {
+      var canvas = document.getElementById('paint');
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('plot')[0];
+      var rect = el.getBoundingClientRect();
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                      + "px; left: " + parseInt(rect.left)
+                      + "px; width:" + parseInt(rect.width)
+                      + "px; height:" + parseInt(rect.height)
+                      + "px; z-index:1000;";
+
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 4.0;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height); // field
+        
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'black';
+        ctx.fillText(debug_txt, 200, 200);
+        
+        if (active_pt) {
+          circ(ctx, active_pt);
+        }
+        all_pts.forEach(function (item, index) {
+          circ(ctx, item);
+
+        });
+        //circ(ctx, all_pts[0]);
+
+
+      }
+    }
+    
+    var timer
+
+    function mdown_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      idx = -1;
+      var item = all_pts[0];
+      var index = 0;
+      //all_pts.forEach(function (item, index) {
+        if (is_close([x,y], [item[0], item[1]])) {
+          idx = index;
+        if (item[2] == 1)
+            item[7] = 0;
+        }
+        if (item[2] == 1 && is_close([x,y], [item[3], item[4]])) {
+          item[7] = 1;
+          idx = index;
+        }
+        if (item[2] == 1 && is_close([x,y], [item[5], item[6]])) {
+          item[7] = 2;
+          idx = index;
+        }
+      //});
+      if (idx <= -1)
+          return;
+
+    active_pt = all_pts[idx];
+    all_pts.splice(idx, 1);
+    draw();
+    }
+    
+    function mmove_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (active_pt) {
+        if (active_pt[2] == 0) {
+          active_pt[0] = x;
+          active_pt[1] = y;
+        }
+        if (active_pt[2] == 1) {
+          if (active_pt[7] == 0) {
+              active_pt[3] += x - active_pt[0];
+              active_pt[4] += y - active_pt[1];
+              active_pt[5] += x - active_pt[0];
+              active_pt[6] += y - active_pt[1];
+              active_pt[0] = x;
+            active_pt[1] = y;
+            }
+            if (active_pt[7] == 1) {
+              active_pt[3] = x;
+              active_pt[4] = y;
+              var v_x = active_pt[3] - active_pt[0];
+              var v_y = active_pt[4] - active_pt[1];
+              var r = Math.sqrt(v_x*v_x + v_y*v_y);
+              var u_x = active_pt[5] - active_pt[0];
+              var u_y = active_pt[6] - active_pt[1];
+              var R = Math.sqrt(u_x*u_x + u_y*u_y);
+              active_pt[5] = active_pt[0] - v_y / r * R;
+              active_pt[6] = active_pt[1] + v_x / r * R;
+            }
+            if (active_pt[7] == 2) {
+              active_pt[5] = x;
+              active_pt[6] = y;
+              var v_x = active_pt[3] - active_pt[0];
+              var v_y = active_pt[4] - active_pt[1];
+              var r = Math.sqrt(v_x*v_x + v_y*v_y);
+              var u_x = active_pt[5] - active_pt[0];
+              var u_y = active_pt[6] - active_pt[1];
+              var R = Math.sqrt(u_x*u_x + u_y*u_y);
+              active_pt[3] = active_pt[0] + u_y / R * r;
+              active_pt[4] = active_pt[1] - u_x / R * r;
+
+            }         
+        }
+        //recalc_sse();
+        calculate();
+      }
+      draw();
+      //update_3d();
+    }
+    
+    function mup_handle(evt) {
+      evt.stopPropagation();
+      x = evt.offsetX;
+      y = evt.offsetY;
+      if (x >= 600) {
+        active_pt = null;
+      }
+      if (active_pt) {
+        //all_pts.push(active_pt);
+        all_pts = [active_pt];
+        active_pt = null;
+        recalc_sse();
+        //regenerate();
+      }
+      draw();
+      //loss_function_3d();
+    }
+
+  </script>
+</head>
+
+
+
+<div id="everything" style="height:600px; width:1200px;">
+  <table>
+    <tr>
+      <td>α :</td>
+      <td><input type="range" class="slider" min = "0" max = "40" value="3" id="alpha_val" oninput="calculate();"></td>
+      <td><div id="alpha_label" >3</div></td>
+      <td>Regularization:</td>
+      <td>
+        <select id="reg_type" onchange="calculate();loss_function_2d();">
+        <option value="ridge">Ridge</option>
+        <option value="lasso">Lasso</option>
+        </select>
+      </td>
+      <td>
+        show 3D (heavy calculations):
+        <input type="checkbox" id="show_3d" onchange="loss_function_2d();">
+      </td>
+    </tr>
+  </table>
+  <div id="for_right_plot">
+  </div>
+</div>
+
+
+  <canvas id="paint" width=600 height=600
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
+  </canvas>
+
+
+<script>
+function init()
+{
+  // update fake regularization functions
+  ridge_fake = [];
+  lasso_fake = [];
+  for (var i = 0; i < xs.length; ++i) {
+    var y = ys[i];
+    var temp_r = [];
+    var temp_l = [];
+    for (var j = 0; j < ys.length; ++j) {
+      var x = xs[j];
+      temp_l.push(2.0 * (Math.abs(x) + Math.abs(y)));
+      temp_r.push(Math.sqrt(x*x + y*y));
+    }
+    ridge_fake.push(temp_r);
+    lasso_fake.push(temp_l);
+  }
+  // setup point params
+  active_pt = null;
+  var x = 100;
+  var y = 100;
+  all_pts = [[x, y, 1, x + 20, y, x, y + 20, 0]];
+  loss_function_2d();
+  // setup canvas
+  var plt_div = document.getElementById('for_right_plot');
+  var el = plt_div.getElementsByClassName('plot')[0];
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint");
+  console.log(rect.top);
+  canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                      + "px; left: " + parseInt(rect.left)
+                      + "px; width:" + parseInt(rect.width)
+                      + "px; height:" + parseInt(rect.height)
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  //el.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  recalc_sse();
+  draw();
+  //loss_function_3d();
+  calculate();
+  //update_3d();
+  
+  //timer = setInterval(update_3d, 2000);
+}
+init();
+</script>
+
+</html>

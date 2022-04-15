@@ -1,0 +1,581 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+
+  <script type="application/javascript">
+
+
+   function random_point(mu, sigma) {
+     var z = Math.sqrt(-2.0 * Math.log(Math.random())) * Math.cos(2.0 * Math.PI * Math.random());
+     return z * sigma + mu;
+   }
+   function get_samples(k, b, sigma, samples) {
+    var pts = [];
+     for (var i = 1; i <= samples; i++) {
+       mu_x = Math.random() * 2.0 - 1.0;
+       mu_y = mu_x * k + b;
+       pts.push([random_point(mu_x, sigma), random_point(mu_y, sigma)]);
+     }
+     return pts;
+   }
+
+
+    function coef(m_x, m_y, all_pts) {
+      cov_xy = 0.0;
+      s_x2 = 0.0;
+      s_y2 = 0.0;
+      all_pts.forEach(function (item, index) {
+          dx = item[0] - m_x;
+          dy = item[1] - m_y;
+          cov_xy += dx * dy;
+          s_x2 += dx * dx;
+          s_y2 += dy * dy;
+        });
+      cov_xy /= all_pts.length;
+      s_x2 /= all_pts.length;
+      s_y2 /= all_pts.length;
+      return [s_x2, cov_xy, s_y2];
+    }
+
+   var max_x = 1.0;
+   var max_y = 1.0;
+   var min_x = -1.0;
+   var min_y = -1.0;
+   function plot_samples(samples) {
+     var cell_for_plot = document.getElementById("for_left_plot");
+     var pts_x = [];
+     var pts_y = [];
+     for (var i = 0; i < samples.length; ++i) {
+      pts_x.push(samples[i][0]);
+      pts_y.push(samples[i][1]);
+      if (samples[i][0] > max_x)
+        max_x = samples[i][0];
+      if (samples[i][1] > max_y)
+        max_y = samples[i][1];
+      if (samples[i][0] < min_x)
+        min_x = samples[i][0];
+      if (samples[i][1] < min_y)
+        min_y = samples[i][1];
+     }
+     var lambda = 0.0
+     if (sig_xx > sig_xy) {
+      lambda = Math.max(mu_x - min_x, max_x - mu_x) / sig_xx;
+     } else {
+      lambda = Math.max(mu_y - min_y, max_y - mu_y) / sig_xy;
+     }
+
+     var data = [{
+           x: pts_x,
+           y: pts_y,
+           name: 'sampled points',
+           type: 'scatter',
+           mode: 'markers',
+           marker: {
+             size: 8,
+             color: 'red',
+             opacity: 0.5
+           }
+        },{
+           x: [mu_x - lambda * sig_xx, mu_x + lambda * sig_xx],
+           y: [mu_y - lambda * sig_xy, mu_y + lambda * sig_xy],
+           name: 'regression line',
+           type: 'scatter',
+           mode: 'lines',
+           marker: {
+             size: 8,
+             color: 'blue',
+           }
+        }];
+
+     var layout = {
+          title: 'Linear Regression',
+          xaxis: {title: 'x'},
+          yaxis: {title: 'Probability Density of x'},
+          autosize: false,
+          xaxis: {'domain': [0.0, 1.0], 'range': [min_x, max_x], 'fixedrange': true},
+          yaxis: {'domain': [0.0, 1.0], 'range': [min_y, max_y], 'fixedrange': true},
+          width: 400,
+          height: 400,
+          showlegend: true,
+          margin: {l: 50, r: 50, b: 50, t: 50}
+        };
+     Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+    var sigma_check = false;
+    var samples_arr = [];
+
+    function error_by_kb(k, b) {
+      return sig_yy + k*k*sig_xx - 2*k*sig_xy - 2*k*mu_x*mu_y + (mu_y - b)*(mu_y - b) + (k*mu_x + b)*(k*mu_x + b) - b*b;
+    }
+
+    var k_min = -2.0;
+    var k_max = 2.0;
+    var b_min = -1.0;
+    var b_max = 1.0;
+    function loss_function_3d() {
+      var k_arr = [];
+      for (var k = k_min; k < k_max; k+= 0.01)
+        k_arr.push(k);
+      var b_arr = [];
+      for (var b = b_min; b < b_max; b+= 0.1)
+        b_arr.push(b);
+      var err = [];
+      for (var i = 0; i < b_arr.length; ++i) {
+        var b = b_arr[i];
+        var temp = [];
+        for (var j = 0; j < k_arr.length; ++j) {
+          var k = k_arr[j];
+          var e = error_by_kb(k, b);
+          temp.push(e);
+        }
+        err.push(temp);
+      }
+            
+        var data = [{
+          x: k_arr,
+          y: b_arr,
+          z: err, 
+          showscale: false, 
+          opacity: 0.9, 
+          type: 'surface'
+        }];
+        if (sig_xx > 0.00001) {
+          var k_opt = sig_xy / sig_xx;
+          var b_opt = mu_y - mu_x * k_opt;
+          var e_opt = error_by_kb(k_opt, b_opt);
+          data.push({
+            x: [k_opt],
+            y: [b_opt],
+            z: [e_opt], 
+            name: 'best<br> approximation',
+            mode: 'markers',
+            marker: {
+              size: 12,
+              opacity: 1.0,
+              color: 'rgba(0.0, 0.0, 0.5, 1.0)'
+            },
+            type: 'scatter3d'
+          });
+        }
+        data.push({
+          x: [0],
+          y: [0],
+          z: [error_by_kb(0.0, 0.0)], 
+          name: 'test<br> approximation',
+          mode: 'markers',
+          marker: {
+            size: 12,
+            opacity: 0.8
+          },
+          type: 'scatter3d'
+        });
+
+        var cell_for_plot = document.getElementById("for_right_plot");
+        var layout = {
+            title: 'Error Function',
+            scene: {
+              xaxis: {title: 'k'},
+              yaxis: {title: 'b'},
+              autosize: false,
+              width: 400,
+              height: 400
+            },
+            showlegend: true,
+            margin: {l: 50, r: 50, b: 50, t: 50}
+          };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+    function update_3d(k, b) {
+      var cell_for_plot = document.getElementById("for_right_plot");
+      Plotly.deleteTraces(cell_for_plot, [2]);
+      if (k < k_min || k > k_max || b < b_min || b > b_max) {
+        k = null;
+        b = null;
+      }
+      var data = [{
+          x: [k],
+          y: [b],
+          z: [error_by_kb(k, b)], 
+          name: 'test<br> approximation',
+          mode: 'markers',
+          marker: {
+            size: 12,
+            opacity: 0.8
+          },
+          type: 'scatter3d'
+        }];
+      Plotly.addTraces(cell_for_plot, data);
+    }
+
+    function loss_function_2d() {
+      var k_arr = [];
+      for (var k = k_min; k < k_max; k+= 0.01)
+        k_arr.push(k);
+      var b_arr = [];
+      for (var b = b_min; b < b_max; b+= 0.1)
+        b_arr.push(b);
+      var err = [];
+      for (var i = 0; i < b_arr.length; ++i) {
+        var b = b_arr[i];
+        var temp = [];
+        for (var j = 0; j < k_arr.length; ++j) {
+          var k = k_arr[j];
+          var e = error_by_kb(k, b);
+          temp.push(e);
+        }
+        err.push(temp);
+      }
+            
+        var data = [{
+          x: k_arr,
+          y: b_arr,
+          z: err, 
+          showscale: false, 
+          opacity: 0.9, 
+          type: 'contour'
+        }];
+        if (sig_xx > 0.00001) {
+          var k_opt = sig_xy / sig_xx;
+          var b_opt = mu_y - mu_x * k_opt;
+          var e_opt = error_by_kb(k_opt, b_opt);
+          data.push({
+            x: [k_opt],
+            y: [b_opt],
+            name: 'best<br> approximation',
+            mode: 'markers',
+            marker: {
+              size: 12,
+              opacity: 1.0,
+              color: 'rgba(0.0, 0.0, 0.5, 1.0)'
+            },
+            type: 'scatter'
+          });
+        }
+        data.push({
+          x: [0],
+          y: [0],
+          name: 'test<br> approximation',
+          mode: 'markers',
+          marker: {
+            size: 12,
+            opacity: 0.8
+          },
+          type: 'scatter'
+        });
+
+        var cell_for_plot = document.getElementById("for_right_plot");
+        var layout = {
+            title: 'Error Function',
+            xaxis: {'domain': [0.0, 1.0], 'range': [k_min, k_max], 'fixedrange': true},
+            yaxis: {'domain': [0.0, 1.0], 'range': [b_min, b_max], 'fixedrange': true},
+            width: 400,
+            height: 400,
+            showlegend: true,
+            margin: {l: 50, r: 50, b: 50, t: 50}
+          };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+     function update_2d(k, b) {
+      var cell_for_plot = document.getElementById("for_right_plot");
+      Plotly.deleteTraces(cell_for_plot, [2]);
+      if (k < k_min || k > k_max || b < b_min || b > b_max) {
+        k = null;
+        b = null;
+      }
+      var data = [{
+          x: [k],
+          y: [b],
+          name: 'test<br> approximation',
+          mode: 'markers',
+          marker: {
+            size: 12,
+            opacity: 0.8
+          },
+          type: 'scatter'
+        }];
+      Plotly.addTraces(cell_for_plot, data);
+    }
+
+
+    var mu_x = 0.0;
+    var mu_y = 0.0;
+    var sig_xx = 0.0;
+    var sig_xy = 0.0;
+    var sig_yy = 0.0;
+    function update_globals(samples) {
+      mu_x = 0.0;
+      mu_y = 0.0;
+      for (var i = 0; i < samples.length; ++i) {
+        mu_x += samples[i][0];
+        mu_y += samples[i][1];
+     }
+     mu_x /= samples.length;
+     mu_y /= samples.length;
+     C = coef(mu_x, mu_y, samples);
+     sig_xx = C[0];
+     sig_xy = C[1];
+     sig_yy = C[2];
+    }
+
+    function calculate()
+    {
+      elem = document.getElementById("samples_val");
+      var samples = elem.value;
+      elem = document.getElementById("samples_label");
+      elem.innerHTML = samples;
+
+      var smp = samples_arr.slice(0, samples);
+      update_globals(smp);
+      plot_samples(smp);
+
+      var canvas = document.getElementById("paint_left");
+      left_point = [0.0, canvas.height / 2.0];
+      right_point = [canvas.width, canvas.height / 2.0];
+
+      if (sigma_check) {
+        loss_function_3d();
+        var canvas = document.getElementById("paint_right");
+        canvas.style.cssText = "position:absolute; top:0px"
+                            + "px; left: 0px"
+                            + "px; width: 0px"
+                            + "px; height: 0px"
+                            + "px; z-index: 0;";
+        canvas.width = 0;
+        canvas.height = 0;
+      } else {
+        loss_function_2d();
+        var cell_for_plot = document.getElementById("for_right_plot");
+        var el = cell_for_plot.getElementsByClassName("gridlayer")[0];
+        var rect = el.getBoundingClientRect();
+        var canvas = document.getElementById("paint_right");
+        canvas.style.cssText = "position:absolute; top:" + rect.top
+                            + "px; left: " + rect.left
+                            + "px; width:" + rect.width
+                            + "px; height:" + rect.height
+                            + "px; z-index:1000;";
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
+      draw();
+    }
+
+    function update_line(x, y) {
+      var canvas = document.getElementById("paint_right");
+      var w = canvas.width;
+      var h = canvas.height;
+      var k = k_min + x / w * (k_max - k_min);
+      var b = b_min + (h - y) / h * (b_max - b_min);
+      update_2d(k, b);
+      canvas = document.getElementById("paint_left");
+      w = canvas.width;
+      h = canvas.height;
+      var pt_l = [-1, -k + b];
+      var pt_r = [1, k + b];
+      pt_l = [(pt_l[0] - min_x) / (max_x - min_x) * w, h - (pt_l[1] - min_y) / (max_y - min_y) * h];
+      pt_r = [(pt_r[0] - min_x) / (max_x - min_x) * w, h - (pt_r[1] - min_y) / (max_y - min_y) * h];
+      left_point = cross_point(pt_r, pt_l, w, h);
+      right_point = cross_point(pt_l, pt_r, w, h);      
+    }
+
+    var line_changing = false;
+    function right_down(evt)
+    {
+      var x = evt.offsetX;
+      var y = evt.offsetY;
+      update_line(x, y);
+      line_changing = true;
+      draw();
+    }
+
+    function right_move(evt) {
+      if (!line_changing)
+        return;
+      var x = evt.offsetX;
+      var y = evt.offsetY;
+      update_line(x, y);     
+      draw(); 
+    }
+
+    function right_up(evt) {
+      line_changing = false; 
+      draw();
+    }
+
+    function show_sigma()
+    {
+        var checkBox = document.getElementById("show_sigma");
+
+        if (checkBox.checked == true){
+          sigma_check = true;
+        } else {
+          sigma_check = false;
+        }
+        calculate();
+    }
+
+    function generate_samples() {
+      samples_arr = get_samples(0.5, 0.0, 0.1, 20);
+      calculate();
+    }
+
+    var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
+    var left_point = [0.0, 0.0]
+    var right_point = [0.0, 0.0]
+
+    function draw() {
+      var canvas = document.getElementById("paint_left");
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "#00FF00";
+      ctx.lineWidth = 3;
+      ctx.globalAlpha = 0.5;
+      //ctx.setLineDash([5, 15]);
+      ctx.beginPath();
+      ctx.moveTo(left_point[0], left_point[1]);
+      ctx.lineTo(right_point[0], right_point[1]);
+      ctx.stroke();
+      ctx.globalAlpha = 1.0;
+      //ctx.fillStyle="#00FF00";
+      //ctx.fillRect(0, 0, canvas.width, canvas.height); // field
+    }
+
+  function mdown_handle(evt) {
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var vec = [left_point[0] - right_point[0], left_point[1] - right_point[1]];
+    var lng = Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1]);
+    vec = [vec[0] / lng, vec[1] / lng];
+    var u = [x - right_point[0], y - right_point[1]];
+    var proj_paral = u[0] * vec[0] + u[1] * vec[1];
+    var proj_perp = Math.sqrt(u[0]*u[0] + u[1]*u[1] - proj_paral*proj_paral);
+    if (proj_perp > 10.0)
+      return;
+    proj_paral = Math.abs(proj_paral);
+    if (proj_paral < lng / 3.0)
+      active_state = 2;
+    if (proj_paral > 2.0 * lng / 3.0)
+      active_state = 1;
+    if (proj_paral > lng / 3.0 && proj_paral < 2.0 * lng / 3.0)
+      active_state = 3;
+    draw();
+  }
+      
+  function cross_point(A, B, w, h) {
+    var u = [A[0] / w, A[1] / h];
+    var v = [(B[0] - A[0]) / w, (B[1] - A[1]) / h];
+    var lambda_1 = 1.0;
+    if (v[0]*v[0] > 0.00001) {
+      lambda_1 = Math.max(-u[0] / v[0], (1-u[0]) / v[0]);
+    }
+    var lambda_2 = 1.0;
+    if (v[1]*v[1] > 0.00001) {
+      lambda_2 = Math.max(-u[1] / v[1], (1-u[1]) / v[1]);
+    }
+    var lambda = Math.min(lambda_1, lambda_2);
+    var p = [u[0] + lambda * v[0], u[1] + lambda * v[1]];
+    return [p[0] * w, p[1] * h];
+  }
+
+  function mmove_handle(evt) {
+    if (active_state == 0)
+        return;
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var canvas = document.getElementById("paint_left");
+    var w = canvas.width;
+    var h = canvas.height;
+    if (active_state == 1) { // move left point
+      left_point = cross_point(right_point, [x, y], w, h);
+    }
+    if (active_state == 2) {
+      right_point = cross_point(left_point, [x, y], w, h);
+    }
+    if (active_state == 3) {
+      var v = [left_point[0] - right_point[0], left_point[1] - right_point[1]];
+      left_point = cross_point([x, y], [v[0]+x, v[1]+y], w, h);
+      right_point = cross_point([x, y], [-v[0]+x, -v[1]+y], w, h);
+    }
+
+    var plot_x1 = min_x + left_point[0] / w * (max_x - min_x);
+    var plot_y1 = min_y + (h - left_point[1]) / h * (max_y - min_y);
+    var plot_x2 = min_x + right_point[0] / w * (max_x - min_x);
+    var plot_y2 = min_y + (h - right_point[1]) / h * (max_y - min_y);
+    var k = (plot_y2 - plot_y1) / (plot_x2 - plot_x1);
+    var b = plot_y1 - k * plot_x1;
+
+    if (sigma_check) {
+      update_3d(k, b);  
+    } else {
+      update_2d(k, b);
+    }
+    draw();
+    
+  }
+      
+  function mup_handle(evt) {
+    active_state = 0;
+    draw();
+  }
+
+  </script>
+</head>
+
+<body>
+<canvas id="paint_left"
+  onmousedown="mdown_handle(event)"
+  onmousemove="mmove_handle(event)"
+  onmouseup="mup_handle(event)"></canvas>
+<canvas id="paint_right"
+  onmousedown="right_down(event)"
+  onmousemove="right_move(event)"
+  onmouseup="right_up(event)"></canvas>
+
+
+<div id="everything" style="height:600px; width:1200px;">
+  <table>
+    <tr>
+      <td><button onclick="generate_samples()">Generate Samples</button></td>
+      <td># of samples: </td>
+      <td><input type="range" class="slider" min = "2" max = "20" value="3" id="samples_val" oninput="calculate();"></td>
+      <td><div id="samples_label" >3</div></td>
+      <td>3D: <input type="checkbox" id="show_sigma" onclick="show_sigma()"/></td>
+    </tr>
+  </table>
+
+  <div id="for_left_plot" style="position:absolute; top:50px; left:0px; height:400px; width:400px;"> </div>
+  <div id="for_right_plot" style="position:absolute; top:50px; left:400px; height:400px; width:400px;"> </div>
+</div>
+</body>
+
+<script>
+function init()
+{
+  generate_samples();
+  var el = document.getElementsByClassName("gridlayer")[0];
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint_left");
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  left_point = [0.0, canvas.height / 2.0];
+  right_point = [canvas.width, canvas.height / 2.0];
+
+  draw();
+  
+  //timer = setInterval(draw, 200);
+}
+init();
+</script>
+
+</html>
