@@ -1,0 +1,455 @@
+<html>
+
+<head>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+
+
+    var x_min = 0.0;
+    var y_min = 0.0;
+    var x_max = 1.0;
+    var y_max = 1.0;
+    var xs = [];
+    var ys = [];
+    for (var x = x_min; x <= x_max; x += 0.01)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.01)
+      ys.push(y);
+    var colors = ['blue', 'red'];
+    var zs = new Array(ys.length).fill(0.0).map(x => new Array(xs.length).fill(0.0));
+
+
+
+//import numpy as np
+//
+//class SVM:
+//  def __init__(self, kernel='linear', C=10000.0, max_iter=100000, degree=3, gamma=1):
+//    self.kernel = {'poly'  : lambda x,y: np.dot(x, y.T)**degree,
+//                   'rbf'   : lambda x,y: np.exp(-gamma*np.sum((y - x[:,np.newaxis])**2, axis=-1)),
+//                   'linear': lambda x,y: np.dot(x, y.T)}[kernel]
+//    self.C = C
+//    self.max_iter = max_iter
+//
+//  def restrict_to_square(self, t, v0, u):
+//    t = (np.clip(v0 + t*u, 0, self.C) - v0)[1]/u[1]
+//    return (np.clip(v0 + t*u, 0, self.C) - v0)[0]/u[0]
+//
+//  def fit(self, X, y):
+//    self.X = X.copy()
+//    self.y = y * 2 - 1
+//    self.lambdas = np.zeros_like(self.y, dtype=float)
+//    self.K = self.kernel(self.X, self.X) * self.y[:,np.newaxis] * self.y
+//    
+//    for _ in range(self.max_iter):
+//      for idxM in range(len(self.lambdas)):
+//        idxL = np.random.randint(0, len(self.lambdas))
+//        Q = self.K[[[idxM, idxM], [idxL, idxL]], [[idxM, idxL], [idxM, idxL]]]
+//        v0 = self.lambdas[[idxM, idxL]]
+//        k0 = 1 - np.sum(self.lambdas * self.K[[idxM, idxL]], axis=1)
+//        u = np.array([-self.y[idxL], self.y[idxM]])
+//        t_max = np.dot(k0, u) / (np.dot(np.dot(Q, u), u) + 1E-15)
+//        self.lambdas[[idxM, idxL]] = v0 + u * self.restrict_to_square(t_max, v0, u)
+//    
+//    idx, = np.nonzero(self.lambdas > 1E-15)
+//    self.b = np.sum((1.0 - np.sum(self.K[idx] * self.lambdas, axis=1)) * self.y[idx]) / len(idx)
+//  
+//  def decision_function(self, X):
+//    return np.sum(self.kernel(X, self.X) * self.y * self.lambdas, axis=1) + self.b
+
+var max_iter = 100;
+var C = 100.0;
+var degree = 3;
+var gamma  = 5;
+var poly_ker = function(x, y) {
+	return (x[0] * y[0] + x[1] * y[1])**degree;
+}
+var rbf_ker = function(x, y) {
+	const d = [x[0] - y[0], x[1] - y[1]];
+	return Math.exp(- gamma * (d[0] * d[0] + d[1] * d[1]));
+}
+var lin_ker = function(x, y) {
+	return x[0] * y[0] + x[1] * y[1];
+}
+var ker = lin_ker;
+
+//ef  restrict_to_square(self , t, v0 , u):
+// t = (np.clip(v0 + t*u, 0, self.C) - v0)[1]/u[1]
+// return (np.clip(v0 + t*u, 0, self.C) - v0)[0]/u[0]
+function restrict_t(t, v0, u) {
+	var clip = x => x < 0 ? 0.0 : (x > C ? C : x);
+	t = (clip(v0[1] + t * u[1]) - v0[1]) / u[1];
+	t = (clip(v0[0] + t * u[0]) - v0[0]) / u[0];
+	return t;
+}
+function get_K_matrix() {
+	var K = new Array(points.length);
+	for (var i = 0; i < points.length; ++i) {
+		var row = new Array(points.length);
+		for (var j = 0; j < points.length; ++j) { 
+			row[j] = ker(points[i], points[j]) * (2 * points[i][2] - 1) * (2 * points[j][2] - 1);
+		}
+		K[i] = row;
+  	}
+  	return K;
+}
+function get_k0(K, lambdas, idxM, idxL) {
+	var k0 = [1.0, 1.0];
+	for (var idx = 0; idx < lambdas.length; ++idx) { 
+		k0[0] -= lambdas[idx] * K[idxM][idx];
+		k0[1] -= lambdas[idx] * K[idxL][idx];
+	}
+	return k0;
+}
+function get_lambdas() {
+	var lambdas = new Array(points.length).fill(0.0);
+	const K = get_K_matrix();
+	for (var i = 0; i < max_iter; ++i) {
+		for (var idx_M = 0; idx_M < lambdas.length; ++idx_M) {
+			const idx_L = Math.floor(Math.random() * Math.floor(lambdas.length));
+			const k0 = get_k0(K, lambdas, idx_M, idx_L);
+			const u = [-(2 * points[idx_L][2] - 1), 2 * points[idx_M][2] - 1];
+			const t_max = (u[0] * k0[0] + u[1] * k0[1]) / (K[idx_L][idx_L] * u[1] * u[1] + K[idx_M][idx_M] * u[0] * u[0] + 2 * K[idx_L][idx_M] * u[0] * u[1] + 1E-15);
+			const t_restr = restrict_t(t_max, [lambdas[idx_M], lambdas[idx_L]], u);
+			lambdas[idx_M] += u[0] * t_restr;
+			lambdas[idx_L] += u[1] * t_restr;
+		}
+	}
+	var b = 0.0;
+	var items = 0;
+	for (var k = 0; k < lambdas.length; ++k) {
+		if (lambdas[k] < 1E-10)
+			continue;
+		items += 1;
+		var y_k = 2.0 * points[k][2] - 1;
+		for (var i = 0; i < lambdas.length; ++i)
+			b -= lambdas[i] * y_k * K[k][i];
+		b += y_k;
+	}
+	b /= items;
+	return [lambdas, b];
+}
+
+function loss_function_2d() {
+
+	var data = get_lambdas();
+	var lambdas = data[0];
+	var b = data[1];
+  
+
+  var blue_x = [];
+  var blue_y = [];
+  var red_x = [];
+  var red_y = [];
+  for (var i = 0; i < points.length; ++i) {
+    if (points[i][2]) {
+        blue_x.push(points[i][0]);
+        blue_y.push(points[i][1]);
+    } else {
+        red_x.push(points[i][0]);
+        red_y.push(points[i][1]);
+    }
+  }
+
+  data = [];
+
+  // datapoints
+  data.push({
+        x: red_x, y: red_y,
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+        name: 'red class datapoints',
+        marker: {size: 12, color: 'red'},
+  });
+  data.push({
+        x: blue_x, y: blue_y,
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+        name: 'red class datapoints',
+        marker: {size: 12, color: 'blue'},
+  });
+
+
+var support_x = [];
+var support_y = [];
+  for (var i = 0; i < points.length; ++i) {
+    if (lambdas[i] > 1E-10) {
+      support_x.push(points[i][0]);
+      support_y.push(points[i][1]);
+    }
+  }
+  data.push({
+        x: support_x, y: support_y,
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+        name: 'support vectors',
+        marker: {size: 3, color: 'yellow'},
+  });
+
+
+
+for (var i = 0; i < ys.length; ++i) {
+	for (var j = 0; j < xs.length; ++j) {
+		zs[i][j] = 0.0;
+		for (var k = 0; k < lambdas.length; ++k)
+			zs[i][j] += lambdas[k] * (2.0 * points[k][2] - 1) * ker(points[k], [xs[j], ys[i]]);
+		zs[i][j] += b;
+		//zs[i][j] = 1 / (1 + Math.exp(-zs[i][j]));
+		//if (zs[i][j] > 0)
+		//	zs[i][j] = 1.0;
+		//else
+		//	zs[i][j] = 0.0;
+	}
+}
+
+
+var colorscaleValue = [
+  [0, '#FF000044'],
+  [1, '#008efba0']
+];
+
+data.push({
+  x: xs,
+  y: ys,
+  z: zs,
+  type: 'contour',
+  colorscale: colorscaleValue,
+  showscale: false,
+  contours: {start: 0.0, end: 0.0, size: 3.0},
+  line: {width: 2, color: 'black'},
+});
+data.push({
+  x: xs,
+  y: ys,
+  z: zs,
+  type: 'contour',
+  showscale: false,
+  contours: {start: -1.0, end: 1.0, size: 1.0, coloring: 'none'},
+  line: {
+    width: 1,
+    color: 'black'
+  },
+});
+
+
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          title: 'Decision Tree',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 500,
+          height: 500,
+          autosize: false,
+          showlegend: false,
+          margin: {l: 0, r: 0, b: 0, t: 0 }
+        };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+
+
+
+points = [];
+canvas_handles = {
+    handle_down: null,
+    handle_move: null,
+    handle_up:   null,
+};
+
+function add_pts(cls) {
+    canvas_handles.handle_down = function(x, y) { points.push([x, y, cls]); };
+    canvas_handles.handle_move = null;
+    canvas_handles.handle_up   = null;
+}
+function move_pts() {
+    canvas_handles.handle_down = function(x, y) {
+        for (var i = 0; i < points.length; ++i)
+            if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+            {
+                canvas_handles.handle_move = function(x, y) {
+                    if (x < x_min || x > x_max || y < y_min || y > y_max)
+                        return;
+                    points[i][0] = x;
+                    points[i][1] = y;
+                }
+                break;
+            }
+    };
+    canvas_handles.handle_move = null;
+    canvas_handles.handle_up   = function(x, y) { canvas_handles.handle_move = null; };
+}
+function del_pts() {
+    canvas_handles.handle_down = function(x, y) {
+        var idx = -1;
+        for (var i = 0; i < points.length; ++i)
+            if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+                idx = i;
+        points.splice(idx, 1);
+    };
+    canvas_handles.handle_move = null;
+    canvas_handles.handle_up   = null;
+}
+
+function extract_coordinates(event) {
+  event.stopPropagation();
+  var x = event.offsetX;
+  var y = event.offsetY;
+  var canvas = document.getElementById("paint");
+  var w = canvas.width;
+  var h = canvas.height;
+  var plot_x = x / w * (x_max - x_min) + x_min;
+  var plot_y = (1.0 - y / h) * (y_max - y_min) + y_min;
+  return [plot_x, plot_y];
+}
+
+function mdown_handle(event) {
+  var pts = extract_coordinates(event);
+
+  if (canvas_handles.handle_down)
+    canvas_handles.handle_down(pts[0], pts[1]);
+
+  loss_function_2d();
+}
+
+    function mmove_handle(event) {
+  var pts = extract_coordinates(event);
+
+  if (canvas_handles.handle_move) {
+  	canvas_handles.handle_move(pts[0], pts[1]);
+  	loss_function_2d();
+  }
+    
+  
+    }
+
+    function mup_handle(event) {
+  var pts = extract_coordinates(event);
+
+  if (canvas_handles.handle_up)
+    canvas_handles.handle_up(pts[0], pts[1]);
+
+  loss_function_2d();
+    }
+
+    function adjust_canvas() {
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('xy')[0];
+  el = el.childNodes[0];
+      if (!el)
+        return [600, 600];
+      var rect = el.getBoundingClientRect();
+      var canvas = document.getElementById("paint");
+      //console.log(rect);
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                          + "px; left: " + parseInt(rect.left)
+                          + "px; width:" + parseInt(rect.width)
+                          + "px; height:" + parseInt(rect.height)
+                          + "px; z-index:1000;";
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //loss_function_2d();
+      return [canvas.width, canvas.height];
+    }
+
+function clear_field() {
+  points = [];
+  loss_function_2d();
+}
+
+function C_change(val) {
+  var l = document.getElementById('c_val');
+  l.innerHTML = val;
+  C = 10**val;
+  loss_function_2d();
+}
+
+function ker_change(val) {
+  if (val == 'linear') {
+    ker = lin_ker;
+    document.getElementById('gamma').style = 'display: none';
+    document.getElementById('polyn').style = 'display: none';
+  }
+  if (val == 'poly') {
+    ker = poly_ker;
+    document.getElementById('gamma').style = 'display: none';
+    document.getElementById('polyn').style = 'display: block';
+  }
+  if (val == 'rbf') {
+    ker = rbf_ker;
+    document.getElementById('gamma').style = 'display: block';
+    document.getElementById('polyn').style = 'display: none';
+  }
+  loss_function_2d();
+}
+
+function gamma_change(val) {
+  gamma = val / 2.0 + 0.5;
+  document.getElementById('glabel').innerHTML = gamma.toFixed(1);
+  loss_function_2d();
+}
+function n_change(val) {
+  degree = val;
+  document.getElementById('nlabel').innerHTML = degree;
+  loss_function_2d(); 
+}
+
+  </script>
+
+
+</head>
+
+<body>
+
+
+<div id="everything" style="height:600px; width:625px;">
+  <div id="for_right_plot">
+  </div>
+<div id="for_left_plot" style="position:absolute; top:50px; left:550px" > 
+    <input type="radio" id="root_add_red" name="root_node" checked="checked" onchange="add_pts(0); loss_function_2d(); ">
+    <label for="root_add_red">Add red data point</label><br>
+    <input type="radio" id="root_add_blue" name="root_node" onchange="add_pts(1); loss_function_2d(); ">
+    <label for="root_add_blue">Add blue data point</label><br>
+    <input type="radio" id="root_move" name="root_node" onchange="move_pts(); loss_function_2d(); ">
+    <label for="root_move">Move data point</label><br>
+    <input type="radio" id="root_del" name="root_node" onchange="del_pts(); loss_function_2d(); ">
+    <label for="root_del">Delete data point</label><br>
+    <input type="range" min="-3" max="5" value="1" oninput="C_change(this.value)">
+    <label>C = 10<sup id="c_val">1</sup></label><br>
+    Kernel:
+    <select id="select_kernel" onchange="ker_change(this.value)">
+       <option value="linear">Linear</option>
+       <option value="poly">Polynomial</option>
+       <option value="rbf">Radial Basis Functions</option>
+    </select><br>
+    <div id='gamma' style='display: none'>
+    <input type="range" min="0" max="10" value="5" oninput="gamma_change(this.value)">
+    gamma = <label id='glabel'>3.0</label><br>
+    </div>
+    <div id='polyn' style='display: none'>
+    <input type="range" min="2" max="7" value="3" oninput="n_change(this.value)">
+    n = <label id='nlabel'>3</label><br>
+    </div>
+</div>
+</div>
+
+<canvas id="paint" width=600 height=600
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
+</canvas>
+
+</body>
+
+<script>
+function init()
+{
+  loss_function_2d();
+  adjust_canvas();
+  add_pts(0);
+  setInterval(adjust_canvas, 1000);
+}
+init();
+</script>
+
+</html>
