@@ -1,0 +1,319 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+    var xs = [];
+    var ys = [];
+    var x_min = -5.0;
+    var y_min =  0.0;
+    var x_max = +5.0;
+    var y_max = +0.8;
+    for (var x = x_min; x <= x_max; x += 0.01)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.1)
+      ys.push(y);
+    var colors = ['blue', 'green', 'red'];
+    var coefs = [1.0/3.0, 1.0/3.0, 1.0/3.0];
+    var rand_pts = [];
+
+   function random_point(mu, sigma) {
+     var z = Math.sqrt(-2.0 * Math.log(Math.random())) * Math.cos(2.0 * Math.PI * Math.random());
+     return z * sigma + mu;
+   }
+
+    var plotted_once = false;
+    var update = {'visible': []};
+    
+    function loss_function_2d() {
+      var canvas = document.getElementById("paint");
+      var w = canvas.width;
+      var h = canvas.height;
+
+      //var size = adjust_canvas();
+      //var w = size[0];
+      //var h = size[1];
+
+      mu = [];
+      sigma = [];
+      C = Math.sqrt(2 * Math.PI);
+      for (var i = 0; i < pts.length; ++i) {
+          var x = pts[i][0] / w * (x_max - x_min) + x_min;
+        var y = (1.0 - pts[i][1] / h) * (y_max - y_min) + y_min;
+          mu.push(x);
+          sigma.push(1.0 / (y * C));
+      }
+
+      data = [];
+      for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
+          var trace = [];
+          for (var i = 0; i < xs.length; ++i) {
+              var delta = (xs[i] - mu[trace_idx]) / sigma[trace_idx]; 
+              trace.push(Math.exp(-delta*delta / 2.0) / sigma[trace_idx] / C);
+          }
+          data.push({
+            x: xs,
+            y: trace,
+            showscale: false, 
+            opacity: coefs[trace_idx], 
+            type: 'scatter',
+            mode: 'line',
+            name: 'gaussian ' + trace_idx,
+            line: {
+              width: 2,
+              color: colors[trace_idx]
+            },
+          });
+      }
+
+      var sum_trace = [];
+      for (var i = 0; i < xs.length; ++i) {
+          var sum = 0.0;
+          for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
+              var delta = (xs[i] - mu[trace_idx]) / sigma[trace_idx]; 
+              sum += coefs[trace_idx] * Math.exp(-delta*delta / 2.0) / sigma[trace_idx] / C;
+          }
+          sum_trace.push(sum);
+      }
+      data.push({
+            x: xs,
+            y: sum_trace,
+            showscale: false, 
+            opacity: coefs[trace_idx], 
+            type: 'scatter',
+            mode: 'line',
+            name: 'sum',
+            line: {
+              width: 2,
+              color: 'black'
+            },
+          });
+
+      var N_points = 200;
+      rand_pts = [];
+      var ys = [];
+      for (var i = 0; i < N_points; ++i) {
+        active_gaussian = 0;
+        var rnd = Math.random();
+        if (rnd > coefs[0])
+            active_gaussian = 1;
+        if (rnd > coefs[0] + coefs[1])
+            active_gaussian = 2;
+        //active_gaussian = Math.floor(Math.random() * Math.floor(3));
+        rand_pts.push(random_point(mu[active_gaussian], sigma[active_gaussian]));
+        ys.push(0.0);
+      }
+      data.push({
+            x: rand_pts,
+            y: ys,
+            showscale: false, 
+            opacity: 1.0, 
+            type: 'scatter',
+            mode: 'markers',
+            name: 'random datapoints',
+            marker: {
+              symbol: 'line-ns',
+              size: 20,
+              line :{
+                width: 1,
+                color: 'black'
+              }
+            }
+          });
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          //title: 'Error Function',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 800,
+          height: 500,
+          autosize: false,
+          showlegend: true,
+          margin: {
+            l: 0,
+            r: 0,
+            b: 0,
+            t: 0
+          }
+        };
+      if (!plotted_once) {
+        Plotly.newPlot(cell_for_plot, data, layout);
+        cell_for_plot.on('plotly_restyle', function(){
+          update['visible'] = [];
+          for (i = 0; i < cell_for_plot.data.length; ++i)
+            update['visible'].push(cell_for_plot.data[i].visible);
+        });
+        plotted_once = true;  
+      } else {
+        Plotly.react(cell_for_plot, data, layout);
+        Plotly.restyle(cell_for_plot, update);
+      }
+      //Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+    var pts = [[100, 300], [300, 300], [500, 300]];
+    var active_idx = -1;
+
+    function mdown_handle(event) {
+      //console.log('down');
+      event.stopPropagation();
+      x = event.offsetX;
+      y = event.offsetY;
+      for (var i = 0; i < pts.length; ++i)
+        if ((x - pts[i][0])*(x - pts[i][0]) + (y - pts[i][1])*(y - pts[i][1]) < 500)
+            active_idx = i;
+      //console.log('ACTIVE', active_idx);
+    }
+
+    function mmove_handle(event) {
+      event.stopPropagation();
+      //console.log('move');
+      if (active_idx < 0)
+          return;
+      pts[active_idx] = [event.offsetX, event.offsetY];
+      loss_function_2d();
+    }
+
+    function mup_handle(event) {
+      active_idx = -1;
+    }
+
+    async function call_once() {
+      //const result = await google.colab.kernel.invokeFunction('notebook.redraw', [coefs, mu, sigma, rand_pts], {});
+      //const text = result.data['application/json'];
+    }
+    var old_state = false;
+    function adjust_canvas() {
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('xy')[0];
+      if (!el)
+          return [600, 600];
+      var rect = el.getBoundingClientRect();
+      var canvas = document.getElementById("paint");
+      //console.log(rect);
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                          + "px; left: " + parseInt(rect.left)
+                          + "px; width:" + parseInt(rect.width)
+                          + "px; height:" + parseInt(rect.height)
+                          + "px; z-index:1000;";
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+       
+      if ((canvas.offsetParent === null) != old_state)
+        call_once();
+      old_state = (canvas.offsetParent === null);
+
+      //loss_function_2d();
+      return [canvas.width, canvas.height];
+    }
+
+    function draw_slider() {
+        var canvas = document.getElementById("slider");
+        var ctx = canvas.getContext('2d');
+        var h = canvas.height;
+        var w = canvas.width;
+        var cur_start = 0;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < pts.length; ++i) {
+            ctx.fillStyle = colors[i];
+            ctx.fillRect(0, cur_start, w, h*coefs[i]);
+            cur_start += h*coefs[i];
+        }
+        
+    }
+
+    var active_coef = -1;
+    function mdown(event) {
+    //console.log('ddd');
+      event.stopPropagation();
+      x = event.offsetX;
+      y = event.offsetY;
+      var canvas = document.getElementById("slider");
+      var h = canvas.height;
+      var H = 0;
+      for (var i = 0; i < coefs.length - 1; ++i) {
+        H += coefs[i] * h;
+        if (y > H - 10 && y < H +1)
+            active_coef = i;
+      }
+      //console.log(active_coef, coefs);
+    }
+
+    function mmove(event) { // for double-slider only
+      event.stopPropagation();
+      if (active_coef < 0)
+        return;
+      x = event.offsetX;
+      y = event.offsetY;
+      var canvas = document.getElementById("slider");
+      var h = canvas.height;
+      var new_sum = y / h;
+      if (active_coef == 0) {
+        if (coefs[0] + coefs[1] < new_sum)
+            coefs[1] = 0.0;
+        else
+            coefs[1] = coefs[0] + coefs[1] - new_sum;
+        coefs[0] = new_sum;
+        coefs[2] = 1.0 - coefs[0] - coefs[1];
+      }
+      if (active_coef == 1) {
+        if (coefs[0] > new_sum)
+            coefs[0] = new_sum;
+        coefs[1] = new_sum - coefs[0];
+        coefs[2] = 1.0 - coefs[0] - coefs[1];
+      }
+      draw_slider();
+      loss_function_2d();
+    }
+
+    function mup(event) {
+      active_coef = -1;
+    }
+
+
+  </script>
+</head>
+
+<body>
+
+<canvas id="paint" width=600 height=600
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
+</canvas>
+
+<canvas id="slider" width=40 height=250
+    onmousedown="mdown(event)"
+    onmousemove="mmove(event)"
+    onmouseup="mup(event)"
+    style="position:absolute;left:700px;top:250px;width:40px;height:250px;z-index:1000;">
+</canvas>
+
+
+<div id="everything" style="height:600px; width:600px;">
+  <div id="for_right_plot">
+  </div>
+</div>
+
+
+
+
+</body>
+
+<script>
+function init()
+{
+  loss_function_2d();
+  adjust_canvas();
+  loss_function_2d();
+  setInterval(adjust_canvas, 1000);
+  draw_slider();
+}
+init();
+</script>
+
+</html>
