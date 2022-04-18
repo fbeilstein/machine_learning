@@ -1,0 +1,119 @@
+<html>
+
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+    var xs = [];
+    var ys = [];
+    var x_min = -5.0;
+    var y_min = -5.0;
+    var x_max = +5.0;
+    var y_max = +5.0;
+    for (var x = x_min; x <= x_max; x += 0.1)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.1)
+      ys.push(y);
+  	var rho = [];
+  	var p = 2;
+  	var ball_x = [];
+  	var ball_y = [];
+
+
+    function loss_function_2d() {
+      rho = [];
+  	  var ball_x = [];
+  	  var ball_y = [];
+      
+      for (var r = 1; r < 5; ++r) {
+      	for (var phi = 0; phi < 2 * Math.PI + 0.1; phi += 0.1) {
+      		ball_x.push(r * Math.pow(Math.abs(Math.cos(phi)), 2.0/p) * Math.sign(Math.cos(phi)));
+      		ball_y.push(r * Math.pow(Math.abs(Math.sin(phi)), 2.0/p) * Math.sign(Math.sin(phi)));
+      	}
+      	ball_x.push(null);
+      	ball_y.push(null);
+      }  
+      console.log(ball_x);	
+
+
+
+      var data = [{
+        x: ball_x,
+        y: ball_y,
+        showscale: false, 
+        opacity: 1.0, 
+        type: 'scatter',
+        mode: 'line',
+        line: {
+          width: 2,
+          color: 'black'
+        },
+      }];
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          //title: 'Error Function',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 500,
+          height: 500,
+          autosize: false,
+          showlegend: false,
+          margin: {
+            l: 0,
+            r: 0,
+            b: 0,
+            t: 0
+          }
+        };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+    function get_current_alpha() {
+      elem = document.getElementById("alpha_val");
+      var alpha = parseInt(elem.value);
+      p = 0.2 + alpha / 20.0;
+      return p.toFixed(3);
+    }
+
+
+    function calculate() {
+      var elem = document.getElementById("alpha_label");
+      elem.innerHTML = get_current_alpha();
+      loss_function_2d();
+    }
+
+
+
+  </script>
+</head>
+
+<body>
+
+
+<div id="everything" style="height:600px; width:600px;">
+  <table>
+    <tr>
+      <td>p</td>
+      <td><input type="range" class="slider" min = "0" max = "80" value="20" id="alpha_val" oninput="calculate();"></td>
+      <td><div id="alpha_label" >3</div></td>
+    </tr>
+  </table>
+  <div id="for_right_plot">
+  </div>
+</div>
+
+
+
+</body>
+
+<script>
+function init()
+{
+  loss_function_2d();
+  calculate();
+}
+init();
+</script>
+
+</html>
