@@ -1,0 +1,362 @@
+<html>
+
+<head>
+<style>
+
+
+</style>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+
+
+    var x_min = 0.0;
+    var y_min = 0.0;
+    var x_max = 1.0;
+    var y_max = 1.0;
+    var xs = [];
+    var ys = [];
+    for (var x = x_min; x <= x_max; x += 0.001)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.01)
+      ys.push(y);
+    var colors = ['blue', 'red'];
+
+    var center = [0.5, 0.5];
+    var vector_x = [1.0, 0.0];
+
+
+
+    function loss_function_2d() {
+      var blue_x = [];
+      var blue_y = [];
+      var red_x = [];
+      var red_y = [];
+      for (var i = 0; i < points.length; ++i) {
+        if (points[i][2]) {
+            blue_x.push(points[i][0]);
+            blue_y.push(points[i][1]);
+        } else {
+            red_x.push(points[i][0]);
+            red_y.push(points[i][1]);
+        }
+      }
+
+      data = [];
+
+      // datapoints
+      data.push({
+            x: red_x, y: red_y,
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            name: 'red class datapoints',
+            marker: {size: 12, color: '#ff000077'},
+      });
+
+      
+      data.push({
+            x: [center[0] - vector_x[0]*2, center[0] + vector_x[0]*2, null, center[0] + vector_x[1]*2, center[0] - vector_x[1]*2], 
+            y: [center[1] - vector_x[1]*2, center[1] + vector_x[1]*2, null, center[1] - vector_x[0]*2, center[1] + vector_x[0]*2],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+            name: 'red class datapoints',
+            line: {size: 2, color: '0089ffff'},
+      });
+
+      
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          title: 'PCA',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 400,
+          height: 400,
+          autosize: false,
+          showlegend: false,
+          margin: {l: 0, r: 0, b: 0, t: 0 },
+          annotations: [{
+              axref: 'x', ax: center[0], aref: 'x', x: center[0] + vector_x[0]*0.1,
+              ayref: 'y', ay: center[1], aref: 'y', y: center[1] + vector_x[1]*0.1,
+              showarrow: true,
+              arrowhead: 1
+             },{
+              axref: 'x', ax: center[0], aref: 'x', x: center[0] - vector_x[1]*0.1,
+              ayref: 'y', ay: center[1], aref: 'y', y: center[1] + vector_x[0]*0.1,
+              showarrow: true,
+              arrowhead: 1
+          }]
+        };
+      Plotly.newPlot(cell_for_plot, data, layout);
+
+//-----------------------------------//
+
+      data = [];
+      data.push({
+            x: [-1.0, 1.0, null, -1.0, 1.0], 
+            y: [-0.5, -0.5, null, 0.5, 0.5],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+            name: 'red class datapoints',
+            line: {size: 2, color: '0089ffff'},
+      });
+
+      var proj_x = [];
+      var proj_y = [];
+      for (var i = 0; i < points.length; ++i) {
+        var v  = [points[i][0] - center[0], points[i][1] - center[1]];
+        var lx =  v[0] * vector_x[0] + v[1] * vector_x[1];
+        var ly = -v[0] * vector_x[1] + v[1] * vector_x[0];
+        proj_x.push(lx);
+        proj_y.push(-0.5);
+        proj_x.push(ly);
+        proj_y.push(0.5);
+      }
+      data.push({
+            x: proj_x, y: proj_y,
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            name: 'red class datapoints',
+            marker: {size: 6, color: 'ff000077'},
+      });
+      data.push({
+            x: [0.0, 0.0, null, 0.0, 0.0], 
+            y: [0.3, 0.7, null, -0.7, -0.3],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+            name: 'red class datapoints',
+            line: {size: 2, color: 'black'},
+      });
+
+
+      var cell_for_plot = document.getElementById("for_left_plot");
+      var layout = {
+          title: 'Projected',
+          xaxis: {'range': [-1.0, 1.0], 'domain': [0.0, 1.0], 'fixedrange': true, 'showgrid': false, 'zeroline': false},
+          yaxis: {'range': [-1.0, 1.0], 'domain': [0.0, 1.0], 'fixedrange': true, 'showgrid': false, 'zeroline': false},
+          width: 300,
+          height: 100,
+          autosize: false,
+          showlegend: false,
+          margin: {l: 0, r: 0, b: 0, t: 0 },
+          annotations: [{
+              axref: 'x', ax:  0.0, xref: 'x', x:  0.1,
+              ayref: 'y', ay: -0.5, yref: 'y', y: -0.5,
+              showarrow: true,
+              arrowhead: 1,
+             },{
+              axref: 'x', ax:  0.0, aref: 'x', x:  0.1,
+              ayref: 'y', ay:  0.5, aref: 'y', y:  0.5,
+              showarrow: true,
+              arrowhead: 1
+          }]
+        };
+      Plotly.newPlot(cell_for_plot, data, layout);
+
+
+
+
+    }
+
+
+
+
+    points = [];
+    canvas_handles = {
+        handle_down: null,
+        handle_move: null,
+        handle_up:   null,
+    };
+
+    function add_pts(cls) {
+        canvas_handles.handle_down = function(x, y) { points.push([x, y, cls]);  };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = null;
+    }
+    function move_pts() {
+        canvas_handles.handle_down = function(x, y) {
+            for (var i = 0; i < points.length; ++i)
+                if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+                {
+                    canvas_handles.handle_move = function(x, y) {
+                        if (x < x_min || x > x_max || y < y_min || y > y_max)
+                            return;
+                        points[i][0] = x;
+                        points[i][1] = y;
+                    }
+                    break;
+                }
+        };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = function(x, y) { canvas_handles.handle_move = null; };
+    }
+    function del_pts() {
+        canvas_handles.handle_down = function(x, y) {
+            var idx = -1;
+            for (var i = 0; i < points.length; ++i)
+                if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+                    idx = i;
+            points.splice(idx, 1);
+        };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = null;
+    }
+    var moving_pca = 0;
+    function pca_move() {
+        canvas_handles.handle_down = function(x, y) {
+            var v = [x - center[0], y - center[1]]; 
+            var a =  v[0]*vector_x[0] + v[1]*vector_x[1];
+            var b = -v[1]*vector_x[0] + v[0]*vector_x[1];
+            if (a*a < 0.01) {
+                if (b > 0)
+                    moving_pca = 3;
+                else
+                    moving_pca = -3;
+            }
+            if (b*b < 0.01) {
+                if (a > 0)
+                    moving_pca = 2;
+                else
+                    moving_pca = -2;
+            }
+            if (v[0]*v[0] + v[1]*v[1] < 0.01)
+                moving_pca = 1;
+        };
+        canvas_handles.handle_move = function(x, y) {
+            if (moving_pca == 1) {
+                center[0] = x;
+                center[1] = y;
+            }
+            var v = [x - center[0], y - center[1]];
+            var l = Math.sqrt(v[0]*v[0] + v[1]*v[1]);
+            v = [v[0]/l, v[1]/l];
+            if (moving_pca == 2) {
+                vector_x = v;
+            }
+            if (moving_pca == -2) {
+                vector_x = [-v[0], -v[1]];
+            }
+            if (moving_pca == -3) {
+                vector_x = [v[1], -v[0]];
+            }
+            if (moving_pca == 3) {
+                vector_x = [-v[1], v[0]];
+            }
+            
+        };
+        canvas_handles.handle_up   = function(x, y) { moving_pca = 0; };
+    }
+
+    function extract_coordinates(event) {
+      event.stopPropagation();
+      var x = event.offsetX;
+      var y = event.offsetY;
+      var canvas = document.getElementById("paint");
+      var w = canvas.width;
+      var h = canvas.height;
+      var plot_x = x / w * (x_max - x_min) + x_min;
+      var plot_y = (1.0 - y / h) * (y_max - y_min) + y_min;
+      return [plot_x, plot_y];
+    }
+
+    function mdown_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_down)
+        canvas_handles.handle_down(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function mmove_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_move)
+        canvas_handles.handle_move(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function mup_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_up)
+        canvas_handles.handle_up(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function adjust_canvas() {
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('xy')[0];
+      el = el.childNodes[0];
+      if (!el)
+        return [600, 600];
+      var rect = el.getBoundingClientRect();
+      var canvas = document.getElementById("paint");
+      //console.log(rect);
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                          + "px; left: " + parseInt(rect.left)
+                          + "px; width:" + parseInt(rect.width)
+                          + "px; height:" + parseInt(rect.height)
+                          + "px; z-index:1000;";
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //loss_function_2d();
+      return [canvas.width, canvas.height];
+    }
+
+    function clear_field() {
+      points = [];
+      loss_function_2d();
+    }
+
+  </script>
+
+
+</head>
+
+<body>
+
+
+<div id="everything" style="height:400px; width:625px;">
+  <div id="for_right_plot">
+  </div>
+
+
+   <div style="border-style: solid; position:absolute; top:20px; left:450px; width:150px">
+    <input type="radio" id="root_add_red" name="root_node" checked="checked" onchange="add_pts(0); loss_function_2d(); ">
+    <label for="root_add_red">Add data point</label><br>
+    <input type="radio" id="root_move" name="root_node" onchange="move_pts(); loss_function_2d(); ">
+    <label for="root_move">Move data point</label><br>
+    <input type="radio" id="root_del" name="root_node" onchange="del_pts(); loss_function_2d(); ">
+    <label for="root_del">Delete data point</label><br>
+    <input type="radio" id="root_pca" name="root_node" onchange="pca_move(); loss_function_2d(); ">
+    <label for="root_pca">Move PCA coords</label><br><br>
+    <button type="button" onclick="clear_field();">Clear</button>
+   </div>
+
+  <div id="for_left_plot" style="position:absolute; top:200px; left:450px; width:300px">
+  </div>
+
+</div>
+
+
+<canvas id="paint" width=600 height=600
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
+</canvas>
+
+</body>
+
+<script>
+function init()
+{
+  loss_function_2d();
+  adjust_canvas();
+  add_pts(0);
+  setInterval(adjust_canvas, 1000);
+}
+init();
+</script>
+
+</html>
