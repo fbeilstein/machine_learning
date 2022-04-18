@@ -1,0 +1,1187 @@
+<html>
+
+<script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+
+<style>
+.dn {
+    color:red; 
+    text-align:center
+}
+.dy {
+    color:green; 
+    text-align:center
+}
+.csn {
+    background-color: #bbbbbb;
+    border: #bbbbbb;
+}
+.dataset {
+    border-collapse: collapse;
+}
+
+</style>
+
+<div id="all_slides" class="tree">
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th class="csn">Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td class="csn">Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td class="csn">Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td class="csn">Overcast</td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Rain    </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td class="csn">Overcast</td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Sunny   </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td class="csn">Sunny   </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Rain    </td> <td>Mild    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Sunny   </td> <td>Mild    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Overcast</td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Overcast</td> <td>Hot     </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td class="csn">Rain    </td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 1 - \left(\frac{9}{9 + 5}\right)^2 - \left(\frac{5}{9 + 5}\right)^2 \approx 0.459 &
+I_{\text{Gini}}(D_{\text{sunny}}) &= 1 - \left(\frac{2}{2 + 3}\right)^2 - \left(\frac{3}{2 + 3}\right)^2 = 0.48 \\
+I_{\text{Gini}}(D_{\text{overcast}}) &= 1 - \left(\frac{4}{4 + 0}\right)^2 - \left(\frac{0}{4 + 0}\right)^2 = 0 &
+I_{\text{Gini}}(D_{\text{rain}}) &= 1 - \left(\frac{3}{3 + 2}\right)^2 - \left(\frac{2}{3 + 2}\right)^2 = 0.48 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = I_{\text{Gini}}(D_{\text{parent}}) - \frac{2 + 3}{9 + 5} I_{\text{Gini}}(D_{\text{sunny}})
+          - \frac{4 + 0}{9 + 5} I_{\text{Gini}}(D_{\text{overcast}}) - \frac{3 + 2}{9 + 5} I_{\text{Gini}}(D_{\text{rain}})
+          \approx 0.116
+$$
+
+
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook<br>
+        <b class="dy">YES</b>: 9; <b class="dn">NO</b>: 5
+    </a>
+    <ul>
+      <li>
+        <a> Sunny (35.7%)<br>
+            <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 3
+        </a>
+      </li>
+      <li>
+        <a> Overcast (28.6%)<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain (35.7%)<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>               
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!-- ------ -->
+
+<div>
+
+
+<table class="dataset">
+<tr> <th>Outlook </th> <th class="csn">Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Hot     </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td class="csn">Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Mild    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td class="csn">Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td class="csn">Hot     </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 1 - \left(\frac{9}{9 + 5}\right)^2 - \left(\frac{5}{9 + 5}\right)^2 \approx 0.459 &
+I_{\text{Gini}}(D_{\text{hot}}) &= 1 - \left(\frac{2}{2 + 2}\right)^2 - \left(\frac{2}{2 + 2}\right)^2 = 0.5 \\
+I_{\text{Gini}}(D_{\text{mild}}) &= 1 - \left(\frac{4}{2 + 4}\right)^2 - \left(\frac{2}{2 + 4}\right)^2 \approx 0.444 &
+I_{\text{Gini}}(D_{\text{cool}}) &= 1 - \left(\frac{3}{3 + 1}\right)^2 - \left(\frac{1}{3 + 1}\right)^2 = 0.375 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = I_{\text{Gini}}(D_{\text{parent}}) - \frac{2 + 2}{9 + 5} I_{\text{Gini}}(D_{\text{hot}})
+          - \frac{4 + 2}{9 + 5} I_{\text{Gini}}(D_{\text{mild}}) - \frac{3 + 1}{9 + 5} I_{\text{Gini}}(D_{\text{cool}})
+          \approx 0.019
+$$
+
+
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Temperature<br>
+        <b class="dy">YES</b>: 9; <b class="dn">NO</b>: 5
+    </a>
+    <ul>
+      <li>
+        <a> Hot (28.6%)<br>
+            <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 2
+        </a>
+      </li>
+      <li>
+        <a> Mild (42.8%)<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 2<br>            
+        </a>
+      </li>
+      <li>
+        <a> Cool (28.6%)<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 1<br>               
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+
+</div>
+
+
+<!-- ------ -->
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th class="csn">Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td class="csn">High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td class="csn">Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Mild    </td> <td class="csn">High    </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 1 - \left(\frac{9}{9 + 5}\right)^2 - \left(\frac{5}{9 + 5}\right)^2 \approx 0.459 &
+I_{\text{Gini}}(D_{\text{high}}) &= 1 - \left(\frac{3}{3 + 4}\right)^2 - \left(\frac{4}{3 + 4}\right)^2 \approx 0.490 \\
+                                 &  &
+I_{\text{Gini}}(D_{\text{normal}}) &= 1 - \left(\frac{6}{6 + 1}\right)^2 - \left(\frac{1}{6 + 1}\right)^2 \approx 0.245 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = I_{\text{Gini}}(D_{\text{parent}}) - \frac{3 + 4}{9 + 5} I_{\text{Gini}}(D_{\text{high}})
+          - \frac{6 + 1}{9 + 5} I_{\text{Gini}}(D_{\text{normal}})
+          \approx 0.092
+$$
+
+
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Humidity<br>
+        <b class="dy">YES</b>: 9; <b class="dn">NO</b>: 5
+    </a>
+    <ul>
+      <li>
+        <a> High (50%)<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 4
+        </a>
+      </li>
+      <li>
+        <a> Normal (50%)<br>
+            <b class="dy">YES</b>: 6; <b class="dn">NO</b>: 1<br>            
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+
+</div>
+
+
+
+<!-- ------ -->
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th class="csn">    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>Normal  </td> <td class="csn">Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Mild    </td> <td>High    </td> <td class="csn">Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 1 - \left(\frac{9}{9 + 5}\right)^2 - \left(\frac{5}{9 + 5}\right)^2 \approx 0.459 &
+I_{\text{Gini}}(D_{\text{weak}}) &= 1 - \left(\frac{6}{6 + 2}\right)^2 - \left(\frac{2}{6 + 2}\right)^2 = 0.375 \\
+                                 &  &
+I_{\text{Gini}}(D_{\text{strong}}) &= 1 - \left(\frac{3}{3 + 3}\right)^2 - \left(\frac{3}{3 + 3}\right)^2 = 0.5 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = I_{\text{Gini}}(D_{\text{parent}}) - \frac{6 + 2}{9 + 5} I_{\text{Gini}}(D_{\text{weak}})
+          - \frac{3 + 3}{9 + 5} I_{\text{Gini}}(D_{\text{strong}})
+          \approx 0.030
+$$
+
+
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Wind<br>
+        <b class="dy">YES</b>: 9; <b class="dn">NO</b>: 5
+    </a>
+    <ul>
+      <li>
+        <a> Weak (57.1%)<br>
+            <b class="dy">YES</b>: 6; <b class="dn">NO</b>: 2
+        </a>
+      </li>
+      <li>
+        <a> Strong (42.9%)<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 3<br>            
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th class="csn">Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Hot     </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td class="csn">Mild    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+</table>
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 1 - \left(\frac{2}{2 + 3}\right)^2 - \left(\frac{3}{2 + 3}\right)^2 = 0.48 \\
+I_{\text{Gini}}(D_{\text{hot}})  &= 0 \\
+I_{\text{Gini}}(D_{\text{mild}}) &= 0.5 \\
+I_{\text{Gini}}(D_{\text{cool}}) &= 0 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = I_{\text{Gini}}(D_{\text{parent}}) - 0.4\, I_{\text{Gini}}(D_{\text{hot}})
+          - 0.4\, I_{\text{Gini}}(D_{\text{mild}}) - 0.2\, I_{\text{Gini}}(D_{\text{cool}})
+          = 0.28
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 3<br>
+            Temperature?
+        </a>
+        <ul>
+          <li>
+            <a> Hot (40%)<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 2
+            </a>
+          </li>
+          <li>
+            <a> Mild (40%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 1<br>            
+            </a>
+          </li>
+          <li>
+            <a> Cool (20%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 0<br>               
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>               
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th class="csn">Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td class="csn">High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td class="csn">Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+</table>
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 0.48 \\
+I_{\text{Gini}}(D_{\text{high}})  &= 0 \\
+I_{\text{Gini}}(D_{\text{normal}}) &= 0 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} = 0.48
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 3<br>
+            Humidity?
+        </a>
+          <ul>
+          <li>
+            <a> High (60%)<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 3
+            </a>
+          </li>
+          <li>
+            <a> Normal (40%)<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 0<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>               
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th class="csn">    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>Normal  </td> <td class="csn">Strong   </td> <td class="dy">Yes </td> </tr>
+</table>
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 0.48 \\
+I_{\text{Gini}}(D_{\text{weak}})  &\approx 0.44 \\
+I_{\text{Gini}}(D_{\text{strong}}) &= 0.5 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} \approx 0.016
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 3<br>
+            Wind?
+        </a>
+          <ul>
+          <li>
+            <a> Weak (60%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 2
+            </a>
+          </li>
+          <li>
+            <a> Strong (40%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 1<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>               
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th class="csn">Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td class="csn">Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 0.48 \\
+I_{\text{Gini}}(D_{\text{mild}})  &\approx 0.44 \\
+I_{\text{Gini}}(D_{\text{cool}}) &= 0.5 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} \approx 0.016
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            Humidity?
+        </a>
+          <ul>
+          <li>
+            <a> High<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 3
+            </a>
+          </li>
+          <li>
+            <a> Normal<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 0<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>
+            Temperature?             
+        </a>
+        <ul>
+          <li>
+            <a> Hot (0%)<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 0
+            </a>
+          </li>
+          <li>
+            <a> Mild (60%)<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 1<br>            
+            </a>
+          </li>
+          <li>
+            <a> Cool (40%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 1<br>               
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th class="csn">Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td class="csn">Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td class="csn">High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 0.48 \\
+I_{\text{Gini}}(D_{\text{high}})  &= 0.5 \\
+I_{\text{Gini}}(D_{\text{normal}})  &\approx 0.44 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} \approx 0.016
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            Humidity?
+        </a>
+          <ul>
+          <li>
+            <a> High<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 3
+            </a>
+          </li>
+          <li>
+            <a> Normal<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 0<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>
+            Humidity?             
+        </a>
+          <ul>
+          <li>
+            <a> High (40%)<br>
+                <b class="dy">YES</b>: 1; <b class="dn">NO</b>: 1
+            </a>
+          </li>
+          <li>
+            <a> Normal (60%)<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 1<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th class="csn">    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>Normal  </td> <td class="csn">Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td class="csn">Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+<div class="inner" style="left:0px; width:100px">
+$$
+\begin{aligned}
+I_{\text{Gini}}(D_{\text{parent}}) &= 0.48 \\
+I_{\text{Gini}}(D_{\text{weak}})  &= 0 \\
+I_{\text{Gini}}(D_{\text{strong}})&= 0 \\
+\end{aligned}
+$$
+
+$$
+\text{IG} \approx 0.48
+$$
+</div>
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a> Outlook </a>
+    <ul>
+      <li>
+        <a> Sunny<br>
+            Humidity?
+        </a>
+          <ul>
+          <li>
+            <a> High<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 3
+            </a>
+          </li>
+          <li>
+            <a> Normal<br>
+                <b class="dy">YES</b>: 2; <b class="dn">NO</b>: 0<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a> Overcast<br>
+            <b class="dy">YES</b>: 4; <b class="dn">NO</b>: 0<br>            
+        </a>
+      </li>
+      <li>
+        <a> Rain<br>
+            <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 2<br>
+            Wind?             
+        </a>
+          <ul>
+          <li>
+            <a> Weak (40%)<br>
+                <b class="dy">YES</b>: 3; <b class="dn">NO</b>: 0
+            </a>
+          </li>
+          <li>
+            <a> Strong (60%)<br>
+                <b class="dy">YES</b>: 0; <b class="dn">NO</b>: 2<br>            
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+<!------------------------------------>
+
+<div>
+<table class="dataset" id="final_tbl">
+<tr> <th>Outlook </th> <th>Temp.   </th> <th>Humidity</th> <th>    Wind </th> <th>  Decision </th> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Hot     </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+<tr> <td>Overcast</td> <td>Cool    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>High    </td> <td>Weak     </td> <td class="dn">No  </td> </tr>
+<tr> <td>Sunny   </td> <td>Cool    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Sunny   </td> <td>Mild    </td> <td>Normal  </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Overcast</td> <td>Hot     </td> <td>Normal  </td> <td>Weak     </td> <td class="dy">Yes </td> </tr>
+<tr> <td>Rain    </td> <td>Mild    </td> <td>High    </td> <td>Strong   </td> <td class="dn">No  </td> </tr>
+</table>
+
+
+
+<div class="inner" style="position:absolute; top:100px; left:350px">
+<ul >
+  <li>
+    <a onmouseover="highlight(s => true)" onmouseout="highlight(s => false)"> Outlook </a>
+    <ul>
+      <li>
+        <a onmouseover="highlight(s => s.includes('Sunny'))" onmouseout="highlight(s => false)">
+            Sunny<br>Humidity?
+        </a>
+          <ul>
+          <li>
+            <a onmouseover="highlight(s => s.includes('Sunny') && s.includes('High'))" onmouseout="highlight(s => false)">
+                High<br><b class="dn">NO</b>
+            </a>
+          </li>
+          <li>
+            <a onmouseover="highlight(s => s.includes('Sunny') && s.includes('Normal'))" onmouseout="highlight(s => false)">
+                Normal<br><b class="dy">YES</b>           
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a onmouseover="highlight(s => s.includes('Overcast'))" onmouseout="highlight(s => false)">
+            Overcast<br><b class="dy">YES</b>       
+        </a>
+      </li>
+      <li>
+        <a onmouseover="highlight(s => s.includes('Rain'))" onmouseout="highlight(s => false)">
+            Rain<br>Wind?             
+        </a>
+          <ul>
+          <li>
+            <a onmouseover="highlight(s => s.includes('Rain') && s.includes('Weak'))" onmouseout="highlight(s => false)">
+                Weak<br><b class="dy">YES</b>
+            </a>
+          </li>
+          <li>
+            <a onmouseover="highlight(s => s.includes('Rain') && s.includes('Strong'))" onmouseout="highlight(s => false)">
+                Strong<br><b class="dn">NO</b>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+<script  type="text/javascript">
+function highlight(fnc) {
+    table = document.getElementById('final_tbl');
+    rows = table.getElementsByTagName('tr');
+    for (var i = 0; i < rows.length; ++i) {
+        s = rows[i].innerHTML;
+        if (fnc(s)) {
+            rows[i].classList.add('csn');
+        } else {
+            rows[i].classList.remove('csn');
+        }
+    }
+}
+</script>
+
+<div style="position:absolute; top:50px; left:700px;">
+
+<div id="arrow_left" style="border-width: 1px; border-style:solid; float:left; height:32px;">
+<svg width="8.7464mm" height="8.7464mm" version="1.1" viewBox="0 0 8.7464 8.7464" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<g transform="translate(-38.564 -29.908)">
+<rect x="38.564" y="29.908" width="8.7464" height="8.7464" fill-opacity=".16425" opacity=".97" stroke-miterlimit="10.433" stroke-width="0"/>
+<path d="m45.796 34.331h-5.8931" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+<path d="m40.068 34.267 2.7141-2.4238" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+<path d="m40.069 34.396 2.7141 2.4238" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+</g>
+</svg>
+</div>
+
+<div id="arrow_right" style="border-width: 1px; border-style:solid; float:right; height:32px;">
+<svg width="8.7464mm" height="8.7464mm" version="1.1" viewBox="0 0 8.7464 8.7464" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<g transform="translate(-38.564 -29.908)">
+<rect transform="scale(-1,1)" x="-47.31" y="29.908" width="8.7464" height="8.7464" fill-opacity=".16425" opacity=".97" stroke-miterlimit="10.433" stroke-width="0"/>
+<path d="m40.078 34.331h5.8931" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+<path d="m45.806 34.267-2.7141-2.4238" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+<path d="m45.805 34.396-2.7141 2.4238" fill="none" stroke="#fff" stroke-opacity=".98068" stroke-width=".5"/>
+</g>
+</svg>
+</div>
+
+</div>
+
+<style>
+#arrow_left:hover{color:blue;}
+#arrow_right:hover{color:blue;}
+</style>
+
+<script  type="text/javascript">
+//var slides = ["slide_1", "slide_2", "slide_3"];
+
+var container = document.getElementById("all_slides");
+var menu_conn = document.createElement("div");
+menu_conn.style.height = "90px";
+menu_conn.id = "menu_div";
+container.prepend(menu_conn);
+
+// crutches
+var slides = [];
+var tmp = container.getElementsByTagName("div");
+for (var i = 0; i < tmp.length; ++i)
+  if ((!tmp[i].id || tmp[i].id != "menu_div") && !tmp[i].classList.contains("inner"))
+  {
+    tmp[i].classList.add('slide_style');
+    slides.push(tmp[i]);
+  }
+
+
+var left_btn_id = "arrow_left";
+var right_btn_id = "arrow_right";
+var current_slide = 0;
+var menu = [];
+
+function change_slide_to(new_slide_idx)
+{
+  menu[current_slide].style.borderWidth = "0px";
+  var old_slide = slides[current_slide]; //document.getElementById(slides[current_slide]);
+  current_slide = new_slide_idx;
+  menu[current_slide].style.borderWidth = "2px";
+  var new_slide = slides[current_slide]; //document.getElementById(slides[current_slide]);
+  old_slide.style.display='none';
+  new_slide.style.display='block';
+}
+
+function slide_left()
+{
+  var new_idx = current_slide - 1;
+  if (new_idx < 0) {new_idx = 0;}
+  change_slide_to(new_idx);
+}
+
+function slide_right()
+{
+  var new_idx = current_slide + 1;
+  if (new_idx >= slides.length) {new_idx = slides.length - 1;}
+  change_slide_to(new_idx);
+}
+
+function change(obj, is_correct)
+{
+//   alert(obj.parentNode.rowIndex);
+    var rowId = obj.parentNode.rowIndex;
+    var table = obj.parentNode.parentNode.parentNode;
+    var rowsNotSelected = table.getElementsByTagName('tr');
+    for (var row = 0; row < rowsNotSelected.length; row++)
+    {
+        rowsNotSelected[row].cells[0].style.backgroundColor = "white";
+    }
+    var rowSelected = table.getElementsByTagName('tr')[rowId];
+    if (is_correct > 0)
+    {
+        rowSelected.cells[0].style.backgroundColor = "#66bb6aa9";
+        menu[current_slide].style.backgroundColor = "#66bb6aa9";
+    }
+    else
+    {
+        rowSelected.cells[0].style.backgroundColor = "#ff3a3981";
+        menu[current_slide].style.backgroundColor = "#ff3a3981";
+    }
+}
+
+function make_callback(obj, is_correct)
+{
+  return function() { change(obj, is_correct); }
+}
+
+function change_callback(new_idx)
+{
+  return function() { change_slide_to(new_idx); }
+}
+
+document.getElementById(left_btn_id).addEventListener("click", slide_left);
+document.getElementById(right_btn_id).addEventListener("click", slide_right);
+slides[current_slide].style.display='block'; //document.getElementById(slides[current_slide]).style.display='block';
+
+// create upper menu
+upper_menu = document.getElementById("menu_div");
+
+var tbl      = document.createElement("table");
+var tbl_body = document.createElement("tbody");
+var tbl_row  = document.createElement("tr");
+for (idx = 0; idx < slides.length; idx++)
+{
+    var tbl_cell = document.createElement("td");
+    var cell_text = document.createTextNode(idx+1);
+    tbl_cell.appendChild(cell_text);
+    tbl_cell.onclick = change_callback(idx);
+    tbl_row.appendChild(tbl_cell);
+    menu.push(tbl_cell);
+    tbl_cell.style.borderWidth = "0px";
+
+    var slide = slides[idx]; //document.getElementById(slides[idx]);
+    var all_tables = slide.getElementsByTagName("table");
+    for (t_i = 0; t_i < all_tables.length; t_i++)
+    {
+      var table = all_tables[t_i];
+      if (!table.classList.contains("question_style"))
+        continue;
+      var rows = table.getElementsByTagName('tr');
+      for (r_i = 0; r_i < rows.length; r_i++)
+      {
+        var question_cell = rows[r_i].cells[0];
+        question_cell.classList.add("highlight");
+        if (question_cell.classList.contains("ok"))
+        {
+          question_cell.onclick = make_callback(question_cell, 1);
+        } else {
+          question_cell.onclick = make_callback(question_cell, 0);
+        }
+        
+
+        var cell = rows[r_i].insertCell(0);
+        cell.width = "50px";
+      }
+    }
+}
+tbl_body.appendChild(tbl_row);
+tbl.appendChild(tbl_body);
+upper_menu.appendChild(tbl);
+tbl.classList.add('menu_style');
+menu[current_slide].style.borderWidth = "2px";
+
+</script>
+
+<style>
+    .slide_style {
+      max-width:750px;
+      display:none;
+      font: 10pt/12pt sans-serif;
+      position: static;
+      top: 80px;
+      left: 0px;
+    }
+
+    .question_style {
+        width:600px;
+        text-align:left;
+        cursor: default;
+    }
+    .question_style td{ 
+        padding:7px;
+        height: 50px;
+        border:#4e95f4 0px solid;
+        text-align:left;
+        font: 10pt/12pt sans-serif;
+    }
+    .highlight:hover{
+        background-color: #00000019
+    }
+    .menu_style {
+        height:50px;
+        font: 16pt/14pt sans-serif bold;
+        text-align:left;
+        cursor: default;
+    }    
+    .menu_style td{ 
+        width:50px;
+        padding:7px;
+        border:#787878ff solid;
+        text-align:center;
+        font: 16pt/14pt sans-serif;
+        color: #606060ff;
+    }
+</style>
+
+<style>
+
+.tree {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+.tree ul {
+  position: relative;
+  padding: 1em 0; 
+  white-space: nowrap;
+  margin: 0 auto;
+  text-align: center;
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+.tree li {
+  display: inline-block; 
+  vertical-align: top;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 1em .5em 0 .5em;
+}
+
+.tree li:before {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%; 
+    height: 1em;
+}
+.tree li:after {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%; 
+    height: 1em;
+}
+.tree li:after {
+    right: auto; 
+    left: 50%;
+    border-left: 2px solid #ccc;
+}
+.tree li:only-child::after {
+    display: none;
+}
+.tree li:only-child::before {
+    display: none;
+}
+.tree li:only-child {
+    padding-top: 0;
+}
+.tree li:first-child::before {
+    border: 0 none;
+}
+.tree li:last-child::after {
+    border: 0 none;
+}
+.tree li:last-child::before {
+    border-right: 2px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before{
+    content: '';
+    position: absolute; 
+    top: 0; 
+    left: 50%;
+    border-left: 2px solid #ccc;
+    width: 0; 
+    height: 1em;
+}
+
+.tree li a {
+    border: 2px solid #ccc;
+    padding: .5em .75em;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    border-radius: 5px;
+    color: #333;
+    position: relative;
+    top: 2px;
+}
+
+.tree li a:hover,
+.tree li a:hover+ul li a {
+  background: #979797;
+  color: #fff;
+  border: 2px solid #e9453f;
+}
+
+.tree li a:hover + ul li::after, 
+.tree li a:hover + ul li::before, 
+.tree li a:hover + ul::before, 
+.tree li a:hover + ul ul::before{
+    border-color:  #e9453f;
+}
+</style>
+
+</html>

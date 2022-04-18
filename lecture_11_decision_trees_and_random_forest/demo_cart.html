@@ -1,0 +1,755 @@
+<html>
+
+<head>
+<style>
+
+input[type=radio] {
+    border: 0px;
+    width: 2mm;
+    height: 2mm;
+}
+
+.tree {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+.tree ul {
+  position: relative;
+  padding: 1em 0; 
+  white-space: nowrap;
+  margin: 0 auto;
+  text-align: center;
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+.tree li {
+  display: inline-block; 
+  vertical-align: top;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 1em .5em 0 .5em;
+}
+
+.tree li:before {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%; 
+    height: 1em;
+}
+.tree li:after {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%; 
+    height: 1em;
+}
+.tree li:after {
+    right: auto; 
+    left: 50%;
+    border-left: 2px solid #ccc;
+}
+.tree li:only-child::after {
+    display: none;
+}
+.tree li:only-child::before {
+    display: none;
+}
+.tree li:only-child {
+    padding-top: 0;
+}
+.tree li:first-child::before {
+    border: 0 none;
+}
+.tree li:last-child::after {
+    border: 0 none;
+}
+.tree li:last-child::before {
+    border-right: 2px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before{
+    content: '';
+    position: absolute; 
+    top: 0; 
+    left: 50%;
+    border-left: 2px solid #ccc;
+    width: 0; 
+    height: 1em;
+}
+
+.tree li a {
+    border: 2px solid #ccc;
+    padding: .5em .75em;
+    text-decoration: none;
+    text-align: left;
+    display: inline-block;
+    border-radius: 5px;
+    color: #333;
+    position: relative;
+    top: 2px;
+}
+
+.tree li a:hover,
+.tree li a:hover+ul li a {
+  background: #979797;
+  color: #fff;
+  border: 2px solid #e9453f;
+}
+
+.tree li a:hover + ul li::after, 
+.tree li a:hover + ul li::before, 
+.tree li a:hover + ul::before, 
+.tree li a:hover + ul ul::before{
+    border-color:  #e9453f;
+}
+</style>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+  <script type="application/javascript">
+
+
+    var x_min = 0.0;
+    var y_min = 0.0;
+    var x_max = 1.0;
+    var y_max = 1.0;
+    var xs = [];
+    var ys = [];
+    for (var x = x_min; x <= x_max; x += 0.01)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.01)
+      ys.push(y);
+    var colors = ['blue', 'red'];
+
+
+
+    function loss_function_2d() {
+      var blue_x = [];
+      var blue_y = [];
+      var red_x = [];
+      var red_y = [];
+      for (var i = 0; i < points.length; ++i) {
+        if (points[i][2]) {
+            blue_x.push(points[i][0]);
+            blue_y.push(points[i][1]);
+        } else {
+            red_x.push(points[i][0]);
+            red_y.push(points[i][1]);
+        }
+      }
+
+      data = [];
+
+      // datapoints
+      data.push({
+            x: red_x, y: red_y,
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            name: 'red class datapoints',
+            marker: {size: 12, color: 'red'},
+      });
+      data.push({
+            x: blue_x, y: blue_y,
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            name: 'red class datapoints',
+            marker: {size: 12, color: 'blue'},
+      });
+
+      lines = [];
+      if (root_node)
+        lines = root_node.get_split_lines(lines);
+      //console.log(lines);
+      var lines_x = [];
+      var lines_y = [];
+      var active  = [[-10,-10],[-10,10]];
+      for (var i = 0; i < lines.length; ++i) {
+        if (lines[i][2]) {
+            active = lines[i];
+            continue;
+        }
+        lines_x.push(lines[i][0][0]);
+        lines_x.push(lines[i][1][0]);
+        lines_x.push(null);
+        lines_y.push(lines[i][0][1]);
+        lines_y.push(lines[i][1][1]);
+        lines_y.push(null);        
+      }
+    data.push({
+        x: lines_x,
+        y: lines_y,
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+        showlegend: false,
+        line: {width: 3, color: 'green'},
+    });
+    data.push({
+        x: [active[0][0], active[1][0]],
+        y: [active[0][1], active[1][1]],
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+        showlegend: false,
+        line: {width: 3, color: 'orange'},
+    });
+
+    var zs = [];
+    for (var j = 0; root_node && j < ys.length; ++j) {
+        var temp = [];
+        for (var i = 0; i < xs.length; ++i)
+            temp.push(root_node.get_red_concentration([xs[i], ys[j]]))
+        zs.push(temp);
+    }
+    //console.log(zs);
+    if(zs.length) {
+        zs[0][0] = 0.0;
+        zs[0][1] = 1.0;
+    }
+    data.push({
+        x: xs,
+        y: ys,
+        z: zs,
+        showscale: false, 
+        opacity: 0.2, 
+        colorscale: 'RdBu', //[[0, 'blue'], [1, 'red']],
+        type: 'heatmap'
+    });
+
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          title: 'Decision Tree',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 400,
+          height: 400,
+          autosize: false,
+          showlegend: false,
+          margin: {l: 0, r: 0, b: 0, t: 0 }
+        };
+      Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+
+    class TreeNode {
+        constructor(parent, side, container, box) {
+            this.parent    = parent;
+            this.side      = side;
+            this.left      = null;
+            this.right     = null;
+            this.container = container;
+            this.name      = this.parent ? this.parent.name + side : side;
+            this.active    = false;
+            this.box       = box;
+            this.split     = [null, null];
+            this.prob_red  = 0.5;
+            this.gini      = 0.0;
+            this.entropy   = 0.0;
+            this.d_gini    = 0.0;
+            this.d_entropy = 0.0;
+        }
+        create_child(tree_node, element, mode) {
+            const box = document.createElement("a");
+            element.appendChild(box);
+            var str = '';
+            if (mode == 'L')
+                str += '<div style="position:absolute; top:-20px;" id="' + tree_node.name + '_prob"></div>';
+            else
+                str += '<div style="position:absolute; top:-20px; left:120px" id="' + tree_node.name + '_prob"></div>';
+            //str    += '<div style="position:absolute; top:-20px; left:120px" id="' + tree_node.name + '_deltas"></div>';
+            str    += '<b><label id="' + tree_node.name + '_cond"></label></b>  ';
+            str    += '<b style="color:red">Red:</b> <label id="' + tree_node.name + '_red"></label>';
+            str    += '<b style="color:blue">Blue:</b> <label id="' + tree_node.name + '_blue"></label><br>';
+            str    += '<b>Gini:</b><label id="' + tree_node.name + '_gini"></label>';
+            str    += '<b>Entropy:</b><label id="' + tree_node.name + '_ent"></label><br>';
+            str    += '<input type="radio" id="' + tree_node.name + '_leaf" name="' + tree_node.name + '" checked="checked">';
+            str    += '<label for="' + tree_node.name + '_leaf">Make Leaf Node</label><br>'; 
+            str    += '<input type="radio" id="' + tree_node.name + '_x" name="' + tree_node.name + '">';
+            str    += '<label for="' + tree_node.name + '_x">Split feature X</label><br>';
+            str    += '<input type="radio" id="' + tree_node.name + '_y" name="' + tree_node.name + '">';
+            str    += '<label for="' + tree_node.name + '_y">Split feature Y</label>';
+            box.innerHTML = str;
+            document.getElementById(tree_node.name + '_leaf').onclick = function(){ tree_node.delete_children(); loss_function_2d(); }
+            document.getElementById(tree_node.name + '_x').onclick    = function(){ tree_node.activate_x(); loss_function_2d(); }
+            document.getElementById(tree_node.name + '_y').onclick    = function(){ tree_node.activate_y(); loss_function_2d(); }
+
+        }
+        get_params_by_split() {
+            let params = {};
+            if (this.split[0]) {
+                params["left_box"]  = [[this.box[0][0], this.split[0]], this.box[1]];
+                params["right_box"] = [[this.split[0], this.box[0][1]], this.box[1]];
+            } else {
+                params["left_box"]  = [this.box[0], [this.box[1][0], this.split[1]]];
+                params["right_box"] = [this.box[0], [this.split[1], this.box[1][1]]];   
+            }
+            params["left_red"]   = 0;
+            params["left_blue"]  = 0;
+            params["right_red"]  = 0;
+            params["right_blue"] = 0;
+            for (var i = 0; i < points.length; ++i) {
+                if (params["left_box"][0][0] <= points[i][0] && points[i][0] <= params["left_box"][0][1] && params["left_box"][1][0] <= points[i][1] && points[i][1] <= params["left_box"][1][1])
+                    if (points[i][2])
+                        params["left_blue"] += 1;
+                    else
+                        params["left_red"] += 1;
+                if (params["right_box"][0][0] < points[i][0] && points[i][0] < params["right_box"][0][1] && params["right_box"][1][0] < points[i][1] && points[i][1] < params["right_box"][1][1])
+                    if (points[i][2])
+                        params["right_blue"] += 1;
+                    else
+                        params["right_red"] += 1;
+            }
+            params["left_prob"]  = (params["left_red"] + params["left_blue"]) / (params["left_red"] + params["left_blue"] + params["right_red"] + params["right_blue"]);
+            params["right_prob"] = (params["right_red"] + params["right_blue"]) / (params["left_red"] + params["left_blue"] + params["right_red"] + params["right_blue"]);
+
+            params["left_prob_red"]  = params["left_red"] / (params["left_red"] + params["left_blue"]);
+            params["right_prob_red"] = params["right_red"] / (params["right_red"] + params["right_blue"]);
+            params["left_gini"]      = 1 - (params["left_prob_red"])*(params["left_prob_red"]) - (1 - params["left_prob_red"])*(1 - params["left_prob_red"]);
+            params["left_entropy"]   = -((params["left_prob_red"])*Math.log(params["left_prob_red"] + 0.00001) + (1 - params["left_prob_red"])*Math.log(1.0001 - params["left_prob_red"]));
+            params["right_gini"]     = 1 - (params["right_prob_red"])*(params["right_prob_red"]) - (1 - params["right_prob_red"])*(1 - params["right_prob_red"]);
+            params["right_entropy"]  = -((params["right_prob_red"])*Math.log(params["right_prob_red"] + 0.00001) + (1 - params["right_prob_red"])*Math.log(1.0001 - params["right_prob_red"]));
+            
+            params["d_gini"]    = this.gini - params["left_prob"]*params["left_gini"] - params["right_prob"]*params["right_gini"];
+            params["d_entropy"] = this.entropy - params["left_prob"]*params["left_entropy"] - params["right_prob"]*params["right_entropy"];
+
+            return params;
+        }
+        update_children() {
+            let params = this.get_params_by_split();
+            this.left.box  = params["left_box"];
+            this.right.box = params["right_box"];
+            document.getElementById(this.left.name + '_prob').innerHTML = Math.round(params["left_prob"] * 100) + '%';
+            document.getElementById(this.right.name + '_prob').innerHTML = Math.round(params["right_prob"] * 100) + '%';
+            document.getElementById(this.left.name + '_red').innerHTML = params["left_red"] + '  ';
+            document.getElementById(this.left.name + '_blue').innerHTML = params["left_blue"] + '  ';
+            document.getElementById(this.right.name + '_red').innerHTML = params["right_red"] + '  ';
+            document.getElementById(this.right.name + '_blue').innerHTML = params["right_blue"] + '  ';
+            this.left.gini      = params["left_gini"];
+            this.left.entropy   = params["left_entropy"];
+            this.right.gini     = params["right_gini"];
+            this.right.entropy  = params["right_entropy"];
+            this.left.prob_red  = params["left_prob_red"];
+            this.right.prob_red = params["right_prob_red"];
+            document.getElementById(this.left.name  + '_gini').innerHTML = (this.left.gini).toFixed(2) + '   ';
+            document.getElementById(this.left.name  + '_ent').innerHTML  = (this.left.entropy).toFixed(2) + '   ';
+            document.getElementById(this.right.name + '_gini').innerHTML = (this.right.gini).toFixed(2) + '   ';
+            document.getElementById(this.right.name + '_ent').innerHTML  = (this.right.entropy).toFixed(2) + '   ';
+            if (this.split[0]) {
+                document.getElementById(this.left.name + '_cond').innerHTML = 'X < ' + this.split[0].toFixed(2) + '   ';
+                document.getElementById(this.right.name + '_cond').innerHTML = 'X > ' + this.split[0].toFixed(2) + '   ';
+            } else {
+                document.getElementById(this.left.name + '_cond').innerHTML = 'Y < ' + this.split[1].toFixed(2) + '   ';
+                document.getElementById(this.right.name + '_cond').innerHTML = 'Y > ' + this.split[1].toFixed(2) + '   ';
+            }
+            this.d_gini    = params["d_gini"];
+            this.d_entropy = params["d_entropy"];
+            const deltas   = document.getElementById(this.name + '_deltas');
+            deltas.innerHTML = "ΔG = " + this.d_gini.toFixed(2) + '<br>' + "ΔS = " + this.d_entropy.toFixed(2);
+        }
+        create_children() {
+            const deltas = document.createElement("div");
+            this.container.appendChild(deltas);
+            deltas.id = this.name + '_deltas';
+
+            const both  = document.createElement("ul");
+            this.container.appendChild(both);
+            const left  = document.createElement("li");
+            const right = document.createElement("li");
+            both.appendChild(left);
+            both.appendChild(right);
+            this.left   = new TreeNode(this, 'L', left);
+            this.right  = new TreeNode(this, 'R', right);
+            this.create_child(this.left,  left, 'L');
+            this.create_child(this.right, right, 'R');
+            
+            this.update_children();
+        }
+        delete_children() {
+            const deltas = document.getElementById(this.name + '_deltas');
+            if (deltas)
+                this.container.removeChild(deltas);
+            const both = this.container.getElementsByTagName("ul");
+            if (!both.length)
+                return;
+            this.container.removeChild(both[0]);
+            this.left  = null;
+            this.right = null;
+            this.split = [null, null];
+            if (this.parent) {
+              this.parent.active = true;
+              set_line_mover(this.parent);
+            }
+        }
+        activate_x() {
+            this.delete_children();
+            root_node.deactivate();
+            this.active = true;
+            this.split  = [(this.box[0][0] + this.box[0][1])/2, null];
+            this.create_children();
+            set_line_mover(this);
+        }
+        activate_y() {
+            this.delete_children();
+            root_node.deactivate();
+            this.active = true;
+            this.split  = [null, (this.box[1][0] + this.box[1][1])/2];
+            this.create_children();
+            set_line_mover(this);
+        }
+        deactivate() {
+            this.active = false;
+            if (this.left)
+                this.left.deactivate();
+            if (this.right)
+                this.right.deactivate();
+        }
+        get_split_lines(collection) {
+            if (this.split[0]) 
+                collection.push([[this.split[0], this.box[1][0]], [this.split[0], this.box[1][1]], this.active]);
+            if (this.split[1])
+                collection.push([[this.box[0][0], this.split[1]], [this.box[0][1], this.split[1]], this.active]);
+            if (this.left) 
+                collection = this.left.get_split_lines(collection);
+            if (this.right)
+                collection = this.right.get_split_lines(collection);
+            return collection;
+        }
+        get_red_concentration(pt) {
+            if (!this.left || !this.right)
+                return this.prob_red;
+            if (this.left.box[0][0] < pt[0] && pt[0] < this.left.box[0][1] && this.left.box[1][0] < pt[1] && pt[1] < this.left.box[1][1])
+                return this.left.get_red_concentration(pt);
+            return this.right.get_red_concentration(pt);
+        }
+
+    }
+    root_node = null; 
+
+    function update_root_data() {
+        var red   = 0;
+        var blue  = 0;
+        for (var i = 0; i < points.length; ++i)
+            if (points[i][2])
+                blue += 1;
+            else
+                red += 1;
+        root_node.prob_red = red / (red + blue);
+        root_node.gini = 1 - (root_node.prob_red)*(root_node.prob_red) - (1 - root_node.prob_red)*(1 - root_node.prob_red);
+        root_node.entropy = -((root_node.prob_red)*Math.log(root_node.prob_red + 0.00001) + (1 - root_node.prob_red)*Math.log(1.0001 - root_node.prob_red));
+        document.getElementById('root_red').innerHTML = red + '  ';
+        document.getElementById('root_blue').innerHTML = blue + '  ';
+        document.getElementById('root_gini').innerHTML = (root_node.gini).toFixed(2) + '   ';
+        document.getElementById('root_ent').innerHTML = (root_node.entropy).toFixed(2) + '   ';
+    }
+
+    function set_line_mover(tree_node) {
+        canvas_handles.handle_down = function(x, y) {
+            //if (x < tree_node.box[0][0] || x > tree_node.box[0][1] || y < tree_node.box[1][0] || y > tree_node.box[1][1])
+            //    return;
+            var x_edges = [];
+            var y_edges = [];
+            if (tree_node.split[0]) {
+                x_edges = [tree_node.split[0]-0.01, tree_node.split[0]+0.01];
+                y_edges = tree_node.box[1];
+            } else {
+                x_edges = tree_node.box[0];
+                y_edges = [tree_node.split[1]-0.01, tree_node.split[1]+0.01];
+            }
+            if (x < x_edges[0] || x > x_edges[1] || y < y_edges[0] || y > y_edges[1])
+                return;
+            canvas_handles.handle_move = function(x, y) {
+                if (x < tree_node.box[0][0] || x > tree_node.box[0][1] || y < tree_node.box[1][0] || y > tree_node.box[1][1])
+                    return;
+                if (tree_node.split[0])
+                    tree_node.split[0] = x;
+                if (tree_node.split[1])
+                    tree_node.split[1] = y;
+                tree_node.update_children();
+                loss_function_2d();
+            }
+            canvas_handles.handle_up = function(x, y) { canvas_handles.handle_move = null; }
+
+        }
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = null;
+    }
+
+    points = [];
+    canvas_handles = {
+        handle_down: null,
+        handle_move: null,
+        handle_up:   null,
+    };
+
+    function add_pts(cls) {
+        canvas_handles.handle_down = function(x, y) { points.push([x, y, cls]); update_root_data(); };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = null;
+        root_node.delete_children();
+    }
+    function move_pts() {
+        canvas_handles.handle_down = function(x, y) {
+            for (var i = 0; i < points.length; ++i)
+                if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+                {
+                    canvas_handles.handle_move = function(x, y) {
+                        if (x < x_min || x > x_max || y < y_min || y > y_max)
+                            return;
+                        points[i][0] = x;
+                        points[i][1] = y;
+                    }
+                    break;
+                }
+        };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = function(x, y) { canvas_handles.handle_move = null; };
+        root_node.delete_children();
+    }
+    function del_pts() {
+        canvas_handles.handle_down = function(x, y) {
+            var idx = -1;
+            for (var i = 0; i < points.length; ++i)
+                if ((x - points[i][0])*(x - points[i][0]) + (y - points[i][1])*(y - points[i][1]) < 0.001)
+                    idx = i;
+            points.splice(idx, 1);
+            update_root_data();
+        };
+        canvas_handles.handle_move = null;
+        canvas_handles.handle_up   = null;
+        root_node.delete_children();
+    }
+
+    function extract_coordinates(event) {
+      event.stopPropagation();
+      var x = event.offsetX;
+      var y = event.offsetY;
+      var canvas = document.getElementById("paint");
+      var w = canvas.width;
+      var h = canvas.height;
+      var plot_x = x / w * (x_max - x_min) + x_min;
+      var plot_y = (1.0 - y / h) * (y_max - y_min) + y_min;
+      return [plot_x, plot_y];
+    }
+
+    function mdown_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_down)
+        canvas_handles.handle_down(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function mmove_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_move)
+        canvas_handles.handle_move(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function mup_handle(event) {
+      var pts = extract_coordinates(event);
+
+      if (canvas_handles.handle_up)
+        canvas_handles.handle_up(pts[0], pts[1]);
+
+      loss_function_2d();
+    }
+
+    function adjust_canvas() {
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('xy')[0];
+      el = el.childNodes[0];
+      if (!el)
+        return [600, 600];
+      var rect = el.getBoundingClientRect();
+      var canvas = document.getElementById("paint");
+      //console.log(rect);
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                          + "px; left: " + parseInt(rect.left)
+                          + "px; width:" + parseInt(rect.width)
+                          + "px; height:" + parseInt(rect.height)
+                          + "px; z-index:1000;";
+      //console.log(canvas.style.cssText);
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //loss_function_2d();
+      return [canvas.width, canvas.height];
+    }
+
+    function clear_field() {
+      points = [];
+      root_node.delete_children();
+      document.getElementById('root_add_red').checked = true;
+      document.getElementById('root_add_red').onchange();
+      update_root_data();
+      loss_function_2d();
+    }
+
+    function print_node_params(node, tabs) {
+        console.log(tabs, node.box);
+        if (node.left) print_node_params(node.left, tabs + '....');
+        if (node.right) print_node_params(node.right, tabs + '....');
+    }
+
+    function build(node) {
+        //if (depth > 2) return;
+
+        var x_splits = [];
+        var y_splits = [];
+        for (var i = 0; i < points.length; ++i) {
+            if (node.box[0][0] < points[i][0] && points[i][0] < node.box[0][1] && node.box[1][0] < points[i][1] && points[i][1] < node.box[1][1]) {
+                x_splits.push(points[i][0]);
+                y_splits.push(points[i][1]);
+            }
+        }
+        if (x_splits.length <= 1)
+            return;
+
+
+        x_splits.sort();
+        y_splits.sort();
+        for (var i = 0; i < x_splits.length - 1; ++i) {
+            x_splits[i] = (x_splits[i] + x_splits[i+1]) / 2.0;
+            y_splits[i] = (y_splits[i] + y_splits[i+1]) / 2.0;   
+        }
+        x_splits.pop();
+        y_splits.pop();
+
+        
+
+        var max_d_gini = 0.0;
+        var split_max = [null, null];
+        for (var i = 0; i < x_splits.length; ++i) {
+            node.split = [x_splits[i], null];
+            let params = node.get_params_by_split();
+            console.log(params);
+            if (params["d_gini"] > max_d_gini) {
+                max_d_gini = params["d_gini"];
+                split_max  = node.split;
+            }
+        }
+        for (var i = 0; i < y_splits.length; ++i) {
+            node.split = [null, y_splits[i]];
+            let params = node.get_params_by_split();
+            if (node.d_gini > max_d_gini) {
+                max_d_gini = params["d_gini"];
+                split_max  = node.split;
+            }
+        }
+
+
+        if (max_d_gini < 1E-5) {
+            node.split = [null, null];
+            return;
+        }
+        console.log("split: ", split_max);
+         
+         if (!split_max[1]) {
+            document.getElementById(node.name + '_x').checked = true;
+         } else {
+            document.getElementById(node.name + '_y').checked = true;
+         }
+        
+        root_node.deactivate();
+        node.delete_children();
+        node.split  = split_max;
+        node.active = true;
+        node.create_children();
+        update_root_data();
+        set_line_mover(node);
+        loss_function_2d();
+    }
+
+    function find_leaf(node) {
+        if (node.left) 
+            find_leaf(node.left);
+        if (node.right)
+            find_leaf(node.right);
+        if (!node.left && !node.right)
+            build(node);
+    }
+
+    function auto_build() {
+        console.log("yo");
+        find_leaf(root_node);
+    }
+
+  </script>
+
+
+</head>
+
+<body>
+
+
+<div id="everything" style="height:400px; width:625px;">
+  <div id="for_right_plot">
+  </div>
+  <div id="for_left_plot" class="tree" style="position:absolute; top:50px; left:450px; width:400px; height:400px; overflow:auto" > 
+  <ul>
+  <li id="root_container" class="tree">
+    <a> <table class="tree"><tr><td>
+        <input type="radio" id="root_add_red" name="root_node" checked="checked" onchange="add_pts(0); loss_function_2d(); ">
+        <label for="root_add_red">Add red data point</label><br>
+        <input type="radio" id="root_add_blue" name="root_node" onchange="add_pts(1); loss_function_2d(); ">
+        <label for="root_add_blue">Add blue data point</label><br>
+        <input type="radio" id="root_move" name="root_node" onchange="move_pts(); loss_function_2d(); ">
+        <label for="root_move">Move data point</label><br>
+        <input type="radio" id="root_del" name="root_node" onchange="del_pts(); loss_function_2d(); ">
+        <label for="root_del">Delete data point</label></td>
+        <td>
+        <b style="color:red">Red:</b> <label id="root_red"></label>
+        <b style="color:blue">Blue:</b> <label id="root_blue"></label><br>
+        <b>Gini:</b><label id="root_gini"></label>
+        <b>Entropy:</b><label id="root_ent"></label><br>
+        <input type="radio" id="root_x" name="root_node" onclick="root_node.activate_x(); loss_function_2d(); ">
+        <label for="root_x">Split feature X</label><br>
+        <input type="radio" id="root_y" name="root_node" onclick="root_node.activate_y(); loss_function_2d(); ">
+        <label for="root_y">Split feature Y</label><br>
+        <button type="button" onclick="clear_field();">Clear</button>
+        <button type="button" onclick="auto_build();">AUTO</button></td></tr>
+        </table>
+    </a>
+
+  </li>
+</ul>
+
+
+</div>
+
+
+<canvas id="paint" width=600 height=600
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
+</canvas>
+
+</body>
+
+<script>
+function init()
+{
+  loss_function_2d();
+  adjust_canvas();
+  root_node = new TreeNode(null, 'root', document.getElementById('root_container'));
+  root_node.box = [[0.0, 1.0], [0.0, 1.0]];
+  add_pts(0);
+  setInterval(adjust_canvas, 1000);
+}
+init();
+</script>
+
+</html>
