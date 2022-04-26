@@ -1,0 +1,548 @@
+<html>
+
+<head>
+
+<title>Simple Python IDE</title>
+<meta charset="utf-8"/>
+
+<link rel="stylesheet" href="https://codemirror.net/mode/python/../../lib/codemirror.css">
+<script src="https://codemirror.net/mode/python/../../lib/codemirror.js"></script>
+<script src="https://codemirror.net/mode/python/../../addon/edit/matchbrackets.js"></script>
+<script src="https://codemirror.net/mode/python/python.js"></script>
+<style type="text/css">.CodeMirror {border: 2px solid black; border-right: 0px;}</style>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
+<style>
+/* Style the tab */
+.tab {
+  overflow:         hidden;
+  border:           1px solid #ccc;
+  background-color: #f1f1f1;
+  margin:           0px -3px 0px 0px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  position:         relative;
+  border:           none;
+  outline:          none;
+  cursor:           pointer;
+  padding:          14px 16px;
+  transition:       0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+.code {
+  float:  left;
+  width:  45%;
+  height: 400px;
+}
+
+.main {
+  width:  100%;
+  height: 400px;
+}
+
+.out_container {
+  width:    54%;
+  height:   400px;
+  display:  block;
+  border:   2px solid black;
+  margin:   0% 0% 0% 45%;
+  z-index:  100;
+  overflow: auto;
+  position: relative;
+}
+
+</style>
+
+<!-- FOR NUMPY VISUALS -->
+<style>
+.numpy_table {
+  border-collapse: collapse;
+}
+
+table.numpy_table td {
+  border: 3px solid #666666;
+  min-width:15px;
+  height: 15px;
+  position: relative; 
+  text-align:center; 
+  color: #474747;
+  font-size:12px;
+  font-weight: bolder;
+  padding: 10px;
+}
+
+.numpy_up{
+  position: absolute; 
+  right: 0;
+  top: 0;
+  background: white;
+  text-align: right;
+  font-size: 8px;
+  font-family: Courier;
+  font-weight: bolder;
+  color: blue;
+  opacity: 1.0;
+  background-color:rgba(0, 0, 0, 0.0);
+}
+
+.numpy_down{
+  position: absolute; 
+  right: 0;
+  bottom: 0;
+  background: white;
+  text-align: right;
+  font-size: 8px;
+  font-family: Courier;
+  font-weight: bolder;
+  color: red;
+  opacity: 0.9;
+  background-color:rgba(0, 0, 0, 0.0);
+}
+
+</style>
+
+<script id="pyodide_worker" type="text/javascript">
+
+
+  importScripts("https://cdn.jsdelivr.net/pyodide/v0.19.1/full/pyodide.js");
+  async function loadPyodideAndPackages() {
+
+
+let apply_patches = `
+__print_mode__ = 'PRT'
+
+import micropip
+await micropip.install('plotly==5.0.0')
+await micropip.install('scikit-learn')
+
+
+def ensure_plotly_patch():
+    import plotly.graph_objects as go   
+
+    def show(self, *args, **wargs):
+        html_str  = """<div id='for_plot'> <img src onerror='{ let cell_for_plot = this.parentElement; let data = """
+        html_str += self.to_json()
+        html_str += """ ; Plotly.newPlot(cell_for_plot, data["data"], data["layout"]);}'></div>"""
+        global __print_mode__
+        old_mode = __print_mode__
+        __print_mode__ = 'HTM'
+        print(html_str)
+        __print_mode__ = old_mode
+
+    go.Figure.show = show
+
+ensure_plotly_patch()
+
+def ensure_matplotlib_patch():
+    import os
+    os.environ['MPLBACKEND'] = 'AGG'
+    import matplotlib.pyplot as plt    
+    _old_show = plt.show
+    import base64
+    from io import BytesIO
+
+    def show():
+        buf = BytesIO()
+        plt.savefig(buf, format='png')
+        buf.seek(0)
+        img = base64.b64encode(buf.read()).decode('utf-8')
+        plt.clf()
+        start = '<img src="data:image/png;base64, '
+        end = '" alt="MPL" />'
+        global __print_mode__
+        old_mode = __print_mode__
+        __print_mode__ = 'HTM'
+        print(start + img + end)
+        __print_mode__ = old_mode
+
+    plt.show = show
+
+ensure_matplotlib_patch()
+
+def visualize_array(array):
+    import numpy as np
+    def enclose_element(element, idx_up, idx_down):
+        return ('\t<td>' + str(element) + '<span class="numpy_up">' 
+                         + str(idx_up)  + '</span><span class="numpy_down">' 
+                         + str(idx_down) + '</span></td>')
+
+    def horizontal_tbl(array, color):
+        result  = '<table class=\"numpy_table\" bgcolor=\"'
+        result += color 
+        result += '\"><tr>'
+        max_count = len(array)
+        for idx, e in enumerate(array):
+            result += enclose_element(e, idx, idx - max_count)
+        result += '</tr></table>'
+        return result
+
+    def vertical_tbl(array, color):
+        result = '<table class=\"numpy_table\" bgcolor=\"' + color + '\">'
+        max_count = len(array)
+        for idx, e in enumerate(array):
+            result += '<tr>' + enclose_element(e, idx, idx - max_count) + '</tr>'
+        result += '</table>'
+        return result
+
+    def recursive_tbl(array, parity, max_levels, level=0, color_A=[150,200,255], color_B=[75, 100, 170]):
+        if len(array.shape) == 1:
+            return horizontal_tbl(array, "".join(["%02x" % int(c) for c in color_A]))
+        mix = np.array(color_A) * (level/max_levels) + np.array(color_B) * (1.0 - level/max_levels)
+        color = "".join(["%02x" % int(c) for c in mix])
+        if parity:
+            return horizontal_tbl([recursive_tbl(x, not parity, max_levels, level+1, color_A, color_B) for x in array], color)
+        else:
+            return vertical_tbl([recursive_tbl(x, not parity, max_levels, level+1, color_A, color_B) for x in array], color)
+
+    def array_to_html(array):
+        return recursive_tbl(array, len(array.shape) % 2, len(array.shape)-1)
+
+    array_str = array_to_html(array)
+    global __print_mode__
+    old_mode = __print_mode__
+    __print_mode__ = "HTM"
+    print(array_str)
+    __print_mode__ = old_mode
+
+def visualize_pandas(obj, ordering=False):
+    import pandas as pd
+    if type(obj) == pd.core.series.Series:
+        if obj.name != None:
+            obj = pd.DataFrame(obj)#, columns=[' '])
+        else:
+            obj = pd.DataFrame(obj, columns=[' '])
+    result  = '<div>'
+    result += obj.to_html(classes=["cell-border"]).replace('\\n','')
+    if obj.shape[0] > 10:
+        if ordering:
+            result += """<img src onerror=\'{ let my_table = this.parentElement.getElementsByTagName(\"table\")[0]; $(my_table).DataTable({\"autoWidth\": false}); this.onerror=null; }\' />"""
+        else:
+            result += """<img src onerror=\'{ let my_table = this.parentElement.getElementsByTagName(\"table\")[0]; $(my_table).DataTable({\"autoWidth\": false, \"ordering\": false}); this.onerror=null; }\' />"""
+    else:
+        if ordering:
+            result += """<img src onerror=\'{ let my_table = this.parentElement.getElementsByTagName(\"table\")[0]; $(my_table).DataTable({\"autoWidth\": false, \"paging\": false, \"searching\":false, \"info\": false}); this.onerror=null; }\' />"""
+        else:
+            result += """<img src onerror=\'{ let my_table = this.parentElement.getElementsByTagName(\"table\")[0]; $(my_table).DataTable({\"autoWidth\": false, \"paging\": false, \"searching\":false, \"info\": false, \"ordering\": false}); this.onerror=null; }\' />"""
+
+    result += '</div>'
+    global __print_mode__
+    old_mode = __print_mode__
+    __print_mode__ = "HTM"
+    print(result)
+    __print_mode__ = old_mode
+`;
+
+
+
+    self.redirect = false;
+    self.print = function(text) {
+      let print_mode = self.pyodide.globals.get('__print_mode__');
+      self.postMessage({'data': text, 'out_type': print_mode, 'running': true});
+    }
+
+    self.pyodide = await loadPyodide({
+      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.19.1/full/",
+      stdout: (text) => {self.redirect ? self.print(text) : console.log(text);},
+      stderr: (text) => {self.postMessage({'data': text, 'out_type': "ERR", 'running': true});}
+    });
+    await self.pyodide.loadPackage(["numpy", "pytz", "matplotlib", "pandas", "micropip"]);
+    try {
+      await self.pyodide.runPythonAsync(apply_patches);
+      self.redirect = true;
+    } catch(err) {
+      self.postMessage({'data': err.toString(), 'out_type': "ERR", 'running': false});
+    }   
+  }
+  let pyodideReadyPromise = loadPyodideAndPackages();
+
+  // This script won't be parsed by JS engines because its type is javascript/worker.
+  self.onmessage = async function(e) {
+    self.postMessage({'data': "Loading Python...", 'out_type': "SYS", 'running': true});
+    let pyodide = await pyodideReadyPromise;
+    self.postMessage({'data': "Python Load Complete", 'out_type': "SYS", 'running': true});
+    try {
+        let output = await self.pyodide.runPythonAsync(e.data);
+        self.postMessage({'data': '------ FINISHED ------', 'out_type': "SYS", 'running': false});
+    } catch(err) {
+        self.postMessage({'data': err.toString(), 'out_type': "ERR", 'running': false});
+    }
+  };
+  // Rest of your worker code goes here.
+</script>
+
+<script>
+function activate(global_id, activate_ids, button_element) {
+  // activate clicked button
+  const button_holder = button_element.parentElement;
+  for (let i = 0; i < button_holder.children.length; i++)
+    button_holder.children[i].classList.remove("active");
+  button_element.classList.add("active");
+  // show corresponding plot
+  const plots_holder = document.getElementById(global_id);
+  for (let i = 0; i < plots_holder.children.length; i++)
+    plots_holder.children[i].style.display = 'none';
+  for (let i = 0; i < activate_ids.length; i++)
+    document.getElementById(activate_ids[i]).style.display = 'block';
+}
+</script>
+
+<script type="text/javascript">
+
+function evaluate_python() {
+    if (worker == undefined)
+        worker = revive_worker();
+    worker.postMessage(editors[0].getValue());
+}
+
+function stop_python() {
+    if (worker != undefined)
+        worker.terminate();
+    worker = undefined;
+}
+
+function worker_message(s) {
+    let add_to_console = s['data']['data'];
+    let output_type    = s['data']['out_type'];
+    let is_running     = s['data']['running'];
+    
+    let btn = document.getElementById('run_btn');
+    btn.innerHTML = is_running ? 'STOP' : 'RUN';
+    btn.onclick   = is_running ? stop_python : evaluate_python;
+
+    let output = document.getElementById('console_1');
+    let colors = {'SYS': '<b style="color:blue">', 
+                  'PRT': '<b style="color:black">', 
+                  'ERR': '<b style="color:red">',
+                  'HTM': '<b style="color:green">'};
+    if (output_type != 'HTM') {
+        add_to_console = add_to_console.replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('\n', '<br>');
+    }
+    output.innerHTML += colors[output_type] + output_type + "></b>"
+                     +  add_to_console + '<br>\n';
+}
+
+function revive_worker() {
+    var blob = new Blob([document.querySelector('#pyodide_worker').textContent], { type: "text/javascript" })
+    // Note: window.webkitURL.createObjectURL() in Chrome 10+.
+    var worker = new Worker(window.URL.createObjectURL(blob));
+    worker.onmessage = worker_message;
+    return worker;  
+}
+var worker = undefined;
+
+function clean(console) {
+    console.innerHTML = "";
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+
+
+<div class="main">
+
+<div class="tab">
+  <button style="position:absolute" id="run_btn" onclick="evaluate_python();">RUN</button>
+  <button style="position:relative; margin-left: 45%;" class="active" onclick="activate('outputs_1', ['console_1', 'clean_btn'], this);">Console</button>
+  <!--<button onclick="activate('outputs_1', 'pendulum_1', this);">Pendulum 3D</button>
+  <button onclick="activate('outputs_1', 'plot_1', this);">Plots</button>-->
+</div>
+
+<div class="code">
+<textarea class="code" id="problem_1_code">
+
+print("========== TEST SIMPLE PYTHON =============")
+
+for i in range(10):
+    print(i)
+
+print("========== TEST NUMPY VISUALIZATION =============")
+
+import numpy as np
+arr = np.array([[1,2,3], [4,5,6]])
+visualize_array(arr)
+
+print("========== TEST TABLES VISUALIZATION =============")
+import pandas as pd
+
+data = {
+'animal': ['cat', 'cat', 'snake', 'dog', 'dog', 'cat', 'snake',  'cat', 'dog', 'dog'],
+'age': [2.5, 3, 0.5, np.nan, 5, 2, 4.5, np.nan, 7, 3],
+'visits': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+'priority': ['yes', 'yes', 'no', 'yes', 'no', 'no', 'no', 'yes', 'no', 'no']
+}
+labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+
+df = pd.DataFrame(data, index=labels)
+visualize_pandas(df, ordering=True)
+
+print("========== TEST MATPLOTLIB VISUALIZATION =============")
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+ax = plt.axes(projection='3d')
+
+# Data for a three-dimensional line
+zline = np.linspace(0, 15, 1000)
+xline = np.sin(zline)
+yline = np.cos(zline)
+ax.plot3D(xline, yline, zline, 'gray')
+
+# Data for three-dimensional scattered points
+zdata = 15 * np.random.random(100)
+xdata = np.sin(zdata) + 0.1 * np.random.randn(100)
+ydata = np.cos(zdata) + 0.1 * np.random.randn(100)
+ax.scatter3D(xdata, ydata, zdata, c=zdata, cmap='Greens');
+
+plt.show()
+
+print("========== TEST PLOTLY VISUALIZATION =============")
+
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import numpy as np
+
+def rosen_3d(x, y):
+    return (1-x)**2+100*(y-x**2)**2
+
+def rosen_flat(x, y):
+    return np.log(rosen_3d(x, y)*100.0 + 1.0)
+
+def rastrigin(x, y):
+    x *= 5
+    y *= 5
+    return 20.0 + x**2 + y**2 - 10 * np.cos(2 * np.pi * x) - 10 * np.cos(2* np.pi * y)
+
+def saddle(x, y):
+    y -= 0.5
+    return x**2 - y**2
+
+def himmelblau(x, y):
+    x *= 6.0
+    y = (y - 0.5) * 6.0
+    return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+
+def himmelblau_flat(x, y):
+    x *= 6.0
+    y = (y - 0.5) * 6.0
+    return np.log((x**2 + y - 11)**2 + (x + y**2 - 7)**2 + 1.0)
+
+fig = make_subplots(rows=1, cols=2, specs=[[{"type": "scene"}, {"type": "xy"}]])
+
+_x = np.linspace(-1.0, 1.2, num=200)
+_y = np.linspace(-0.5, 1.5, num=200)
+
+_z = np.array([[rosen_3d(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Surface(x=_x, y=_y, z=_z, opacity=1.0, showscale=False), row=1, col=1)
+_z = np.array([[rosen_flat(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Contour(x=_x, y=_y, z=_z, contours=dict(showlabels=False)), row=1, col=2)
+
+_z = np.array([[rastrigin(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Surface(x=_x, y=_y, z=_z, opacity=1.0, showscale=False, visible=False), row=1, col=1)
+#_z = np.array([[rastrigin(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Contour(x=_x, y=_y, z=_z, contours=dict(showlabels=False), visible=False), row=1, col=2)
+
+_z = np.array([[saddle(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Surface(x=_x, y=_y, z=_z, opacity=1.0, showscale=False, visible=False), row=1, col=1)
+#_z = np.array([[saddle(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Contour(x=_x, y=_y, z=_z, contours=dict(showlabels=False), visible=False), row=1, col=2)
+
+_z = np.array([[himmelblau(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Surface(x=_x, y=_y, z=_z, opacity=1.0, showscale=False, visible=False), row=1, col=1)
+_z = np.array([[himmelblau_flat(X, Y) for X in _x] for Y in _y], dtype=float)
+fig.add_trace(go.Contour(x=_x, y=_y, z=_z, contours=dict(showlabels=False), visible=False), row=1, col=2)
+
+
+fig.update_layout(width=600, height=300, autosize=False, title_text="Function pathologies",
+                  scene=dict(aspectratio = dict(x=1, y=1, z=1)),
+                  showlegend=False,
+                  updatemenus = [{'type': 'buttons', 'buttons': [
+                      {'label': 'Long valley (Rosenbrock)', 'method': 'update',
+                       'args': [{'visible' : [True, True, False, False, False, False, False, False]}]},
+                      {'label': 'Oscillatory (Rastrigin)', 'method': 'update',
+                       'args': [{'visible' : [False, False, True, True, False, False, False, False]}]},
+                      {'label': 'Saddle Point', 'method': 'update',
+                       'args': [{'visible' : [False, False, False, False, True, True, False, False]}]}, 
+                      {'label': "Shallow (Himmelblau)", 'method': 'update',
+                       'args': [{'visible' : [False, False, False, False, False, False, True, True]}]}
+                 ]}])
+fig.show()
+</textarea>
+</div>
+
+<div id="outputs_1" class="out_container">
+  <div id="console_1" style="display:block; position:relative; overflow:auto; width:100%; height:100%">
+  </div>
+  <button id="clean_btn" style="position:absolute; bottom:0px; right:0px;" onclick="clean(console_1);">clear</button>
+
+  <!--<div id="pendulum_1" class="out_container" style="display:none"></div>
+  <div id="plot_1"     class="out_container" style="display:none"></div>-->
+</div>
+
+</div>
+
+
+<script>
+
+function get_editors()
+{
+  var editors = document.getElementsByTagName("textarea");
+  var result = {};
+  for (let i = 0; i < editors.length; i++)
+    if (editors[i].classList.contains("code"))
+    {
+      result[i] = CodeMirror.fromTextArea(editors[i], {
+        mode: {name: "python",
+               version: 2,
+               singleLineStringErrors: false},
+        lineNumbers: true,
+        indentUnit: 4,
+        matchBrackets: true,
+        lineWrapping: true,
+        indentWithTabs: false
+        /*extraKeys: {
+            "Tab": function(cm){
+              cm.replaceSelection("   " , "end");
+            }
+           }*/
+      });
+      result[i].setSize(null, getComputedStyle(editors[i])['height']);
+      editors[i].value = i;
+    }
+    return result;
+}
+//window.languagePluginUrl = "/pyodide.js";
+var editors = get_editors();
+// -----------
+
+</script>
+
+</body>
+
+</html>
