@@ -11,8 +11,6 @@ Every Friday, 10:00 <br>
 ### Tools of ML
 
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 1.  **Introduction**
 
   - Lecture
@@ -27,6 +25,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=fme_nIv6Z-s)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Python**
 
