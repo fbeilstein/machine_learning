@@ -25,7 +25,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=fme_nIv6Z-s)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Python**
 
@@ -45,6 +44,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Bx_TLOqSMbo)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **NumPy Arrays**
 
