@@ -74,7 +74,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=2umiVugC6qM)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **MatPlotLib**
 
@@ -99,6 +98,7 @@ Every Friday, 10:00 <br>
 
 ### Methods of ML
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Mathematical optimization**
   - Lecture
