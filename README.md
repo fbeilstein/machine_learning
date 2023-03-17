@@ -98,8 +98,6 @@ Every Friday, 10:00 <br>
 
 ### Methods of ML
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 1.  **Mathematical optimization**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_06_optimization.ipynb)
@@ -120,6 +118,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
