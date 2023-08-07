@@ -644,7 +644,8 @@ input[type=radio] {
         for (var i = 0; i < y_splits.length; ++i) {
             node.split = [null, y_splits[i]];
             let params = node.get_params_by_split();
-            if (node.d_gini > max_d_gini) {
+            console.log(params);
+            if (params["d_gini"] > max_d_gini) {
                 max_d_gini = params["d_gini"];
                 split_max  = node.split;
             }
