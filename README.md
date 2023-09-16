@@ -22,7 +22,7 @@ Every Friday, 10:00 <br>
     -  [[BLOG] ML in simple words (EN)](https://vas3k.com/blog/machine_learning/)
     -  [[WEB SERVICE] Hackerrank (Minimal requirements)](https://www.hackerrank.com/domains/python?filters%5Bsubdomains%5D%5B%5D=py-basic-data-types&filters%5Bsubdomains%5D%5B%5D=py-sets&filters%5Bsubdomains%5D%5B%5D=py-collections&filters%5Bsubdomains%5D%5B%5D=py-introduction&filters%5Bsubdomains%5D%5B%5D=py-built-ins)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=MxZULf38HRU)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=fme_nIv6Z-s)
 
 
