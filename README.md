@@ -41,10 +41,8 @@ Every Friday, 10:00 <br>
     -  [[PRESENTATIONS] Workbook from M.Lutz](https://learning-python.com/class/Workbook/)
     -  [[GITHUB REPOSITORY] Design Patterns (advanced topic)](https://github.com/faif/python-patterns)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=_IBdjLg-W6I)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Bx_TLOqSMbo)
-
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **NumPy Arrays**
 
@@ -58,7 +56,8 @@ Every Friday, 10:00 <br>
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=AOP9WjKHN-Y)
-    
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
 
 4.  **Pandas**
 
