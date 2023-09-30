@@ -54,7 +54,7 @@ Every Friday, 10:00 <br>
     -  [[OFFICIAL DOCUMENTATION] NumPy and SciPy](https://docs.scipy.org/doc/)
     -  [[HABR] NumPy](https://habr.com/ru/post/352678/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=jJGiC_ccPg8) 
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=AOP9WjKHN-Y)
 
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>    
