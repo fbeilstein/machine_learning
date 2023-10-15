@@ -86,7 +86,7 @@ Every Friday, 10:00 <br>
     -  [[ARTICLE] Ten Simple Rules for Better Figures](https://hal.inria.fr/hal-01063732/document)
     -  [[OFFICIAL DOCUMENTATION] Basemap Documentation](https://matplotlib.org/basemap/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=LkY3qyhq6Q8)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=pCB2rOBBPyI)
 
 <hr />
@@ -97,7 +97,6 @@ Every Friday, 10:00 <br>
 
 ### Methods of ML
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Mathematical optimization**
   - Lecture
@@ -119,6 +118,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
