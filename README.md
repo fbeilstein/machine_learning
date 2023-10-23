@@ -115,10 +115,9 @@ Every Friday, 10:00 <br>
     - [[ARTICLE] Newton's method overview](http://www.isa.ru/proceedings/images/documents/2006-28/44-62.pdf) 
     - [[VIDEO] Newton's Fractal](https://www.youtube.com/watch?v=-RdOwhmqP5s)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=HNrAjs6QqiY)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
@@ -137,6 +136,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=H0NdSLwssMw)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **Statistics**
   - Lecture
