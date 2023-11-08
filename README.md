@@ -133,10 +133,9 @@ Every Friday, 10:00 <br>
     -  [[ARTICLE] Understanding Gaussian Classifier](https://medium.com/swlh/understanding-gaussian-classifier-6c9f3452358f)
     -  [[VIDEO] Naive Bayes classifier: A friendly approach](https://www.youtube.com/watch?v=Q8l0Vip5YUw)      
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=46ev3LdbDZ4)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=H0NdSLwssMw)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **Statistics**
   - Lecture
@@ -169,6 +168,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **Support Vector Machines**
   - Lecture
