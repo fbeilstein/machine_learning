@@ -146,7 +146,7 @@ Every Friday, 10:00 <br>
     -  [[HABR] How To Lie With Statistics](https://habr.com/ru/post/217545/)
     -  [[ARTICLE] Howard Wainer, How to Display Data Badly, The American Statistician (1984)](http://www.wisdom.weizmann.ac.il/~zvika/course2015/announcements/WainerAmericanStatistician1984.pdf)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=ZVz-M-QwJsc)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=vuHjbustZYs)
 
 
@@ -168,7 +168,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **Support Vector Machines**
   - Lecture
@@ -184,6 +183,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 6.  **Decision Trees and Random Forests**
   - Lecture
