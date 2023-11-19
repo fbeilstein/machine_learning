@@ -165,7 +165,7 @@ Every Friday, 10:00 <br>
     - [[LECTURE NOTES] Eberly College of Science lecture notes](https://newonlinecourses.science.psu.edu/stat508/lesson/5/5.4)
     - [[INTERACTIVE] Ordinary Least Squares Regression ](http://setosa.io/ev/ordinary-least-squares-regression/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=MIfdv6VFLbo)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
 
@@ -182,8 +182,6 @@ Every Friday, 10:00 <br>
   - Video
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
-
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 6.  **Decision Trees and Random Forests**
   - Lecture
@@ -206,6 +204,7 @@ Every Friday, 10:00 <br>
 
 <hr />
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 7.  **Principal Component Analysis**
   - Lecture
