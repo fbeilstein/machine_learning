@@ -69,7 +69,7 @@
      var data = [{
            x: pts_x,
            y: pts_y,
-           name: 'sampled points',
+           name: 'sampled<br>points',
            type: 'scatter',
            mode: 'markers',
            marker: {
@@ -80,7 +80,7 @@
         },{
            x: [mu_x - lambda * sig_xx, mu_x + lambda * sig_xx],
            y: [mu_y - lambda * sig_xy, mu_y + lambda * sig_xy],
-           name: 'regression line',
+           name: 'regression<br>line',
            type: 'scatter',
            mode: 'lines',
            marker: {
@@ -96,8 +96,8 @@
           autosize: false,
           xaxis: {'domain': [0.0, 1.0], 'range': [min_x, max_x], 'fixedrange': true},
           yaxis: {'domain': [0.0, 1.0], 'range': [min_y, max_y], 'fixedrange': true},
-          width: 400,
-          height: 400,
+          width: 600,
+          height: 600,
           showlegend: true,
           margin: {l: 50, r: 50, b: 50, t: 50}
         };
@@ -150,7 +150,7 @@
             x: [k_opt],
             y: [b_opt],
             z: [e_opt], 
-            name: 'best<br> approximation',
+            name: 'best<br>approximation',
             mode: 'markers',
             marker: {
               size: 12,
@@ -164,7 +164,7 @@
           x: [0],
           y: [0],
           z: [error_by_kb(0.0, 0.0)], 
-          name: 'test<br> approximation',
+          name: 'test<br>approximation',
           mode: 'markers',
           marker: {
             size: 12,
@@ -180,8 +180,8 @@
               xaxis: {title: 'k'},
               yaxis: {title: 'b'},
               autosize: false,
-              width: 400,
-              height: 400
+              width: 600,
+              height: 600
             },
             showlegend: true,
             margin: {l: 50, r: 50, b: 50, t: 50}
@@ -200,7 +200,7 @@
           x: [k],
           y: [b],
           z: [error_by_kb(k, b)], 
-          name: 'test<br> approximation',
+          name: 'test<br>approximation',
           mode: 'markers',
           marker: {
             size: 12,
@@ -245,7 +245,7 @@
           data.push({
             x: [k_opt],
             y: [b_opt],
-            name: 'best<br> approximation',
+            name: 'best<br>approximation',
             mode: 'markers',
             marker: {
               size: 12,
@@ -258,7 +258,7 @@
         data.push({
           x: [0],
           y: [0],
-          name: 'test<br> approximation',
+          name: 'test<br>approximation',
           mode: 'markers',
           marker: {
             size: 12,
@@ -272,8 +272,8 @@
             title: 'Error Function',
             xaxis: {'domain': [0.0, 1.0], 'range': [k_min, k_max], 'fixedrange': true},
             yaxis: {'domain': [0.0, 1.0], 'range': [b_min, b_max], 'fixedrange': true},
-            width: 400,
-            height: 400,
+            width: 600,
+            height: 600,
             showlegend: true,
             margin: {l: 50, r: 50, b: 50, t: 50}
           };
@@ -290,7 +290,7 @@
       var data = [{
           x: [k],
           y: [b],
-          name: 'test<br> approximation',
+          name: 'test<br>approximation',
           mode: 'markers',
           marker: {
             size: 12,
@@ -547,8 +547,8 @@
     </tr>
   </table>
 
-  <div id="for_left_plot" style="position:absolute; top:50px; left:0px; height:400px; width:400px;"> </div>
-  <div id="for_right_plot" style="position:absolute; top:50px; left:400px; height:400px; width:400px;"> </div>
+  <div id="for_left_plot" style="position:absolute; top:50px; left:0px; height:600px; width:600px;"> </div>
+  <div id="for_right_plot" style="position:absolute; top:50px; left:600px; height:600px; width:600px;"> </div>
 </div>
 </body>
 
