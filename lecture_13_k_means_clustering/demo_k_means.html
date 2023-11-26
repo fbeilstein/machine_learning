@@ -1,0 +1,1142 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="application/javascript">
+
+var active_pt = null;
+var all_pts = [];
+var ptR = 10.0;
+var params = null;
+var debug_txt = "";
+var bg_image = new Image();
+
+function is_close(pt1, pt2) {
+  return (pt1[0] - pt2[0]) * (pt1[0] - pt2[0]) +
+    (pt1[1] - pt2[1]) * (pt1[1] - pt2[1]) <=
+    ptR * ptR;
+}
+
+function circ(ctx, pos) {
+  ctx.beginPath();
+  if (pos[2] == 0) {
+    ctx.fillStyle = 'rgba(128, 128, 128, 0.5)';
+    ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
+    ctx.fill();
+  } else {
+    ctx.fillStyle = 'rgba(128, 128, 128, 0.5)';
+    ctx.fillRect(pos[0] - ptR, pos[1] - ptR, 2 * ptR, 2 * ptR);
+    //ctx.fillStyle = 'rgba(128, 0, 0, 1.0)';
+    //ctx.fillRect(pos[3] - ptR / 2, pos[4] - ptR / 2, ptR, ptR);
+    //ctx.fillRect(pos[5] - ptR / 2, pos[6] - ptR / 2, ptR, ptR);
+    //ctx.fillStyle = 'rgba(128, 0, 0, 0.1)';
+    //var rx = Math.sqrt((pos[4] - pos[1]) * (pos[4] - pos[1]) + (pos[3] - pos[0]) * (pos[3] - pos[0]));
+    //var ry = Math.sqrt((pos[6] - pos[1]) * (pos[6] - pos[1]) + (pos[5] - pos[0]) * (pos[5] - pos[0]));
+    //ctx.ellipse(pos[0], pos[1], rx, ry, Math.atan2(pos[4] - pos[1], pos[3] - pos[0]), 0, Math.PI * 2.0);
+    //ctx.fill();
+  }
+}
+
+
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+    ctx.drawImage(bg_image, 0, 0, 600, 600);
+    ctx.strokeRect(0, 0, 600, 600); // field
+
+    ctx.font = '20px serif';
+    ctx.fillStyle = 'black';
+    ctx.fillText(debug_txt, 200, 200);
+
+    if (active_pt) {
+      circ(ctx, active_pt);
+    }
+    all_pts.forEach(function(item, index) {
+      circ(ctx, item);
+    });
+
+  }
+}
+
+var timer
+
+function get_state() {
+  var rates = document.getElementsByName('rate');
+  for (var i = 0; i < rates.length; i++)
+    if (rates[i].checked)
+      return rates[i].value;
+  return "none";
+}
+
+
+function mdown_handle(evt) {
+  evt.stopPropagation();
+  x = evt.offsetX;
+  y = evt.offsetY;
+  state = get_state();
+  if (state == "add") {
+    if (x < 600)
+      all_pts.push([x, y, 0]);
+    return;
+  }
+  if (state == "addC") {
+    if (x < 600)
+      all_pts.push([x, y, 1, x + 20, y, x, y + 20, 0]);
+    return;
+  }
+
+  idx = -1;
+  all_pts.forEach(function(item, index) {
+    if (is_close([x, y], [item[0], item[1]])) {
+      idx = index;
+      if (item[2] == 1)
+        item[7] = 0;
+    }
+    /*if (item[2] == 1 && is_close([x, y], [item[3], item[4]])) {
+      item[7] = 1;
+      idx = index;
+    }
+    if (item[2] == 1 && is_close([x, y], [item[5], item[6]])) {
+      item[7] = 2;
+      idx = index;
+    }*/
+  });
+  if (idx <= -1)
+    return;
+  if (state == "move") {
+    active_pt = all_pts[idx];
+    all_pts.splice(idx, 1);
+  }
+  if (state == "del")
+    all_pts.splice(idx, 1);
+}
+
+function mmove_handle(evt) {
+  evt.stopPropagation();
+  if (get_state() != "move")
+    return;
+  x = evt.offsetX;
+  y = evt.offsetY;
+  if (active_pt) {
+    if (active_pt[2] == 0) {
+      active_pt[0] = x;
+      active_pt[1] = y;
+    }
+    if (active_pt[2] == 1) {
+      if (active_pt[7] == 0) {
+        active_pt[3] += x - active_pt[0];
+        active_pt[4] += y - active_pt[1];
+        active_pt[5] += x - active_pt[0];
+        active_pt[6] += y - active_pt[1];
+        active_pt[0] = x;
+        active_pt[1] = y;
+      }
+      /*if (active_pt[7] == 1) {
+        active_pt[3] = x;
+        active_pt[4] = y;
+        var v_x = active_pt[3] - active_pt[0];
+        var v_y = active_pt[4] - active_pt[1];
+        var r = Math.sqrt(v_x * v_x + v_y * v_y);
+        var u_x = active_pt[5] - active_pt[0];
+        var u_y = active_pt[6] - active_pt[1];
+        var R = Math.sqrt(u_x * u_x + u_y * u_y);
+        active_pt[5] = active_pt[0] - v_y / r * R;
+        active_pt[6] = active_pt[1] + v_x / r * R;
+      }
+      if (active_pt[7] == 2) {
+        active_pt[5] = x;
+        active_pt[6] = y;
+        var v_x = active_pt[3] - active_pt[0];
+        var v_y = active_pt[4] - active_pt[1];
+        var r = Math.sqrt(v_x * v_x + v_y * v_y);
+        var u_x = active_pt[5] - active_pt[0];
+        var u_y = active_pt[6] - active_pt[1];
+        var R = Math.sqrt(u_x * u_x + u_y * u_y);
+        active_pt[3] = active_pt[0] + u_y / R * r;
+        active_pt[4] = active_pt[1] - u_x / R * r;
+      }*/
+    }
+
+  }
+}
+
+function mup_handle(evt) {
+  evt.stopPropagation();
+  x = evt.offsetX;
+  y = evt.offsetY;
+  if (x >= 600) {
+    active_pt = null;
+  }
+  if (active_pt) {
+    all_pts.push(active_pt);
+    active_pt = null;
+  }
+}
+
+function clear_field() {
+  active_pt = null;
+  all_pts = [];
+}
+
+function clr_float(num, total) {
+  return total <= 1 ? 0.5 : num / (total - 1);
+}
+
+function interpolate_viridis_color(value) {
+    // Define the Viridis colorscale as an array of RGB values
+    const viridisColors = [
+        [68, 1, 84],
+        [72, 35, 116],
+        [64, 67, 135],
+        [52, 94, 141],
+        [41, 120, 142],
+        [32, 144, 140],
+        [34, 167, 132],
+        [68, 190, 112],
+        [121, 209, 81],
+        [189, 222, 38],
+        [253, 231, 36],
+    ];
+    if (value === 1) {
+      return `rgb(${viridisColors[viridisColors.length - 1].join(',')})`;
+    }
+    // Calculate the index in the colorscale array based on the value
+    const index = Math.floor(value * (viridisColors.length - 1));
+
+    // Interpolate between two neighboring colors based on the index
+    const color1 = viridisColors[index];
+    const color2 = viridisColors[index + 1];
+    const t = (value - (index / (viridisColors.length - 1))) * (viridisColors.length - 1);
+
+    // Interpolate the RGB components
+    const interpolatedColor = color1.map((c, i) => Math.round(c + t * (color2[i] - c)));
+
+    // Return the RGB color as a string
+    return `rgb(${interpolatedColor.join(',')})`;
+}
+
+
+function mul(M1,M2) {
+  return [[M1[0][0]*M2[0][0]+M1[0][1]*M2[1][0], M1[0][0]*M2[0][1]+M1[0][1]*M2[1][1]],
+          [M1[1][0]*M2[0][0]+M1[1][1]*M2[1][0], M1[1][0]*M2[0][1]+M1[1][1]*M2[1][1]]];
+}
+function trans(M) {
+  return [[M[0][0],M[1][0]],[M[0][1],M[1][1]]]
+}
+function svd_for_2x2(v) {
+  const vvT = mul(v, trans(v));
+  const phi = 0.5 * Math.atan2(vvT[0][1]+vvT[1][0], vvT[0][0]-vvT[1][1]);
+  const U = [[Math.cos(phi), -Math.sin(phi)], [Math.sin(phi), Math.cos(phi)]]
+  const vTv = mul(trans(v), v);
+  const theta = 0.5 * Math.atan2(vTv[0][1]+vTv[1][0], vTv[0][0]-vTv[1][1]);
+  const W = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+  const dsum = vvT[0][0] + vvT[1][1];
+  const disc = Math.sqrt((vvT[0][0] - vvT[1][1])*(vvT[0][0] - vvT[1][1]) + 4*vvT[0][1]*vvT[1][0]);
+  const S = [Math.sqrt((dsum+disc)/2), Math.sqrt((dsum-disc)/2)];
+  const temp = mul(trans(U), mul(v,W));
+  const V = mul(W,[[Math.sign(temp[0][0]), 0],[0, Math.sign(temp[1][1])]]);
+  return[U, S, trans(V)];
+}
+
+
+function params_by_history(labels, centers_history, covs_history, X) {
+  let N = [...new Set(labels.flat())].length;
+  let colors = [];
+  for (let i = 0; i < N; i++)
+    colors.push(interpolate_viridis_color(clr_float(i, N)));
+
+  conns_x = [];
+  conns_y = [];
+  for (let frame = 0; frame < centers_history.length; frame++) {
+    let centers = centers_history[frame];
+    let L = labels[frame];
+    let c_x = [];
+    let c_y = [];
+    for (let idx = 0; idx < X.length; idx++) {
+      c_x.push(X[idx][0]); c_x.push(centers[L[idx]][0]); c_x.push(null);
+      c_y.push(X[idx][1]); c_y.push(centers[L[idx]][1]); c_y.push(null);
+    }
+    conns_x.push(c_x);
+    conns_y.push(c_y);
+  }
+
+  let ctr_x = [];
+  let ctr_y = [];
+  for (let frame = 0; frame < centers_history.length; frame++) {
+    frame_x = [];
+    frame_y = [];
+    for (let c_idx = 0; c_idx < centers_history[frame].length;  c_idx++) {
+      frame_x.push(centers_history[frame][c_idx][0]);
+      frame_y.push(centers_history[frame][c_idx][1]);
+    }
+    ctr_x.push(frame_x);
+    ctr_y.push(frame_y);
+  }
+
+  let pt_colors = [];
+  for (let frame = 0; frame < labels.length; frame++) {
+    let frame_colors = [];
+    for (let c_idx = 0; c_idx < labels[frame].length; c_idx++) {
+      frame_colors.push(colors[labels[frame][c_idx]]);
+    }
+    pt_colors.push(frame_colors);
+  }
+  //console.log(pt_colors);
+
+  const p_x = X.map(item => item[0]);
+  const p_y = X.map(item => item[1]);
+
+  let steps_data = [];
+  let frame_data = [];
+  let idx_s = []
+  for (var k = 0; k < labels.length; k++) {
+    steps_data.push({
+      'args': [
+        [k], {
+          'frame': {
+            'duration': 500.0,
+            'easing': 'linear',
+            'redraw': true
+          },
+          'transition': {
+            'duration': 0,
+            'easing': 'linear'
+          },
+          'fromcurrent': false
+        }
+      ],
+      'label': k,
+      'method': 'animate'
+    });
+    idx_s.push(k);
+    frame_data.push({
+      'name': k,
+      'data': [{
+          'type': 'scatter',
+          'name': 's2',
+          'x': p_x,
+          'y': p_y,
+          'mode': 'markers',
+          'marker': {
+            'size': 4,
+            'color': pt_colors[k],
+          }
+        },
+        {
+          'type': 'scatter',
+          'name': 's2',
+          'x': ctr_x[k],
+          'y': ctr_y[k],
+          'mode': 'markers',
+          'marker': {
+            'size': 15,
+            'color': colors
+          }
+        },
+        {
+          'type': 'scatter',
+          'name': 's2',
+          'x': conns_x[k],
+          'y': conns_y[k],
+          'mode': 'lines',
+          'line': {
+            'color': 'rgb(0,0,0)',
+            'width': 1
+          },
+          'opacity': 0.2
+        }
+      ], // data
+      'layout': {
+      } // layout
+    });
+  }
+  let just_data = [{
+      'type': 'scatter',
+      'name': 's2',
+      'x': p_x,
+      'y': p_y,
+      'mode': 'markers',
+      'marker': {
+        'size': 4,
+        'color': pt_colors[0],
+      }
+    },
+    {
+      'type': 'scatter',
+      'name': 's2',
+      'x': ctr_x[0],
+      'y': ctr_y[0],
+      'mode': 'markers',
+      'marker': {
+        'size': 15,
+        'color': colors,
+        'symbol': 'square'
+      }
+    },
+    {
+      'type': 'scatter',
+      'name': 's2',
+      'x': conns_x[0],
+      'y': conns_y[0],
+      'mode': 'lines',
+      'line': {
+        'color': 'rgb(0,0,0)',
+        'width': 1
+      },
+      'opacity': 0.2
+    }
+  ];
+
+  var layout = {
+    width: 600,
+    height: 600,
+    autosize: false,
+    showlegend: false,
+    xaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    yaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    title: 'Simplest GMM, 2D view',
+    margin: {
+      't': 50,
+      'b': 50,
+      'l': 50,
+      'r': 50
+    },
+    updatemenus: [{
+      'buttons': [{
+          'args': [idx_s,
+            {
+              'frame': {
+                'duration': 500.0,
+                'redraw': true
+              },
+              'fromcurrent': false,
+              'transition': {
+                'duration': 0,
+                'easing': 'linear'
+              }
+            }
+          ],
+          'label': 'Play',
+          'method': 'animate'
+        },
+        {
+          'args': [
+            [null], {
+              'frame': {
+                'duration': 0,
+                'redraw': true
+              },
+              'mode': 'immediate',
+              'transition': {
+                'duration': 0
+              }
+            }
+          ],
+          'label': 'Pause',
+          'method': 'animate'
+        }
+      ],
+      'direction': 'left',
+      'pad': {
+        'r': 10,
+        't': 85
+      },
+      'showactive': true,
+      'type': 'buttons',
+      'x': 0.1,
+      'y': 0,
+      'xanchor': 'right',
+      'yanchor': 'top'
+    }],
+    sliders: [{
+      'yanchor': 'top',
+      'xanchor': 'left',
+      'currentvalue': {
+        'font': {
+          'size': 16
+        },
+        'prefix': 'Step: ',
+        'visible': true,
+        'xanchor': 'right'
+      },
+      'transition': {
+        'duration': 0.0
+      },
+      'pad': {
+        'b': 10,
+        't': 50
+      },
+      'len': 0.9,
+      'x': 0.1,
+      'y': 0,
+      'steps': steps_data
+    }],
+    //shape here
+  };
+
+return {
+    data: just_data,
+    frames: frame_data,
+    layout: layout}
+}
+
+function plot_2d_by_data(data, frames, layout) {
+  cell_for_plot = document.getElementById('for_plotly_plot');
+  Plotly.newPlot(cell_for_plot, {
+    data: data,
+    frames: frames,
+    layout: layout
+  });
+}
+
+function gaussian(x, y, centers, covs, w) {
+  const N = centers.length;
+  let g_max = 0.0;
+  let G = 0.0;
+  let C = 0;
+  for (let f = 0; f < N; f++) {
+    const dx = x - centers[f][0];
+    const dy = y - centers[f][1];
+    const det = covs[f][0][0] * covs[f][1][1] - covs[f][1][0] * covs[f][0][1];
+    const e = (dx*dx*covs[f][1][1] - dx*dy*(covs[f][1][0] + covs[f][0][1]) + dy*dy*covs[f][0][0]) / det;
+    const g = w[f] * Math.exp(-0.5 * e) / Math.sqrt(det) / 2.0 / Math.PI;
+    if (g > g_max) {
+      g_max = g;
+      C = f;
+    }
+    G += g;
+  }
+return [G, C];
+}
+
+function create_surfaces(centers_h) {
+  const xy_min = -1.0;
+  const xy_max = 1.0;
+  const pts_num = 200;
+  const xy_grid = Array.from({ length: pts_num + 1 }, (_, index) => xy_min + index * (xy_max - xy_min) / pts_num);
+  const F = centers_h.length;
+  let surfaces = [];
+  let colors = [];
+  for (let frame = 0; frame < F; frame++) {
+    let surface = [];
+    let color = [];
+    for (let yind = 0; yind < pts_num; yind++) {
+      let surf_row = [];
+      let col_row = [];
+      for (let xind = 0; xind < pts_num;  xind++) {
+        let covs = new Array(centers_h[frame].length).fill([[0.1, 0.0], [0.0, 0.1]]);
+        let ws = new Array(centers_h[frame].length).fill(1.0);
+        let [G,C] = gaussian(xy_grid[xind], xy_grid[yind], centers_h[frame], covs, ws);
+        surf_row.push(G);
+        col_row.push(C);
+      }
+      surface.push(surf_row);
+      color.push(col_row);
+    }
+    surfaces.push(surface);
+    colors.push(color);
+  }
+  return [surfaces, colors, xy_grid];
+}
+
+function plot_3d_history(labels, centers_h, X) {
+  let N = [...new Set(labels.flat())].length;
+  let colors = [];
+  for (let i = 0; i < N; i++)
+    colors.push(interpolate_viridis_color(clr_float(i, N)));
+  let ctr_z = [];
+  for (let i = 0; i < N; i++)
+    ctr_z.push(0.0);
+
+  conns_x = [];
+  conns_y = [];
+  conns_z = [];
+  for (let frame = 0; frame < centers_h.length; frame++) {
+    let centers = centers_h[frame];
+    let L = labels[frame];
+    let c_x = [];
+    let c_y = [];
+    let c_z = [];
+    for (let idx = 0; idx < X.length; idx++) {
+      c_x.push(X[idx][0]); c_x.push(centers[L[idx]][0]); c_x.push(null);
+      c_y.push(X[idx][1]); c_y.push(centers[L[idx]][1]); c_y.push(null);
+      c_z.push(0.0);       c_z.push(0.0);                c_z.push(null);
+    }
+    conns_x.push(c_x);
+    conns_y.push(c_y);
+    conns_z.push(c_z);
+  }
+
+  let [surfaces, scolors, xypts] = create_surfaces(centers_h);
+
+  let ctr_x = [];
+  let ctr_y = [];
+  for (let frame = 0; frame < centers_h.length; frame++) {
+    frame_x = [];
+    frame_y = [];
+    frame_z = [];
+    for (let c_idx = 0; c_idx < centers_h[frame].length;  c_idx++) {
+      frame_x.push(centers_h[frame][c_idx][0]);
+      frame_y.push(centers_h[frame][c_idx][1]);
+      frame_z.push(0.0);
+    }
+    ctr_x.push(frame_x);
+    ctr_y.push(frame_y);
+  }
+
+  const p_x = X.map(item => item[0]);
+  const p_y = X.map(item => item[1]);
+  const p_z = X.map(item => 0.0);
+
+  let cell_for_plot = document.getElementById('for_plotly_3d_plot');
+  let steps_data = [];
+  let frame_data = [];
+  let idx_s = []
+  for (var k = 0; k < labels.length; k++) {
+    steps_data.push({
+      'args': [
+        [k], {
+          'frame': {
+            'duration': 500.0,
+            'easing': 'linear',
+            'redraw': true
+          },
+          'transition': {
+            'duration': 0,
+            'easing': 'linear'
+          },
+          'fromcurrent': false
+        }
+      ],
+      'label': k,
+      'method': 'animate'
+    });
+    idx_s.push(k);
+
+    frame_data.push({
+      'name': k,
+      'data': [{
+          'type': 'scatter3d',
+          'name': 's2',
+          'x': p_x,
+          'y': p_y,
+          'z': p_z,
+          'mode': 'markers',
+          'colorscale': 'Viridis',
+          'marker': {
+            'size': 4,
+            'color': labels[k],
+            'colorscale': 'Viridis'
+          }
+        },
+        {
+          'type': 'scatter3d',
+          'name': 's2',
+          'x': ctr_x[k],
+          'y': ctr_y[k],
+          'z': ctr_z,
+          'mode': 'markers',
+          'marker': {
+            'size': 15,
+            'color': colors
+          }
+        },
+        {
+          'type': 'scatter3d',
+          'name': 's2',
+          'x': conns_x[k],
+          'y': conns_y[k],
+          'z': conns_z[k],
+          'mode': 'lines',
+          'line': {
+            'color': 'rgb(0,0,0)',
+            'width': 1
+          },
+          'opacity': 0.2
+        },
+        {
+          'type': 'surface',
+          'name': 'f2',
+          'x': xypts,
+          'y': xypts,
+          'z': surfaces[k],
+          'opacity': 0.8,
+          'showscale': false,
+          'surfacecolor': scolors[k],
+          'colorscale': 'Viridis'
+        },
+      ], // data
+    });
+  }
+  let just_data = [{
+      'type': 'scatter3d',
+      'name': 's2',
+      'x': p_x,
+      'y': p_y,
+      'z': p_z,
+      'mode': 'markers',
+      'marker': {
+        'size': 4,
+        'colorscale': 'Viridis',
+        'color': labels[0],
+        'line': {
+          'width': 2,
+          'color': 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    },
+    {
+      'type': 'scatter3d',
+      'name': 's2',
+      'x': ctr_x[0],
+      'y': ctr_y[0],
+      'z': ctr_z,
+      'colorscale': 'Viridis',
+      'mode': 'markers',
+      'marker': {
+        'size': 15,
+        'color': colors,
+        'line': {
+          'width': 2,
+          'color': 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    },
+    {
+      'type': 'scatter3d',
+      'name': 's2',
+      'x': conns_x[0],
+      'y': conns_y[0],
+      'z': conns_z[0],
+      'mode': 'lines',
+      'line': {
+        'color': 'rgb(0,0,0)',
+        'width': 1
+      },
+      'opacity': 0.2
+    },
+    {
+      'type': 'surface',
+      'name': 'f2',
+      'x': xypts,
+      'y': xypts,
+      'z': surfaces[0],
+      'opacity': 0.8,
+      'showscale': false,
+      'surfacecolor': scolors[0],
+      'colorscale': 'Viridis'
+    },
+  ];
+  var layout = {
+    width: 600,
+    height: 600,
+    autosize: true,
+    showlegend: false,
+    aspectmode: 'auto',
+    aspectratio: {
+      'x': 1,
+      'y': 1,
+      'z': 1
+    },
+    scene: {
+      'domain': {
+        'x': [0, 1],
+        'y': [0, 1]
+      }
+    },
+    //xaxis1: {'domain': [0.0, 1.0], 'range': [-1.0, 1.0]},
+    //yaxis1: {'domain': [0.0, 1.0], 'range': [-1.0, 1.0]},
+    title: 'Simplest GMM, 3D view',
+    margin: {
+      't': 0,
+      'b': 0,
+      'l': 0,
+      'r': 0
+    },
+    updatemenus: [{
+      'buttons': [{
+          'args': [idx_s,
+            {
+              'frame': {
+                'duration': 500.0,
+                'redraw': true
+              },
+              'fromcurrent': false,
+              'transition': {
+                'duration': 0,
+                'easing': 'linear'
+              }
+            }
+          ],
+          'label': 'Play',
+          'method': 'animate'
+        },
+        {
+          'args': [
+            [null], {
+              'frame': {
+                'duration': 0,
+                'redraw': true
+              },
+              'mode': 'immediate',
+              'transition': {
+                'duration': 0
+              }
+            }
+          ],
+          'label': 'Pause',
+          'method': 'animate'
+        }
+      ],
+      'direction': 'left',
+      'pad': {
+        'r': 10,
+        't': 85
+      },
+      'showactive': true,
+      'type': 'buttons',
+      'x': 0.1,
+      'y': 0,
+      'xanchor': 'right',
+      'yanchor': 'top'
+    }],
+    sliders: [{
+      'yanchor': 'top',
+      'xanchor': 'left',
+      'currentvalue': {
+        'font': {
+          'size': 16
+        },
+        'prefix': 'Step: ',
+        'visible': true,
+        'xanchor': 'right'
+      },
+      'transition': {
+        'duration': 0.0
+      },
+      'pad': {
+        'b': 10,
+        't': 50
+      },
+      'len': 0.9,
+      'x': 0.1,
+      'y': 0,
+      'steps': steps_data
+    }],
+  };
+
+  Plotly.newPlot(cell_for_plot, {
+    data: just_data,
+    frames: frame_data,
+    layout: layout
+  });
+  cell_for_plot.on('plotly_relayout', function(data){
+    if ('scene.camera' in data) {
+      let user_camera = data['scene.camera'];
+      cell_for_plot.layout.scene.camera = user_camera;
+    }
+  });
+}
+
+function draw_static_image(data, image, shapes, xypts, scolors) {
+  //console.log(shapes);
+
+  let heatmap = {
+    x: xypts,
+    y: xypts,
+    z: scolors,
+    type: 'heatmap',
+    colorscale: 'Viridis',
+    opacity: 0.3,
+    showscale: false
+  }
+  data.push(heatmap);
+
+  let layout = {
+    width: 600,
+    height: 600,
+    autosize: false,
+    showlegend: false,
+    xaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    yaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    title: '',
+    margin: {'t': 0, 'b': 0, 'l': 0, 'r': 0},
+    shapes: shapes
+  };
+
+  Plotly.toImage({
+      data: data,
+      layout: layout
+    }, {
+      height: 600,
+      width: 800
+    })
+    .then(
+      function(url) {
+        image.src = url;
+      }
+    );
+
+}
+
+
+function pts_to_params(pts) {
+  data_points = [];
+  centers = [];
+  cov_matrices = [];
+  for (idx = 0;  idx < pts.length;  idx++) {
+    const p = pts[idx];
+    if (p[2] == 0) {
+      data_points.push([p[0]/300.0 - 1.0, -(p[1]/300.0 - 1.0)]);
+    }
+    if (p[2] == 1) {
+      const c = [p[0]/300.0 - 1.0, -(p[1]/300.0 - 1.0)];
+      centers.push(c);
+      cov_matrices.push([[0.1, 0.0],
+                         [0.0, 0.1]])
+    }
+  }
+  return [data_points, centers, cov_matrices];
+}
+
+function get_labels(X, centers) {
+  let labels_history = [];
+  console.log(centers);
+  for (let f = 0; f < centers.length; f++) {
+    let frame_centers = centers[f];
+    let frame_history = [];
+    for (let i = 0; i < X.length;  i++) {
+      let covs = new Array(frame_centers.length).fill([[0.1, 0.0], [0.0, 0.1]]);
+      let ws = new Array(frame_centers.length).fill(1.0);
+      let [G, C] = gaussian(X[i][0], X[i][1], frame_centers, covs, ws);
+      frame_history.push(C);
+    }
+    labels_history.push(frame_history);
+  }
+  console.log('labels = ', labels_history)
+  return labels_history;
+}
+
+function params_to_pts(data_pts, centers) {
+  let pts = [];
+  for (let i = 0; i < data_pts.length; i++)
+    pts.push([(data_pts[i][0] + 1.0) * 300.0, (1.0 - data_pts[i][1]) * 300.0, 0]);
+  for (let i = 0; i < centers.length; i++) {
+    let p = centers[i];
+    pts.push([(p[0] + 1.0) * 300.0, (1.0 - p[1]) * 300.0, 1, 0, 0, 0, 0, 0]);
+  }
+  return pts;
+}
+
+
+
+/////// OJAJEBU /////////////////////
+
+const all_close = (arr1, arr2) => {
+  //console.log(arr1, arr2);
+  const flatten = (arr) => {
+    return arr.reduce((flat, toFlatten) => {
+      return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+    }, []);
+  };
+  const max_difference = flatten(arr1).reduce((maxDiff, element, index) => {
+    return Math.max(maxDiff, Math.abs(element - flatten(arr2)[index]));
+  }, 0);
+  return max_difference < 1E-3;
+};
+
+function dcopy(arr) {
+  return JSON.parse(JSON.stringify(arr));
+}
+
+function cluster(X, initial_centers) {
+  let n = initial_centers.length;
+  let w = Array(n).fill(1.0 / n);
+  let c = dcopy(initial_centers);
+  let old_c = dcopy(c); old_c[0][0] += 100.0;
+  let iter_num = 0;
+  let centers_history = [];
+  let covs_history = [];
+  let weights_history = [];
+  let debug = [];
+  while (!all_close(c, old_c) && iter_num < 50) {
+    iter_num += 1;
+    centers_history.push(dcopy(c));
+    covs_history.push([[0.1, 0.0], [0.0, 0.1]]);
+    weights_history.push(w);
+    
+    let buckets = new Array(c.length).fill().map(() => new Array());
+
+    for (let i = 0; i < X.length; i++) {
+      let closest_idx = 0;
+      let closest_dist = 1E3;
+      for (c_idx = 0; c_idx < c.length; c_idx++) {
+        let d = Math.sqrt((c[c_idx][0] - X[i][0])*(c[c_idx][0] - X[i][0]) + 
+                          (c[c_idx][1] - X[i][1])*(c[c_idx][1] - X[i][1]));
+        if (d < closest_dist) {
+          closest_dist = d;
+          closest_idx = c_idx;
+        }
+      }
+      buckets[closest_idx].push(X[i]);
+    }
+    old_c = dcopy(c);
+    for (let idx_c = 0; idx_c < c.length; idx_c++) {
+      let cur_bucket = buckets[idx_c];
+      if (cur_bucket.length < 1)
+        continue;
+      let sum_x = 0.0;
+      let sum_y = 0.0;
+      for (let i = 0; i < cur_bucket.length; i++) {
+        sum_x += cur_bucket[i][0];
+        sum_y += cur_bucket[i][1];
+      }
+      c[idx_c] = [sum_x/cur_bucket.length, sum_y/cur_bucket.length];
+    }
+  }
+  return {'centers_history': centers_history, 
+          'covs_history': covs_history, 
+          'weights_history': weights_history};
+}
+
+////////////////////////////////////////
+
+
+async function calculate() {
+  if (!all_pts)
+    return;
+  const [X, c, cov] = pts_to_params(all_pts);
+
+  const result = cluster(X, c); ////await google.colab.kernel.invokeFunction('notebook.InvSVM', [X, c, cov], {});
+  params = result; //result.data['application/json'];
+
+  all_pts = params_to_pts(X, params.centers_history[params.centers_history.length - 1]);
+  active_pt = null;
+
+  //debug_txt = params.ellipses[0][0];
+
+  labels_history = get_labels(X, params.centers_history);
+  plt_params = params_by_history(labels_history, params.centers_history, params.covs_history, X);
+  const last_idx = plt_params.frames.length-1; 
+  let [surfaces, scolors, xypts] = create_surfaces([params.centers_history[last_idx]], 
+                                                   [params.covs_history[last_idx]], 
+                                                   [params.weights_history[last_idx]]);
+  draw_static_image(plt_params.frames[last_idx].data, bg_image, plt_params.frames[last_idx].layout.shapes,
+                    xypts, scolors[0]);
+  
+  plot_2d_by_data(plt_params.data, plt_params.frames, plt_params.layout)
+
+
+  plot_3d_history(labels_history, params.centers_history, X);
+}
+</script>
+
+<style>
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+</style>
+
+<script>
+function switch_tab(evt, close, open) {
+  e_o = document.getElementById(open);
+  e_c = document.getElementById(close);
+  e_o.style.display = 'block';
+  e_c.style.display = 'none';
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  evt.currentTarget.className += " active";
+}
+</script>
+</head>
+
+<body>
+<div class="tab">
+  <button class="tablinks active" onclick="switch_tab(event, 'for_plotly_3d_plot', 'for_plotly_plot')">2D plot</button>
+  <button class="tablinks" onclick="switch_tab(event, 'for_plotly_plot', 'for_plotly_3d_plot')">3D plot</button>
+</div>
+<div id="everything" style="height:600px;">
+<div id="for_plotly_plot" style="position:absolute; top:50px; left:0px; height:600px; width:600px; display:block;">
+</div>
+<div id="for_plotly_3d_plot" style="position:absolute; top:50px; left:0px; height:600px; width:600px; display:none;">
+</div>
+<div id="custom_controls" style="position:absolute; top:50px; left:600px;">
+  <canvas id="canvas" width="800" height="600"
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)"></canvas>
+  <div style="position:absolute; top:200px; left:625px;">
+   <div style="border-style: solid;">
+    <input type="radio" id="r1" name="rate" value="add" checked="checked"> <label for="r1">Add data point</label>
+    <br>
+    <input type="radio" id="r0" name="rate" value="addC"> <label for="r0">Add cluster center</label>
+    <br>
+    <input type="radio" id="r2" name="rate" value="move"> <label for="r2">Move/Adjust cov's</label>
+    <br>
+    <input type="radio" id="r3" name="rate" value="del"> <label for="r3">Delete</label>
+    <br>
+    <button type="button" onclick="clear_field();">
+      Clear
+    </button>
+   </div>
+   <br><br>
+    <button type="button" onclick="calculate();">
+      Clusterize
+    </button>
+  </div>
+</div>
+</div>
+</body>
+
+<script>
+function init()
+{
+  timer = setInterval(draw, 10);
+}
+
+init();
+</script>
+
+</html>
