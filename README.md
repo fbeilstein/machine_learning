@@ -180,7 +180,7 @@ Every Friday, 10:00 <br>
     -  [[PRESENTATION] Support Vector Machines and Kernel Methods: Status and Challenges](https://www.csie.ntu.edu.tw/~cjlin/talks/kuleuven_svm.pdf)
     -  [[HABR] Машина опорных векторов в 30 строчек](https://habr.com/ru/post/544282/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=MbSDxuWJzjg)
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
 
 6.  **Decision Trees and Random Forests**
@@ -204,8 +204,6 @@ Every Friday, 10:00 <br>
 
 <hr />
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 7.  **Principal Component Analysis**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_12_principal_component_analysis.ipynb)
@@ -226,6 +224,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 8.  **K-Means Clustering**
   - Lecture
