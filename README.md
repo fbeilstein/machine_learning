@@ -195,7 +195,7 @@ Every Friday, 10:00 <br>
     -  [[NOTES] Random Forests](https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm)
     -  [[ARTICLE] On Boosting: Theory and Applications](https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/383242/1/20190611_Boosting_Chapter_FINAL.pdf)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=Y_R-S63X0pA)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=aJMC8tKWnDQ)
 
 <hr />
@@ -224,8 +224,6 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 8.  **K-Means Clustering**
   - Lecture
     -  [Notes in Colab](https://colab.research.google.com/github/fbeilstein/machine_learning/blob/master/lecture_13_k_means_clustering.ipynb)
@@ -245,6 +243,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 9.  **Gaussian Mixture Models**
   - Lecture
