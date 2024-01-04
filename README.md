@@ -221,7 +221,7 @@ Every Friday, 10:00 <br>
     - [[ARTICLE] Principal Component Analysis Explained Visually](http://setosa.io/ev/principal-component-analysis/)
     - [[ARTICLE] Principal Component Analysis — A Brief Introduction](https://medium.com/x8-the-ai-community/principal-component-analysis-a-brief-introduction-dc8cf3e03c71)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=-h8JcHFO6x0)
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
 8.  **K-Means Clustering**
@@ -243,7 +243,7 @@ Every Friday, 10:00 <br>
     - English: sorry, no video available
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+<!-- <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> -->
 
 9.  **Gaussian Mixture Models**
   - Lecture
@@ -306,8 +306,8 @@ Every Friday, 10:00 <br>
   - Further Resources
     -  [[VIDEO LECTURES] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
-<!--<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>-->
+<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>
 
 ## For the curious mind
 
