@@ -240,7 +240,7 @@ Every Friday, 10:00 <br>
      - [[DOCS] Stanford lecture notes](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
      - [[ARTICLE] A Tutorial on Spectral Clustering](https://arxiv.org/pdf/0711.0189.pdf)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=iPjOx6Bv8TY)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
 
 <!-- <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> -->
