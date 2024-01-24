@@ -260,7 +260,7 @@ Every Friday, 10:00 <br>
     - [[ARTICLE] Easy intro to GMM](https://www.analyticsvidhya.com/blog/2019/10/gaussian-mixture-models-clustering/)
     - [[ARTICLE] GMM](https://brilliant.org/wiki/gaussian-mixture-model/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=KevyAdWPIsU)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=qs4rUU9vQLM)
 
 
