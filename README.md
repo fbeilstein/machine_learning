@@ -276,7 +276,7 @@ Every Friday, 10:00 <br>
     -  [[ARTICLE] Kernel Density Estimation in Python](https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/)
     -  [[COURSE] A Short Course on Nonparametric Curve Estimation](https://bookdown.org/egarpor/NP-EAFIT/)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=E7vfay2tl4E)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=XMHNi1EWm1Q)
 
 
