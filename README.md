@@ -294,7 +294,7 @@ Every Friday, 10:00 <br>
     -  [[VIDEO] Lecture on from MDS, Isomap, LLE from University of Waterloo](https://www.youtube.com/watch?v=RPjPLlGefzw)
     -  [[VIDEO] Dimensionality Reduction: Why we take Eigenvectors of the Similarity Matrix?](https://www.youtube.com/watch?v=3k9hwRCcT30)
   - Video
-    - English: sorry, no video available
+    - English: [[autumn 2023]](https://www.youtube.com/watch?v=DQ2NvUoRZ14)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=o5SPvUXKl7M)
 
 
