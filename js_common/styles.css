@@ -1,0 +1,57 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;  
+}
+
+.shop {
+    display : flex;
+    justify-content: start; 
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image{
+    width: 170px;
+}
+
+.item {
+    display : flex;
+    width: 230px;
+    flex-direction: column;
+    gap: 20px;    
+    align-items:center;
+}
+
+.btn {
+    border-radius: 5px;
+    background-color: green;
+    color : white;
+    border: none;
+    transition: all 25ms ease;
+}
+
+.btn:hover
+{
+    background-color: darkgreen;
+}
+
+.pricing {
+    display : flex;
+    justify-content :space-evenly;
+}
+
+.buy_item {
+    display : flex;
+    width : 500;
+}
+
+.btn_delete {
+    border-radius: 5px;
+    background-color: red;
+    color : white;
+    border: none;
+    transition: all 25ms ease;
+}
+
+.btn_delete:hover {
+    background-color: darkred;
+}

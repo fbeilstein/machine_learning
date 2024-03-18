@@ -1,0 +1,35 @@
+QThe main difference between ML algorithms and "traditional" programs is
+✘"Traditional" program always yields concrete result, while ML algorithm is always probabilistic
+✓ML algorithm contains free internal parameters that are estimated from data
+✘ML algorithms are based on neural networks, while "traditional" are not
+
+QData processed by ML algorithm is represented as a collection of
+✘parameters
+✓features
+✘arguments
+✘symbols
+
+QSuppose, you are working for the Big Bank Company and your job is to write an algorithm that predicts whether it should loan a credit to a person or not. You are given data on previous loaners of the Big Bank: age, gender, job type, etc as well as information whether they were able to return the credit. Your program should predict "able/not able to return the credit" based on a given dataset. Your ML algorithm will be an example of
+✓Supervised learning
+✘Unsupervised learning
+✘Semi-supervised learning
+✘Reinforcement learning
+
+QBored with playing Need For Speed you suggest  an ML algorithm can do this for you. The problem is, you do not have any dataset for training. As a workaround you suggest to start with an untrained algorithm and iteratively collect data during play, train algorithm, repeat. This is an example of
+✘Supervised learning
+✘Unsupervised learning
+✘Semi-supervised learning
+✓Reinforcement learning
+
+QYou are sick with banks and find a new job -- now you work for the Big Advertisment Company and your job is to analyze  social networks. You know that people can be classified due to their interests. If someone from the group byes something, it is meaningful to advertise the same product to the other members of the group. Basing on data from Facebook, you should clusterize a number of people into groups. This is an example of
+✘Supervised learning
+✓Unsupervised learning
+✘Semi-supervised learning
+✘Reinforcement learning
+
+QWhich row has the biggest number of dogs?
+✘1
+✘2
+✘3
+✓4
+✘all rows contain equal number of dogs
