@@ -1,57 +1,72 @@
 * {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;  
-}
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
 
-.shop {
-    display : flex;
-    justify-content: start; 
-    flex-wrap: wrap;
-    gap: 10px;
-}
+  .tabs {
+      display : flex;
+      flex-wrap: wrap;
+      gap : 5;
+  }
 
-.image{
-    width: 170px;
-}
+  .options
+  {
+      display : flex;
+      flex-direction: column;
+      cursor: pointer;
+  }
 
-.item {
-    display : flex;
-    width: 230px;
-    flex-direction: column;
-    gap: 20px;    
-    align-items:center;
-}
+  .buttons-div{
+      padding-left : 10px;
+      display : flex;
+      gap : 20;
+  }
 
-.btn {
-    border-radius: 5px;
-    background-color: green;
-    color : white;
-    border: none;
-    transition: all 25ms ease;
-}
+  .tabs-buttons-div{
+      padding-left : 10px;
+      padding-right : 10px;
+      display : flex;
+      gap : 2;
+  }
 
-.btn:hover
-{
-    background-color: darkgreen;
-}
+  .tab-btn
+  {
+      padding: 0;
+      margin-top: 5px;
+      height: 20px;
+      width: 40px;
+      border-radius: 4px;
+      border : 1px white;
+  }
 
-.pricing {
-    display : flex;
-    justify-content :space-evenly;
-}
+  .submit-btn {
+      height: 30px;
+      width: 60px;
+  }
 
-.buy_item {
-    display : flex;
-    width : 500;
-}
+  .btn{
+      border-radius: 2px;
+      background: lightgray;
+      border : 1px white;
+      transition: all 25ms ease;
+  }
 
-.btn_delete {
-    border-radius: 5px;
-    background-color: red;
-    color : white;
-    border: none;
-    transition: all 25ms ease;
-}
+  .left-right-btns{
+      margin: 1px 1px 0px 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 4px;
+      border : 2px black;
+  }
 
-.btn_delete:hover {
-    background-color: darkred;
-}
+  .btn:hover{
+      background: rgb(224, 224, 224);
+  }
+
+  .btn:active{
+      background: darkgray;
+  }
+
+  .content-div{
+      font-size: 16px;
+      padding-left: 30px;
+  }
