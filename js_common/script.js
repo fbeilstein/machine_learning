@@ -1,6 +1,6 @@
        
 let tabs_div;
-let container_div;
+let content_div;
 let buttons_div;
 
 class QuizContainer
@@ -171,7 +171,7 @@ class QuizContentMaker
 
   create_content(i)
   {
-    container_div.replaceChildren();
+    content_div.replaceChildren();
     let question_text = document.createElement("div");
     let delimeter = document.createElement("br");
     question_text.innerHTML = content_container.questions[i].question;
@@ -189,10 +189,10 @@ class QuizContentMaker
         item.style.background = content_container.answers[i][j] ? "lightgray" : "white";
         options_div.appendChild(item);
     }
-    container_div.appendChild(question_text);
-    container_div.appendChild(delimeter);
-    container_div.appendChild(options_div);
-    container_div.appendChild(delimeter.cloneNode(true));
+    content_div.appendChild(question_text);
+    content_div.appendChild(delimeter);
+    content_div.appendChild(options_div);
+    content_div.appendChild(delimeter.cloneNode(true));
     let submit_btn = document.createElement("button");
     submit_btn.className = "submit-btn btn"
     submit_btn.innerHTML = "Submit";
@@ -204,7 +204,7 @@ class QuizContentMaker
           result &= (content_container.questions[sm.slide].options[j].is_correct === content_container.answers[sm.slide][j]);
       sm.mark_slide(i, result ? "rgb(159, 250, 159)" : "rgb(255, 176, 176)");
     });
-    container_div.appendChild(submit_btn);
+    content_div.appendChild(submit_btn);
   }
 }
 
@@ -219,7 +219,7 @@ class HTMLContentMaker
 
   create_content(i)
   {
-    container_div.innerHTML = content_container.htmls[i];
+    content_div.innerHTML = content_container.htmls[i];
   }
 }
 
