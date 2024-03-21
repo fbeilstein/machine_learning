@@ -235,6 +235,8 @@ function init_html_markup(){
   content_div      = document.createElement("div");
   content_div.className = "content_div";
   document.body.appendChild(tabs_button_div);
+  let delimeter = document.createElement("br");
+  content_div.appendChild(delimeter);
   document.body.appendChild(content_div);
 }
 
