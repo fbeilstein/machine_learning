@@ -219,7 +219,7 @@ class HTMLContentMaker
 
   create_content(i)
   {
-    question_div.innerHTML = container.htmls[i];
+    question_div.innerHTML = content_container.htmls[i];
   }
 }
 
