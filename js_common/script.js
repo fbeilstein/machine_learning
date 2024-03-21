@@ -3,7 +3,7 @@ let tabs_div      = document.getElementsByClassName("tabs-div")[0];
 let question_div  = document.getElementsByClassName("content-div")[0];
 let buttons_div   = document.getElementsByClassName("buttons-div")[0];
 
-class Quiz_Container
+class QuizContainer
 {
     constructor(file)
     {
@@ -41,6 +41,18 @@ class Quiz_Container
     }
 }
 
+class HTMLContainer
+{
+    constructor(htmls)
+    {
+      this.htmls=htmls;
+    }
+
+    length(){
+      return this.htmls.length;
+    }
+}
+
 class SlideManager // knows all UI elements (dispatches orders to them, takes changes from them)
 {
   constructor(max_slide){
@@ -75,7 +87,7 @@ class SlideManager // knows all UI elements (dispatches orders to them, takes ch
     this.tabs = tabs;
   }
 }
-    let quiz;
+    let content_container;
     let slide_manager;
     let content_maker;
     let control_buttons;
@@ -148,7 +160,7 @@ class ControlButtons
   }
 }
 
-class ContentMaker
+class QuizContentMaker
 {
   constructor(){
   }
@@ -162,19 +174,19 @@ class ContentMaker
     question_div.replaceChildren();
     let question_text = document.createElement("div");
     let delimeter = document.createElement("br");
-    question_text.innerHTML = quiz.questions[i].question;
+    question_text.innerHTML = content_container.questions[i].question;
     question_text.style.fontWeight = "bold";
     let options_div = document.createElement("div");
     options_div.className = "options";
-    for(let j=0; j<quiz.questions[i].options.length; ++j)
+    for(let j=0; j<content_container.questions[i].options.length; ++j)
     {
         let item = document.createElement("div");
-        item.innerHTML = quiz.questions[i].options[j].text;
+        item.innerHTML = content_container.questions[i].options[j].text;
         item.addEventListener(('click'), function(){
-            quiz.answers[i][j] = !quiz.answers[i][j];
-            item.style.background = quiz.answers[i][j] ? "lightgray" : "white";
+          content_container.answers[i][j] = !content_container.answers[i][j];
+            item.style.background = content_container.answers[i][j] ? "lightgray" : "white";
         });
-        item.style.background = quiz.answers[i][j] ? "lightgray" : "white";
+        item.style.background = content_container.answers[i][j] ? "lightgray" : "white";
         options_div.appendChild(item);
     }
     question_div.appendChild(question_text);
@@ -188,26 +200,42 @@ class ContentMaker
     submit_btn.addEventListener("click", function(){
       let result= true;
       
-      for(let j=0; j<quiz.questions[sm.slide].options.length; ++j)
-          result &= (quiz.questions[sm.slide].options[j].is_correct === quiz.answers[sm.slide][j]);
+      for(let j=0; j<content_container.questions[sm.slide].options.length; ++j)
+          result &= (content_container.questions[sm.slide].options[j].is_correct === content_container.answers[sm.slide][j]);
       sm.mark_slide(i, result ? "rgb(159, 250, 159)" : "rgb(255, 176, 176)");
     });
     question_div.appendChild(submit_btn);
   }
 }
-async function load_from_url(url) { 
+
+class HTMLContentMaker
+{
+  constructor(){
+  }
+
+  set_slide_manager(slide_manager){
+     this.slide_manager= slide_manager;
+  }
+
+  create_content(i)
+  {
+    question_div.innerHTML = container.htmls[i];
+  }
+}
+
+async function load_quiz_from(url) { 
   try{
     let data = await fetch(url);
     let file = await data.text();
-    quiz            = new Quiz_Container(file);
-    slide_manager   = new SlideManager(quiz.length());
-    content_maker   = new ContentMaker();
-    control_buttons = new ControlButtons();
-    tabs            = new Tabs();
+    content_container = new QuizContainer(file);
+    slide_manager     = new SlideManager(content_container.length());
+    content_maker     = new QuizContentMaker();
+    control_buttons   = new ControlButtons();
+    tabs              = new Tabs();
     content_maker.set_slide_manager(slide_manager);
     control_buttons.set_slide_manager(slide_manager);
     tabs.set_slide_manager(slide_manager);
-    tabs.create_tabs(tabs_div, quiz.length());
+    tabs.create_tabs(tabs_div, content_container.length());
     slide_manager.set_content_maker(content_maker);
     slide_manager.set_tabs(tabs);
     control_buttons.create_buttons();
@@ -218,5 +246,22 @@ async function load_from_url(url) {
     console.log("failed to load...");
   }
 }
+
+async function load_slides_from(htmls) { 
+    content_container = new HTMLContainer(htmls);
+    slide_manager     = new SlideManager(content_container.length());
+    content_maker     = new HTMLContentMaker();
+    control_buttons   = new ControlButtons();
+    tabs              = new Tabs();
+    content_maker.set_slide_manager(slide_manager);
+    control_buttons.set_slide_manager(slide_manager);
+    tabs.set_slide_manager(slide_manager);
+    tabs.create_tabs(tabs_div, content_container.length());
+    slide_manager.set_content_maker(content_maker);
+    slide_manager.set_tabs(tabs);
+    control_buttons.create_buttons();
+    slide_manager.set_slide(0);
+}
+
 
 
