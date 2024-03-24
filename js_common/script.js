@@ -171,15 +171,6 @@ class QuizContentMaker
      this.slide_manager= slide_manager;
   }
 
-class ContentMaker
-{
-  constructor(){
-  }
-
-  set_slide_manager(slide_manager){
-     this.slide_manager= slide_manager;
-  }
- 
   create_content(i)
   {
     const my_green = "rgb(159, 250, 159)";
