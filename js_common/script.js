@@ -317,9 +317,12 @@ async function load_quiz_from(url) {
     let data = await fetch(url);
     let file = await data.text();
     init_html_markup();
+    console.log("file loaded");
     content_container = new QuizContainer(file);
+    console.log("Quiz container");
     slide_manager     = new SlideManager(content_container.length());
     content_maker     = new QuizContentMaker();
+    console.log("Content maker");
     control_buttons   = new ControlButtons();
     tabs              = new Tabs();
     content_maker.set_slide_manager(slide_manager);
