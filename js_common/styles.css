@@ -68,5 +68,21 @@
 
   .content-div{
       font-size: 16px;
-      padding-left: 30px;
+      padding-top: 30px; 
+      padding-left: 30px; 
+  }
+
+  .submit_status {
+    display : flex;
+    flex-direction: row;    
+    gap : 40px;
+  }
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 115px;
+    background: "red";
   }
