@@ -180,30 +180,30 @@ class QuizContentMaker
     this.items = [];
     let question_text = document.createElement("div");
     let delimeter = document.createElement("br");
-    question_text.innerHTML = container.questions[i].question;
+    question_text.innerHTML = content_container.questions[i].question;
     question_text.style.fontWeight = "bold";
     let options_div = document.createElement("div");
     options_div.className = "options";
     for(let j=0; j<container.questions[i].options.length; ++j)
     {
         let item = document.createElement("div");
-        item.innerHTML = container.questions[i].options[j].text;
+        item.innerHTML = content_container.questions[i].options[j].text;
           item.addEventListener(('click'), function(){
-          container.answers[i][j] = !container.answers[i][j];
+          content_container.answers[i][j] = !container.answers[i][j];
           status_div.innerText = "EDITED";
-          container.status[i]=undefined;
+          content_container.status[i]=undefined;
           status_div.style.background = my_gray;
 
-          if(container.answers[i][j] && container.status[i]!="NEVER EDITED"){
-            item.style.background =  container.answers[i][j] ? "lightgray" : "white";
+          if(container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
+            item.style.background =  content_container.answers[i][j] ? "lightgray" : "white";
           }
           else {
             item.style.background =  "white";
           }
         });
 
-        if(container.answers[i][j] && container.status[i]!="NEVER EDITED"){
-          item.style.background =  (container.status[i]==undefined) ? "lightgray" : ((container.answers[i][j] != container.questions[i].options[j].is_correct) ? my_red : my_green);
+        if(container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
+          item.style.background =  (container.status[i]==undefined) ? "lightgray" : ((container.answers[i][j] != content_container.questions[i].options[j].is_correct) ? my_red : my_green);
         }
         else {
           item.style.background =  "white";
@@ -244,22 +244,22 @@ class QuizContentMaker
       let result= true;
       
       for(let j=0; j<container.questions[sm.slide].options.length; ++j)
-          result &= (container.questions[sm.slide].options[j].is_correct === container.answers[sm.slide][j]);
+          result &= (container.questions[sm.slide].options[j].is_correct === content_container.answers[sm.slide][j]);
       sm.mark_slide(i, result ? my_green : my_red);
-      container.status[sm.slide] = result;
+      content_container.status[sm.slide] = result;
 
       for(let k=0; k<options_div.children.length; ++k)
       {
       console.log(options_div.children[k]);
         if(container.answers[i][k]){
-          options_div.children[k].style.background =  (container.answers[i][k] != container.questions[i].options[k].is_correct) ? my_red : my_green;
+          options_div.children[k].style.background =  (container.answers[i][k] != content_container.questions[i].options[k].is_correct) ? my_red : my_green;
         }
         else {
           options_div.children[k].style.background =  "white";
         }
       }
 
-    if(container.status[sm.slide]!=undefined && container.status[i]!="NEVER EDITED") {
+    if(container.status[sm.slide]!=undefined && content_container.status[i]!="NEVER EDITED") {
       if(container.status[sm.slide]==true){
           status_div.innerText = "RIGHT";
           status_div.style.background = my_green;
@@ -317,12 +317,9 @@ async function load_quiz_from(url) {
     let data = await fetch(url);
     let file = await data.text();
     init_html_markup();
-    console.log("file loaded");
     content_container = new QuizContainer(file);
-    console.log("Quiz container");
     slide_manager     = new SlideManager(content_container.length());
     content_maker     = new QuizContentMaker();
-    console.log("Content maker");
     control_buttons   = new ControlButtons();
     tabs              = new Tabs();
     content_maker.set_slide_manager(slide_manager);
