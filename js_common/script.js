@@ -184,17 +184,17 @@ class QuizContentMaker
     question_text.style.fontWeight = "bold";
     let options_div = document.createElement("div");
     options_div.className = "options";
-    for(let j=0; j<container.questions[i].options.length; ++j)
+    for(let j=0; j<content_container.questions[i].options.length; ++j)
     {
         let item = document.createElement("div");
         item.innerHTML = content_container.questions[i].options[j].text;
           item.addEventListener(('click'), function(){
-          content_container.answers[i][j] = !container.answers[i][j];
+          content_container.answers[i][j] = !content_container.answers[i][j];
           status_div.innerText = "EDITED";
           content_container.status[i]=undefined;
           status_div.style.background = my_gray;
 
-          if(container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
+          if(content_container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
             item.style.background =  content_container.answers[i][j] ? "lightgray" : "white";
           }
           else {
@@ -202,8 +202,8 @@ class QuizContentMaker
           }
         });
 
-        if(container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
-          item.style.background =  (container.status[i]==undefined) ? "lightgray" : ((container.answers[i][j] != content_container.questions[i].options[j].is_correct) ? my_red : my_green);
+        if(content_container.answers[i][j] && content_container.status[i]!="NEVER EDITED"){
+          item.style.background =  (content_container.status[i]==undefined) ? "lightgray" : ((content_container.answers[i][j] != content_container.questions[i].options[j].is_correct) ? my_red : my_green);
         }
         else {
           item.style.background =  "white";
@@ -223,13 +223,13 @@ class QuizContentMaker
     let status_div = document.createElement("div");
     status_div.className = "status"
 
-    if(container.status[i]!="NEVER EDITED")
+    if(content_container.status[i]!="NEVER EDITED")
     {
-      if(container.status[i]==undefined){
+      if(content_container.status[i]==undefined){
           status_div.innerText = "EDITED";
           status_div.style.background = my_gray;
         }
-        else if(container.status[i]==true){
+        else if(content_container.status[i]==true){
           status_div.innerText = "RIGHT";
           status_div.style.background = my_green;
         }
@@ -243,24 +243,24 @@ class QuizContentMaker
     submit_btn.addEventListener("click", function(){
       let result= true;
       
-      for(let j=0; j<container.questions[sm.slide].options.length; ++j)
-          result &= (container.questions[sm.slide].options[j].is_correct === content_container.answers[sm.slide][j]);
+      for(let j=0; j<content_container.questions[sm.slide].options.length; ++j)
+          result &= (content_container.questions[sm.slide].options[j].is_correct === content_container.answers[sm.slide][j]);
       sm.mark_slide(i, result ? my_green : my_red);
       content_container.status[sm.slide] = result;
 
       for(let k=0; k<options_div.children.length; ++k)
       {
       console.log(options_div.children[k]);
-        if(container.answers[i][k]){
-          options_div.children[k].style.background =  (container.answers[i][k] != content_container.questions[i].options[k].is_correct) ? my_red : my_green;
+        if(content_container.answers[i][k]){
+          options_div.children[k].style.background =  (content_container.answers[i][k] != content_container.questions[i].options[k].is_correct) ? my_red : my_green;
         }
         else {
           options_div.children[k].style.background =  "white";
         }
       }
 
-    if(container.status[sm.slide]!=undefined && content_container.status[i]!="NEVER EDITED") {
-      if(container.status[sm.slide]==true){
+    if(content_container.status[sm.slide]!=undefined && content_container.status[i]!="NEVER EDITED") {
+      if(content_container.status[sm.slide]==true){
           status_div.innerText = "RIGHT";
           status_div.style.background = my_green;
         }
