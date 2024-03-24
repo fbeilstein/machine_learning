@@ -3,7 +3,7 @@ let tabs_div;
 let content_div;
 let buttons_div;
 
-class Quiz_Container
+class QuizContainer
 {
     constructor(file)
     {
