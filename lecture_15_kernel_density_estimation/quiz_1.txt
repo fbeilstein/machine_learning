@@ -1,0 +1,60 @@
+Q What is the purpose of kernel density estimation?
+✓ To estimate the probability density function of a random variable 
+✘ To estimate the cumulative distribution function of a random variable
+✘ To estimate the mean of a random variable
+✘ To estimate the variance of a random variable
+
+Q Which of the following is a parameter of the kernel density estimation?
+✓ Bandwidth
+✘ Skewness
+✘ Kurtosis
+✘ Standard deviation
+
+Q What does the bandwidth parameter control in kernel density estimation?
+✓ The width of the kernel function
+✘ The number of data points used in estimation
+✘ The shape of the kernel function
+✘ The accuracy of the estimation
+
+Q How does the choice of kernel function affect the smoothness of the estimated density?
+✓ A smoother kernel function leads to a smoother estimated density
+✘ A smoother kernel function leads to a more jagged estimated density
+✘ The choice of kernel function does not affect the smoothness
+✘ The smoother the kernel function, the less accurate the estimation
+
+Q What is the main advantage of kernel density estimation compared to histogram-based density estimation?
+✓ Kernel density estimation does not require specifying the number of bins
+✘ Kernel density estimation is always faster than histogram-based methods
+✘ Kernel density estimation is less sensitive to outliers
+✘ Kernel density estimation can be applied to continuous data
+
+Q In kernel density estimation, what happens to the estimated density as the bandwidth approaches zero?
+✘ The estimated density becomes more accurate
+✘ The estimated density becomes more smoothed
+✓ The estimated density becomes more peaked
+✘ The estimated density becomes more variable
+
+Q Which of the following statements is true about the bias-variance trade-off in kernel density estimation?
+✘ Increasing the bandwidth decreases bias and increases variance
+✓ Decreasing the bandwidth decreases bias and increases variance
+✓ Increasing the bandwidth increases bias and decreases variance
+✘ Decreasing the bandwidth increases bias and decreases variance
+
+Q What is the computational complexity of kernel density estimation given N points in the dataset and we want to sample it at M points?
+✓ O(N*M)
+✘ O(N^2*M^2)
+✘ O(N^2)
+✘ O(N*log(M))
+✘ O(M*log(N))
+
+Q Classify Kernel Density Estimation as ML model (more than one option can be true)
+✘ Supervised Learning
+✓ Unsupervised Learning
+✘ Discriminative Model
+✓ Generative Model
+
+Q Kernel Density Estimation can be thought as an extreme case of
+✓ Gaussian Mixture Model
+✘ Naïve Bayes
+✘ Maximum Likelihood Estimation
+✘ Principal Component Analysis
