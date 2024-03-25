@@ -1,0 +1,75 @@
+Q Choose nominal data from the following (recall data types):
+✓ name
+✘ height represented as “Tall-Medium-Small”
+✓ gender
+✘ degrees Kelvin
+✘ degrees Celsius
+✓ language
+✘ size represented as “Large-Small”
+✘ points of affine space
+✘ mass
+
+Q Choose ordinal data from the following (recall data types):
+✘ name
+✓ height represented as “Tall-Medium-Small”
+✘ gender
+✘ degrees Kelvin
+✘ degrees Celsius
+✘ language
+✓ size represented as “Large-Small”
+✘ points of affine space
+✘ mass
+
+Q Mean value can be calculated for which data types?
+✘ Nominal
+✘ Ordinal
+✓ Interval
+✓ Ratio
+
+Q Median can be calculated for which data types?
+✘ Nominal
+✓ Ordinal
+✓ Interval
+✓ Ratio
+
+Q Which of these are central tendency estimators
+✓ Mean
+✘ Variance
+✓ Mode
+✓ Median
+✘ STD
+✘ Range
+✘ IQR
+
+Q If you calculate variance of a sample using equation for population, you’ll get biased result Vb. How do you “unbias” that to get estimator V?
+✘ V = Vb -1
+✘ V = Vb/(N-1)
+✓ V=Vb N/(N-1)
+✘ V=Vb (N-1)/N
+✘ V = Vb N
+✘ There is no way to “fix” the result, only recalculate it with the correct formula
+
+Q You plot your datapoints (2 features) and discover they all lie on a perfect circle that suggests very strong connection between feature 1 and feature 2. If you calclulate a correlation, what result do you expect?
+✘ close to 1, as features are highly dependent on each other
+✘ close to 1 or -1, as features are highly dependent on each other
+✓ close to 0
+✘ close to 0.5 or -0.5
+✘ can be anything, depends on the exact position of points
+
+Q In MLE, the likelihood function represents:
+✓ The probability of the data given the parameters
+✘ The probability of the parameters given the data
+✘ The probability of the data
+✘ The probability of the parameters
+
+Q What is the primary goal of Maximum Likelihood Estimation (MLE)?
+✘ Minimize the likelihood function 
+✓ Maximize the likelihood function 
+✘ Minimize the sum of squared errors 
+✘ Minimize entropy
+
+Q What is the consequence of having a high-bias model in the bias-variance tradeoff?
+✘ Overfitting to the training data
+✓ Underfitting the training data
+✘ Balancing between underfitting and overfitting
+✘ Achieving optimal model performance
