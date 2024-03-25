@@ -1,0 +1,59 @@
+Q In the context of classification a linearly separable dataset with a hard-margin linear SVM, a support vector is:
+✓ Sample on the margin
+✘ Sample inside the margin
+✘ Sample on the wrong side of the hyperplane
+✘ Sample far away from the hyperplane
+
+Q After the dataset was classified with SVM I remove a non-support vector. What should I expect to change? 
+✘ The decision boundary will change
+✘ The margin will decrease
+✘ The margin will increase
+✓ Nothing
+
+Q Recall that the C parameter is basically the "strengths of L1 regularization." For higher values of C you expect the margin to be: 
+✓ Harder
+✘ Softer
+✘ Wider
+✘ More flexible
+
+Q When the C parameter is set to infinite, which of the following holds true? 
+✓ The optimal hyperplane if exists, will be the one that completely separates the data.
+✘ The optimal hyperplane will have an infinitely large margin.
+✘ All samples become support vectors.
+✘ Due to very strong regularization SVM will ignore input data.
+
+Q What does a hard margin (large C) mean in terms of SVM? 
+✓ The SVM allows very low error in classification 
+✘ The SVM allows higher error in classification
+✘ The SVM becomes more flexible
+✘ The SVM is less sensitive to outliers
+
+Q What would happen when you use very small C (C~0)? 
+✓ Misclassification would happen 
+✘ The SVM would have a smaller margin 
+✘ The number of support vectors will decrease
+✘ The SVM would be more prone to overfitting 
+
+Q Suppose you are using RBF kernel in SVM with high Gamma value. What does this signify? 
+✘ The model would consider even far away points from hyperplane for modeling 
+✓ The model would consider only the points close to the hyperplane for modeling 
+✘ The model would not be affected by distance of points from hyperplane for modeling 
+✘ None of the above 
+
+Q Suppose you are dealing with 4 class classification problem and you want to train a SVM model on the data for that you are using one-vs-all method. How many times we need to train our SVM model in such case? 
+✘ 1
+✓ 4
+✘ 12
+✘ 16
+
+Q What is/are true about kernel in SVM? 
+✓ Kernel function maps low dimensional data to high dimensional space 
+✓ It’s a similarity function 
+✘ Kernel functions always increase computational efficiency 
+✘ Kernel functions are only applicable to linearly separable data 
+
+Q What is the purpose of using a kernel function in SVM? 
+✓ To transform the input data into a higher-dimensional space where it can be linearly separated 
+✘ To reduce the dimensionality of the input data 
+✘ To filter noise in input data
+✘ To decrease the computational complexity of the SVM 
