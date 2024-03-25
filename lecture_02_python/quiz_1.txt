@@ -1,10 +1,10 @@
-Q What type will have 1✓2.0✓3 ?
+Q What type will have 1+2.0+3 ?
 ✘ int
 ✓ float
 ✘ str
 ✘ Syntax error will be produced
 
-Q What type will have “1”✓2.0 ?
+Q What type will have "1"+2.0 ?
 ✘ int
 ✘ float
 ✘ str
@@ -17,10 +17,12 @@ Q Which of the following types are immutable?
 ✘ dict
 ✓ tuple
 
-Q If strings are immutable, what will do the following code? X = “Machine ” X ✓= “Learning”
-✘ yes, that works, but X stays “Machine ”
+Q If strings are immutable, what will do the following code? 
+  X = "Machine "
+  X += "Learning"
+✘ yes, that works, but X stays "Machine "
 ✘ no, that produces syntax error
-✓ yes, that works, X becomes “Machine Learning”
+✓ yes, that works, X becomes "Machine Learning"
 
 Q Consider the code L = [1,2,3] M = [L,L,L] L[0] = 5 Now M is equal to what?
 ✓ [[5, 2, 3], [5, 2, 3], [5, 2, 3]]
@@ -39,7 +41,7 @@ Q Consider the code D = {1:1, 2:2, 3:3} D[4] = 5 What will be D?
 ✓ {1: 1, 2: 2, 3: 3, 4: 5} 
 ✘ Syntax error will be produced
 
-Q what is True*3 ✓ False?
+Q what is True*3 + False?
 ✘ True
 ✘ False
 ✘ 1
