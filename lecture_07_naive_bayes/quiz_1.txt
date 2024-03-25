@@ -1,0 +1,65 @@
+Q Let A and B be Independent events. Their probabilities:
+✓ P(A and B) = P(A) P(B)
+✘ P(A and B) = P(A) + P(B)
+✓ P(A and B) = P(A) P(B|A)
+✘ P(A and B) = P(A) P(B| not A)
+✘ none is true
+
+Q Let A and B be Dependent events. Their probabilities:
+✘ P(A and B) = P(A) P(B)
+✘ P(A and B) = P(A) + P(B)
+✓ P(A and B) = P(A) P(B|A)
+✘ P(A and B) = P(A) P(B| not A)
+✘ none is true
+
+Q Consider “bag of red and blue balls problem”.  The probability distribution that describes getting k red balls after randomly drawing balls n-times and placing them back into the bag is
+✘ Bernoulli
+✓ Binomial
+✘ Hypergeometric
+✘ Negative Binomial
+✘ Negative Hypergeometric
+
+Q Consider “bag of red and blue balls problem”.  The probability distribution that describes getting k red balls after randomly drawing n balls (at once!) is
+✘ Bernoulli
+✘ Binomial
+✘ Hypergeometric
+✓ Negative Binomial
+✘ Negative Hypergeometric
+
+Q The probability distribution connected to the Central Limit Theorem is
+✘ Bernoulli
+✘ Binomial
+✘ Hypergeometric
+✘ Poisson
+✓ Gaussian
+✘ Pareto
+
+Q Expressions equivalent to the Bayes theorem
+✓ P(A|B)P(B)=P(B|A)P(A)
+✘ P(A|B)P(A)=P(B|A)P(B)
+✘ P(A|B)/P(B)=P(B|A)/P(A)
+✓ P(A|B)/P(A)=P(B|A)/P(B)
+
+Q There are two jars (red and blue) with white and black balls in them.  The red jar has 3 white and 5 black balls in it and blue has 1 white and 9 black balls.  In a dark room you randomly choose a jar and pick a ball then go to another brightly lit room to find out that the ball is white.  What is the probability that you got the ball from the red jar?
+✘ 30/19
+✓ 15/19
+✘ ½
+✘ ¾
+
+Q Consider equation P(A|B)=P(B|A)P(A)/P(B). Which term is called “evidence”?
+✘ P(A|B)
+✘ P(B|A)
+✘ P(A)
+✓ P(B)
+
+Q Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a car; behind the others, goats.  You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat.  He then says to you, "Do you want to pick door No. 2?" What is the probability to win if you choose door number 2?  
+✘ ½
+✘ 1/3
+✓ 2/3
+✘ 1
+
+Q Why do we always use naïve Bayes, not just simple Bayes?
+✘ Non-naïve Bayes is too complicated
+✓ Non-naïve Bayes will require too large datasets and amounts of memory used
+✘ There is no non-naïve Bayes classifier – it is impossible to create
+✘ Non-naïve Bayes will have low performance
