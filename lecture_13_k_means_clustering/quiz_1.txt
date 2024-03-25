@@ -41,26 +41,26 @@ Q How does the K-Means++ algorithm select the initial centroids?
 ✓ By selecting centroids that are as far apart from each other as possible, based on their distance
 
 Q In the context of K-Means clustering, what does the term “inertia” refer to?
-✘ The resistance of the algorithm to change the number of clusters
+✘ The resistance of the algorithm to change the number of clusters
 ✘ The total number of iterations required for the algorithm to converge
 ✓ The sum of squared distances of samples to their closest cluster center
-✘ The measure of cluster density and separation from other clusters
+✘ The measure of cluster density and separation from other clusters
 
 Q Which of the following conditions is typically used as a stopping criterion in the K-Means algorithm?
 ✓ The centroids of clusters no longer change their positions significantly after consecutive iterations
-✘ The computational time of the algorithm exceeds a predefined limit
-✘ The number of clusters K equals the number of features in the dataset
-✘ The distance between any two centroids is maximized
+✘ The computational time of the algorithm exceeds a predefined limit
+✘ The number of clusters K equals the number of features in the dataset
+✘ The distance between any two centroids is maximized
 
 Q Under which circumstance is Mini-Batch K-Means typically preferred over the standard K-Means algorithm?
-✘ When the dataset is relatively small and easily fits into memory
-✘ When the clusters in the dataset are highly non-spherical
-✘ When a high level of precision in cluster assignment is required
+✘ When the dataset is relatively small and easily fits into memory
+✘ When the clusters in the dataset are highly non-spherical
+✘ When a high level of precision in cluster assignment is required
 ✓ When the dataset is very large and computational efficiency is a concern
 
 Q What is the role of the ‘Elbow Method’ in K-Means clustering?
-✘ To compute the optimal number of iterations
-✘ To determine the most suitable distance metric
+✘ To compute the optimal number of iterations
+✘ To determine the most suitable distance metric
 ✓ To identify the optimal number of clusters
 ✘ To choose the best method for centroid initialization
 
@@ -68,4 +68,4 @@ Q The following are K-Means algorithms:
 ✓ Forgy/Lloyd
 ✓ McQueen
 ✓ Hartigan&Wong
-✘ Chip&Dale
+✘ Chip&Dale
