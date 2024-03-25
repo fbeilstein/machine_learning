@@ -1,0 +1,73 @@
+Q Consider the code <br> import numpy as np <br> arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) <br> arr[5] == arr[-5] <br> The result of the last line is
+✓ True
+✘ False
+✘ Syntax error will be produced
+
+Q Extract all odd numbers from numpy.array named arr?
+✘ arr.getOdds()
+✘ arr % 2 == 1
+✘ arr[arr%2 = 1]
+✓ arr[arr%2 == 1]
+✘ You should write a cycle, there is no simple way
+
+Q Consult numpy documentation regarding numpy.where. How would you get indices of the elements of array A that are greater than 5 and smaller than 10?
+✓ np.where((A > 5) & (A < 10))
+✘ np.where(A > 5 & A < 10)
+✘ np.where(5 < A < 10)
+✘ All answers are correct
+
+Q Which of the following will produce syntax error? (consider you imported numpy as np)
+✘ np.array([1,2,3,])
+✘ np.array([1,2,3]) 
+✓ np.array([[1,2,3],[1,2,]]) 
+✘ np.array([[1,2,3],[1,2,3]]) 
+✘ np.array([[1,2,3],[1,2.2,3]]) 
+✘ np.array([[1,2,3],[1,2,”Hello”]]) 
+✓ np.array(1,2,3,)
+✘ np.array([1,2,3],) 
+
+Q Consider the code <br> import numpy as np <br> arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) <br> arr[5] = 3.14 <br> What will be the type of arr after this operations?
+✓ int
+✘ float
+✘ str
+✘ Syntax error will be produced
+
+Q Consider the code <br> import numpy as np  <br> arr = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) <br> arr[5] = 3.14 <br> What will be the value of arr[5]?
+✓ 3
+✘ 4
+✘ 5
+✘ 6
+✘ 3.14
+✘ “3.14”
+✘ “3”
+
+Q In which cases it is more efficient to use numpy arrays compared to lists?
+✓ finding sum of all elements
+✓ calculating cosine of each element
+✘ appending element
+✘ storing heterogeneous types
+✓ storing integers
+✘ storing strings
+
+Q If you have a numpy array arr with 10 elements, how do you extract the first 5 elements?
+✓ arr[0:5]
+✘ arr[1:5]
+✘ arr[1:6]
+✘ arr[0:6]
+✓ arr[:5:]
+
+Q Consider list L = [1,2,3] and array A = np.array([1,2,3]). Is there any difference between L+5 and A+5?
+✘ Both L and A will contain 6,7,8
+✘ Both L and A will contain 1,2,3,5
+✘ L will contain 1,2,3,5; A will contain 6,7,8
+✘ L will contain 6,7,8; A will contain 1,2,3,5
+✓ L produces syntax error; A will contain 6,7,8
+✘ L will contain 6,7,8; A will produce syntax error
+✘ L produces syntax error; A will contain 1,2,3,5
+✘ L will contain 1,2,3,5; A produces syntax error 
+
+Q We have two arrays: heights and weights of students.  Suppose that heights[i] and weights[i] contain information on i-th student. Which of the following produces array of weights of 10 tallest students?
+✘ weights[np.sort(heights)[:10]]
+✓ weights[np.argsort(heights)[-10:]]
+✓ weights[np.argsort(heights)][-10:]
+✘ weights[np.sort(heights)][:10]
