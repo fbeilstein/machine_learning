@@ -1,0 +1,59 @@
+Q Which of these functions are convex?
+✘ sin(x), domain – whole real line
+✓ x^2, domain – whole real line
+✘ -x^2, domain – whole real line
+✓ sin(x), domain – from -Pi to 0
+✘ sin(x), domain – from 0 to Pi
+
+Q In constrained minimization problem, a “feasible set” is a set of points that
+✘ minimize the function without constraints taken into account
+✓ satisfy the constraints
+✘ satisfy condition that function’s derivative is equal to zero
+✘ minimize the function with constraints taken into account
+
+Q Which of the following problems has active constraint?
+✘ minimize x^2 + 1
+✘ minimize x^2 + 1, subject to x^2-1 < 0
+✓ minimize x^2 + 1, subject to (x-2)^2-1 < 0
+
+Q Consider KKT conditions. Which of the following implies that dual variables are positive?
+✘ Stationarity
+✘ Primal feasibility
+✓ Dual feasibility
+✘ Complementary slackness
+
+Q Classification of minimization methods presented in the lecture is based on
+✘ number of steps before convergence
+✘ complexity in terms of O-notation
+✓ highest order of function’s derivative used 
+✘ dimensionality of space where minimization takes place
+
+Q Why you will probably never see second-order methods when optimizing very complex function like neural network?
+✘ They converge too slow
+✓ They use too much memory
+✘ They often do not converge or converge to non-minimum
+✘ They are too complicated to implement
+
+Q Consider a function (1-x-y)^2. Starting at (1,1) do one step of gradient descent with learning rate 0.01. Where did you get?
+✓ (0.98,0.98)
+✘ (1.02,1.02)
+✘ (0.95,0.95)
+✘ (1.05,1.05)
+
+Q Consider a function (1-x-y)^2. Starting at (1,1) do one step of coordinate descent along y. Where did you get?
+✓ (1,0)
+✘ (0,1)
+✘ (1,1)
+✘ (0,0)
+
+Q In lecture we saw how Newton method approximates function with second-order surface. To have a saddle point its eigenvalues should
+✘ be both positive
+✘ be both negative
+✓ be one positive and one negative
+
+Q Many methods perform minimization basing on certain approximation of the function being minimized. Trust-region is
+✘ region where all points are feasible
+✘ region where the function is minimized
+✓ region where approximation is close enough to the target function
+✘ region that contains minimum of approximation
+✘ region that contains minimum of the target function
