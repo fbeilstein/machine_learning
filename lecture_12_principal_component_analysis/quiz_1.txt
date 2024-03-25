@@ -1,0 +1,59 @@
+Q What is the primary goal of Principal Component Analysis (PCA)? 
+✘ Classification
+✘ Clustering
+✓ Dimensionality reduction
+✘ Regression 
+
+Q In PCA, what are the principal components? 
+✘ Features of the dataset
+✘ Eigenvalues of the covariance matrix
+✓ Eigenvectors of the covariance matrix
+✘ Data points in the dataset 
+
+Q What is the purpose of eigenvalues in PCA?
+✓ They represent the variance explained by each principal component.
+✘ They determine the number of principal components to retain.
+✘ They are used for data visualization.
+✘ They measure the similarity between data points.
+
+Q How is the total variance of the data distributed among the principal components?
+✘ Equally among all principal components
+✓ Proportional to their eigenvalues
+✘ Proportional to the number of data points
+✘ Proportional to the number of features
+
+Q When should you use PCA as a preprocessing step in a machine learning pipeline?
+✘ When you want to increase the number of features
+✓ When you suspect multicollinearity among features
+✘ When you want to remove outliers
+✘ PCA should never be used as a preprocessing step.
+
+Q In PCA, what is the relationship between the first principal component and the second principal component?
+✓ They are orthogonal (uncorrelated) to each other.
+✘ They are positively correlated.
+✘ They are negatively correlated.
+✘ There is no defined relationship between them.
+
+Q In PCA, what is the relationship between the number of principal components retained and the amount of variance explained by the retained components?
+✘ More retained components explain less variance.
+✓ More retained components explain more variance.
+✘ The number of retained components does not affect the explained variance.
+✘ The relationship depends on the type of dataset.
+
+Q What is the effect of scaling the data before applying PCA?
+✓ Scaling the data prevents features with larger scales from dominating the analysis.
+✘ Scaling the data has no effect on PCA
+✘ Scaling the data makes PCA redundant as all features will have the same varience
+✘ Scaling the data should be performed after PCA only
+
+Q The main assumption to employ PCA for dimensionality reduction is:
+✓ Bigger variance means more information encapsulated
+✘ Features are linearly independent 
+✘ Data should be discrete
+✘ Linear transformation should lead to better interpretability of features
+
+Q What is the total variance explained by PCA?
+✓ The total variance explained by PCA is the sum of the variances of all the principal components.
+✘ The total variance explained by PCA is the product of the variances of all the principal components.
+✘ The total variance explained by PCA is the mean of the variances of all the principal components
+✘ The total variance explained by PCA is the biggest variance of a principal component
