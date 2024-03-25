@@ -17,9 +17,7 @@ Q Which of the following types are immutable?
 ✘ dict
 ✓ tuple
 
-Q If strings are immutable, what will do the following code? 
-  X = "Machine "
-  X += "Learning"
+Q If strings are immutable, what will do the following code? <br> X = "Machine " <br> X += "Learning"
 ✘ yes, that works, but X stays "Machine "
 ✘ no, that produces syntax error
 ✓ yes, that works, X becomes "Machine Learning"
