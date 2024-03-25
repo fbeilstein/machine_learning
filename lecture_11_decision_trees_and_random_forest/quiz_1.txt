@@ -1,0 +1,88 @@
+Q Which one is correct?
+✓ A Random Forest is a type of ensemble learning algorithm that combines multiple decision trees to make more accurate predictions.
+✘ A Random Forest is a type of ensemble learning algorithm that uses a single decision tree for classification.
+✘ A Random Forest is an unsupervised learning algorithm used for clustering.
+✘ A Random Forest is a supervised learning algorithm used for clustering.
+
+Q Which one is correct?
+✘ Random Forests can handle large datasets with many features and can be trained efficiently on parallel and distributed systems.
+✘ Random Forests provide feature importance scores that can be used to understand the relative importance of each feature in the prediction.
+✘ Random Forest algorithm is available on Scikit Learn
+✓ All of the above
+
+Q How does a Random Forest prevent overfitting? (select two)
+✓ by randomly selecting a subset of features
+✓ by randomly selecting a subset of the dataset
+✘ By using the entire dataset for each decision tree
+✘ By removing outliers from the dataset
+✘ By increasing the depth of each decision tree. 
+
+Q What are the advantages of using a Random Forest over a single decision tree?
+✘ Random Forests are less prone to overfitting than single decision trees because they combine the predictions of multiple trees, which helps to reduce the variance and improve the generalization performance of the model.
+✘ Random Forests are typically more accurate than single decision trees because they capture more of the underlying patterns in the data by combining the predictions of multiple trees.
+✘ Random Forests are more robust to noise and outliers in the data because they average the predictions of multiple trees, which helps to reduce the impact of individual noisy or outlier data points.
+✓ All of the above
+
+Q Which statement is correct about bagging?
+✘ Many weak learners aggregated typically outperform a single learner over the entire set and have less overfit.
+✘ Reduces influence of outliers.
+✘ Parallel processing for both training and evaluation.
+✓ All of the above
+
+Q Select the statement(s) that highlight the key difference(s) between Bagging and Random Forest
+✘ Bagging can have any number of estimators while Random Forest can not have any number of estimators.
+✘ Bagging selects only a subset of features to decide the best split while Random Forest considers all the features to decide the best split.
+✓ Bagging considers all the features to decide the best split while Random Forest generally selects only a subset of features.
+✘ Bagging trains all estimators at once while Random Forest selects a subset of estimators at each step
+
+Q In a random forest, what does the out-of-bag (OOB) error rate indicate?
+✘ Mean prediction error of each training sample xᵢ, using only the trees that did have xᵢ in their bootstrap sample 
+✓ Mean prediction error of each training sample xᵢ, using only the trees that did NOT have xᵢ in their bootstrap sample 
+✘ Mean prediction error of each testing sample xᵢ 
+✘ Mean prediction error over all samples xᵢ
+
+Q Maximal possible entropy is achieved when all states are equally probable. What's the maximal possible entropy of a system with N states?
+✘ N log(N)
+✘ -log(N)
+✓ log(N)
+✘ -N log(N)
+
+Q There are 7 professors on the exam. Each of them grades the student fail/pass. The probability of the grade to be fair is 80% for each professor.  If the final grade is decided by majority voting, what is the probability that the student will get a fair grade.
+✘ 0,2097
+✘ 0,8
+✘ 0,837
+✓ 0,9666
+
+Q The amount of information in a node is measured by: 
+✓ Entropy 
+✓ Gini index 
+✘ Mean squared error 
+✘ Variance 
+✘ Accuracy 
+
+Q Let measured parent, left, and right nodes' information are Ip, Il, Ir. Let the number of points be respectively Np, Nl, Nr. The information gain is thus equal:
+✓ Ip - Il*Nl/Np - Ir*Nr/Np
+✘ Ip + Il*Nl/Np + Ir*Nr/Np
+✘ Il*Nl/Np - Ir*Nr/Np
+✘ Ip - Il - Ir
+✘ Ip/Np + Il/Nl + Ir/N
+✘ Ip/Np - Il/Nl - Ir/N
+
+Q A node contains 40 datapoints of class A and 40 datapoints of class B, its entropy is equal:
+✓ 1
+✘ 0
+✘ 0.5
+✘ 2
+
+Q A node contains 40 datapoints of class A and 40 datapoints of class B, its Gini index is equal:
+✓ 0.5
+✘ 0
+✘ 1
+✘ 2
+
+Q True for AdaBoost: 
+✓ Cannot be performed in parallel 
+✘ Can be performed in parallel 
+✘ Gives more weight to datapoints where fewer errors occurred on previous steps 
+✓ Gives more weight to datapoints where more errors occurred on previous steps 
+✘ Does not use weighting of datapoints 
