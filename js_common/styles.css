@@ -55,7 +55,41 @@
       height: 30px;
       width: 30px;
       border-radius: 4px;
+      background-image: url("./left.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
       border : 2px black;
+  }
+
+  .left-btn{
+    background-image: url("./left.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .right-btn{
+    background-image: url("./right.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .left-btn:hover{
+    background: rgb(224, 224, 224);
+    background-image: url("./left_hover.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .right-btn:hover{
+    background: rgb(224, 224, 224);
+    background-image: url("./right_hover.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 
   .btn:hover{

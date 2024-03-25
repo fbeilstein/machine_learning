@@ -150,12 +150,10 @@ class ControlButtons
   {
     let sm = this.slide_manager= slide_manager;
     let left_btn = document.createElement("button");
-    left_btn.innerText = "<";
-    left_btn.className = "btn left-right-btns";
+    left_btn.className = `left-right-btns left-btn`;
     left_btn.addEventListener('click', () => {sm.prev_slide();});
     let right_btn = document.createElement("button");
-    right_btn.innerText = ">";
-    right_btn.className = "btn left-right-btns";
+    right_btn.className = `left-right-btns right-btn`;
     right_btn.addEventListener('click', () => {sm.next_slide();});
     buttons_div.appendChild(left_btn);
     buttons_div.appendChild(right_btn);
