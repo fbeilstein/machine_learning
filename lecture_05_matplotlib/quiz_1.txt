@@ -1,0 +1,59 @@
+Q What is Matplotlib primarily used for? 
+✘ Data manipulation 
+✓ Data visualization 
+✘ Statistical analysis 
+✘ Machine learning 
+
+Q Which Matplotlib function is used to create a line plot? 
+✓ plot() 
+✘ bar() 
+✘ scatter() 
+✘ hist() 
+
+Q What Matplotlib method is used to add labels to the x and y axes? 
+✓ xlabel() and ylabel() 
+✘ label_x() and label_y() 
+✘ xaxis() and yaxis() 
+✘ add_label() 
+
+Q How do you change the line color to red in a Matplotlib plot? 
+✘ color=red 
+✓ line_color='red' 
+✘ c='red' 
+✘ linecolor='red' 
+
+Q You imported matplotlib.pyplot as plt. How do you change plot title?
+✘ plt.set_title('Draw a line.') 
+✓ plt.title('Draw a line.') 
+✘ plt.add_title('Draw a line.') 
+✘ plt.plot_title('Draw a line.') 
+
+Q How do you add a legend to a Matplotlib plot? 
+✘ add_legend() 
+✓ legend() 
+✘ plot_legend() 
+✘ create_legend() 
+
+Q Which of the following allows you to draw a scatter plot?
+✓ plot() 
+✘ histogram()
+✓ scatter() 
+✘ bar() 
+
+Q If you want to draw a scatter plot with different sizes of markers and colors, what would be the simplest method to draw it?
+✘ plot() 
+✘ histogram()
+✓ scatter() 
+✘ bar() 
+
+Q What Matplotlib function is used to create multiple plots within a single figure? 
+✘ add_subplot() 
+✘ create_subplot() 
+✓ subplot() 
+✘ plot_subplots() 
+
+Q How do you change the marker style to a triangle in a Matplotlib scatter plot? 
+✘ marker=triangle 
+✘ style='triangle' 
+✓ marker='^' 
+✘ scatter_style='triangle' 
