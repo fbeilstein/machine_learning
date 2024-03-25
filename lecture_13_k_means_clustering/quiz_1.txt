@@ -13,7 +13,7 @@ Q Which of the following is true about K-Means?
 Q How does the K-Means algorithm handle outliers in the data?
 ✘ Outliers are automatically excluded during the clustering process
 ✘ K-Means treats outliers as a separate cluster
-✓ Outliers can significantly affect the clustering result
+✓ Outliers can significantly affect the clustering result
 ✘ Outliers are ignored during centroid updates
 
 Q In K-Means clustering, what is the computational complexity of one iteration of the algorithm, assuming K clusters and N data points?
@@ -47,7 +47,7 @@ Q In the context of K-Means clustering, what does the term “inertia” refer t
 ✘ The measure of cluster density and separation from other clusters
 
 Q Which of the following conditions is typically used as a stopping criterion in the K-Means algorithm?
-✓ The centroids of clusters no longer change their positions significantly after consecutive iterations
+✓ The centroids of clusters no longer change their positions significantly after consecutive iterations
 ✘ The computational time of the algorithm exceeds a predefined limit
 ✘ The number of clusters K equals the number of features in the dataset
 ✘ The distance between any two centroids is maximized
@@ -56,16 +56,16 @@ Q Under which circumstance is Mini-Batch K-Means typically preferred over the st
 ✘ When the dataset is relatively small and easily fits into memory
 ✘ When the clusters in the dataset are highly non-spherical
 ✘ When a high level of precision in cluster assignment is required
-✓ When the dataset is very large and computational efficiency is a concern
+✓ When the dataset is very large and computational efficiency is a concern
 
 Q What is the role of the ‘Elbow Method’ in K-Means clustering?
 ✘ To compute the optimal number of iterations
 ✘ To determine the most suitable distance metric
-✓ To identify the optimal number of clusters
+✓ To identify the optimal number of clusters
 ✘ To choose the best method for centroid initialization
 
 Q The following are K-Means algorithms:
-✓ Forgy/Lloyd
-✓ McQueen
-✓ Hartigan&Wong
+✓ Forgy/Lloyd
+✓ McQueen
+✓ Hartigan&Wong
 ✘ Chip&Dale
