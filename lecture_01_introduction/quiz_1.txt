@@ -1,0 +1,73 @@
+Q The main difference between ML algorithms and "traditional" programs is 
+
+✘ "Traditional" program always yields concrete result, while ML algorithm is always probabilistic 
+✓ ML algorithm contains free internal parameters that are estimated from data 
+✘ ML algorithms are based on neural networks, while "traditional" are not 
+
+
+Q Suppose, you are working for the Big Bank Company and your job is to write an algorithm that predicts whether it should loan a credit to a person or not. You are given data on previous loaners of the Big Bank: age, gender, job type, etc as well as information whether they were able to return the credit. Your program should predict "able/not able to return the credit" based on a given dataset. Your ML algorithm will be an example of
+
+✓ Supervised learning
+✘ Unsupervised learning
+✘ Semi-supervised learning
+✘ Reinforcement learning
+
+
+Q Bored with playing Need For Speed you suggest an ML algorithm can do this for you. The problem is, you do not have any dataset for training. As a workaround you suggest to start with an untrained algorithm and iteratively collect data during play, train algorithm, repeat. This is an example of
+
+✘ Supervised learning
+✘ Unsupervised learning
+✘ Semi-supervised learning
+✓ Reinforcement learning
+
+
+Q What does it mean "the model underfits"? 
+
+✓ Model complexity is too low compared to the complexity of data 
+✘ Model complexity is too high compared to the complexity of data 
+✘ Model is not stable to small changes in data 
+✘ Model was trained on a wrong data
+
+
+Q What does it mean "the model overfits"? 
+
+✘ Model complexity is too low compared to the complexity of data 
+✓ Model complexity is too high compared to the complexity of data 
+✘ Model does not respond to changes in data
+✘ Model was trained on a wrong data
+
+
+Q Regularisation restricts parameters of the model so that they are no longer arbitrary. In which case do you expect it to be helpful? 
+
+✘ Underfit
+✓ Overfit
+✘ Unbalansed dataset 
+✘ Long training time
+
+
+Q If your model fails due to an overfit it means 
+
+✘ Low bias and low variance 
+✓ Low bias and high variance
+✘ High bias and low variance 
+✘ High bias and high variance
+
+
+Q On which set the score should be normally higher? 
+
+✓ Train set 
+✘ Validation set 
+
+
+Q Consider different validation strategies. How do you call the strategy of iteratively extracting a part of data into the validation set, Training on the rest, and repeating the procedure few times to estimate the mean error?
+
+✓ cross-validation 
+✘ leave-one-out
+✘ hold-set
+
+
+Q What is the main reason overfit is bad? 
+
+✘ Model is unstable under small variations in data 
+✘ It takes long time to train the model, while it can be simplified and trained much faster 
+✓ Model represents rather noise than essential patterns in data
