@@ -1,0 +1,95 @@
+Q What is the role of covariance matrices in a GMM?
+✓ They determine the shape and orientation of the clusters
+✘ They represent the means of the clusters
+✘ They are used to calculate the regression coefficients
+✘ They define the number of clusters
+
+Q In GMMs, what is the role of the mixing coefficients?
+✘ They determine the mean of each component
+✓ They control the weight of each component in the overall distribution
+✘ They are used to initialize the Expectation Maximization algorithms in GMMs
+✘ They are not relevant in GMMs
+
+Q Which criterion is commonly used to select the number of components in a GMM?
+✘ Root Mean Square Error (RMSE)
+✓ Bayes Information Criterion (BIC)
+✘ Precision-Recall Curve
+✘ R-squared value
+
+Q How is model complexity controlled in a Gaussian Mixture Model (GMM)?
+✘ By tuning the learning rate, number of training epochs, and the batch size of training examples
+✓ Through the selection of the covariance matrix type and the number of Gaussian components
+✘ By implementing dropout and regularization techniques similar to those used in neural networks
+✘ By adjusting the threshold for the convergence criterion of the Expectation-Maximization algorithm
+
+Q In GMM, what is the effect of assuming diagonal covariance matrices for each component?
+✓ Features are treated independently, allowing different variances for each feature
+✘ Assumes equal variance for all features, regardless of their relationships
+✘ Assumes perfect correlation between all features, resulting in identical covariance matrices
+✘ This assumption is not applicable in GMMs and is avoided due to computational limitations
+
+Q Given a Gaussian Mixture Model (GMM) with a diagonal covariance matrix, how would you modify the model to account for correlated features? 
+✘ Increase the number of components
+✓ Switch to a full covariance matrix
+✘ Apply a feature scaling technique
+✘ Use a different initialization strategy
+
+Q What does a full covariance matrix in a GMM component allow for?
+✘ Only circular shaped clusters
+✘ Only diagonal shaped clusters
+✓ Ellipsoidal clusters of any orientation
+✘ Clusters with fixed orientations
+
+Q How is the likelihood of a data point computed in a GMM?
+✘ As the maximum likelihood across all components
+✓ As the sum of the likelihoods under each component
+✘ As the average likelihood across all components
+✘ As the product of the likelihoods under each component
+
+Q What is the effect of collinearity among features on a GMM?
+✘ It significantly improves clustering performance
+✘ It has no effect on clustering performance
+✓ It can lead to singular covariance matrices
+✘ It decreases the computational complexity
+
+Q What does the term ‘mixture’ in GMM refer to?
+✘ The combination of different types of machine learning models
+✓ The blend of multiple Gaussian distributions
+✘ The mix of various features in the dataset
+✘ The mixture of supervised and unsupervised learning techniques
+
+Q What is the key difference between K-means clustering and GMM?
+✘ K-means is a supervised learning algorithm, while GMM is unsupervised learning algorithm
+✓ GMM allows for mixed membership of data points across clusters, whereas k-means assigns each data point to exactly one cluster
+✘ GMMs are primarily used for dimensional reduction, while K-means is used for clustering
+✘ GMM is a deterministic algorithm, while K-means is probabilistic
+
+Q How does the number of components in a GMM affect the model’s flexibility?
+✓ More components make the model more flexible
+✘ More components make the model less flexible
+✘ The number of components does not affect model flexibility
+✘ Flexibility of a model is determined by the mean only
+
+Q What is a Gaussian Mixture Model?
+✘ A model that predicts outcomes based on linear relationships between variables
+✘ An algorithm that classifies data by finding the widest margin between categories
+✓ A probabilistic model for representing normally distributed subpopulations within an overall population
+✘ A type of regression model used for time-series forecasting
+
+Q What is the key assumption underlying Gaussian Mixture Models?
+✓ The data is normally distributed within each cluster
+✘ The data is linearly separable
+✘ The data is uniformly distributed within each cluster
+✘ The data has a high degree of dimensionality
+
+Q Which algorithm is most commonly used for estimating the parameters of a GMM?
+✘ Gradient Descent
+✘ Decision Trees
+✘ Support Vector Machines
+✓ Expectation-Maximization (EM)
+
+Q What is the role of the ‘soft clustering’ approach in GMM?
+✘ To ensure that each data point is assigned to only one cluster with absolute certainty
+✘ To increase the computational speed of clustering by simplifying the model's parameters
+✘ To eliminate the need for specifying the number of clusters before the clustering process begins
+✓ To assign each data point to multiple clusters, each with a varying degree of membership probability
