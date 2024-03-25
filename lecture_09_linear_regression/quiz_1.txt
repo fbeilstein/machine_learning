@@ -1,0 +1,86 @@
+Q Line of regression always passes through:
+✓ Center of mass
+✘ Center of medians
+✘ Random point/No specific point is known
+✘ Center of smallest circle that contains all datapoints
+✘ Origin (0,0)
+
+Q The slope of the Standard Deviation line compared to the slope of the Regression line is always:
+✓ Larger (the line is steeper)
+✘ Smaller (the line is flatter)
+✘ Equal
+✘ Random, i.e. depending on dataset can be larger or smaller
+
+Q Can NOT be used to measure the goodness of fit of linear regression:
+✘ R squared (R^2)
+✓ Chi squared (𝛘^2)
+✘ Mean squared error (MSE)
+✘ Mean absolute error (MAE)
+✘ Root Mean Squared Error (RMSE)
+
+Q Why do we need adjusted R squared?
+✓ plain (not adjusted) R squared increases automatically as you add new independent variables to a regression equation even if they don't contribute any new explanatory power to the equation.
+✘ Adjusted R squared is more easy to interpret in the context of the model.
+✘ Adjusted R squared always decreases with the addition of new variables.
+✘ Adjusted R squared is more accurate than R squared when comparing two models of equal dimension (eual number of internal parameters).
+
+Q You have a dataset that contains 3 points {(1,1),(2,4),(4,5)}. What is the equation of the regression line?
+✓ y = 0.5 + 1.2 x
+✘ y = 1 + 1.5 x
+✘ y = 1 + 1.0 x
+✘ y = 1.5 + 0.5 x
+
+Q You have a dataset that contains 3 points {(1,1),(2,4),(4,5)}. What is R squared?
+✓ R2 = 0.8
+✘ R2 = 0.7
+✘ R2 = 0.9
+✘ R2 = 1.0
+
+Q Linear regression can be performed in the form y = k x + b and y = k x by sklearn. To switch to the mode y = k x + b, we should use the parameter:
+✓ fit_intercept=True
+✘ fit_intercept=False
+✘ fit_slope=True
+✘ fit_slope=False
+
+Q Given information matrix X and vector of classes y such that X w ≈ y, one can define parameters of regression w by
+✓ w = (X^T X)^(-1) X^T y = X^+ y
+✘ w = (X^T X) X^T y = X^+ y
+✘ w = (X^T X)^(-1) y = X^+ y
+✘ w = X^(-1) y
+
+Q Given the information matrix X and vector of parameters w, the result of multiplication X w always belongs to:
+✓ Columns space of X
+✘ Rows space of X
+✘ Null space of X
+✘ Left null space of X
+
+Q For any training set, it is true:
+✓ Var[data] = Var[residues] + Var[regression]
+✘ Var[data] = Var[residues] - Var[regression]
+✘ Var[data] = Var[residues] / Var[regression]
+✘ Var[data] = Var[residues] * Var[regression]
+
+Q Linear regression can be used to fit (feature and class transformations allowed):
+✓ y = k x + b
+✘ y = cos(k1 x) + k2 sin(x)
+✓ y = k1 x^2 + k2 x + k3
+✓ y = log(k x)
+✘ y = log(k1 x) + k2 x
+
+Q Regularization is used to:
+✓ Avoid overfitting
+✘ Remove outliers
+✘ Avoid underfitting
+✘ Increase model complexity
+
+Q You are training model M with internal parameters k1,k2,…,kN. What type of regularization you should use if you want the biggest one max(k1,k2,…,kN) to be as small as possible?
+✘ L0
+✘ L1
+✓ L2
+✘ Cannot be done with regularization
+
+Q You are training model M with internal parameters k1,k2,…,kN. What type of regularization you should use if you want as many of them as possible to be equal exactly to zero?
+✘ L0
+✓ L1
+✘ L2
+✘ Cannot be done with regularization
