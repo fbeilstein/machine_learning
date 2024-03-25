@@ -1,0 +1,71 @@
+Q In the context of K-Means clustering, what is the Lloyd’s algorithm?
+✘ Lloyd's algorithm is an algorithm used for dimensionality reduction in K-Means
+✘ Lloyd's algorithm is an algorithm used for determining the optimal number of clusters
+✘ Lloyd's algorithm is an algorithm used for handling outliers in the dataset
+✓ Lloyd's algorithm is an algorithm used for iteratively refining the centroids in K-Means clustering
+
+Q Which of the following is true about K-Means?
+✘ It can handle clusters of any form
+✘ It is robust to outliers
+✘ It guarantees convergence to the global optimum
+✓ It may converge to a local optimum
+
+Q How does the K-Means algorithm handle outliers in the data?
+✘ Outliers are automatically excluded during the clustering process
+✘ K-Means treats outliers as a separate cluster
+✓ Outliers can significantly affect the clustering result
+✘ Outliers are ignored during centroid updates
+
+Q In K-Means clustering, what is the computational complexity of one iteration of the algorithm, assuming K clusters and N data points?
+✘ O(N)
+✘ O(K)
+✓ O(NK)
+✘ O(K/N)
+
+Q In the context of K-Means clustering, why are the resulting clusters typically spherical in shape? 
+✘ Because Euclidean distance inherently biases the shape of clusters towards non-linear distributions
+✓ Because the algorithm minimizes the sum of squared Euclidean distances within each cluster, creating an equal radial dispersion around centroids
+✘ Because the algorithm prioritizes maximum separation between centroids, leading to spherical segregation
+✘ Because K-Means clustering uses a radial basis function to naturally form circular boundaries
+
+Q In K-Means clustering, how is the silhouette score interpreted?
+✓ Higher silhouette score indicates better-defined clusters.
+✘ Lower silhouette score indicates better-defined clusters
+✘ Silhouette score is not used in K-Means clustering
+✘ Silhouette score is used for selecting the initial centroids
+
+Q How does the K-Means++ algorithm select the initial centroids?
+✘ By randomly choosing K data points from the dataset without any preference
+✘ By choosing the first K data points in the dataset as the initial centroids
+✘ By using a hierarchical clustering method to determine the initial centroids
+✓ By selecting centroids that are as far apart from each other as possible, based on their distance
+
+Q In the context of K-Means clustering, what does the term “inertia” refer to?
+✘ The resistance of the algorithm to change the number of clusters
+✘ The total number of iterations required for the algorithm to converge
+✓ The sum of squared distances of samples to their closest cluster center
+✘ The measure of cluster density and separation from other clusters
+
+Q Which of the following conditions is typically used as a stopping criterion in the K-Means algorithm?
+✓ The centroids of clusters no longer change their positions significantly after consecutive iterations
+✘ The computational time of the algorithm exceeds a predefined limit
+✘ The number of clusters K equals the number of features in the dataset
+✘ The distance between any two centroids is maximized
+
+Q Under which circumstance is Mini-Batch K-Means typically preferred over the standard K-Means algorithm?
+✘ When the dataset is relatively small and easily fits into memory
+✘ When the clusters in the dataset are highly non-spherical
+✘ When a high level of precision in cluster assignment is required
+✓ When the dataset is very large and computational efficiency is a concern
+
+Q What is the role of the ‘Elbow Method’ in K-Means clustering?
+✘ To compute the optimal number of iterations
+✘ To determine the most suitable distance metric
+✓ To identify the optimal number of clusters
+✘ To choose the best method for centroid initialization
+
+Q The following are K-Means algorithms:
+✓ Forgy/Lloyd
+✓ McQueen
+✓ Hartigan&Wong
+✘ Chip&Dale
