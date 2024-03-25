@@ -1,0 +1,62 @@
+Q How do you create a DataFrame from a dictionary in Pandas?
+✘ pd.from_dict({1:2}) 
+✘ pd.create_dataframe({1:2}) 
+✘ pd.DataFrame.from_dict({1:2}) 
+✘ pd.DataFrame({1:2}) 
+✓ pd.DataFrame({1:2}, index=['col']) 
+
+Q Which of the following are methods of indexing Pandas dataframe?
+✓ implicit indexing
+✓ explicit indexing
+✘ internal idexing
+✘ external indexing
+
+Q How to return the first 3 rows of the DataFrame df?
+✘ df.loc[:3] 
+✓ df.iloc[:3] 
+✓ df[:3]
+✓ df.head(3) 
+
+Q What Pandas function is used to read a CSV file into a DataFrame? 
+✓ pd.read_csv() 
+✘ df.load_csv() 
+✘ df.read_file() 
+✘ pd.import_csv() 
+
+Q Which of the following joins of tables A and B will retain only these rows that are present in both tables?
+✘ outer join
+✘ right join
+✓ inner join
+✘ left join
+
+Q Which of the following joins of tables A and B will contain all rows from both tables?
+✓ outer join
+✘ right join
+✘ inner join
+✘ left join
+
+Q You are performing left join of tables A and B, what changes?
+✘ Nothing, left join is just abstract notion equal to A
+✓ It will contain additional columns that are present in B and not in A
+✘ It will contain additional rows (index) present in B and not in A
+
+Q How to get one column ‘animal’ from dataframe df?
+✘ df.filter(column_name='animal')
+✘ df.filter_column(column_name='animal')
+✘ df.select_rows(column_name='animal')
+✘ df[df['column_name'] == 'animal']
+✓ df['animal'] 
+
+Q Dataframe contains table of floating-point numbers that signify some measurements. How Pandas indicates that some of the values are absent?
+✘ It contains additional table of true/false that designate which cells contain meaningful values
+✓ It contain sentinel values in cells that have no meaningful values
+✘ It designates absent values with zeros
+✘ There is no such mechanism. If you are creating a table make sure that data is complete
+
+Q Lecture mentions technique that allows efficient data processing in Pandas (and beyound). What are its components?
+✓ split
+✘ regroup
+✓ apply
+✘ filter
+✓ combine
+✘ join
