@@ -1,4 +1,3 @@
-<script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
 
 let tabs_div;
 let content_div;
