@@ -10,6 +10,7 @@
 
 //temporary
 var func = 'sin(x/3)*sin(y/4)';
+var iters = 50;
 
 function getMax(a){
   return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
@@ -282,27 +283,30 @@ function draw() {
   }
 
     function calculate() {
-      var elem = document.getElementById("alpha_val");
-      step = parseFloat(elem.value) / 100.0;
-      elem = document.getElementById("alpha_label");
-      elem.innerHTML = step;
-
-      elem = document.getElementById("beta_val");
-      momentum = parseFloat(elem.value) / 100.0;
-      elem = document.getElementById("beta_label");
-      elem.innerHTML = momentum;
-
+      step = 0.5;
+      momentum = 0.5;
       update_3d();
     }
 
+function update_iters() {
+  let slider = document.getElementById('alpha_val');
+  iters  = parseFloat(slider.value);
+  let display = document.getElementById("alpha_label");
+  display.innerHTML = iters;
+}
+
 async function change_function() {
   func = document.getElementById("func_input").value;
+  let method = document.getElementById("min_method").value;
+  let jacobian = document.getElementById("jacobian").value;
+  let hessian = document.getElementById("hessian").value;
   parse_func(func);
   plot_left_func();
   plot_right_func();
   draw();
   calculate(); 
-  const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func});
+
+  const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
 }
 
   </script>
@@ -330,16 +334,12 @@ f(x,y) = </td><td>
         <input name="idValue" id="idValue" type="hidden">
       </div>
 </td>
-      <td>α</td>
-      <td><input type="range" class="slider" min = "0" max = "200" value="50" id="alpha_val" oninput="calculate();"></td>
+      <td>Iterations:</td>
+      <td><input type="range" class="slider" min = "0" max = "100" value="50" id="alpha_val" oninput="update_iters();"></td>
       <td><div id="alpha_label" >3</div></td>
-      <td>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-      <td>β</td>
-      <td><input type="range" class="slider" min = "0" max = "100" value="0" id="beta_val" oninput="calculate();"></td>
-      <td><div id="beta_label" >3</div></td>
       <td>Method:</td>
       <td>
-        <select>
+        <select id="min_method">
           <option value="Nelder-Mead">Nelder-Mead</option>
           <option value="Powell">Powell</option>
           <option value="CG">CG</option>
@@ -358,7 +358,7 @@ f(x,y) = </td><td>
       </td>
       <td>Jacobian:</td>
       <td>
-        <select>
+        <select id="jacobian">
           <option value="none">none</option>
           <option value="2-point">2-point</option>
           <option value="3-point">3-point</option>
@@ -368,7 +368,7 @@ f(x,y) = </td><td>
       </td>
       <td>Hessian:</td>
       <td>
-        <select>
+        <select id="hessian">
           <option value="none">none</option>
           <option value="2-point">2-point</option>
           <option value="3-point">3-point</option>
@@ -402,6 +402,7 @@ function init()
   draw();
   change_function();
   calculate();
+  update_iters();
   
   timer = setInterval(draw, 500);
 }
