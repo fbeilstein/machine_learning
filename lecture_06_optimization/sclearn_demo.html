@@ -306,7 +306,11 @@ async function change_function() {
   draw();
   calculate(); 
 
-  const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
+  let x_ini = 10.0;
+  let y_ini = 10.0;
+
+  const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
+  console.log(result);
 }
 
   </script>
