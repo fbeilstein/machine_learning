@@ -349,7 +349,7 @@ async function change_function() {
 
   const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
   console.log(result);
-  plot_graph(result);
+  plot_graph(result.data['application/json']);
 }
 
   </script>
