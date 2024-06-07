@@ -21,9 +21,57 @@ function getMin(a){
 
 const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
 
+function draw_static_image(data, image) {
+  //console.log(shapes);
+
+  let heatmap = {
+    x: data['plot_x'],
+    y: data['plot_x'],
+    z: data['plot_z_scaled'],
+    type: 'heatmap',
+    colorscale: 'Viridis',
+    opacity: 0.3,
+    showscale: false
+  }
+  data.push(heatmap);
+
+  let layout = {
+    width: 600,
+    height: 600,
+    autosize: false,
+    showlegend: false,
+    xaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    yaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [-1.0, 1.0]
+    },
+    title: '',
+    margin: {'t': 0, 'b': 0, 'l': 0, 'r': 0},
+    shapes: shapes
+  };
+
+  Plotly.toImage({
+      data: data,
+      layout: layout
+    }, {
+      height: 600,
+      width: 600
+    })
+    .then(
+      function(url) {
+        image.src = url;
+      }
+    );
+}
+
 
 function plot_graph(data) {
   const cell_for_plot = document.getElementById("everything");
+  let bg_image = new Image();
+  draw_static_image(data, bg_image)
 
   let layout = {
     'width': 1200, 'height': 600, 'autosize': false, 'showlegend': false,
@@ -52,11 +100,11 @@ function plot_graph(data) {
                 'y': 0,
                 'steps': []
                }],
-/*     'images': [{'source' : image_base64,
+     'images': [{'source' : bg_image,
                  'xref': 'x', 'yref': 'y','sizing': 'stretch',
-                 'sizex': x_max - x_min, 'sizey': y_max - y_min,
+                 'sizex': data['x_max'] - data['x_min'], 'sizey': data['y_max'] - data['y_min'],
                  'layer': 'below', 'opacity':1.0,
-                 'x': x_min, 'y': y_max}]*/
+                 'x': data['x_min'], 'y': data['y_max']}]
   };
 
   const num_steps = data['iters_x'].length;
