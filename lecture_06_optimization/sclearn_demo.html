@@ -68,12 +68,18 @@ function plot_graph(data) {
     );
   }
 
-  let data = [
+  let plot_data = [
           {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'], 'y': data['iters_y'], 'z': data['iters_z'], 
            'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
           {'type': 'surface', 'name': 'f2', 'x': data['plot_x'], 'y': data['plot_y'], 'z': data['plot_z'], 'opacity': 0.8, 'showscale': false},
           {'type': 'scatter', 'name': 's2', 'x': data['iters_x'], 'y': data['iters_y'], 'line': {'color': 'red', 'width': 2}},
   ];
+
+
+  
+  Plotly.newPlot(cell_for_plot, plot_data, layout);
+}
+
 
 
   /*fig = dict(
@@ -111,10 +117,6 @@ function plot_graph(data) {
             } if len(trust_radii) > 0 else {}
           ]} for k in range(len(_h)-1) ]
   )*/
-
-  
-  Plotly.newPlot(cell_for_plot, data, layout);
-}
 
 
 function plot_left_func() {
