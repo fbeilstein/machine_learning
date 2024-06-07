@@ -28,8 +28,8 @@ function plot_graph(data) {
   let layout = {
     'width': 1200, 'height': 600, 'autosize': false, 'showlegend': false,
     'scene': {'domain': { 'x': [0.0, 0.44], 'y': [0, 1] } },
-    'xaxis1': {'domain': [0.55, 1], 'range': [x_min, x_max], 'fixedrange': True},
-    'yaxis1': {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': True},
+    'xaxis1': {'domain': [0.55, 1], 'range': [data['x_min'], data['x_max']], 'fixedrange': true},
+    'yaxis1': {'domain': [0.0, 1.0], 'range': [data['y_min'], data['y_max']], 'fixedrange': true},
     'title': 'Minimization',
     'margin': {'t': 50, 'b': 50, 'l': 50, 'r': 50},
     'updatemenus': [{'buttons': [
