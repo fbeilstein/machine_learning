@@ -19,59 +19,104 @@ function getMin(a){
   return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
 }
 
-const x_min = -10.0
-const x_max =  10.0
-const y_min = -10.0
-const y_max =  10.0
 const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
-const xs = range(x_min, x_max, 30);
-const ys = range(y_min, y_max, 30);
-const x_for3d = range(x_min, x_max, 15);
-const y_for3d = range(y_min, y_max, 15);
 
-var func_obj = null;
-var gx_obj  = null;
-var gy_obj  = null;
-var hxx_obj = null;
-var hxy_obj = null;
-var hyy_obj = null;
-var F = [];
-var F2D = F;
-var z_min = 0.0;
-var z_max = 0.0;
 
-function parse_func(func) {
-  func_obj = math.compile(func);
-  gx_obj = math.derivative(func, 'x');
-  gy_obj = math.derivative(func, 'y');
-  hxx_obj = math.derivative(gx_obj, 'x');
-  hxy_obj = math.derivative(gx_obj, 'y');
-  hyy_obj = math.derivative(gy_obj, 'y');
-  F = [];
-  for (var i = 0; i < ys.length; i++) {
-    var row = [];
-    for (var j = 0; j < xs.length; j++) {
-      row.push(func_obj.evaluate({x:xs[j], y:ys[i]}));
-    }
-    F.push(row);
+function plot_graph(data) {
+  const cell_for_plot = document.getElementById("everything");
+
+  let layout = {
+    'width': 1200, 'height': 600, 'autosize': false, 'showlegend': false,
+    'scene': {'domain': { 'x': [0.0, 0.44], 'y': [0, 1] } },
+    'xaxis1': {'domain': [0.55, 1], 'range': [x_min, x_max], 'fixedrange': True},
+    'yaxis1': {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': True},
+    'title': 'Minimization',
+    'margin': {'t': 50, 'b': 50, 'l': 50, 'r': 50},
+    'updatemenus': [{'buttons': [
+                      {'args': [[], {'frame': {'duration': 500.0, 'redraw': true},
+                                     'fromcurrent': false, 'transition': {'duration': 0, 'easing': 'linear'}}],
+                        'label': 'Play', 'method': 'animate'},
+                      {'args': [[null], {'frame': {'duration': 0, 'redraw': true},
+                       'mode': 'immediate', 'transition': {'duration': 0}} ],
+                        'label': 'Pause', 'method': 'animate'}
+                                ],
+                    'direction': 'left', 'pad': {'r': 10, 't': 85}, 'showactive': true,
+                    'type': 'buttons', 'x': 0.1, 'y': 0, 'xanchor': 'right', 'yanchor': 'top'}],
+    'sliders': [{'yanchor': 'top',
+                'xanchor': 'left',
+                'currentvalue': {'font': {'size': 16}, 'prefix': 'Step: ', 'visible': True, 'xanchor': 'right'},
+                'transition': {'duration': 0.0},
+                'pad': {'b': 10, 't': 50},
+                'len': 0.9,
+                'x': 0.1,
+                'y': 0,
+                'steps': [{'args': [[k], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': True},
+                                          'transition': {'duration': 0, 'easing': 'linear'}}
+                                    ],
+                          'label': k, 'method': 'animate'} for k in range(len(_h)-1)]
+               }],
+/*     'images': [{'source' : image_base64,
+                 'xref': 'x', 'yref': 'y','sizing': 'stretch',
+                 'sizex': x_max - x_min, 'sizey': y_max - y_min,
+                 'layer': 'below', 'opacity':1.0,
+                 'x': x_min, 'y': y_max}]*/
+  };
+
+  const num_steps = data['iters_x'].length;
+  for (let i = 0; i < num_steps; ++i) {
+    layout['updatemenus'][0]['buttons'][0]['args'][0].push(i);
+    layout['sliders'][0]['steps'].push(
+      {'args': [[i], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': true},
+                      'transition': {'duration': 0, 'easing': 'linear'}}], 'label': i, 'method': 'animate'}
+    );
   }
-  z_min = getMin(F);
-  z_max = getMax(F);
-  F2D = [];
-  if (z_max - z_min > 100) {
-    for (var i = 0; i < F.length; i++) {
-      var row = [];
-      for (var j = 0; j < F[0].length; j++) {
-        const f = F[i][j];
-        row.push(math.log(math.abs(f) + 1.0) * math.sign(f));
-//        F2D[i][j] = math.log(math.abs(f) + 1.0) * math.sign(f);
-      }
-      F2D.push(row);
-    }
-  } else {
-    F2D = F;
-  }
 
+  let data = [
+          {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'], 'y': data['iters_y'], 'z': data['iters_z'], 
+           'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+          {'type': 'surface', 'name': 'f2', 'x': data['plot_x'], 'y': data['plot_y'], 'z': data['plot_z'], 'opacity': 0.8, 'showscale': false},
+          {'type': 'scatter', 'name': 's2', 'x': data['iters_x'], 'y': data['iters_y'], 'line': {'color': 'red', 'width': 2}},
+  ];
+
+
+  /*fig = dict(
+      data = [
+          {'type': 'scatter3d', 'name': 's3', 'x': _x, 'y': _y, 'z': _z, 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+          {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
+          {'type': 'scatter', 'name': 's2', 'x': _x, 'y': _y,
+          'line': {'color': 'red', 'width': 2}
+          },
+          {
+              'type': 'scatter', 'name': 'trust radii',
+              'x': _x, 'y': _y, 'mode': 'markers',
+              'marker': {'size': trust_radii,
+                         'sizeref': 0.05,
+                         'color': 'rgba(0, 0, 0, 0)',
+                         'line': {'color': 'red', 'width':2}},
+          } if len(trust_radii) > 0 else {}
+      ],
+      frames=[
+          {'name': str(k),
+          'data': [
+            {'type': 'scatter3d', 'name': 's3', 'x': _x[:k], 'y': _y[:k], 'z': _z[:k], 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+            {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
+            #{'type': 'contour', 'name': 'c1', 'x':x_, 'y':y_, 'z':z_, 'contours': {'showlabels': True}},
+            {'type': 'scatter', 'name': 's2', 'x': _x[:k], 'y': _y[:k],
+            'line': {'color': 'red', 'width': 2}
+            },
+            {
+              'type': 'scatter', 'name': 'trust radii',
+              'x': _x[:k], 'y': _y[:k], 'mode': 'markers',
+              'marker': {'size': trust_radii[:k],
+                         'sizeref': 0.05,
+                         'color': 'rgba(0, 0, 0, 0)',
+                         'line': {'color': 'red', 'width':2}}
+            } if len(trust_radii) > 0 else {}
+          ]} for k in range(len(_h)-1) ]
+  )*/
+
+  
+  Plotly.newPlot(cell_for_plot, data, layout);
 }
 
 
@@ -300,17 +345,12 @@ async function change_function() {
   let method = document.getElementById("min_method").value;
   let jacobian = document.getElementById("jacobian").value;
   let hessian = document.getElementById("hessian").value;
-  parse_func(func);
-  plot_left_func();
-  plot_right_func();
-  draw();
-  calculate(); 
-
   let x_ini = 10.0;
   let y_ini = 10.0;
 
   const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
   console.log(result);
+  plot_graph(result);
 }
 
   </script>
@@ -385,8 +425,6 @@ f(x,y) = </td><td>
 
 
 <div id="everything" style="height:400px; width:800px; margin: 0px 0px 0px 0px;">
-<div id="for_left_plot" > </div>
-<div id="for_right_plot" style="height:400px; position:absolute; top:50px; left:420px; margin: 0px 0px 0px 0px;"> </div>
 <canvas id="paint_left"
   onmousedown="mdown_handle(event)"
   onmousemove="mmove_handle(event)"
@@ -399,16 +437,9 @@ f(x,y) = </td><td>
 function init()
 {
   func = document.getElementById("func_input").value;
-  parse_func(func);
-  plot_left_func();
-  plot_right_func();
-  middle_point = [300, 300];
-  draw();
   change_function();
-  calculate();
   update_iters();
-  
-  timer = setInterval(draw, 500);
+  //timer = setInterval(draw, 500);
 }
 init();
 </script>
