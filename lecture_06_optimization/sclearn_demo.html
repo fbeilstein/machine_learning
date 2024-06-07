@@ -22,8 +22,6 @@ function getMin(a){
 const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
 
 function draw_static_image(data, image) {
-  //console.log(shapes);
-
   let heatmap = {
     x: data['plot_x'],
     y: data['plot_x'],
@@ -33,7 +31,6 @@ function draw_static_image(data, image) {
     opacity: 0.3,
     showscale: false
   }
-  data.push(heatmap);
 
   let layout = {
     width: 600,
@@ -54,7 +51,7 @@ function draw_static_image(data, image) {
   };
 
   Plotly.toImage({
-      data: data,
+      data: [heatmap],
       layout: layout
     }, {
       height: 600,
