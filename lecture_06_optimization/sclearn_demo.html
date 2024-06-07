@@ -27,7 +27,7 @@ async function draw_static_image(data) {
     y: data['plot_y'],
     z: data['plot_z_scaled'],
     type: 'heatmap',
-    colorscale: 'Viridis',
+    colorscale: 'Plasma',
     opacity: 0.3,
     showscale: false
   }
@@ -116,7 +116,6 @@ async function plot_graph(data) {
   ];
 
 
-  
   Plotly.newPlot(cell_for_plot, plot_data, layout);
 }
 
