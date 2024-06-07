@@ -24,7 +24,7 @@ const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start
 async function draw_static_image(data) {
   let heatmap = {
     x: data['plot_x'],
-    y: data['plot_x'],
+    y: data['plot_y'],
     z: data['plot_z_scaled'],
     type: 'heatmap',
     colorscale: 'Viridis',
@@ -39,11 +39,11 @@ async function draw_static_image(data) {
     showlegend: false,
     xaxis1: {
       'domain': [0.0, 1.0],
-      'range': [-1.0, 1.0]
+      'range': [data['x_min'], data['x_max']]
     },
     yaxis1: {
       'domain': [0.0, 1.0],
-      'range': [-1.0, 1.0]
+      'range': [data['y_min'], data['y_max']]
     },
     title: '',
     margin: {'t': 0, 'b': 0, 'l': 0, 'r': 0},
