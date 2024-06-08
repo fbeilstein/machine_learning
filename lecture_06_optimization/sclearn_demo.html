@@ -145,6 +145,11 @@ var max_iters = 100;
 var canvas = document.getElementById("paint_here");
 var active_pt = [canvas.width / 2, canvas.height / 2];
 var do_move = false;
+var x_min = -10.0;
+var x_max = 10.0;
+var y_min = -10.0;
+var y_max = 10.0;
+
 
 
 function draw() {
@@ -191,7 +196,6 @@ function mmove_handle(evt) {
 
 function mup_handle(evt) {
   do_move = false;
-  //remember();
 }
 
 function update_iters() {
@@ -206,10 +210,15 @@ async function change_function() {
   let method = document.getElementById("min_method").value;
   let jacobian = document.getElementById("jacobian").value;
   let hessian = document.getElementById("hessian").value;
-  let x_ini = 10.0;
-  let y_ini = 10.0;
+
+  let x_ini = (active_pt[0] / canvas.width) * (x_max - x_min) + x_min;
+  let y_ini = (1 - active_pt[1] / canvas.height) * (y_max - y_min) + y_min;
 
   const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
+  x_min = data['x_min'];
+  x_max = data['x_max'];
+  y_min = data['y_min'];
+  y_max = data['y_max'];  
   console.log(result);
   plot_graph(result.data['application/json']);
 }
