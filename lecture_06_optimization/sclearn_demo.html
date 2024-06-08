@@ -109,15 +109,26 @@ async function plot_graph(data) {
   }
 
   const frame = (idx) => {
-    return [
+    let pdata = [
           {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'z': data['iters_z'].slice(0, idx), 
            'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
           {'type': 'surface', 'name': 'f2', 'x': data['plot_x'], 'y': data['plot_y'], 'z': data['plot_z'], 'opacity': 0.8, 'showscale': false},
           {'type': 'scatter', 'name': 's2', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'line': {'color': 'red', 'width': 2}},
-  ];
+    ];
+    if (data['trust_r'].length > 0) {
+      pdata.push({
+              'type': 'scatter', 'name': 'trust radii',
+              'x': data['iters_x'], 'y': data['iters_y'], 'mode': 'markers',
+              'marker': {'size': data['trust_r'],
+                         'sizeref': 0.05,
+                         'color': 'rgba(0, 0, 0, 0)',
+                         'line': {'color': 'red', 'width':2}},
+          });
+    }
+    return pdata;
   }
 
-  let plot_data = frame(data['iters_x'].length);
+  let plot_data = frame(num_steps);
 
   let frames = [];
   for (let i = 0; i < num_steps; ++i) {
@@ -130,185 +141,12 @@ async function plot_graph(data) {
 }
 
 
-  /*fig = dict(
-      data = [
-          {'type': 'scatter3d', 'name': 's3', 'x': _x, 'y': _y, 'z': _z, 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
-          {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
-          {'type': 'scatter', 'name': 's2', 'x': _x, 'y': _y,
-          'line': {'color': 'red', 'width': 2}
-          },
-          {
-              'type': 'scatter', 'name': 'trust radii',
-              'x': _x, 'y': _y, 'mode': 'markers',
-              'marker': {'size': trust_radii,
-                         'sizeref': 0.05,
-                         'color': 'rgba(0, 0, 0, 0)',
-                         'line': {'color': 'red', 'width':2}},
-          } if len(trust_radii) > 0 else {}
-      ],
-      frames=[
-          {'name': str(k),
-          'data': [
-            {'type': 'scatter3d', 'name': 's3', 'x': _x[:k], 'y': _y[:k], 'z': _z[:k], 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
-            {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
-            #{'type': 'contour', 'name': 'c1', 'x':x_, 'y':y_, 'z':z_, 'contours': {'showlabels': True}},
-            {'type': 'scatter', 'name': 's2', 'x': _x[:k], 'y': _y[:k],
-            'line': {'color': 'red', 'width': 2}
-            },
-            {
-              'type': 'scatter', 'name': 'trust radii',
-              'x': _x[:k], 'y': _y[:k], 'mode': 'markers',
-              'marker': {'size': trust_radii[:k],
-                         'sizeref': 0.05,
-                         'color': 'rgba(0, 0, 0, 0)',
-                         'line': {'color': 'red', 'width':2}}
-            } if len(trust_radii) > 0 else {}
-          ]} for k in range(len(_h)-1) ]
-  )*/
-
-
-function plot_left_func() {
-  var cell_for_plot = document.getElementById("for_left_plot");
-
-  var data = [{
-    x: xs,
-    y: ys,
-    z: F2D, 
-    showscale: false, 
-    opacity: 0.9, 
-    type: 'contour'
-  },{
-    type: 'scatter',
-  }];
-
-  var layout = {
-      xaxis: {title: 'x'},
-      yaxis: {title: 'y'},
-      autosize: false,
-      xaxis: {'domain': [0.0, 1.0], 'range': [x_min, x_max], 'fixedrange': true},
-      yaxis: {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': true},
-      width: 400,
-      height: 400,
-      showlegend: false,
-      margin: {l: 0, r: 0, b: 0, t: 0}
-    };
-  Plotly.newPlot(cell_for_plot, data, layout);
-}
-
-
-
-function plot_right_func() {
-  var canvas = document.getElementById("paint_left");
-  var w = canvas.width;
-  var h = canvas.height;
-  var plot_x1 = x_min + left_point[0] / w * (x_max - x_min);
-  var plot_y1 = y_min + (h - left_point[1]) / h * (y_max - y_min);
-  var plot_x2 = x_min + right_point[0] / w * (x_max - x_min);
-  var plot_y2 = y_min + (h - right_point[1]) / h * (y_max - y_min);
-
-  var data = [{
-    type: 'surface', 
-    x: xs,
-    y: ys, 
-    z: F, 
-    opacity: 0.8, 
-    showscale: false,
-    scene: 'scene',
-    colorscale: 'Bluered'
-  },{
-    type: 'scatter3d',
-  }];
-   
-  var cell_for_plot = document.getElementById("for_right_plot");
-  var layout = {
-      //title: 'Function',
-      width: 400,
-      height: 400,
-      autosize: false,
-      xaxis: {'domain':[0, 1]},
-      yaxis: {'domain':[0, 1]},
-      margin: {l: 0, r: 0, b: 0, t: 0, pad: 0},
-      scene: {
-        xaxis: {title: 'x', 'domain':[0, 1], 'range': [x_min, x_max], 'fixedrange': true},
-        yaxis: {title: 'y', 'domain':[0, 1], 'range': [y_min, y_max], 'fixedrange': true},
-        domain: { 'x': [0.0, 1.0], 'y': [0.0, 1.0] }, 
-        autosize: false,
-        showlegend: false
-      },
-      showlegend: false,
-    };
-Plotly.newPlot(cell_for_plot, data, layout);
-}
-
-
 var max_iters = 100;
-var step = 1.0;
-var momentum = 0.99;
 
-function update_3d() {
-  var canvas = document.getElementById("paint_left");
-  var w = canvas.width;
-  var h = canvas.height;
-
-  var approx_x = x_min + middle_point[0] / w * (x_max - x_min);
-  var approx_y = y_min + (h - middle_point[1]) / h * (y_max - y_min);
-  var z_x = 0.0;
-  var z_y = 0.0;
-  var Gx = [];
-  var Gy = [];
-  var Z_ = [];
-  for (var i = 0; i < max_iters; ++i) {
-    Gx.push(approx_x);
-    Gy.push(approx_y);
-    let f = func_obj.evaluate({x:approx_x, y:approx_y});
-    //if (z_max - z_min > 100)
-    //  Z_.push(math.log(math.abs(f) + 1.0) * math.sign(f));
-    //else
-    Z_.push(f);
-    z_x = momentum * z_x + (1 - momentum) * gx_obj.evaluate({x:approx_x, y:approx_y});
-    z_y = momentum * z_y + (1 - momentum) * gy_obj.evaluate({x:approx_x, y:approx_y});
-    approx_x = approx_x - step * z_x;
-    approx_y = approx_y - step * z_y;
-    //if (approx_x <= x_min || approx_x >= x_max)
-    //  break;
-    //if (approx_y <= y_min || approx_y >= y_max)
-    //  break;
-  }
-  
-  
-
-  var data = [{
-    type: 'scatter3d',
-    mode: 'markers+lines',
-    x: Gx,
-    y: Gy,
-    z: Z_,
-    color: 'rgba(0,160,0,0.8)',
-    line: {color: 'rgba(0,160,0,0.8)', width: 4},
-    marker: {size: 5, opacity: 0.8}
-  }];
-  var cell_for_plot = document.getElementById("for_right_plot");
-  Plotly.deleteTraces(cell_for_plot, [1]);
-  Plotly.addTraces(cell_for_plot, data);
-
-  var data = [{
-    type: 'scatter',
-    mode: 'markers+lines',
-    x: Gx,
-    y: Gy,
-    color: 'rgba(0,160,0,0.8)',
-    line: {color: 'rgba(0,160,0,0.8)', width: 4},
-    marker: {size: 5, opacity: 0.8}
-  }];
-  cell_for_plot = document.getElementById("for_left_plot");
-  Plotly.deleteTraces(cell_for_plot, [1]);
-  Plotly.addTraces(cell_for_plot, data);
-}
-
-    var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
-    var left_point = [0.0, 0.0];
-    var right_point = [0.0, 0.0];
-    var middle_point = [0.0, 0.0];
+var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
+var left_point = [0.0, 0.0];
+var right_point = [0.0, 0.0];
+var middle_point = [0.0, 0.0];
 
 function draw() {
   var plt_div = document.getElementById('for_left_plot');
