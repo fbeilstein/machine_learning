@@ -215,10 +215,10 @@ async function change_function() {
   let y_ini = (1 - active_pt[1] / canvas.height) * (y_max - y_min) + y_min;
 
   const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
-  x_min = data['x_min'];
-  x_max = data['x_max'];
-  y_min = data['y_min'];
-  y_max = data['y_max'];  
+  x_min = result.data['application/json']['x_min'];
+  x_max = result.data['application/json']['x_max'];
+  y_min = result.data['application/json']['y_min'];
+  y_max = result.data['application/json']['y_max'];  
   console.log(result);
   plot_graph(result.data['application/json']);
 }
