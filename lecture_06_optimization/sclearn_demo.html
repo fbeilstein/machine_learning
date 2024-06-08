@@ -108,17 +108,26 @@ async function plot_graph(data) {
     );
   }
 
-  let plot_data = [
-          {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'], 'y': data['iters_y'], 'z': data['iters_z'], 
+  const frame = (idx) => {
+    return [
+          {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'z': data['iters_z'].slice(0, idx), 
            'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
           {'type': 'surface', 'name': 'f2', 'x': data['plot_x'], 'y': data['plot_y'], 'z': data['plot_z'], 'opacity': 0.8, 'showscale': false},
-          {'type': 'scatter', 'name': 's2', 'x': data['iters_x'], 'y': data['iters_y'], 'line': {'color': 'red', 'width': 2}},
+          {'type': 'scatter', 'name': 's2', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'line': {'color': 'red', 'width': 2}},
   ];
+  }
+
+  let plot_data = frame(data['iters_x'].length);
+
+  let frames = [];
+  for (let i = 0; i < num_steps; ++i) {
+    frames.push({'name': i, 'data': frame(i)});
+  }
 
 
-  Plotly.newPlot(cell_for_plot, plot_data, layout);
+  //Plotly.newPlot(cell_for_plot, plot_data, layout);
+  Plotly.newPlot(cell_for_plot, {'data': plot_data, 'frames': frames, 'layout': layout});
 }
-
 
 
   /*fig = dict(
