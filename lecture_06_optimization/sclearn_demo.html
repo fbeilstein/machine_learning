@@ -118,7 +118,7 @@ async function plot_graph(data) {
     if (data['trust_r'].length > 0) {
       pdata.push({
               'type': 'scatter', 'name': 'trust radii',
-              'x': data['iters_x'], 'y': data['iters_y'], 'mode': 'markers',
+              'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'mode': 'markers',
               'marker': {'size': data['trust_r'],
                          'sizeref': 0.05,
                          'color': 'rgba(0, 0, 0, 0)',
@@ -142,18 +142,15 @@ async function plot_graph(data) {
 
 
 var max_iters = 100;
+var canvas = document.getElementById("paint_here");
+var active_pt = [canvas.width / 2, canvas.height / 2];
+var do_move = false;
 
-var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
-var left_point = [0.0, 0.0];
-var right_point = [0.0, 0.0];
-var middle_point = [0.0, 0.0];
 
 function draw() {
-  var plt_div = document.getElementById('for_left_plot');
-  var el = plt_div.getElementsByClassName('nsewdrag')[0];
-  //el = el.getChildren()[0];
-  var rect = el.getBoundingClientRect();
-  var canvas = document.getElementById("paint_left");
+  let el = document.getElementsByClassName("layer-subplot")[0];
+  let rect = el.getBoundingClientRect();
+
   canvas.style.cssText = "position:absolute; top:" + rect.top
                       + "px; left: " + rect.left
                       + "px; width:" + rect.width
@@ -161,62 +158,41 @@ function draw() {
                       + "px; z-index:1000;";
   canvas.width = rect.width;
   canvas.height = rect.height;
-  var w = canvas.width;
-  var h = canvas.height;
+  let ctx = canvas.getContext('2d');
 
-  var canvas = document.getElementById("paint_left");
-  var ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, w, h);
-  ctx.strokeStyle = "rgb(0,120,0)";
-  ctx.lineWidth = 3;
-  ctx.globalAlpha = 1.0;
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  ctx.fillText("drawing: " + active_pt[0] + ";" + active_pt[1], 20, 20);
 
   ctx.beginPath();
-  ctx.arc(middle_point[0], middle_point[1], 10, 0.0, 2.0 * Math.PI, 0);
+  ctx.arc(active_pt[0], active_pt[1], 10, 0.0, 2.0 * Math.PI, 0);
   ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
   ctx.fill();
 }
 
 
+function is_close(pt1, pt2) {
+  return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+        +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+        <= 10*10;
+}
 
+function mdown_handle(evt) {
+  x = evt.offsetX;
+  y = evt.offsetY;
+  do_move = is_close(active_pt, [x, y]);
+}
 
-  function mdown_handle(evt) {
-    var x = evt.offsetX;
-    var y = evt.offsetY;
-    var dm = [x - middle_point[0], y - middle_point[1]];
-    if (dm[0]*dm[0] + dm[1]*dm[1] < 100) {
-      active_state = 3;
-    }
+function mmove_handle(evt) {
+  if (!do_move)
+      return;
+  active_pt[0] = evt.offsetX;
+  active_pt[1] = evt.offsetY;
+}
 
-    draw();
-  }
-      
-
-
-  function mmove_handle(evt) {
-    if (active_state == 0)
-        return;
-    var x = evt.offsetX;
-    var y = evt.offsetY;
-
-    if (active_state == 3) {
-      middle_point = [x, y];
-    }
-
-    update_3d();  
-    draw();
-  }
-      
-  function mup_handle(evt) {
-    active_state = 0;
-    draw();
-  }
-
-    function calculate() {
-      step = 0.5;
-      momentum = 0.5;
-      update_3d();
-    }
+function mup_handle(evt) {
+  do_move = false;
+  //remember();
+}
 
 function update_iters() {
   let slider = document.getElementById('alpha_val');
@@ -263,9 +239,9 @@ f(x,y) = </td><td>
         <input name="idValue" id="idValue" type="hidden">
       </div>
 </td>
-      <td>Iterations:</td>
-      <td><input type="range" class="slider" min = "0" max = "100" value="50" id="alpha_val" oninput="update_iters();"></td>
+      <td>Max.Iters:</td>
       <td><div id="alpha_label" >3</div></td>
+      <td><input type="range" class="slider" min = "0" max = "100" value="50" id="alpha_val" oninput="update_iters();"></td>
       <td>Method:</td>
       <td>
         <select id="min_method">
@@ -310,10 +286,10 @@ f(x,y) = </td><td>
 
 
 <div id="everything" style="height:400px; width:800px; margin: 0px 0px 0px 0px;">
-<canvas id="paint_left"
-  onmousedown="mdown_handle(event)"
-  onmousemove="mmove_handle(event)"
-  onmouseup="mup_handle(event)"></canvas>
+  <canvas id="paint_here"
+          onmousedown="mdown_handle(event)"
+          onmousemove="mmove_handle(event)"
+          onmouseup="mup_handle(event)"></canvas>
 </div>
 
 </body>
@@ -324,7 +300,7 @@ function init()
   func = document.getElementById("func_input").value;
   change_function();
   update_iters();
-  //timer = setInterval(draw, 500);
+  timer = setInterval(draw, 100);
 }
 init();
 </script>
