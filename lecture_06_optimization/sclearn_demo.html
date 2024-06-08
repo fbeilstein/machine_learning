@@ -241,14 +241,14 @@ f(x,y) = </td><td>
         <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0px;padding:0px;"
                 onchange="document.getElementById('func_input').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
           <option></option>
-          <option value="one">(1-x/5)**2+10*(y/5-x**2/25)**2</option>
+          <option value="one">(1-x)**2+100*(y-x**2)**2</option>
           <option value="two">x**2 + y**2</option>
           <option value="four">x**2 + y**2 + 1.7*x*y</option>
           <option value="three">sin(x/3)*cos(y/4)</option>
         </select>
-        <input type="text" name="displayValue" id="func_input" value="(1-x/5)**2+10*(y/5-x**2/25)**2"
+        <input type="text" name="displayValue" id="func_input" value="(1-x)**2+100*(y-x**2)**2"
                placeholder="add/select a value" onfocus="this.select()"
-               style="position:absolute;top:0px;left:0px;width:180px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;"  >
+               style="position:absolute;top:0px;left:0px;width:177px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;"  >
         <input name="idValue" id="idValue" type="hidden">
       </div>
 </td>
