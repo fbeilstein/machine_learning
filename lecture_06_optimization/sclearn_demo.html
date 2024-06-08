@@ -218,7 +218,11 @@ async function change_function() {
   x_min = result.data['application/json']['x_min'];
   x_max = result.data['application/json']['x_max'];
   y_min = result.data['application/json']['y_min'];
-  y_max = result.data['application/json']['y_max'];  
+  y_max = result.data['application/json']['y_max'];
+
+  active_pt[0] = (result.data['application/json']['iters_x'][0] - x_min) / (x_max - x_min) * canvas.width;
+  active_pt[1] = (1 - (result.data['application/json']['iters_y'][0] - y_min) / (y_max - y_min)) * canvas.height;
+
   console.log(result);
   plot_graph(result.data['application/json']);
 }
