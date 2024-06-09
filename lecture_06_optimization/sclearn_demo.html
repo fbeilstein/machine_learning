@@ -192,6 +192,7 @@ function mmove_handle(evt) {
       return;
   active_pt[0] = evt.offsetX;
   active_pt[1] = evt.offsetY;
+  draw();
 }
 
 function mup_handle(evt) {
@@ -225,6 +226,7 @@ async function change_function() {
 
   console.log(result);
   plot_graph(result.data['application/json']);
+  draw();
 }
 
   </script>
@@ -313,7 +315,7 @@ function init()
   func = document.getElementById("func_input").value;
   update_iters();
   change_function();
-  timer = setInterval(draw, 100);
+  //timer = setInterval(draw, 100);
 }
 init();
 </script>
