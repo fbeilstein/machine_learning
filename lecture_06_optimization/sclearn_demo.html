@@ -138,6 +138,7 @@ async function plot_graph(data) {
 
   //Plotly.newPlot(cell_for_plot, plot_data, layout);
   Plotly.newPlot(cell_for_plot, {'data': plot_data, 'frames': frames, 'layout': layout});
+  cell_for_plot.on('plotly_relayout', function(data){layout = cell_for_plot.layout;});
 }
 
 
