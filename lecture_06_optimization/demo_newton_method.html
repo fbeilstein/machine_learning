@@ -1,0 +1,637 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+
+
+<script type="application/javascript">
+
+
+//temporary
+var func = 'sin(x/3)*sin(y/4)';
+
+function getMax(a){
+  return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+}
+function getMin(a){
+  return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
+}
+
+const x_min = -10.0
+const x_max =  10.0
+const y_min = -10.0
+const y_max =  10.0
+const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
+const xs = range(x_min, x_max, 30);
+const ys = range(y_min, y_max, 30);
+const x_for3d = range(x_min, x_max, 15);
+const y_for3d = range(y_min, y_max, 15);
+
+var func_obj = null;
+var gx_obj  = null;
+var gy_obj  = null;
+var hxx_obj = null;
+var hxy_obj = null;
+var hyy_obj = null;
+var F = [];
+var F2D = F;
+var z_min = 0.0;
+var z_max = 0.0;
+
+function parse_func(func) {
+  func_obj = math.compile(func);
+  gx_obj = math.derivative(func, 'x');
+  gy_obj = math.derivative(func, 'y');
+  hxx_obj = math.derivative(gx_obj, 'x');
+  hxy_obj = math.derivative(gx_obj, 'y');
+  hyy_obj = math.derivative(gy_obj, 'y');
+  F = [];
+  for (var i = 0; i < ys.length; i++) {
+    var row = [];
+    for (var j = 0; j < xs.length; j++) {
+      row.push(func_obj.evaluate({x:xs[j], y:ys[i]}));
+    }
+    F.push(row);
+  }
+  z_min = getMin(F);
+  z_max = getMax(F);
+  F2D = [];
+  if (z_max - z_min > 100) {
+    for (var i = 0; i < F.length; i++) {
+      var row = [];
+      for (var j = 0; j < F[0].length; j++) {
+        const f = F[i][j];
+        row.push(math.log(math.abs(f) + 1.0) * math.sign(f));
+//        F2D[i][j] = math.log(math.abs(f) + 1.0) * math.sign(f);
+      }
+      F2D.push(row);
+    }
+  } else {
+    F2D = F;
+  }
+
+}
+
+
+function plot_left_func() {
+  var cell_for_plot = document.getElementById("for_left_plot");
+
+  var data = [{
+    x: xs,
+    y: ys,
+    z: F2D, 
+    showscale: false, 
+    opacity: 0.9, 
+    type: 'contour'
+  },{
+    type: 'scatter',
+  }];
+
+  var layout = {
+      xaxis: {title: 'x'},
+      yaxis: {title: 'y'},
+      autosize: false,
+      xaxis: {'domain': [0.0, 1.0], 'range': [x_min, x_max], 'fixedrange': true},
+      yaxis: {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': true},
+      width: 400,
+      height: 400,
+      showlegend: false,
+      margin: {l: 0, r: 0, b: 0, t: 0}
+    };
+  Plotly.newPlot(cell_for_plot, data, layout);
+}
+
+
+
+function plot_right_func() {
+  var canvas = document.getElementById("paint_left");
+  var w = canvas.width;
+  var h = canvas.height;
+  var plot_x1 = x_min + left_point[0] / w * (x_max - x_min);
+  var plot_y1 = y_min + (h - left_point[1]) / h * (y_max - y_min);
+  var plot_x2 = x_min + right_point[0] / w * (x_max - x_min);
+  var plot_y2 = y_min + (h - right_point[1]) / h * (y_max - y_min);
+
+  var data = [{
+    type: 'surface', 
+    x: xs,
+    y: ys, 
+    z: F, 
+    opacity: 0.8, 
+    showscale: false,
+    scene: 'scene',
+    colorscale: 'Bluered'
+  },{
+    type: 'scatter3d',
+  }];
+   
+  var cell_for_plot = document.getElementById("for_right_plot");
+  var layout = {
+      //title: 'Function',
+      width: 400,
+      height: 400,
+      autosize: false,
+      xaxis: {'domain':[0, 1]},
+      yaxis: {'domain':[0, 1]},
+      margin: {l: 0, r: 0, b: 0, t: 0, pad: 0},
+      scene: {
+        xaxis: {title: 'x', 'domain':[0, 1], 'range': [x_min, x_max], 'fixedrange': true},
+        yaxis: {title: 'y', 'domain':[0, 1], 'range': [y_min, y_max], 'fixedrange': true},
+        domain: { 'x': [0.0, 1.0], 'y': [0.0, 1.0] }, 
+        autosize: false,
+        showlegend: false
+      },
+      showlegend: false,
+    };
+Plotly.newPlot(cell_for_plot, data, layout);
+}
+
+
+var max_iters = 100;
+
+function update_3d() {
+  var canvas = document.getElementById("paint_left");
+  var w = canvas.width;
+  var h = canvas.height;
+
+  var approx_x = x_min + middle_point[0] / w * (x_max - x_min);
+  var approx_y = y_min + (h - middle_point[1]) / h * (y_max - y_min);
+  var z_x = 0.0;
+  var z_y = 0.0;
+  var Gx = [];
+  var Gy = [];
+  var Z_ = [];
+  for (var i = 0; i < max_iters; ++i) {
+    Gx.push(approx_x);
+    Gy.push(approx_y);
+    let f = func_obj.evaluate({x:approx_x, y:approx_y});
+    Z_.push(f);
+    
+    let hx  = gx_obj.evaluate({x:approx_x, y:approx_y});
+    let hy  = gy_obj.evaluate({x:approx_x, y:approx_y});
+    let Hxx = hxx_obj.evaluate({x:approx_x, y:approx_y});
+    let Hxy = hxy_obj.evaluate({x:approx_x, y:approx_y});
+    let Hyy = hyy_obj.evaluate({x:approx_x, y:approx_y});
+    let Q = Hxx*Hyy - Hxy*Hxy;
+    if (Q < 1E-10 && Q > -1E-10) {
+      break;
+    }
+    approx_x = approx_x - (hx*Hyy - hy*Hxy) / Q;
+    approx_y = approx_y - (hy*Hxx - hx*Hxy) / Q;
+  }
+
+  var data = [{
+    type: 'scatter3d',
+    mode: 'markers+lines',
+    x: Gx,
+    y: Gy,
+    z: Z_,
+    color: 'rgba(0,160,0,0.8)',
+    line: {color: 'rgba(0,160,0,0.8)', width: 4},
+    marker: {size: 5, opacity: 0.8}
+  }];
+  var cell_for_plot = document.getElementById("for_right_plot");
+  Plotly.deleteTraces(cell_for_plot, [1]);
+  Plotly.addTraces(cell_for_plot, data);
+
+  var data = [{
+    type: 'scatter',
+    mode: 'markers+lines',
+    x: Gx,
+    y: Gy,
+    color: 'rgba(0,160,0,0.8)',
+    line: {color: 'rgba(0,160,0,0.8)', width: 4},
+    marker: {size: 5, opacity: 0.8}
+  }];
+  cell_for_plot = document.getElementById("for_left_plot");
+  Plotly.deleteTraces(cell_for_plot, [1]);
+  Plotly.addTraces(cell_for_plot, data);
+}
+
+    var active_state = 0; // 0 -none, 1 - left, 2 - right, 3 - center
+    var left_point = [0.0, 0.0];
+    var right_point = [0.0, 0.0];
+    var middle_point = [0.0, 0.0];
+
+function draw() {
+  var plt_div = document.getElementById('for_left_plot');
+  var el = plt_div.getElementsByClassName('nsewdrag')[0];
+  //el = el.getChildren()[0];
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint_left");
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  var w = canvas.width;
+  var h = canvas.height;
+
+  var canvas = document.getElementById("paint_left");
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, w, h);
+  ctx.strokeStyle = "rgb(0,120,0)";
+  ctx.lineWidth = 3;
+  ctx.globalAlpha = 1.0;
+
+  ctx.beginPath();
+  ctx.arc(middle_point[0], middle_point[1], 10, 0.0, 2.0 * Math.PI, 0);
+  ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
+  ctx.fill();
+}
+
+
+
+
+  function mdown_handle(evt) {
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var dm = [x - middle_point[0], y - middle_point[1]];
+    if (dm[0]*dm[0] + dm[1]*dm[1] < 100) {
+      active_state = 3;
+    }
+
+    draw();
+  }
+      
+
+
+  function mmove_handle(evt) {
+    if (active_state == 0)
+        return;
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+
+    if (active_state == 3) {
+      middle_point = [x, y];
+    }
+
+    update_3d();  
+    draw();
+  }
+      
+  function mup_handle(evt) {
+    active_state = 0;
+    draw();
+  }
+
+
+function change_function() {
+  func = document.getElementById("func_input").value;
+  parse_func(func);
+  plot_left_func();
+  plot_right_func();
+  draw();
+  update_3d();
+}
+
+  </script>
+</head>
+
+<body>
+
+
+<table><tr><td>
+f(x,y) = </td><td>
+      <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+        <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0px;padding:0px;"
+                onchange="document.getElementById('func_input').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+          <option></option>
+          <option value="one">(1-x/5)^2+10*(y/5-x^2/25)^2</option>
+          <option value="two">x^2 + y^2</option>
+          <option value="four">x^2 + y^2 + 1.7*x*y</option>
+          <option value="three">sin(x/3)*cos(y/4)</option>
+        </select>
+        <input type="text" name="displayValue" id="func_input" value="sin(x/3)*cos(y/4)"
+               placeholder="add/select a value" onfocus="this.select()"
+               style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;"  >
+        <input name="idValue" id="idValue" type="hidden">
+      </div>
+</td><td>
+<button onclick="change_function();" style="margin:10px">Recalculate</button>
+</td>
+    </tr>
+  </table>
+
+
+
+<div id="everything" style="height:400px; width:800px; margin: 0px 0px 0px 0px;">
+<div id="for_left_plot" > </div>
+<div id="for_right_plot" style="height:400px; position:absolute; top:50px; left:420px; margin: 0px 0px 0px 0px;"> </div>
+<canvas id="paint_left"
+  onmousedown="mdown_handle(event)"
+  onmousemove="mmove_handle(event)"
+  onmouseup="mup_handle(event)"></canvas>
+</div>
+
+</body>
+
+<script>
+function init()
+{
+  func = document.getElementById("func_input").value;
+  parse_func(func);
+  plot_left_func();
+  plot_right_func();
+  middle_point = [300, 300];
+  draw();
+  change_function();
+  update_3d();
+  
+  timer = setInterval(draw, 500);
+}
+init();
+</script>
+
+</html>
+
+
+#@title #Exploring Newton's method
+
+
+from IPython.display import display
+import ipywidgets as widgets
+
+
+class Memory:
+  def __init__(self):
+    self.x_ini = 0.0
+    self.y_ini = 0.0
+    self.iters = 2
+
+current_memory = Memory()
+
+button = widgets.Button(description="Recalculate")
+iters = widgets.IntSlider(min=2, max=50, value=current_memory.iters)
+
+fnc = widgets.Text(value='sin(x) + 2 * sin(y)',
+                   #placeholder='function',
+                   description='Function:',
+                   disabled=False)
+
+def set_iter(val):
+  current_memory.iters = val.new
+iters.observe(set_iter, names='value')
+
+display(widgets.HBox([button, fnc, iters]))
+
+def on_button_clicked(b):
+  function = fnc.value
+  from IPython.display import clear_output
+  clear_output()
+  display(widgets.HBox([button, fnc, iters]))
+  print('Doing Science...')
+
+  x_ini = current_memory.x_ini
+  y_ini = current_memory.y_ini
+  max_iter = current_memory.iters
+
+
+  from plotly.subplots import make_subplots
+  import plotly.graph_objects as go
+  import numpy as np
+  from scipy.optimize import minimize
+
+  from sympy.parsing.sympy_parser import standard_transformations, implicit_multiplication_application, parse_expr
+  transformations = (standard_transformations + (implicit_multiplication_application,))
+  f = parse_expr(function, transformations=transformations)
+
+  from sympy import diff
+  from sympy import lambdify
+  #g_x = lambda x,y: diff(f, 'x').evalf(subs={'x':x, 'y':y})
+  #g_y = lambda x,y: diff(f, 'y').evalf(subs={'x':x, 'y':y})
+  #jacobian = lambda x: np.array([g_x(x[0], x[1]), g_y(x[0], x[1])], dtype=float)
+  g_x = lambdify(['x', 'y'], diff(f, 'x'), "numpy")
+  g_y = lambdify(['x', 'y'], diff(f, 'y'), "numpy")
+  jacobian = lambda x,y: np.array([g_x(x, y), g_y(x, y)], dtype=float)
+
+  #g_xx = lambda x,y: diff(diff(f, 'x'), 'x').evalf(subs={'x':x, 'y':y})
+  #g_xy = lambda x,y: diff(diff(f, 'x'), 'y').evalf(subs={'x':x, 'y':y})
+  #g_yy = lambda x,y: diff(diff(f, 'y'), 'y').evalf(subs={'x':x, 'y':y})
+  #H = lambda x,y: [[g_xx(x, y), g_xy(x, y)], [g_xy(x, y), g_yy(x, y)]]
+  #hessian = lambda x: np.array(H(x[0], x[1]), dtype=float)
+  g_xx = lambdify(['x', 'y'], diff(diff(f, 'x'), 'x'), "numpy")
+  g_xy = lambdify(['x', 'y'], diff(diff(f, 'x'), 'y'), "numpy")
+  g_yy = lambdify(['x', 'y'], diff(diff(f, 'y'), 'y'), "numpy")
+  hessian = lambda x,y: [[g_xx(x, y), g_xy(x, y)], [g_xy(x, y), g_yy(x, y)]]
+
+  #func_to_minimize = lambda x: float(f.evalf(subs={'x':x[0], 'y':x[1]}))
+  func_to_minimize = lambdify(['x', 'y'], f, "numpy")
+
+  history = [np.array([x_ini, y_ini])]
+  crashed = False
+
+  for i in range(max_iter):
+    h = jacobian(history[-1][0], history[-1][1])
+    H_ =  hessian(history[-1][0], history[-1][1])
+    try:
+      H_inv = np.linalg.inv(H_)
+    except:
+      crashed = True
+      break
+    theta = H_inv.dot(h)
+
+    x_new = history[-1][0] - theta[0]
+    y_new = history[-1][1] - theta[1]
+    history.append(np.array([x_new, y_new], dtype='float'))
+
+  _h = np.array(history)
+  _x = _h.T[0]
+  _y = _h.T[1]
+  _z = np.array([func_to_minimize(x[0], x[1]) for x in history], dtype=float)
+
+  x_min = min(-10.0, np.min(_x))
+  x_max = max(10.0, np.max(_x))
+  y_min = min(-10.0, np.min(_y))
+  y_max = max(10.0, np.max(_y))
+
+  x_ = np.linspace(x_min, x_max, num=50)
+  y_ = np.linspace(y_min, y_max, num=50)
+  z_ = np.array([[func_to_minimize(x,y) for x in x_] for y in y_], dtype=float)
+
+
+  import matplotlib.pyplot as plt
+  import base64
+  import io
+  fig = plt.figure(figsize=(20,20))
+  ax = fig.gca()
+  ax.axis('off')
+  if np.max(z_) - np.min(z_) > 1000:
+    ax.contourf(x_, y_, np.sign(z_)*np.log(np.abs(z_) + 1.0), alpha=0.3)
+  else:
+    ax.contourf(x_, y_, z_, alpha=0.3)
+  plt.close(fig)
+  buf = io.BytesIO()
+  fig.savefig(buf, format='png', bbox_inches='tight', pad_inches=0);
+  image_base64 = u'data:image/  png;base64,' + base64.b64encode(buf.getvalue()).decode('utf-8').replace('\n', '')
+  buf.close()
+
+
+  fig = dict(
+      layout = dict(
+          width=1200, height=600, autosize=False,
+          showlegend = False,
+          scene = {'domain': { 'x': [0.0, 0.44], 'y': [0, 1] } },
+          xaxis1 = {'domain': [0.55, 1], 'range': [x_min, x_max], 'fixedrange': True},
+          yaxis1 = {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': True},
+          title  = 'Minimization',
+          margin = {'t': 50, 'b': 50, 'l': 50, 'r': 50},
+          updatemenus = [{'buttons': [{'args': [[k for k in range(len(_h)-1)],
+                                                {'frame': {'duration': 500.0, 'redraw': True},
+                                                'fromcurrent': False, 'transition': {'duration': 0, 'easing': 'linear'}}],
+                                      'label': 'Play',
+                                      'method': 'animate'},
+                                      {'args': [[None], {'frame': {'duration': 0, 'redraw': True},
+                                                        'mode': 'immediate',
+                                                        'transition': {'duration': 0}}
+                                                ],
+                                      'label': 'Pause',
+                                      'method': 'animate'
+                                      }
+                                      ],
+                          'direction': 'left',
+                          'pad': {'r': 10, 't': 85},
+                          'showactive': True,
+                          'type': 'buttons', 'x': 0.1, 'y': 0, 'xanchor': 'right', 'yanchor': 'top'}],
+          sliders = [{'yanchor': 'top',
+                      'xanchor': 'left',
+                      'currentvalue': {'font': {'size': 16}, 'prefix': 'Step: ', 'visible': True, 'xanchor': 'right'},
+                      'transition': {'duration': 0.0},
+                      'pad': {'b': 10, 't': 50},
+                      'len': 0.9,
+                      'x': 0.1,
+                      'y': 0,
+                      'steps': [{'args': [[k], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': True},
+                                                'transition': {'duration': 0, 'easing': 'linear'}}
+                                          ],
+                                'label': k,
+                                'method': 'animate'} for k in range(len(_h)-1)
+                      ]}],
+          images = [{'source' : image_base64,
+                    'xref': 'x', 'yref': 'y',
+                    'sizing': 'stretch',
+                    'sizex': x_max - x_min, 'sizey': y_max - y_min,
+                    'layer': 'below', 'opacity':1.0,
+                    'x': x_min, 'y': y_max}]
+      ),
+      data = [
+          {'type': 'scatter3d', 'name': 's3', 'x': _x, 'y': _y, 'z': _z, 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+          {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
+          #{'type': 'contour', 'name': 'c1', 'x':x_, 'y':y_, 'z':z_, 'contours': {'showlabels': True}},
+          {'type': 'scatter', 'name': 's2', 'x': _x, 'y': _y,
+          'line': {'color': 'red', 'width': 2}
+          },
+      ],
+      frames=[
+          {'name': str(k),
+          'data': [
+            {'type': 'scatter3d', 'name': 's3', 'x': _x[:k], 'y': _y[:k], 'z': _z[:k], 'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+            {'type': 'surface', 'name': 'f2', 'x': x_, 'y': y_, 'z': z_, 'opacity': 0.8, 'showscale': False},
+            #{'type': 'contour', 'name': 'c1', 'x':x_, 'y':y_, 'z':z_, 'contours': {'showlabels': True}},
+            {'type': 'scatter', 'name': 's2', 'x': _x[:k], 'y': _y[:k],
+            'line': {'color': 'red', 'width': 2}
+            },
+          ]} for k in range(len(_h)-1) ]
+  )
+  #plot(fig, auto_open=False)
+  clear_output()
+  if (crashed):
+      print("Cannot find inverse matrix, Method compromised")
+      print("Current Hessian value: ")
+      print(H_)
+      print("Current point: ", history[-1])
+
+  display(widgets.HBox([button, fnc, iters]))
+  f = go.Figure(fig)
+  f.show()
+
+  def save_pos(pos):
+    global current_memory
+    current_memory.x_ini = (x_max - x_min) * pos[0] + x_min
+    current_memory.y_ini = (y_max - y_min) * (1.0 - pos[1]) + y_min
+
+  main_str = '''
+  <canvas id="paint_here"
+          onmousedown="mdown_handle(event)"
+          onmousemove="mmove_handle(event)"
+          onmouseup="mup_handle(event)"></canvas>
+  <script>
+
+  var el = document.getElementsByClassName("layer-subplot")[0];
+  var rect = el.getBoundingClientRect();
+
+  var canvas = document.getElementById("paint_here");
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  //ctx.fillStyle="#00FF00";
+  //ctx.fillRect(0, 0, canvas.width, canvas.height); // field
+  ''' + 'var x_ini = ' + str((current_memory.x_ini - x_min)/(x_max - x_min)) + ';' + 'var y_ini = ' + str(1.0 - (current_memory.y_ini - y_min)/(y_max - y_min)) + ';' + '''
+  var active_pt = [canvas.width * x_ini, canvas.height * y_ini];
+
+  function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+      //ctx.fillText("drawing", 20, 20);
+
+      ctx.beginPath();
+      ctx.arc(active_pt[0], active_pt[1], 10, 0.0, 2.0 * Math.PI, 0);
+      ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
+      ctx.fill();
+  }
+
+  var do_move = false;
+
+  function is_close(pt1, pt2) {
+    return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+          +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+          <= 10*10;
+  }
+
+  function mdown_handle(evt) {
+    x = evt.offsetX;
+    y = evt.offsetY;
+    do_move = is_close(active_pt, [x, y]);
+  }
+
+  function mmove_handle(evt) {
+    if (!do_move)
+        return;
+    active_pt[0] = evt.offsetX;
+    active_pt[1] = evt.offsetY;
+  }
+
+  function mup_handle(evt) {
+    do_move = false;
+    remember();
+  }
+
+  var w = canvas.width;
+  var h = canvas.height;
+
+  async function remember() {
+    var x = active_pt[0] / w;
+    var y = active_pt[1] / h;
+    const result = await google.colab.kernel.invokeFunction('notebook.rememberPos', [[x, y]], {});
+  }
+
+  var timer = setInterval(draw, 10);
+
+  </script>
+  '''
+
+  import IPython
+  from google.colab import output
+  display(IPython.display.HTML(main_str))
+  output.register_callback('notebook.rememberPos', save_pos)
+
+
+button.on_click(on_button_clicked)
