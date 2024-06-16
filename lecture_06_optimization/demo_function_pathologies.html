@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Pathologies</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="plot" style="width: 1200px; height: 600px;"></div>
+    <script>
+// Define functions
+function rosen_3d(x, y) {
+    return (1 - x) ** 2 + 100 * (y - x ** 2) ** 2;
+}
+
+function rosen_flat(x, y) {
+    return Math.log(rosen_3d(x, y) * 100.0 + 1.0);
+}
+
+function rastrigin(x, y) {
+    x *= 5;
+    y *= 5;
+    return 20.0 + x ** 2 + y ** 2 - 10 * Math.cos(2 * Math.PI * x) - 10 * Math.cos(2 * Math.PI * y);
+}
+
+function saddle(x, y) {
+    y -= 0.5;
+    return x ** 2 - y ** 2;
+}
+
+function himmelblau(x, y) {
+    x *= 6.0;
+    y = (y - 0.5) * 6.0;
+    return (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2;
+}
+
+function himmelblau_flat(x, y) {
+    x *= 6.0;
+    y = (y - 0.5) * 6.0;
+    return Math.log((x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2 + 1.0);
+}
+
+const range = (start, stop, num) =>
+  Array.from(
+    { length: num + 1 },
+    (_, i) => start + (i * (stop - start)) / num
+  );
+
+// Generate data
+function generateData(func) {
+    const _x = range(-1.0, 1.2, 200);
+    const _y = range(-0.5, 1.5, 200);
+    const _z = _y.map(y => _x.map(x => func(x, y)));
+    return {_x, _y, _z};
+}
+
+// Data for each function
+const dataRosen3D = generateData(rosen_3d);
+const dataRosenFlat = generateData(rosen_flat);
+const dataRastrigin = generateData(rastrigin);
+const dataSaddle = generateData(saddle);
+const dataHimmelblau = generateData(himmelblau);
+const dataHimmelblauFlat = generateData(himmelblau_flat);
+
+// Create traces
+const traces = [
+    {
+        type: 'surface',
+        x: dataRosen3D._x,
+        y: dataRosen3D._y,
+        z: dataRosen3D._z,
+        opacity: 1.0,
+        showscale: false
+    },
+    {
+        type: 'contour',
+        x: dataRosenFlat._x,
+        y: dataRosenFlat._y,
+        z: dataRosenFlat._z,
+        contours: {showlabels: false}
+    },
+    {
+        type: 'surface',
+        x: dataRastrigin._x,
+        y: dataRastrigin._y,
+        z: dataRastrigin._z,
+        opacity: 1.0,
+        showscale: false,
+        visible: false
+    },
+    {
+        type: 'contour',
+        x: dataRastrigin._x,
+        y: dataRastrigin._y,
+        z: dataRastrigin._z,
+        contours: {showlabels: false},
+        visible: false
+    },
+    {
+        type: 'surface',
+        x: dataSaddle._x,
+        y: dataSaddle._y,
+        z: dataSaddle._z,
+        opacity: 1.0,
+        showscale: false,
+        visible: false
+    },
+    {
+        type: 'contour',
+        x: dataSaddle._x,
+        y: dataSaddle._y,
+        z: dataSaddle._z,
+        contours: {showlabels: false},
+        visible: false
+    },
+    {
+        type: 'surface',
+        x: dataHimmelblau._x,
+        y: dataHimmelblau._y,
+        z: dataHimmelblau._z,
+        opacity: 1.0,
+        showscale: false,
+        visible: false
+    },
+    {
+        type: 'contour',
+        x: dataHimmelblauFlat._x,
+        y: dataHimmelblauFlat._y,
+        z: dataHimmelblauFlat._z,
+        contours: {showlabels: false},
+        visible: false
+    }
+];
+
+// Layout
+const layout = {
+    width: 1200,
+    height: 600,
+    autosize: false,
+    title: 'Function Pathologies',
+    scene: {aspectratio: {x: 1, y: 1, z: 1}, 'domain': { 'x': [0.0, 0.44], 'y': [0, 1] }},
+    'xaxis1': {'domain': [0.55, 1] },
+    'yaxis1': {'domain': [0.0, 1.0] },
+    showlegend: false,
+    updatemenus: [{
+        type: 'buttons',
+        buttons: [
+            {
+                label: 'Long valley (Rosenbrock)',
+                method: 'update',
+                args: [{'visible': [true, true, false, false, false, false, false, false]}]
+            },
+            {
+                label: 'Oscillatory (Rastrigin)',
+                method: 'update',
+                args: [{'visible': [false, false, true, true, false, false, false, false]}]
+            },
+            {
+                label: 'Saddle Point',
+                method: 'update',
+                args: [{'visible': [false, false, false, false, true, true, false, false]}]
+            },
+            {
+                label: "Shallow (Himmelblau)",
+                method: 'update',
+                args: [{'visible': [false, false, false, false, false, false, true, true]}]
+            }
+        ]
+    }]
+};
+
+// Plot
+Plotly.newPlot('plot', traces, layout);
+    </script>
+</body>
+</html>
