@@ -1,0 +1,154 @@
+<html>
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script type="application/javascript">
+
+let data = <INSERT HERE>;
+
+function getMax(a){
+  return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+}
+function getMin(a){
+  return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
+}
+
+const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
+
+async function draw_static_image(data) {
+  let heatmap = {
+    x: data['plot']['x'],
+    y: data['plot']['y'],
+    z: data['plot']['z'],
+    type: 'contour',
+    colorscale: 'RdBu',
+    opacity: 0.3,
+    showscale: false
+  }
+
+  let layout = {
+    width: 600,
+    height: 600,
+    autosize: false,
+    showlegend: false,
+    xaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [data['plot']['x_min'], data['plot']['x_max']]
+    },
+    yaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [data['plot']['y_min'], data['plot']['y_max']]
+    },
+    title: '',
+    margin: {'t': 0, 'b': 0, 'l': 0, 'r': 0},
+    shapes: []
+  };
+
+  const url = await Plotly.toImage({
+      data: [heatmap],
+      layout: layout
+    }, {
+      height: 600,
+      width: 600
+    });
+  return url;
+}
+
+
+async function plot_graph(data) {
+  const cell_for_plot = document.getElementById("everything");
+  const url = await draw_static_image(data)
+
+  let layout = {
+    'width': 1200, 'height': 600, 'autosize': false, 'showlegend': true,
+    'scene': {'domain': { 'x': [0.0, 0.44], 'y': [0, 1] } },
+    'xaxis1': {'domain': [0.55, 1], 'range': [data['plot']['x_min'], data['plot']['x_max']], 'fixedrange': true},
+    'yaxis1': {'domain': [0.0, 1.0], 'range': [data['plot']['y_min'], data['plot']['y_max']], 'fixedrange': true},
+    'title': 'Minimization',
+    'margin': {'t': 50, 'b': 50, 'l': 50, 'r': 50},
+    'updatemenus': [{'buttons': [
+                      {'args': [[], {'frame': {'duration': 500.0, 'redraw': true},
+                                     'fromcurrent': false, 'transition': {'duration': 0, 'easing': 'linear'}}],
+                        'label': 'Play', 'method': 'animate'},
+                      {'args': [[null], {'frame': {'duration': 0, 'redraw': true},
+                       'mode': 'immediate', 'transition': {'duration': 0}} ],
+                        'label': 'Pause', 'method': 'animate'}
+                                ],
+                    'direction': 'left', 'pad': {'r': 10, 't': 85}, 'showactive': true,
+                    'type': 'buttons', 'x': 0.1, 'y': 0, 'xanchor': 'right', 'yanchor': 'top'}],
+    'sliders': [{'yanchor': 'top',
+                'xanchor': 'left',
+                'currentvalue': {'font': {'size': 16}, 'prefix': 'Step: ', 'visible': true, 'xanchor': 'right'},
+                'transition': {'duration': 0.0},
+                'pad': {'b': 10, 't': 50},
+                'len': 0.9,
+                'x': 0.1,
+                'y': 0,
+                'steps': []
+               }],
+     'images': [{'source': url,
+                 'xref': 'x', 'yref': 'y', 'sizing': 'stretch',
+                 'sizex': data['plot']['x_max'] - data['plot']['x_min'], 
+                 'sizey': data['plot']['y_max'] - data['plot']['y_min'],
+                 'layer': 'below', 
+                 'opacity': 1.0,
+                 'x': data['plot']['x_min'], 
+                 'y': data['plot']['y_max']}]
+  };
+
+  const num_steps = data['traces'][0]['x'].length;// TRACE 0
+  for (let i = 0; i < num_steps; ++i) {
+    layout['updatemenus'][0]['buttons'][0]['args'][0].push(i);
+    layout['sliders'][0]['steps'].push(
+      {'args': [[i], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': true},
+                      'transition': {'duration': 0, 'easing': 'linear'}}], 'label': i, 'method': 'animate'}
+    );
+  }
+
+  const frame = (idx) => {
+    let pdata = [
+          {'type': 'surface', 'name': 'f2', 'x': data['plot']['x'], 'y': data['plot']['y'], 'z': data['plot']['z'], 'opacity': 0.8, 'showscale': false},
+    ];
+    for (let tr_idx = 0; tr_idx < data['traces'].length; ++tr_idx) {
+      pdata.push({'type': 'scatter', 
+                  'name': data['traces'][tr_idx]['name'], 
+                  'x': data['traces'][tr_idx]['x'].slice(0, idx), 
+                  'y': data['traces'][tr_idx]['y'].slice(0, idx), 
+                  'line': {'color': data['traces'][tr_idx]['color'], 'width': 2},
+                  'legendgroup': data['traces'][tr_idx]['name']});
+      pdata.push({'type': 'scatter3d', 
+                  'name': data['traces'][tr_idx]['name'], 
+                  'x': data['traces'][tr_idx]['x'].slice(0, idx), 
+                  'y': data['traces'][tr_idx]['y'].slice(0, idx), 
+                  'z': data['traces'][tr_idx]['z'].slice(0, idx), 
+                  'line': {'color': data['traces'][tr_idx]['color'], 'width': 2}, 
+                  'marker': {'size': 4, 'colorscale': 'Viridis'},
+                  'legendgroup': data['traces'][tr_idx]['name'],
+                  'showlegend': false});
+    }
+    return pdata;
+  }
+
+  let plot_data = frame(num_steps);
+
+  let frames = [];
+  for (let i = 0; i < num_steps; ++i) {
+    frames.push({'name': i, 'data': frame(i)});
+  }
+
+
+  //Plotly.newPlot(cell_for_plot, plot_data, layout);
+  Plotly.newPlot(cell_for_plot, {'data': plot_data, 'frames': frames, 'layout': layout});
+  cell_for_plot.on('plotly_relayout', function(data){layout = cell_for_plot.layout;});
+}
+
+
+plot_graph(data);
+
+</script>
+</head>
+<body>
+<div id="everything" style="height:400px; width:800px; margin: 0px 0px 0px 0px;">
+</div>
+
+</body>
+</html>
