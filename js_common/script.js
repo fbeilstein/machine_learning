@@ -1,4 +1,10 @@
 
+MathJax = {
+  loader: {load: ['[tex]/amsCd']},
+  tex: {packages: {'[+]': ['amsCd']}},
+  options: {ignoreHtmlClass: 'tex2jax_ignore'}
+};
+
 let tabs_div;
 let content_div;
 let buttons_div;
@@ -287,9 +293,13 @@ class HTMLContentMaker
      this.slide_manager= slide_manager;
   }
 
-  create_content(i)
+  create_content(i) //HERE??
   {
     content_div.innerHTML = content_container.htmls[i];
+    MathJax.typesetPromise().then(() => {
+      MathJax.typesetClear([content_div]);
+      MathJax.typesetPromise([content_div]);
+    }).catch((err) => console.log(err.message));
   }
 }
 
