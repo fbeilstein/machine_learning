@@ -5,6 +5,13 @@ MathJax = {
   options: {ignoreHtmlClass: 'tex2jax_ignore'}
 };
 
+(function () {
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js';
+  script.async = true;
+  document.head.appendChild(script);
+})();
+
 let tabs_div;
 let content_div;
 let buttons_div;
