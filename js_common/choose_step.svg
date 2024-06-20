@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="170mm" height="120mm" version="1.1" viewBox="0 0 230.11 155.54" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <defs>
+  <marker id="StopL" overflow="visible" orient="auto">
+   <path transform="scale(.8)" d="m0 5.65v-11.3" fill="none" stroke="#b30000" stroke-opacity=".26515" stroke-width="1pt"/>
+  </marker>
+  <marker id="marker1371" overflow="visible" orient="auto">
+   <path transform="matrix(-.4 0 0 -.4 -4 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#008700" fill-opacity=".18939" fill-rule="evenodd" stroke="#009100" stroke-opacity=".46212" stroke-width="1pt"/>
+  </marker>
+  <marker id="StopL-2" overflow="visible" orient="auto">
+   <path transform="scale(.8)" d="m0 5.65v-11.3" fill="none" stroke="#b30000" stroke-opacity=".26515" stroke-width="1pt"/>
+  </marker>
+  <marker id="StopL-2-6" overflow="visible" orient="auto">
+   <path transform="scale(.8)" d="m0 5.65v-11.3" fill="none" stroke="#b30000" stroke-opacity=".26515" stroke-width="1pt"/>
+  </marker>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(92.803 -4.4949)">
+  <g fill="#0071c8" fill-opacity=".07">
+   <path d="m137.23 4.9674-5e-5 154.91-203.36 8e-3c-20.827-24.622-33.059-96.133-17.859-154.74 69.51-0.9815 151.69-0.14982 221.21-0.18563z"/>
+   <rect x="-92.803" y="4.9674" width="230.03" height="154.91"/>
+   <path d="m-23.9 5.2576 161.16-0.76267-4e-5 154.91-137.21 0.46461c-17.046-24.622-42.949-97.082-23.946-154.62z"/>
+   <g>
+    <ellipse transform="matrix(.91455 -.40448 .3481 .93746 0 0)" cx="43.332" cy="98.873" rx="18.652" ry="37.551"/>
+    <ellipse transform="matrix(.91843 -.39557 .35627 .93438 0 0)" cx="41.28" cy="98.889" rx="26.08" ry="51.519"/>
+    <ellipse transform="matrix(.91973 -.39255 .35911 .93329 0 0)" cx="39.918" cy="101.13" rx="34.058" ry="66.84"/>
+   </g>
+   <path d="m39.819 5.6127 28.552-0.7101c38.495 12.409 80.558 121.11 30.79 154.83l-23.954-0.26727c-51.072-32.74-67.029-136.61-35.388-153.85z"/>
+   <path d="m26.39 5.3181 58.147 0.045852c41 12.031 63.96 121.49 32.64 153.69l-55.927 0.11071c-50.31-32.74-60.64-134.34-34.86-153.85z"/>
+   <path d="m8.1928 5.9906 98.282-1.0232c19.894 15.33 31.007 46.386 30.778 70.974-0.22202 23.836 0.50821 39.621-0.47967 60.486-0.59364 11.593-5.0259 16.159-9.3926 22.766l-82.668 0.64525c-43.318-31.229-52.27-113.56-36.52-153.85z"/>
+   <path d="m-10.016 5.6451 131.7-0.58318c7.4912 9.0322 12.236 12.867 15.614 28.514l-0.0731 126.3-116.39-0.35341c-19.803-24.645-45.538-76.456-30.855-153.88z"/>
+   <path d="m137.25 4.9909-4e-5 154.42-158.32-0.18009c-16.857-24.543-39.41-96.103-20.617-153.45 56.259-0.97835 122.67-0.74877 178.93-0.78447z"/>
+   <path d="m137.23 4.9674-4e-5 154.71-179.54 0.35342c-18.832-24.591-41.355-96.822-20.361-154.28 62.851-0.98023 137.04-0.75021 199.9-0.78598z"/>
+   <ellipse transform="matrix(.93298 -.35992 .34198 .93971 0 0)" cx="44.717" cy="97.479" rx="9.8612" ry="19.019"/>
+  </g>
+  <rect x="11.722" y="31.731" width="105.08" height="47.247" opacity="0" stroke-width=".397"/>
+  <ellipse cx="-5.9179" cy="89.597" rx="2.5994" ry="2.4911" fill="#e40000" fill-opacity=".60227"/>
+  <path d="m-15.657 141.98 20.771-109.26" fill="#008700" fill-opacity=".18939" marker-end="url(#marker1371)" stroke="#009100" stroke-opacity=".46212" stroke-width=".79375"/>
+  <g fill="none" stroke="#b30000" stroke-opacity=".26515" stroke-width=".50271">
+   <path d="m-2.076 90.195 3.7708-19.398" marker-end="url(#StopL)" marker-start="url(#StopL)"/>
+   <path d="m1.1401 90.848 6.6754-34.339" marker-end="url(#StopL-2)" marker-start="url(#StopL-2)"/>
+   <path d="m-20.327 132.83 8.4333-44.222" marker-end="url(#StopL-2-6)" marker-start="url(#StopL-2-6)"/>
+  </g>
+  <g fill="#f30000" fill-opacity=".46591" font-family="'Times New Roman'" font-size="10.211px" stroke-width=".25527">
+   <text x="9.0386438" y="60.896442" style="line-height:1.25" xml:space="preserve"><tspan x="9.0386438" y="60.896442" fill="#f30000" fill-opacity=".46591" font-family="'Times New Roman'" stroke-width=".25527">?</tspan></text>
+   <text x="-6.930851" y="74.976059" style="line-height:1.25" xml:space="preserve"><tspan x="-6.930851" y="74.976059" fill="#f30000" fill-opacity=".46591" font-family="'Times New Roman'" stroke-width=".25527">?</tspan></text>
+   <text x="-27.908529" y="132.23944" style="line-height:1.25" xml:space="preserve"><tspan x="-27.908529" y="132.23944" fill="#f30000" fill-opacity=".46591" font-family="'Times New Roman'" stroke-width=".25527">?</tspan></text>
+  </g>
+ </g>
+</svg>
