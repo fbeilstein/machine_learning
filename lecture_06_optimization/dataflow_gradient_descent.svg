@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150mm" height="100mm" version="1.1" viewBox="0 0 253.24 142.99" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient924" x1="140.3" x2="228.23" y1="99.352" y2="97.679" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ea4036" offset="0"/>
+   <stop stop-color="#007cff" stop-opacity=".25379" offset="1"/>
+  </linearGradient>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-9.9234 -18.849)">
+  <g fill="#0068ff" fill-opacity=".17046" fill-rule="evenodd" stroke="#005ba4" stroke-width=".30503">
+   <rect x="228.1" y="33.33" width="25.723" height="10.696"/>
+   <rect x="228.1" y="44.026" width="25.723" height="10.696"/>
+   <rect x="228.1" y="54.723" width="25.723" height="10.696"/>
+   <rect x="228.1" y="65.419" width="25.723" height="10.696"/>
+   <rect x="228.1" y="76.115" width="25.723" height="10.696"/>
+   <rect x="228.1" y="86.811" width="25.723" height="10.696"/>
+   <rect x="228.1" y="97.508" width="25.723" height="10.696"/>
+   <rect x="228.1" y="108.2" width="25.723" height="10.696"/>
+   <rect x="228.1" y="118.9" width="25.723" height="10.696"/>
+   <rect x="228.1" y="129.6" width="25.723" height="10.696"/>
+   <rect x="228.1" y="140.29" width="25.723" height="10.696"/>
+   <rect x="228.1" y="150.99" width="25.723" height="10.696"/>
+  </g>
+  <rect x="9.9234" y="76.164" width="113.42" height="46.223" fill="#f00" fill-opacity=".17046" fill-rule="evenodd"/>
+  <g>
+   <text x="15.652633" y="103.81685" fill="#000000" font-family="sans-serif" font-size="10.583px" stroke-width=".265" style="line-height:1.25" xml:space="preserve"><tspan x="15.652633" y="103.81685" fill="#000000" fill-opacity=".8" font-family="'Courier New'" font-weight="bold" stroke-width=".265">Gradient descent</tspan></text>
+   <path d="m228.1 33.33-2e-5 128.35c-20.784-28.357-27.189-60.237-92.031-62.277 64.78-3.5617 67.876-18.979 92.031-66.078z" fill="url(#linearGradient924)"/>
+   <path d="m140.3 99.352c7e-3 -0.34292 0.0781-2.1259 2.5932-3.8917-7.1273 2.2385-11.299 2.6226-18.671 3.5375 7.98 0.47043 11.995 1.8386 18.737 3.9012-2.5664-1.8119-2.6719-3.2188-2.6593-3.5471z" fill="#ea4036"/>
+   <text x="220.37071" y="24.510101" fill="#000000" font-family="sans-serif" font-size="8.9383px" stroke-width=".22346" style="line-height:1.25" xml:space="preserve"><tspan x="220.37071" y="24.510101" fill="#000000" fill-opacity=".61364" font-family="'Courier New'" font-weight="bold" stroke-width=".22346">data set</tspan></text>
+  </g>
+ </g>
+</svg>
