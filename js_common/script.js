@@ -58,9 +58,19 @@ class QuizContainer
 
 class HTMLContainer
 {
-    constructor(htmls)
-    {
+    constructor(htmls) {
       this.htmls=htmls;
+      this.cash_htmls(); 
+    }
+    
+    cash_htmls() {
+      this.content = []
+      for(let html of this.htmls) {
+        let cashed_content_div = document.createElement("div");
+        cashed_content_div.className = "content-div";
+        cashed_content_div.innerHTML = html;
+        this.content.push(cashed_content_div);
+      }
     }
 
     length(){
@@ -302,7 +312,9 @@ class HTMLContentMaker
 
   create_content(i) //HERE??
   {
-    content_div.innerHTML = content_container.htmls[i];
+    const content_div_place = document.getElementsByClassName("content-div")[0];
+    content_div = content_container.content[i];
+    content_div_place.replaceWith(content_div);
     MathJax.typesetPromise().then(() => {
       MathJax.typesetClear([content_div]);
       MathJax.typesetPromise([content_div]);
