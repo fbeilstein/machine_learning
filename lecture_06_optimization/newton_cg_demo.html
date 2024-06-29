@@ -9,7 +9,7 @@
 
 
 //temporary
-var func = 'sin(x/3)*sin(y/4)';
+var func = '';
 var iters = 50;
 
 function getMax(a){
@@ -248,6 +248,7 @@ f(x,y) = </td><td>
         <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0px;padding:0px;"
                 onchange="document.getElementById('func_input').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
           <option></option>
+          <option value="zero">(x/2)**2 + y**2</option>
           <option value="one">(1-x)**2+100*(y-x**2)**2</option>
           <option value="two">x**2 + y**2</option>
           <option value="four">x**2 + y**2 + 1.7*x*y</option>
@@ -277,7 +278,6 @@ f(x,y) = </td><td>
 <script>
 function init()
 {
-  func = document.getElementById("func_input").value;
   update_iters();
   change_function();
   timer = setInterval(draw, 100);
