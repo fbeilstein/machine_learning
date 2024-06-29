@@ -154,8 +154,8 @@ var y_max = 10.0;
 
 
 function draw() {
-  let elements = document.getElementsByClassName("layer-subplot")[0];
-  if (elements.length === 0)
+  let elements = document.getElementsByClassName("layer-subplot");
+  if (elements.length == 0)
     return;
   
   let el = elements[0];
