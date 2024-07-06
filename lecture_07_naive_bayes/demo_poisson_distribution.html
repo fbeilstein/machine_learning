@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poisson Distribution</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+</head>
+<body>
+  <div id="everything" style="height:600px;">
+    <div id="for_plotly_plot" style="position:absolute; top:0px; left:0px; height:600px; width:600px;"></div>
+    <div style="position:absolute; top:200px; left:625px;">
+      <p>$$f(k)=\frac{\lambda^k}{k!}e^{-\lambda}$$</p>
+      <table>
+        <tr>
+          <td>\[\lambda:\]</td>
+          <td>
+            <input type="range" min="0" max="60" value="30" class="slider" id="p_val" oninput="calculate()">
+          </td>
+          <td><div id="p_label"></div></td>
+        </tr>
+        <tr>
+          <td colspan="3">Show histogram <input type="checkbox" id="show_histo" onclick="show_histogram()" checked="checked" /></td>
+        </tr>
+      </table>
+      <table id="samples">
+        <tr>
+          <td># of samples:</td>
+          <td>
+            <input type="range" min="1" max="1000" value="500" class="slider" id="s_val" oninput="calculate()">
+          </td>
+          <td><div id="s_label"></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <script type="application/javascript">
+    // Helper function to calculate factorial
+    function factorial(n) {
+      return n ? n * factorial(n - 1) : 1;
+    }
+
+    // Helper function to calculate Poisson PMF
+    function poissonPMF(k, lambda) {
+      return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+    }
+
+    // Generate PMF values for plotting
+    function pmfForPlotting(n, lambda) {
+      let k = Array.from({ length: n + 1 }, (_, i) => i);
+      return k.map(x => poissonPMF(x, lambda));
+    }
+
+    // Sample from Poisson distribution
+    function sampleDistribution(lambda, samples) {
+      let result = [];
+      for (let i = 0; i < samples; i++) {
+        let L = Math.exp(-lambda);
+        let k = 0;
+        let p = 1;
+        do {
+          k++;
+          p *= Math.random();
+        } while (p > L);
+        result.push(k - 1);
+      }
+      return result;
+    }
+
+    let p = Array.from({ length: 61 }, (_, i) => i * 0.5);
+    let samples = 1000;
+    let args = Array.from({ length: 50 }, (_, i) => i);
+
+    let funcs = p.map(p1 => pmfForPlotting(args.length - 1, p1));
+    let hists = p.map(p1 => sampleDistribution(p1, samples));
+    let params = { k: args, p: funcs, x: hists, pval: p };
+
+    function plotHistogram(x, cellForPlot) {
+      var data = [{
+        x: x,
+        type: 'histogram',
+        name: 'histogram',
+        histnorm: 'probability'
+      }];
+
+      Plotly.plot(cellForPlot, data);
+    }
+
+    function plotScatter(s_x, s_y, cellForPlot) {
+      var data = [{
+        x: s_x,
+        y: s_y,
+        name: 'distribution',
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: {
+          size: 4,
+          color: 'red',
+          line: {
+            width: 2,
+            color: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }];
+      var layout = {
+        title: 'Poisson Distribution',
+        xaxis: { title: 'Number of Events' },
+        yaxis: { title: 'Probability of Number of Events' },
+        autosize: false,
+        width: 600,
+        height: 600,
+        showlegend: false,
+      };
+      Plotly.newPlot(cellForPlot, data, layout);
+    }
+
+    var histogram = true;
+
+    function calculate() {
+      var ep = document.getElementById("p_val");
+      var p = ep.value;
+      var es = document.getElementById("s_val");
+      var s = es.value;
+      ep = document.getElementById("p_label");
+      ep.innerHTML = params.pval[p].toFixed(2);
+      es = document.getElementById("s_label");
+      es.innerHTML = s;
+
+      var cellForPlot = document.getElementById('for_plotly_plot');
+      plotScatter(params.k, params.p[p], cellForPlot);
+      if (histogram)
+        plotHistogram(params.x[p].slice(0, s), cellForPlot);
+    }
+
+    function show_histogram() {
+      var checkBox = document.getElementById("show_histo");
+      var text = document.getElementById("samples");
+
+      if (checkBox.checked == true) {
+        text.style.display = "block";
+        histogram = true;
+      } else {
+        text.style.display = "none";
+        histogram = false;
+      }
+      calculate();
+    }
+
+    window.onload = function() {
+      calculate();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binomial Distribution</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+    <style>
+        #container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #everything {
+            height: 600px;
+        }
+
+        #for_plotly_plot {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 600px;
+            width: 600px;
+        }
+
+        #controls {
+            position: absolute;
+            top: 200px;
+            left: 625px;
+        }
+
+        .slider {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="everything">
+    <div id="for_plotly_plot"></div>
+    <div id="controls">
+        <p>
+            $$
+            f(k)={n \choose k}p^k(1-p)^{n-k}
+            $$
+        </p>
+        <table>
+            <tr>
+                <td>\[p:\]</td>
+                <td><input type="range" min="0" max="10" value="5" class="slider" id="p_val" oninput="calculate()"></td>
+                <td><div id="p_label"></div></td>
+            </tr>
+            <tr>
+                <td>\[n:\]</td>
+                <td><input type="range" min="0" max="29" value="14" class="slider" id="n_val" oninput="calculate()"></td>
+                <td><div id="n_label"></div></td>
+            </tr>
+            <tr>
+                <td colspan=3>Show histogram <input type="checkbox" id="show_histo" onclick="show_histogram()" checked="checked" /></td>
+            </tr>
+        </table>
+        <table id="samples">
+            <tr>
+                <td># of samples:</td>
+                <td><input type="range" min="1" max="500" value="250" class="slider" id="s_val" oninput="calculate()"></td>
+                <td><div id="s_label"></div></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    function binomPMF(n, p, k) {
+        return factorial(n) / (factorial(k) * factorial(n - k)) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+    }
+
+    function factorial(num) {
+        if (num === 0 || num === 1)
+            return 1;
+        for (var i = num - 1; i >= 1; i--) {
+            num *= i;
+        }
+        return num;
+    }
+
+    function pmfForPlotting(n, p) {
+        let P_binom = [];
+        for (let k = 0; k <= n; k++) {
+            P_binom.push(binomPMF(n, p, k));
+        }
+        return P_binom;
+    }
+
+    function sampleDistribution(n, p, samples) {
+        let result = [];
+        for (let i = 0; i < samples; i++) {
+            let count = 0;
+            for (let j = 0; j < n; j++) {
+                if (Math.random() < p) count++;
+            }
+            result.push(count);
+        }
+        return result;
+    }
+
+    let p = Array.from({length: 11}, (_, i) => i / 10);
+    let n = Array.from({length: 30}, (_, i) => i + 1);
+    let samples = 500;
+
+    let funcs = p.map(p1 => n.map(n1 => pmfForPlotting(n1, p1)));
+    let args = p.map(p1 => n.map(n1 => Array.from({length: n1 + 1}, (_, i) => i)));
+    let hists = p.map(p1 => n.map(n1 => sampleDistribution(n1, p1, samples)));
+    
+    let params = { k: args, p: funcs, x: hists, pval: p, nval: n };
+
+    let histogram = true;
+
+    function plotHistogram(x, cell_for_plot) {
+        var data = [{
+            x: x,
+            type: 'histogram',
+            name: 'histogram',
+            histnorm: 'probability'
+        }];
+
+        Plotly.plot(cell_for_plot, data);
+    }
+
+    function plotScatter(s_x, s_y, cell_for_plot) {
+        var data = [{
+            x: s_x,
+            y: s_y,
+            type: 'scatter',
+            name: 'distribution',
+            mode: 'lines+markers',
+            marker: {
+                size: 4,
+                color: 'red',
+                line: {
+                    width: 2,
+                    color: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }];
+
+        var layout = {
+            title: 'Binomial Distribution',
+            xaxis: {title: 'Number of Successes'},
+            yaxis: {title: 'Probability of Number of Successes'},
+            autosize: false,
+            width: 600,
+            height: 600,
+            showlegend: false,
+        };
+
+        Plotly.newPlot(cell_for_plot, data, layout);
+    }
+
+    function calculate() {
+        var ep = document.getElementById("p_val");
+        var p = ep.value;
+        var en = document.getElementById("n_val");
+        var n = en.value;
+        var es = document.getElementById("s_val");
+        var s = es.value;
+        ep = document.getElementById("p_label");
+        ep.innerHTML = params.pval[p];
+        en = document.getElementById("n_label");
+        en.innerHTML = params.nval[n];
+        es = document.getElementById("s_label");
+        es.innerHTML = s;
+
+        let cell_for_plot = document.getElementById('for_plotly_plot');
+        Plotly.purge(cell_for_plot); // Clear previous plot
+        plotScatter(params.k[p][n], params.p[p][n], cell_for_plot);
+        if (histogram)
+            plotHistogram(params.x[p][n].slice(0, s), cell_for_plot);
+    }
+
+    function show_histogram() {
+        var checkBox = document.getElementById("show_histo");
+        var text = document.getElementById("samples");
+
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+            histogram = true;
+        } else {
+            text.style.display = "none";
+            histogram = false;
+        }
+        calculate();
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        calculate();
+    });
+</script>
+</body>
+</html>

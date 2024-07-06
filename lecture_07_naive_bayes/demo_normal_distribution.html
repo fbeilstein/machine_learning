@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Normal Distribution</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+</head>
+<body>
+  <div id="everything" style="height:600px;">
+    <div id="for_plotly_plot" style="position:absolute; top:0px; left:0px; height:600px; width:600px;"></div>
+    <div style="position:absolute; top:200px; left:625px;">
+      <p>$$f(x)=\frac{1}{\sqrt{2 \pi \sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$</p>
+      <table>
+        <tr>
+          <td>\[\mu:\]</td>
+          <td>
+            <input type="range" min="0" max="24" value="12" class="slider" id="mu_val" oninput="calculate()">
+          </td>
+          <td><div id="mu_label"></div></td>
+        </tr>
+        <tr>
+          <td>\[\sigma:\]</td>
+          <td>
+            <input type="range" min="0" max="9" value="4" class="slider" id="sig_val" oninput="calculate()">
+          </td>
+          <td><div id="sig_label"></div></td>
+        </tr>
+        <tr>
+          <td colspan="3">Show histogram <input type="checkbox" id="show_histo" onclick="showHistogram()" checked="checked" /></td>
+        </tr>
+      </table>
+      <table id="samples">
+        <tr>
+          <td># of samples:</td>
+          <td>
+            <input type="range" min="1" max="1000" value="500" class="slider" id="s_val" oninput="calculate()">
+          </td>
+          <td><div id="s_label"></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <script type="application/javascript">
+    // Helper function to calculate Normal PDF
+    function normalPDF(x, mu, sigma) {
+      return (1 / (Math.sqrt(2 * Math.PI) * sigma)) * Math.exp(-((x - mu) ** 2) / (2 * sigma ** 2));
+    }
+
+    // Generate PDF values for plotting
+    function pdfForPlotting(x, mu, sigma) {
+      return x.map(xi => normalPDF(xi, mu, sigma));
+    }
+
+    // Sample from Normal distribution
+    function sampleDistribution(mu, sigma, samples) {
+      let result = [];
+      for (let i = 0; i < samples; i++) {
+        result.push(mu + sigma * Math.sqrt(-2 * Math.log(Math.random())) * Math.cos(2 * Math.PI * Math.random()));
+      }
+      return result;
+    }
+
+    let mu = Array.from({ length: 25 }, (_, i) => -25.0 + i * 2.0);
+    let sigma = Array.from({ length: 10 }, (_, i) => 1.0 + i);
+    let x = Array.from({ length: 100 }, (_, i) => -50.0 + i * 1.0);
+
+    function evalOnCartesian(func, ...args) {
+      const [first, ...rest] = args;
+      if (rest.length === 0) {
+        return first.map(a => func(a));
+      }
+      return first.map(a => evalOnCartesian(func.bind(null, a), ...rest));
+    }
+
+    let samples = 1000;
+    let funcs = evalOnCartesian((mu, sigma) => pdfForPlotting(x, mu, sigma), mu, sigma);
+    let hists = evalOnCartesian((mu, sigma) => sampleDistribution(mu, sigma, samples), mu, sigma);
+
+    let params = { x: x, mu: mu, sig: sigma, f: funcs, h: hists };
+
+    function plotHistogram(x, cellForPlot) {
+      var data = [{
+        x: x,
+        type: 'histogram',
+        name: 'histogram',
+        marker: { color: 'yellow' },
+        histnorm: 'probability'
+      }];
+      Plotly.plot(cellForPlot, data);
+    }
+
+    function plotScatter(s_x, s_y, cellForPlot) {
+      var data = [{
+        x: s_x,
+        y: s_y,
+        name: 'distribution',
+        type: 'scatter',
+        mode: 'lines',
+        marker: {
+          size: 4,
+          color: 'red',
+          line: {
+            width: 2,
+            color: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }];
+      var layout = {
+        title: 'Gaussian Distribution',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'Probability Density of x' },
+        autosize: false,
+        width: 600,
+        height: 600,
+        showlegend: true,
+      };
+      Plotly.newPlot(cellForPlot, data, layout);
+    }
+
+    function plotMu(mu, mu_y, cellForPlot) {
+      var data = [{
+        x: [mu, mu],
+        y: [0, mu_y],
+        name: 'μ',
+        type: 'scatter',
+        mode: 'lines',
+        line: {
+          width: 2,
+          color: 'blue',
+          dash: 'dot'
+        }
+      }];
+      Plotly.plot(cellForPlot, data);
+    }
+
+    function plotSigma(sg_x1, sg_x2, sg_y1, sg_y2, cellForPlot) {
+      var data = [{
+        x: [sg_x1, sg_x1, null, sg_x2, sg_x2],
+        y: [0, sg_y1, null, 0, sg_y2],
+        name: 'μ±σ',
+        type: 'scatter',
+        mode: 'lines',
+        line: {
+          width: 2,
+          color: 'green',
+          dash: 'dash'
+        }
+      }];
+      Plotly.plot(cellForPlot, data);
+    }
+
+    var histogram = true;
+
+    function calculate() {
+      var muSlider = document.getElementById("mu_val");
+      var sigSlider = document.getElementById("sig_val");
+      var sampleSlider = document.getElementById("s_val");
+
+      var muIndex = muSlider.value;
+      var sigIndex = sigSlider.value;
+      var sampleSize = sampleSlider.value;
+
+      document.getElementById("mu_label").innerHTML = params.mu[muIndex];
+      document.getElementById("sig_label").innerHTML = params.sig[sigIndex];
+      document.getElementById("s_label").innerHTML = sampleSize;
+
+      var y = params.f[muIndex][sigIndex];
+      var h = params.h[muIndex][sigIndex];
+
+      var cellForPlot = document.getElementById('for_plotly_plot');
+      Plotly.purge(cellForPlot);
+      plotScatter(params.x, y, cellForPlot);
+
+      var muVal = params.mu[muIndex];
+      var sigVal = params.sig[sigIndex];
+
+      var muHeight = getClosestY(params.x, y, muVal);
+      var sigLeftHeight = getClosestY(params.x, y, muVal - sigVal);
+      var sigRightHeight = getClosestY(params.x, y, muVal + sigVal);
+
+      plotSigma(muVal - sigVal, muVal + sigVal, sigLeftHeight, sigRightHeight, cellForPlot);
+      plotMu(muVal, muHeight, cellForPlot);
+
+      if (histogram)
+        plotHistogram(h.slice(0, sampleSize), cellForPlot);
+    }
+
+    function getClosestY(arrayX, arrayY, x) {
+      var closestY = arrayY.reduce((closest, y, i) => {
+        const diff = Math.abs(arrayX[i] - x);
+        return diff < closest.diff ? { y, diff } : closest;
+      }, { y: 0, diff: Infinity }).y;
+      return closestY;
+    }
+
+    function showHistogram() {
+      var checkBox = document.getElementById("show_histo");
+      var text = document.getElementById("samples");
+
+      if (checkBox.checked) {
+        text.style.display = "block";
+        histogram = true;
+      } else {
+        text.style.display = "none";
+        histogram = false;
+      }
+      calculate();
+    }
+
+    window.onload = function() {
+      calculate();
+    }
+  </script>
+</body>
+</html>

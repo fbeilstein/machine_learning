@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multivariate Normal Distribution</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/7.8.0/simple-statistics.min.js"></script>-->
+</head>
+<body>
+<div id="plotly-div" style="width:600px;height:600px;"></div>
+
+<script>
+function pmfForPlotting(x, mu, sig) {
+    return x.map(val => {
+        const coeff = 1 / (sig * Math.sqrt(2 * Math.PI));
+        const exponent = -0.5 * Math.pow((val - mu) / sig, 2);
+        return coeff * Math.exp(exponent);
+    });
+}
+
+function sampleDistribution(samples, mu, sig) {
+    const results = [];
+    for (let i = 0; i < samples; i++) {
+        const u1 = Math.random();
+        const u2 = Math.random();
+        const z1 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        results.push(mu + sig * z1);
+    }
+    return results;
+}
+
+function visualizeModel(forHist, x, y) {
+    // Plot histogram and PDF as surfaces
+    return new Promise((resolve) => {
+        const trace1 = {
+            x: forHist,
+            type: 'histogram',
+            histnorm: 'probability density',
+            opacity: 1.0,
+            name: 'Histogram'
+        };
+        const trace2 = {
+            x: x,
+            y: y,
+            mode: 'lines',
+            line: {color: 'red'},
+            name: 'PDF'
+        };
+        const data = [trace1, trace2];
+        const layout = {
+            xaxis: {
+                range: [-4, 4],
+                showgrid: false,
+                zeroline: false,
+                showline: false,
+                showticklabels: false
+            },
+            yaxis: {                
+                range: [0, 0.8],
+                showgrid: false,
+                zeroline: false,
+                showline: false,
+                showticklabels: false
+            },
+            showlegend: false,
+            margin: {
+                l: 0,
+                r: 0,
+                b: 0,
+                t: 0,
+                pad: 0
+            }
+        };
+
+        //const divId = 'temp-plotly-div';
+        const div = document.createElement('div');
+        //div.id = divId;
+        div.style.width = '600px';
+        div.style.height = '600px';
+        div.style.display = 'block';//'none';
+        document.body.appendChild(div);
+
+        Plotly.newPlot(div, data, layout).then(() => {
+            Plotly.toImage(div, {format: 'png', width: 600, height: 600}).then((dataUrl) => {
+                document.body.removeChild(div);
+                resolve(dataUrl);
+            });
+        });
+    });
+}
+
+function reshape(array, rows, cols) {
+    if (array.length !== rows * cols) {
+        throw new Error("The total number of elements does not match the specified dimensions.");
+    }
+    const reshapedArray = [];
+    for (let i = 0; i < rows; i++) {
+        const row = array.slice(i * cols, i * cols + cols);
+        reshapedArray.push(row);
+    }
+    return reshapedArray;
+}
+
+const x_min = -4;
+const x_max = 4;
+const mu_x = 0;
+const mu_y = 0;
+const sig_x = 0.5;
+const sig_y = 1.0;
+const sample_num = 1000;
+
+const x = Array.from({length: 216}, (_, i) => x_min + i * (x_max - x_min) / 215);
+const y = x;
+const Fx = pmfForPlotting(x, mu_x, sig_x);
+const Fy = pmfForPlotting(y, mu_y, sig_y);
+const Sx = sampleDistribution(sample_num, mu_x, sig_x);
+const Sy = sampleDistribution(sample_num, mu_y, sig_y);
+
+
+function kMeans(data, k, maxIterations = 100) {
+      const centroids = [];
+      const assignments = new Array(data.length);
+      const numDimensions = data[0].length;
+
+      // Initialize centroids
+      for (let i = 0; i < k; i++) {
+        centroids.push(data[Math.floor(Math.random() * data.length)]);
+      }
+
+      for (let iteration = 0; iteration < maxIterations; iteration++) {
+        let changes = 0;
+
+        // Assign each point to the nearest centroid
+        for (let i = 0; i < data.length; i++) {
+          const point = data[i];
+          let minDist = Infinity;
+          let closestCentroid = -1;
+
+          for (let j = 0; j < k; j++) {
+            const centroid = centroids[j];
+            const dist = Math.sqrt(point.reduce((sum, value, index) => sum + Math.pow(value - centroid[index], 2), 0));
+
+            if (dist < minDist) {
+              minDist = dist;
+              closestCentroid = j;
+            }
+          }
+
+          if (assignments[i] !== closestCentroid) {
+            changes++;
+            assignments[i] = closestCentroid;
+          }
+        }
+
+        if (changes === 0) break;
+
+        // Update centroids
+        const newCentroids = Array.from({ length: k }, () => Array(numDimensions).fill(0));
+        const counts = Array(k).fill(0);
+
+        for (let i = 0; i < data.length; i++) {
+          const point = data[i];
+          const cluster = assignments[i];
+          for (let j = 0; j < numDimensions; j++) {
+            newCentroids[cluster][j] += point[j];
+          }
+          counts[cluster]++;
+        }
+
+        for (let i = 0; i < k; i++) {
+          for (let j = 0; j < numDimensions; j++) {
+            if (counts[i] > 0) {
+              newCentroids[i][j] /= counts[i];
+            }
+          }
+        }
+
+        for (let i = 0; i < k; i++) {
+          centroids[i] = newCentroids[i];
+        }
+      }
+
+      return { centroids, assignments };
+    }
+
+
+function imageToColorscale(image) {
+    const numClusters = 64;
+    const result = kMeans(image, numClusters);
+    const used_colors = new Set(result.assignments);
+    let colorscale = [];
+    let translation = new Map();
+    for (const value of used_colors) {
+        const rgb = result.centroids[value];
+        translation.set(value, colorscale.length);
+        colorscale.push([colorscale.length, 'rgb(' + Math.round(rgb[0]) + ',' + Math.round(rgb[1]) + ',' + Math.round(rgb[2]) + ')']);
+    }
+    const num_used = colorscale.length;
+    for (let idx = 0; idx < result.assignments.length; ++idx) {
+        result.assignments[idx] = translation.get(result.assignments[idx]) / (num_used - 1);
+    }
+    for (let idx = 0; idx < colorscale.length; ++idx) {
+        colorscale[idx][0] /= (num_used - 1);
+    }
+    return [result.assignments, colorscale];
+}
+
+Promise.all([
+    visualizeModel(Sx, x, Fx),
+    visualizeModel(Sy, y, Fy)
+]).then(([imgX, imgY]) => {
+    // Convert images to RGB arrays for Plotly
+    function imageToArray(imgUrl) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';  // Handle CORS
+            img.src = imgUrl;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                //document.body.appendChild(canvas);////
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = new Array(canvas.width * canvas.height).fill(0).map((_, idx) => {
+                    const i = idx * 4;
+                    return [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2]];
+                });
+                resolve({data, width: canvas.width, height: canvas.height});
+            };
+        });
+    }
+
+    Promise.all([
+        imageToArray(imgX),
+        imageToArray(imgY)
+    ]).then(([imageX, imageY]) => {
+        [img, cscale] = imageToColorscale(imageX.data);
+        [img1, cscale1] = imageToColorscale(imageY.data);
+        console.log(cscale1);
+        console.log(new Set(img1));
+        const X = Array.from({length: imageX.width}, (_, i) => x_min + i * (x_max - x_min) / imageX.width);
+        const Y = Array.from({length: imageX.height}, (_, i) => x_min);
+        const Z = X.map(xi => Array(X.length).fill(1.0 - (xi - x_min) / 8.0));
+
+        const X1 = Array.from({length: imageY.height}, (_, i) => x_min);
+        const Y1 = Array.from({length: imageY.width}, (_, i) => x_min + i * (x_max - x_min) / imageX.height);
+        const Z1 = Y1.map(xi => Array(Y1.length).fill(1.0 - (xi - x_min) / 8.0));
+        const Z_transposed = Z1[0].map((_, colIndex) => Z1.map(row => row[colIndex]));
+        const img2 = reshape(img1, imageY.width, imageY.height);
+        const img3 = img2[0].map((_, colIndex) => img2.map(row => row[colIndex]));
+        //console.log(colorscale);
+
+        const [X_mesh, Y_mesh] = [x, y];
+        const Z_mesh = X_mesh.map(xi => Fx.map(fyi => fyi * Fy[X_mesh.indexOf(xi)]));
+
+        const figData = [
+            {
+                type: 'scatter3d',
+                mode: 'markers',
+                x: Sx,
+                y: Sy,
+                z: Array(Sx.length).fill(0),
+                marker: {size: 2},
+                name: 'Samples'
+            },
+            {
+                type: 'surface',
+                x: X,
+                y: Y,
+                z: Z,
+                surfacecolor: reshape(img, imageX.width, imageX.height),
+                colorscale: cscale,
+                opacity: 1.0,
+                showscale: false,
+                name: 'Model X'
+            },
+            {
+                type: 'surface',
+                x: X1,
+                y: Y1,
+                z: Z_transposed,
+                surfacecolor: img3,
+                colorscale: cscale1,
+                opacity: 1.0,
+                showscale: false,
+                name: 'Model Y'
+            },
+            {
+                type: 'surface',
+                x: X_mesh,
+                y: Y_mesh,
+                z: Z_mesh,
+                opacity: 0.5,
+                showscale: false,
+                name: 'Joint Distribution'
+            }
+        ];
+
+        Plotly.newPlot('plotly-div', figData, {
+            width: 600,
+            height: 600,
+            scene: {
+                aspectratio: {x: 1, y: 1, z: 1},
+                xaxis: {
+                    range: [-4.1, 4.1]
+                },
+                yaxis: {
+                    range: [-4.1, 4.1]
+                }
+            },
+            updatemenus: [{
+                type: 'buttons',
+                buttons: [
+                    {
+                        label: 'Show Distribution',
+                        method: 'update',
+                        args: [{'visible': [true, true, true, true]}]
+                    },
+                    {
+                        label: 'Hide Distribution',
+                        method: 'update',
+                        args: [{'visible': [true, true, true, false]}]
+                    }
+                ]
+            }]
+        });
+    });
+});
+</script>
+</body>
+</html>
