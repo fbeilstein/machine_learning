@@ -1,25 +1,25 @@
 <html>
 
 <head>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-  <script type="application/javascript">
+  <script type="application/javascript">
 
    function random_point(mu, sigma) {
      var z = Math.sqrt(-2.0 * Math.log(Math.random())) * Math.cos(2.0 * Math.PI * Math.random());
      return z * sigma + mu;
    }
 
-   
+
    function calc_positive(xs, estimated_gaussians, thr) {
       var prior_blue = blue_pts.length / (blue_pts.length + red_pts.length);
       var prior_red  = red_pts.length / (blue_pts.length + red_pts.length);
       var tp = 0;
       for (var i = 0; i < xs.length; ++i) {
-        var delta = (xs[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1]; 
-        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
-        delta = (xs[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
+        var delta = (xs[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1];
+        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
+        delta = (xs[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1];
+        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
         var prob_blue = like_blue * prior_blue / (like_blue * prior_blue + like_red * prior_red);
         var prob_red = like_red * prior_red / (like_blue * prior_blue + like_red * prior_red);
 
@@ -44,17 +44,17 @@
      return [mu, sigma];
    }
 
-    var xs = [];
-    var ys = [];
-    var x_min = -5.0;
-    var y_min = -0.1;
-    var x_max = +5.0;
-    var y_max = +1.1;
-    for (var x = x_min; x <= x_max; x += 0.01)
-      xs.push(x);
-    for (var y = y_min; y <= y_max; y += 0.1)
-      ys.push(y);
-    var colors = ['blue', 'red'];
+    var xs = [];
+    var ys = [];
+    var x_min = -5.0;
+    var y_min = -0.1;
+    var x_max = +5.0;
+    var y_max = +1.1;
+    for (var x = x_min; x <= x_max; x += 0.01)
+      xs.push(x);
+    for (var y = y_min; y <= y_max; y += 0.1)
+      ys.push(y);
+    var colors = ['blue', 'red'];
     var gen_nums = [0, 0];
     var red_pts = [];
     var blue_pts = [];
@@ -63,88 +63,84 @@
     var update = {'visible': []};
 
 
-    function loss_function_2d() {
-      var canvas = document.getElementById("paint");
-      var w = canvas.width;
-      var h = canvas.height;
+    function loss_function_2d() {
+      var canvas = document.getElementById("paint");
+      var w = canvas.width;
+      var h = canvas.height;
 
       data = [];
       data.push({
-            x: [x_min, x_max, null, x_min, x_max],
-            y: [0.0, 0.0, null, 1.0, 1.0],
-            showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+            x: [x_min, x_max, null, x_min, x_max],
+            y: [0.0, 0.0, null, 1.0, 1.0],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
             showlegend: false,
-            line: {width: 3, color: 'green'},
-          });
+            line: {width: 3, color: 'green'},
+          });
       //threshold
       data.push({
-        x: [x_min, x_max],
-        y: [threshold, threshold],
-        showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
+        x: [x_min, x_max],
+        y: [threshold, threshold],
+        showscale: false, opacity: 1.0, type: 'scatter', mode: 'lines',
         name: 'threshold',
-        line: {width: 3, color: 'yellow'},
-      });
+        line: {width: 3, color: 'yellow'},
+      });
       // datapoints
       var trace_y = [];
       for (var i = 0; i < red_pts.length; ++i)
             trace_y.push(1.0);
       data.push({
-            x: red_pts.length ? red_pts : [-100],
-            y: red_pts.length ? trace_y : [-100],
-            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            x: red_pts.length ? red_pts : [-100],
+            y: red_pts.length ? trace_y : [-100],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
             name: 'red class datapoints',
-            marker: {size: 12, color: 'red'},
-          });
+            marker: {size: 12, color: 'red'},
+          });
       trace_y = [];
       for (var i = 0; i < blue_pts.length; ++i)
             trace_y.push(0.0);
       data.push({
-            x: blue_pts.length ? blue_pts : [-100],
-            y: blue_pts.length ? trace_y : [-100],
-            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
+            x: blue_pts.length ? blue_pts : [-100],
+            y: blue_pts.length ? trace_y : [-100],
+            showscale: false, opacity: 1.0, type: 'scatter', mode: 'markers',
             name: 'blue class datapoints',
-            marker: {size: 12, color: 'blue'},
-          });
+            marker: {size: 12, color: 'blue'},
+          });
       //console.log(data);
       estimated_gaussians = [get_params(blue_pts), get_params(red_pts)];
-      C = Math.sqrt(2 * Math.PI);
+      C = Math.sqrt(2 * Math.PI);
 
-
-      //console.log(estimated_gaussians);
-
-
-      for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
-        var trace = [];
-        for (var i = 0; i < xs.length; ++i) {
-            var delta = (xs[i] - estimated_gaussians[trace_idx][0]) / estimated_gaussians[trace_idx][1]; 
-            trace.push(Math.exp(-delta*delta / 2.0) / estimated_gaussians[trace_idx][1] / C);
-        }
+      for (var trace_idx = 0; trace_idx < pts.length; ++trace_idx) {
+        var trace = [];
+        for (var i = 0; i < xs.length; ++i) {
+            var delta = (xs[i] - estimated_gaussians[trace_idx][0]) / estimated_gaussians[trace_idx][1];
+            trace.push(Math.exp(-delta*delta / 2.0) / estimated_gaussians[trace_idx][1] / C);
+        }
         var name = ['estimated PDF for blue', 'estimated PDF for red'];
-        data.push({
-            x: xs,
-            y: trace,
-            showscale: false, 
-            opacity: 1.0,
-            type: 'scatter',
-            mode: 'line',
+        data.push({
+            x: xs,
+            y: trace,
+            showscale: false,
+            opacity: 1.0,
+            type: 'scatter',
+            mode: 'line',
             name: name[trace_idx],
-            line: {
+            line: {
               //dash: 'dash',
-              width: 1,
-              color: colors[trace_idx]
-            },
-          });
-      }
+              width: 1,
+              color: colors[trace_idx]
+            },
+          });
+      }
 
       p_red = [];
       p_blue = [];
       var prior_blue = blue_pts.length / (blue_pts.length + red_pts.length);
       var prior_red  = red_pts.length / (blue_pts.length + red_pts.length);
       for (var i = 0; i < xs.length; ++i) {
-        var delta = (xs[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1]; 
-        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
-        delta = (xs[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
+        var delta = (xs[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1];
+        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
+        delta = (xs[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1];
+        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
         var prob_blue = like_blue * prior_blue / (like_blue * prior_blue + like_red * prior_red);
         var prob_red = like_red * prior_red / (like_blue * prior_blue + like_red * prior_red);
         p_blue.push(prob_blue);
@@ -152,18 +148,18 @@
       }
      //console.log(p_red);
       data.push({
-           x: xs,
-           y: p_red,
-           showscale: false, 
-           opacity: 1.0, 
-           type: 'scatter',
-           mode: 'lines',
-           name: 'estimated red probability',
-           line: {
-             width: 3,
-             color: colors[1]
-           },
-         });
+            x: xs,
+            y: p_red,
+            showscale: false,
+            opacity: 1.0,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'estimated red probability',
+            line: {
+              width: 3,
+              color: colors[1]
+            },
+          });
       var ys = [0.0, 1.0];
       var zs = [];
       for (var i = 0; i < xs.length; ++i) {
@@ -173,15 +169,15 @@
             zs.push(1.0);
       }
       data.push({
-           x: xs,
-           y: ys,
-           z: [zs, zs],
-           showscale: false, 
-           opacity: 0.2, 
-           colorscale: [[0, 'red'], [1, 'blue']],
-           type: 'heatmap'
-         });
-      
+            x: xs,
+            y: ys,
+            z: [zs, zs],
+            showscale: false,
+            opacity: 0.2,
+            colorscale: [[0, 'red'], [1, 'blue']],
+            type: 'heatmap'
+          });
+
       var tp = calc_positive(red_pts, estimated_gaussians, threshold);
       var fn = red_pts.length - tp;
       var fp = calc_positive(blue_pts, estimated_gaussians, threshold);
@@ -191,23 +187,23 @@
       document.getElementById('bfp').innerHTML = fp;
       document.getElementById('rfp').innerHTML = fn;
 
-      var cell_for_plot = document.getElementById("for_right_plot");
-      var layout = {
-          title: 'Naive Bayes',
-          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
-          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
-          width: 800,
-          height: 400,
-          autosize: false,
-          showlegend: true,
-          margin: {
-            l: 50,
-            r: 50,
-            b: 50,
-            t: 50
-          }
-        };
-      //Plotly.newPlot(cell_for_plot, data, layout);
+      var cell_for_plot = document.getElementById("for_right_plot");
+      var layout = {
+          title: 'Naive Bayes',
+          xaxis: {'range': [x_min, x_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          yaxis: {'range': [y_min, y_max], 'domain': [0.0, 1.0], 'fixedrange': true},
+          width: 800,
+          height: 600,
+          autosize: false,
+          showlegend: true,
+          margin: {
+            l: 50,
+            r: 50,
+            b: 50,
+            t: 50
+          }
+        };
+      //Plotly.newPlot(cell_for_plot, data, layout);
       if (!plotted_once) {
         Plotly.newPlot(cell_for_plot, data, layout);
         cell_for_plot.on('plotly_restyle', function(){
@@ -225,28 +221,24 @@
       data = [];
       var hack = [];
       for (var i = 0; i < red_pts.length; ++i) {
-        //var delta = (red_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        //var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
-        var delta = (red_pts[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1]; 
-        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
-        delta = (red_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
+        var delta = (red_pts[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1];
+        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
+        delta = (red_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1];
+        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
         var prob_red = like_red * prior_red / (like_blue * prior_blue + like_red * prior_red);
         hack.push([prob_red, 1]);
       }
       for (var i = 0; i < blue_pts.length; ++i) {
-        //var delta = (blue_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        //var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
-        var delta = (blue_pts[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1]; 
-        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
-        delta = (blue_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1]; 
-        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
+        var delta = (blue_pts[i] - estimated_gaussians[0][0]) / estimated_gaussians[0][1];
+        var like_blue = Math.exp(-delta*delta / 2.0) / estimated_gaussians[0][1] / C;
+        delta = (blue_pts[i] - estimated_gaussians[1][0]) / estimated_gaussians[1][1];
+        var like_red = Math.exp(-delta*delta / 2.0) / estimated_gaussians[1][1] / C;
         var prob_red = like_red * prior_red / (like_blue * prior_blue + like_red * prior_red);
         hack.push([prob_red, 0]);
       }
       hack.sort(function(a,b){return a[0] - b[0]});
       console.log(hack);
-    
+
       var tp_ = red_pts.length;
       var fp_ = blue_pts.length;
       var tpr = [];
@@ -261,16 +253,16 @@
       }
       tpr.push(0);
       fpr.push(0);
-      
+
       data.push({
-           x: fpr,
-           y: tpr,
-           showscale: false, 
-           opacity: 1.0, 
-           type: 'scatter',
-           mode: 'markers+lines',
-           line: {width: 3, color: 'black'},
-         });
+            x: fpr,
+            y: tpr,
+            showscale: false,
+            opacity: 1.0,
+            type: 'scatter',
+            mode: 'markers+lines',
+            line: {width: 3, color: 'black'},
+          });
 
       data.push({
         x: [fp / blue_pts.length],
@@ -283,27 +275,27 @@
       });
 
       var cell_for_plot2 = document.getElementById("for_left_plot");
-      var layout = {
-          title: 'ROC curve',
-          xaxis: {'range': [-0.1, 1.1], 'domain': [0.0, 1.0], 'fixedrange': true, title: "False Positive Rate"},
-          yaxis: {'range': [-0.1, 1.1], 'domain': [0.0, 1.0], 'fixedrange': true, title: "True Positive Rate"},
-          width: 600,
-          height: 400,
-          autosize: false,
-          showlegend: false,
-          margin: {
-            l: 50,
-            r: 50,
-            b: 50,
-            t: 50
-          }
-        };
-      Plotly.newPlot(cell_for_plot2, data, layout);
+      var layout = {
+          title: 'ROC curve',
+          xaxis: {'range': [-0.1, 1.1], 'domain': [0.0, 1.0], 'fixedrange': true, title: "False Positive Rate"},
+          yaxis: {'range': [-0.1, 1.1], 'domain': [0.0, 1.0], 'fixedrange': true, title: "True Positive Rate"},
+          width: 600,
+          height: 600,
+          autosize: false,
+          showlegend: false,
+          margin: {
+            l: 50,
+            r: 50,
+            b: 50,
+            t: 50
+          }
+        };
+      Plotly.newPlot(cell_for_plot2, data, layout);
 
-    }
+    }
 
-    var pts = [[100, 300], [500, 300]];
-    var active_idx = -1;
+    var pts = [[100, 300], [500, 300]];
+    var active_idx = -1;
     var move_threshold = false;
 
     function get_state() {
@@ -314,14 +306,14 @@
       return "none";
     }
 
-    function mdown_handle(event) {
-      //console.log('down');
-      event.stopPropagation();
-      var x = event.offsetX;
-      var y = event.offsetY;
+    function mdown_handle(event) {
+      //console.log('down');
+      event.stopPropagation();
+      var x = event.offsetX;
+      var y = event.offsetY;
       var canvas = document.getElementById("paint");
       var w = canvas.width;
-      var h = canvas.height;
+      var h = canvas.height;
       var plot_x = x / w * (x_max - x_min) + x_min;
       var plot_y = (1.0 - y / h) * (y_max - y_min) + y_min;
       var state = get_state();
@@ -359,19 +351,19 @@
                 blue_pts.splice(i, 1);
                 break;
             }
-                
+
 
       loss_function_2d();
 
-    }
+    }
 
-    function mmove_handle(event) {
-      event.stopPropagation();
+    function mmove_handle(event) {
+      event.stopPropagation();
       var x = event.offsetX;
-      var y = event.offsetY;
+      var y = event.offsetY;
       var canvas = document.getElementById("paint");
       var w = canvas.width;
-      var h = canvas.height;
+      var h = canvas.height;
       var plot_x = x / w * (x_max - x_min) + x_min;
       var plot_y = (1.0 - y / h) * (y_max - y_min) + y_min;
 
@@ -385,9 +377,9 @@
         return;
       }
 
-      var state = get_state();
-      if (active_idx < 0 || state != "move")
-        return;
+      var state = get_state();
+      if (active_idx < 0 || state != "move")
+        return;
 
       if (plot_y > 0.9 && plot_y < 1.1)
         red_pts[active_idx] = plot_x;
@@ -396,35 +388,35 @@
       else
         active_idx = -1;
 
-      loss_function_2d();
-    }
+      loss_function_2d();
+    }
 
-    function mup_handle(event) {
-      active_idx = -1;
+    function mup_handle(event) {
+      active_idx = -1;
       move_threshold = false;
-    }
+    }
 
-    function adjust_canvas() {
-      var plt_div = document.getElementById('for_right_plot');
-      var el = plt_div.getElementsByClassName('xy')[0];
+    function adjust_canvas() {
+      var plt_div = document.getElementById('for_right_plot');
+      var el = plt_div.getElementsByClassName('xy')[0];
       el = el.childNodes[0];
-      if (!el)
-        return [600, 600];
-      var rect = el.getBoundingClientRect();
-      var canvas = document.getElementById("paint");
-      //console.log(rect);
-      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
-                          + "px; left: " + parseInt(rect.left)
-                          + "px; width:" + parseInt(rect.width)
-                          + "px; height:" + parseInt(rect.height)
-                          + "px; z-index:1000;";
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-      var ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      //loss_function_2d();
-      return [canvas.width, canvas.height];
-    }
+      if (!el)
+        return [600, 600];
+      var rect = el.getBoundingClientRect();
+      var canvas = document.getElementById("paint");
+      //console.log(rect);
+      canvas.style.cssText = "position:absolute; top:" + parseInt(rect.top)
+                           + "px; left: " + parseInt(rect.left)
+                           + "px; width:" + parseInt(rect.width)
+                           + "px; height:" + parseInt(rect.height)
+                           + "px; z-index:1000;";
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //loss_function_2d();
+      return [canvas.width, canvas.height];
+    }
 
     function calculate()
     {
@@ -434,7 +426,7 @@
       var blues = elem.value;
       gen_nums = [parseInt(blues), parseInt(reds)];
       elem = document.getElementById("red_label");
-      elem.innerHTML = reds;    
+      elem.innerHTML = reds;
       elem = document.getElementById("blue_label");
       elem.innerHTML = blues;
       loss_function_2d();
@@ -449,7 +441,7 @@
       loss_function_2d();
     }
 
-  </script>
+  </script>
 
 <style>
   table.tstyle{
@@ -471,9 +463,9 @@
 <body>
 
 <div id="everything" style="height:600px; width:625px;">
-  <div id="for_right_plot">
-  </div>
-  <div id="for_left_plot" style="position:absolute; top:400px; left:0px"> 
+  <div id="for_right_plot">
+  </div>
+  <div id="for_left_plot" style="position:absolute; top:0px; left:800px">
   </div>
   <div style="position:absolute;top:300px;left:625px">
     <table class='tstyle'>
@@ -506,9 +498,9 @@
 </div>
 
 <canvas id="paint" width=600 height=600
-    onmousedown="mdown_handle(event)"
-    onmousemove="mmove_handle(event)"
-    onmouseup="mup_handle(event)">
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)">
 </canvas>
 
 </body>
@@ -516,9 +508,9 @@
 <script>
 function init()
 {
-  loss_function_2d();
-  adjust_canvas();
-  setInterval(adjust_canvas, 1000);
+  loss_function_2d();
+  adjust_canvas();
+  setInterval(adjust_canvas, 1000);
   loss_function_2d();
 }
 init();
