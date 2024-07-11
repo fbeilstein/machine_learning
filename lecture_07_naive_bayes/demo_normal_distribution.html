@@ -81,18 +81,18 @@
     let params = { x: x, mu: mu, sig: sigma, f: funcs, h: hists };
 
     function plotHistogram(x, cellForPlot) {
-      var data = [{
+      let data = {
         x: x,
         type: 'histogram',
         name: 'histogram',
         marker: { color: 'yellow' },
         histnorm: 'probability'
-      }];
-      Plotly.plot(cellForPlot, data);
+      };
+      return data;
     }
 
     function plotScatter(s_x, s_y, cellForPlot) {
-      var data = [{
+      let data = {
         x: s_x,
         y: s_y,
         name: 'distribution',
@@ -106,21 +106,12 @@
             color: 'rgba(0, 0, 0, 0.5)'
           }
         }
-      }];
-      var layout = {
-        title: 'Gaussian Distribution',
-        xaxis: { title: 'x' },
-        yaxis: { title: 'Probability Density of x' },
-        autosize: false,
-        width: 600,
-        height: 600,
-        showlegend: true,
       };
-      Plotly.newPlot(cellForPlot, data, layout);
+      return data;
     }
 
     function plotMu(mu, mu_y, cellForPlot) {
-      var data = [{
+      let data = {
         x: [mu, mu],
         y: [0, mu_y],
         name: 'μ',
@@ -131,12 +122,12 @@
           color: 'blue',
           dash: 'dot'
         }
-      }];
-      Plotly.plot(cellForPlot, data);
+      };
+      return data;
     }
 
     function plotSigma(sg_x1, sg_x2, sg_y1, sg_y2, cellForPlot) {
-      var data = [{
+      let data = {
         x: [sg_x1, sg_x1, null, sg_x2, sg_x2],
         y: [0, sg_y1, null, 0, sg_y2],
         name: 'μ±σ',
@@ -147,11 +138,13 @@
           color: 'green',
           dash: 'dash'
         }
-      }];
-      Plotly.plot(cellForPlot, data);
+      };
+      return data;
     }
 
     var histogram = true;
+    var plotted_once = false;
+    var update = {'visible': []};
 
     function calculate() {
       var muSlider = document.getElementById("mu_val");
@@ -170,8 +163,9 @@
       var h = params.h[muIndex][sigIndex];
 
       var cellForPlot = document.getElementById('for_plotly_plot');
-      Plotly.purge(cellForPlot);
-      plotScatter(params.x, y, cellForPlot);
+      let data = [];
+      //Plotly.purge(cellForPlot);
+      data.push(plotScatter(params.x, y, cellForPlot));
 
       var muVal = params.mu[muIndex];
       var sigVal = params.sig[sigIndex];
@@ -180,11 +174,35 @@
       var sigLeftHeight = getClosestY(params.x, y, muVal - sigVal);
       var sigRightHeight = getClosestY(params.x, y, muVal + sigVal);
 
-      plotSigma(muVal - sigVal, muVal + sigVal, sigLeftHeight, sigRightHeight, cellForPlot);
-      plotMu(muVal, muHeight, cellForPlot);
+      data.push(plotSigma(muVal - sigVal, muVal + sigVal, sigLeftHeight, sigRightHeight, cellForPlot));
+      data.push(plotMu(muVal, muHeight, cellForPlot));
 
       if (histogram)
-        plotHistogram(h.slice(0, sampleSize), cellForPlot);
+        data.push(plotHistogram(h.slice(0, sampleSize), cellForPlot));
+
+      var layout = {
+        title: 'Gaussian Distribution',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'Probability Density of x' },
+        autosize: false,
+        width: 600,
+        height: 600,
+        showlegend: true,
+      };
+      //Plotly.newPlot(cellForPlot, data, layout);
+      if (!plotted_once) {
+        Plotly.newPlot(cellForPlot, data, layout);
+        cellForPlot.on('plotly_restyle', function(){
+          update['visible'] = [];
+          for (i = 0; i < cellForPlot.data.length; ++i)
+            update['visible'].push(cellForPlot.data[i].visible);
+        });
+        plotted_once = true;  
+      } else {
+        Plotly.react(cellForPlot, data, layout);
+        Plotly.restyle(cellForPlot, update);
+      }
+
     }
 
     function getClosestY(arrayX, arrayY, x) {

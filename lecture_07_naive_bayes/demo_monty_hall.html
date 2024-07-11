@@ -29,7 +29,7 @@ function click_img(num) {
     stay = num;
     change = [1, 2, 3].filter(x => ![open, stay].includes(x))[0];
     //document.getElementById("stay_incorrect").innerHTML = "c:" + change + ", o:" + open + ",s:" + stay + ",P:" + prize + "," + intersection;
-    
+
     document.getElementById("d" + open).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/goat.png";
     document.getElementById("d" + stay).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door_click_to_stay.png";
     document.getElementById("d" + change).src = "https://raw.githubusercontent.com/fbeilstein/machine_learning/master/lecture_07_naive_bayes/door_click_to_swap.png";
