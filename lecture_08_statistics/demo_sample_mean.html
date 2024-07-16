@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Explore the Distribution of Means</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    var population = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 1, 1];
+
+    function generateHistogram(size) {
+      let all_sums = {};
+      population.forEach(e => all_sums[e] = 1);
+      
+      for (let _ = 0; _ < size - 1; _++) {
+        let tmp = {};
+        for (const el of population) {
+          for (const [sum_, cnt_] of Object.entries(all_sums)) {
+            const s = parseFloat(sum_) + el;
+            if (tmp[s]) {
+              tmp[s] += cnt_;
+            } else {
+              tmp[s] = cnt_;
+            }
+          }
+        }
+        all_sums = tmp;
+      }
+
+      const all_means = Object.keys(all_sums).map(s => parseFloat(s) / size);
+      const norm = 1 / Object.values(all_sums).reduce((a, b) => a + b, 0);
+      const heights = Object.values(all_sums).map(s => s * norm);
+
+      return [all_means, heights];
+    }
+
+
+
+    var data = {};
+    var plotted_once = false;
+    var update = {'visible': []};
+
+    function plotHisto(pts_x, pts_y, name, is_new, true_mean, max_y) {
+      const data = [{
+        x: pts_x,
+        y: pts_y,
+        name: name,
+        type: 'bar',
+        opacity: 0.7
+      }];
+      if (is_new) {
+        data.push({
+          type: 'scatter',
+          mode: 'lines',
+          name: 'Population Mean',
+          x: [true_mean, true_mean],
+          y: [0, max_y],
+          line: { color: 'blue', dash: 'dash' }
+        });
+      }
+
+      return data;
+    }
+
+    function maxFromArray(array, max) {
+      array.forEach(y => {
+        if (y > max) {
+          max = y;
+        }
+      });
+      return max;
+    }
+
+    function calculate() {
+      let elem = document.getElementById('population');
+
+      const population_input = elem.value;
+      population = population_input.split(',').map(num => parseFloat(num.trim()));
+      if (population.some(isNaN)) {
+        console.error("Invalid input: Please enter a comma-separated list of numbers.", population);
+        return;
+      }
+
+      const sampleSizes = [...Array(11).keys()].slice(1);
+      const dataMeans = sampleSizes.map(sz => generateHistogram(sz)[0]);
+      const dataHeights = sampleSizes.map(sz => generateHistogram(sz)[1]);
+      //const sMin = Math.min(...sampleSizes);
+      //const sMax = Math.max(...sampleSizes);
+      const trueMean = population.reduce((a, b) => a + b, 0) / population.length;
+      data = {
+        means: dataMeans,
+        heights: dataHeights,
+        true_mean: trueMean
+      };
+
+
+      elem = document.getElementById('samples_val_1');
+      const samples1 = elem.value;
+      const index1 = samples1 - elem.min;
+      elem = document.getElementById('samples_label_1');
+      elem.innerHTML = samples1;
+      elem = document.getElementById('samples_val_2');
+      const samples2 = elem.value;
+      const index2 = samples2 - elem.min;
+      elem = document.getElementById('samples_label_2');
+      elem.innerHTML = samples2;
+
+      const x1 = data.means[index1];
+      const y1 = data.heights[index1];
+      const x2 = data.means[index2];
+      const y2 = data.heights[index2];
+
+      let max_y = maxFromArray(y1, 0.0);
+      max_y = maxFromArray(y2, max_y) * 1.1;
+
+      let data_plot = [];
+      data_plot = data_plot.concat(plotHisto(x1, y1, `Sample size: ${samples1}`, true, data.true_mean, max_y));
+      data_plot = data_plot.concat(plotHisto(x2, y2, `Sample size: ${samples2}`, false, data.true_mean, max_y));
+
+      const cellForPlot = document.getElementById('for_plot');
+      const layout = {
+        title: 'Probabilities to Get Different Means',
+        xaxis: { title: 'Mean of a Sample' },
+        yaxis: { title: 'Probability to Get Certain Mean' },
+        autosize: false,
+        barmode: 'overlay',
+        width: 600,
+        height: 600,
+        showlegend: true
+      };
+      if (!plotted_once) {
+        Plotly.newPlot(cellForPlot, data_plot, layout);
+        cellForPlot.on('plotly_restyle', function(){
+          update['visible'] = [];
+          for (i = 0; i < cellForPlot.data.length; ++i)
+            update['visible'].push(cellForPlot.data[i].visible);
+        });
+        plotted_once = true;
+      } else {
+        Plotly.react(cellForPlot, data_plot, layout);
+        Plotly.restyle(cellForPlot, update);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', calculate);
+  </script>
+</head>
+<body>
+  <div id="everything" style="height:700px; width:600px;">
+    <table>
+      <tr>
+        <td><input type="text" id="population" value="1,2,3,4,5,6,7,8,9,10"/></td><td><input type="button" value="recalculate" onclick="calculate();"/></td>
+      </tr>
+      <tr>
+        <td># of samples blue: </td>
+        <td><input type="range" class="slider" min="1" max="10" value="3" id="samples_val_1" oninput="calculate();"></td>
+        <td><div id="samples_label_1">3</div></td>
+        <td># of samples red: </td>
+        <td><input type="range" class="slider" min="1" max="10" value="3" id="samples_val_2" oninput="calculate();"></td>
+        <td><div id="samples_label_2">3</div></td>
+      </tr>
+    </table>
+    <div id="for_plot" style="position:absolute; top:70px; left:0px; height:600px; width:600px;"></div>
+  </div>
+</body>
+</html>

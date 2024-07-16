@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+  <title>Explore Variance Distributions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<div id="everything" style="height:700px; width:800px;">
+  <table>
+    <tr>
+      <td># of samples: </td>
+      <td><input type="range" class="slider" min="2" max="20" value="3" id="samples_val_1" oninput="calculate();"></td>
+      <td><div id="samples_label_1">3</div></td>
+    </tr>
+  </table>
+  <div id="for_plot" style="position:absolute; top:50px; left:0px; height:600px; width:900px;"> </div>
+  <div id="for_small_plot" style="position:absolute; top:300px; left:600px; height:300px; width:300px;"> </div>
+</div>
+
+<script>
+  const true_mean = 0.0;
+  const true_sigma = 1.0;
+  const true_variance = true_sigma ** 2;
+  const x = Array.from({length: 1001}, (_, i) => -8 + i * 0.016);
+  const P_norm = x.map(xi => Math.exp(-0.5 * ((xi - true_mean) / true_sigma) ** 2) / (true_sigma * Math.sqrt(2 * Math.PI)));
+
+  function inverseErf(x) {
+    const a = 0.147; // Constant used in the approximation
+
+    // Calculation part
+    const logPart = Math.log(1 - x * x);
+    const part1 = 2 / (Math.PI * a) + logPart / 2;
+    const part2 = logPart / a;
+
+    return Math.sign(x) * Math.sqrt(Math.sqrt(part1 * part1 - part2) - part1);
+  }
+
+  // Inverse CDF for the normal distribution using inverseErf
+  function inverseNormalCDF(p, mean = 0, stdDev = 1) {
+      if (p <= 0 || p >= 1) {
+          throw new Error("p must be between 0 and 1 (exclusive)");
+      }
+
+      // Using the approximation for the inverse of the normal CDF
+      const sqrt2 = Math.sqrt(2);
+      return mean + stdDev * sqrt2 * inverseErf(2 * p - 1);
+  }
+
+  function variance(arr, ddof=0) {
+    const mean = arr.reduce((sum, value) => sum + value, 0) / arr.length;
+    const squaredDiffs = arr.map(value => (value - mean) ** 2);
+    const variance = squaredDiffs.reduce((sum, value) => sum + value, 0) / (arr.length - ddof);
+    return variance;
+  }
+
+  function generateHistogram(n) {
+    const s = 100000;//000;
+    const X = Array.from({length: s}, () => Array.from({length: n}, () => inverseNormalCDF(Math.random(), true_mean, true_sigma)));
+    //console.log(X);
+    let V = X.map(subArray => variance(subArray)); //X[0].map((_, i) => X.reduce((sum, row) => sum + row[i], 0) / n);
+    let Vu = X.map(subArray => variance(subArray, 1)); //V.map(v => v - true_mean);
+    const v = V.reduce((sum, v) => sum + v, 0) / V.length;
+    const vu = Vu.reduce((sum, vu) => sum + vu, 0) / Vu.length;
+    /*
+      V = np.var(X, axis=0, ddof=0)
+      v = np.mean(V)
+      Vu = np.var(X, axis=0, ddof=1)
+      vu = np.mean(Vu)
+  */
+    const hist_v = Array(60).fill(0);
+    const hist_vu = Array(60).fill(0);
+    const range = [0, 3];
+    V = V.filter(v => v >= range[0] && v < range[1]);
+    Vu = Vu.filter(v => v >= range[0] && v < range[1]);
+    V.forEach(v => hist_v[Math.min(59, Math.floor(v * 20))] += 1 / V.length); 
+    Vu.forEach(vu => hist_vu[Math.min(59, Math.floor(vu * 20))] += 1 / Vu.length);
+    return [
+      hist_v.map((_, i) => (i + 0.5) / 20),
+      hist_v,
+      hist_vu.map((_, i) => (i + 0.5) / 20),
+      hist_vu,
+      v,
+      vu
+    ];
+  }
+
+  const s_min = 2;
+  const s_max = 20;
+  const biased_x = [], biased_y = [], unbiased_x = [], unbiased_y = [];
+  const mean_biased = [], mean_unbiased = [], mean_true = [];
+  for (let sz = s_min; sz < s_max; sz++) {
+    const [vx, vy, vux, vuy, V, VU] = generateHistogram(sz);
+    biased_x.push(vx);
+    biased_y.push(vy);
+    unbiased_x.push(vux);
+    unbiased_y.push(vuy);
+    mean_biased.push(V);
+    mean_unbiased.push(VU);
+    mean_true.push(true_variance);
+  }
+
+  const data = {
+    bised_x: biased_x,
+    biased_y: biased_y,
+    unbiased_x: unbiased_x,
+    unbiased_y: unbiased_y,
+    mean_biased: mean_biased,
+    mean_unbiased: mean_unbiased,
+    mean_true: mean_true,
+    x: x,
+    P: P_norm
+  };
+
+  function plotVariances(biased, unbiased, population, max_y) {
+    const data = [
+      {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Population Variance',
+        x: [population, population],
+        y: [0, max_y],
+        line: {color: 'green'}
+      },
+      {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Mean Unbiased Variance',
+        x: [unbiased, unbiased],
+        y: [0, max_y],
+        line: {color: 'blue', dash: 'dash'}
+      },
+      {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Mean Biased Variance',
+        x: [biased, biased],
+        y: [0, max_y],
+        line: {color: 'red', dash: 'dash'}
+      }
+    ];
+    return data;
+  }
+
+  function plotHisto(pts_x, pts_y, name) {
+    const data = [
+      {
+        x: pts_x,
+        y: pts_y,
+        name: name,
+        type: 'bar',
+        opacity: 0.7,
+      }
+    ];
+    return data;
+    //Plotly.plot('for_plot', data);
+  }
+
+  function maxFromArr(array, max) {
+    for (let i = 0; i < array.length; i++) {
+      const y = parseFloat(array[i]);
+      if (y > max) {
+        max = y;
+      }
+    }
+    return max;
+  }
+
+  function smallPlot(x, y) {
+    const data = [
+      {
+        type: 'scatter',
+        mode: 'lines',
+        x: x,
+        y: y,
+        line: {color: 'blue'}
+      }
+    ];
+    const layout = {
+      title: 'Population Probability Distribution',
+      xaxis: {title: 'X'},
+      yaxis: {title: 'Probability Distribution'},
+      autosize: false,
+      barmode: 'overlay',
+      width: 300,
+      height: 300,
+      showlegend: false,
+    };
+    Plotly.newPlot('for_small_plot', data, layout);
+  }
+
+  var plotted_once = false;
+  var update = {'visible': []}; 
+
+  function calculate() {
+    const elem = document.getElementById("samples_val_1");
+    const samples1 = elem.value;
+    const index1 = samples1 - elem.min;
+    document.getElementById("samples_label_1").innerHTML = samples1;
+
+    const xb = data['bised_x'][index1];
+    const yb = data['biased_y'][index1];
+    const xu = data['unbiased_x'][index1];
+    const yu = data['unbiased_y'][index1];
+
+    let max_y = maxFromArr(yb, 0.0);
+    max_y = maxFromArr(yu, max_y) * 1.1;
+
+    let data_plot = [];
+    data_plot = data_plot.concat(plotVariances(data['mean_biased'][index1], data['mean_unbiased'][index1], 
+                                               data['mean_true'][index1], max_y));
+    data_plot = data_plot.concat(plotHisto(xu, yu, 'Unbiased Variation'));
+    data_plot = data_plot.concat(plotHisto(xb, yb, 'Biased Variation'));
+    smallPlot(data['x'], data['P']);
+
+    const cellForPlot = document.getElementById('for_plot');
+    const layout = {
+      title: 'Probabilities to get different variances',
+      xaxis: {title: 'Variance of a sample', range: [0.0, 3.5]},
+      yaxis: {title: 'Probability to get certain Variance'},
+      autosize: false,
+      barmode: 'overlay',
+      width: 900,
+      height: 600,
+      showlegend: true,
+    };
+    //Plotly.newPlot('for_plot', data, layout);
+
+    if (!plotted_once) {
+      Plotly.newPlot(cellForPlot, data_plot, layout);
+      cellForPlot.on('plotly_restyle', function(){
+        update['visible'] = [];
+        for (i = 0; i < cellForPlot.data.length; ++i)
+          update['visible'].push(cellForPlot.data[i].visible);
+      });
+      plotted_once = true;
+    } else {
+      Plotly.react(cellForPlot, data_plot, layout);
+      Plotly.restyle(cellForPlot, update);
+    }
+
+  }
+
+  calculate();
+</script>
+</body>
+</html>

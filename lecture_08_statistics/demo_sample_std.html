@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
+  <script type="application/javascript">
+    // Constants
+    const trueMean = 0.0;
+    const trueSigma = 1.0;
+    const trueVariance = trueSigma ** 2;
+
+    // Generate x and P_norm
+    const x = Array.from({ length: 1001 }, (_, i) => -8 + i * 0.016);
+    const P_norm = x.map(xi => Math.exp(-0.5 * ((xi - trueMean) / trueSigma) ** 2) / (trueSigma * Math.sqrt(2 * Math.PI)));
+
+    function inverseErf(x) {
+      const a = 0.147; // Constant used in the approximation
+      // Calculation part
+      const logPart = Math.log(1 - x * x);
+      const part1 = 2 / (Math.PI * a) + logPart / 2;
+      const part2 = logPart / a;
+      return Math.sign(x) * Math.sqrt(Math.sqrt(part1 * part1 - part2) - part1);
+    }
+
+    // Inverse CDF for the normal distribution using inverseErf
+    function inverseNormalCDF(p, mean = 0, stdDev = 1) {
+        if (p <= 0 || p >= 1) {
+            throw new Error("p must be between 0 and 1 (exclusive)");
+        }
+        // Using the approximation for the inverse of the normal CDF
+        const sqrt2 = Math.sqrt(2);
+        return mean + stdDev * sqrt2 * inverseErf(2 * p - 1);
+    }
+
+    function std(arr, ddof=0) {
+      const mean = arr.reduce((sum, value) => sum + value, 0) / arr.length;
+      const squaredDiffs = arr.map(value => (value - mean) ** 2);
+      const variance = squaredDiffs.reduce((sum, value) => sum + value, 0) / (arr.length - ddof);
+      return Math.sqrt(variance);
+    }
+
+    // Function to generate histogram
+    function generateHistogram(X, d) {
+      //const V = X.map(row => Math.sqrt(row.reduce((a, b) => a + (b - trueMean) ** 2, 0) / (row.length - d)));
+      let V = X.map(subArray => std(subArray, d));
+      const v = V.reduce((a, b) => a + b, 0) / V.length;
+
+      const histV = new Array(60).fill(0);
+      const binWidth = 2.5 / 60;
+      V.forEach(v => {
+        const binIndex = Math.floor(v / binWidth);
+        if (binIndex < 60) {
+          histV[binIndex] += 1 / V.length;
+        }
+      });
+
+      const edgesV = Array.from({ length: 60 }, (_, i) => (i + 0.5) * binWidth);
+      return [edgesV, histV, v];
+    }
+
+    // Main script
+    const sMin = 2;
+    const sMax = 20;
+    const dMin = -1.0;
+    const dMax = 1.9;
+    const dList = Array.from({ length: 30 }, (_, i) => dMin + i * (dMax - dMin) / 29);
+
+    const sigmaX = [];
+    const sigmaY = [];
+    const sigmaMean = [];
+
+    for (let sz = sMin; sz <= sMax; sz++) {
+      const sX = [];
+      const sY = [];
+      const sM = [];
+      const s = 100000;
+      //const X = Array.from({ length: sz }, () => Array.from({ length: s }, () => Math.random() * trueSigma + trueMean));
+      const X = Array.from({ length: s }, () => Array.from({ length: sz }, () => inverseNormalCDF(Math.random(), trueMean, trueSigma)));
+
+      for (let d of dList) {
+        const [vx, vy, V] = generateHistogram(X, d);
+        sX.push(vx);
+        sY.push(vy);
+        sM.push(V);
+      }
+      sigmaX.push(sX);
+      sigmaY.push(sY);
+      sigmaMean.push(sM);
+    }
+
+    const data = {
+      s_x: sigmaX,
+      s_y: sigmaY,
+      s_m: sigmaMean,
+      d: dList,
+      s_true: trueSigma,
+      x: x,
+      P: P_norm
+    };
+
+    function plotVariances(estimated, exact, maxY) {
+      var plotData = [{
+          type: 'scatter',
+          mode: 'lines',
+          name: 'Estimated σ',
+          x: [estimated, estimated],
+          y: [0, maxY],
+          line: { color: 'blue', dash: 'dash' }
+      }, {
+          type: 'scatter',
+          mode: 'lines',
+          name: 'True σ',
+          x: [exact, exact],
+          y: [0, maxY],
+          line: { color: 'green' }
+      }];
+
+      return plotData;
+    }
+
+    function plotHisto(ptsX, ptsY, name) {
+      var plotData = [{
+          x: ptsX,
+          y: ptsY,
+          name: name,
+          type: 'bar',
+          opacity: 0.7
+      }];
+      return plotData;
+    }
+
+    function maxFromArr(array, max) {
+      for (var i = 0; i < array.length; i++) {
+        var y = parseFloat(array[i]);
+        if (y > max) {
+          max = y;
+        }
+      }
+      return max;
+    }
+
+    function smallPlot(x, y) {
+      var plotData = [{
+          type: 'scatter',
+          mode: 'lines',
+          x: x,
+          y: y,
+          line: { color: 'blue' }
+      }];
+      var cellForPlot = document.getElementById("for_small_plot");
+      var layout = {
+        title: 'Population Probability Distribution',
+        xaxis: { title: 'X' },
+        yaxis: { title: 'Probability Distribution' },
+        autosize: false,
+        barmode: 'overlay',
+        width: 300,
+        height: 300,
+        showlegend: false
+      };
+      Plotly.newPlot(cellForPlot, plotData, layout);
+    }
+
+    var plotted_once = false;
+    var update = {'visible': []}; 
+
+    function calculate() {
+      var elem = document.getElementById("samples_val_1");
+      var samples1 = elem.value;
+      var index1 = samples1 - elem.min;
+      elem = document.getElementById("samples_label_1");
+      elem.innerHTML = samples1;
+
+      elem = document.getElementById("d_val");
+      var dIndex = elem.value;
+      elem = document.getElementById("d_label");
+      elem.innerHTML = data.d[dIndex].toFixed(2);
+
+      var x = data.s_x[index1][dIndex];
+      var y = data.s_y[index1][dIndex];
+
+      var maxY = maxFromArr(y, 0.0) * 1.1;
+
+      let data_plot = [];
+      data_plot = data_plot.concat(plotVariances(data.s_m[index1][dIndex], data.s_true, maxY));
+      data_plot = data_plot.concat(plotHisto(x, y, 'Unbiased Variation'));
+
+      var cellForPlot = document.getElementById("for_plot");
+      var layout = {
+        title: 'Probabilities to get different σ-s',
+        xaxis: { title: 'σ of a sample', range: [0.0, 3.5] },
+        yaxis: { title: 'Probability to get certain σ' },
+        autosize: false,
+        barmode: 'overlay',
+        width: 900,
+        height: 600,
+        showlegend: true
+      };
+      //Plotly.newPlot(cellForPlot, data_plot, layout);
+      if (!plotted_once) {
+        Plotly.newPlot(cellForPlot, data_plot, layout);
+        cellForPlot.on('plotly_restyle', function(){
+          update['visible'] = [];
+          for (i = 0; i < cellForPlot.data.length; ++i)
+            update['visible'].push(cellForPlot.data[i].visible);
+        });
+        plotted_once = true;
+      } else {
+        Plotly.react(cellForPlot, data_plot, layout);
+        Plotly.restyle(cellForPlot, update);
+      }
+
+      smallPlot(data.x, data.P);
+    }
+
+    document.addEventListener('DOMContentLoaded', calculate);
+  </script>
+</head>
+<body>
+  <div id="everything" style="height:700px; width:800px;">
+    <table>
+      <tr>
+        <td># of samples: </td>
+        <td><input type="range" class="slider" min="2" max="20" value="3" id="samples_val_1" oninput="calculate();"></td>
+        <td><div id="samples_label_1">3</div></td>
+        <td>d: </td>
+        <td><input type="range" class="slider" min="0" max="29" value="3" id="d_val" oninput="calculate();"></td>
+        <td><div id="d_label">3</div></td>
+      </tr>
+    </table>
+    <div id="for_plot" style="position:absolute; top:50px; left:0px; height:600px; width:900px;"></div>
+    <div id="for_small_plot" style="position:absolute; top:300px; left:600px; height:300px; width:300px;"></div>
+  </div>
+</body>
+</html>
