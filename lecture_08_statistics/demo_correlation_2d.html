@@ -1,7 +1,7 @@
 <html>
 
   <script type="application/javascript">
-  
+
     var active_pt = null;
     var all_pts = [];
     var classAbtn = [650, 100];
@@ -16,14 +16,14 @@
             +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
             <= ptR*ptR;
     }
-  
+
     function circ(ctx, pos) {
       ctx.beginPath();
       ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
       ctx.fillStyle = 'rgba(200, 0, 0, 0.65)';
       ctx.fill();
     }
-    
+
     function mean(idx) {
       var sum = 0.0;
       var num = 0;
@@ -58,12 +58,12 @@
         });
       return - cov_xy / Math.sqrt(s_x2 * s_y2);
     }
-    
+
     function draw() {
       var canvas = document.getElementById('canvas');
       if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
         ctx.drawImage(bg_image, 0, 0, 600, 600);
         ctx.strokeRect(0, 0, 600, 600); // field
@@ -85,17 +85,17 @@
         var corr = correlation(m_x, m_y);
         ctx.fillStyle = 'black';
         ctx.fillText(corr.toFixed(5), 650, 220);
-        
+
         if (active_pt) {
           circ(ctx, [active_pt[0], active_pt[1]]);
         }
         all_pts.forEach(function (item, index) {
           circ(ctx, [item[0], item[1]]);
         });
-        
+
       }
     }
-    
+
     var timer
     function init() {
       timer = setInterval(draw, 10);
@@ -109,7 +109,7 @@
       return "none";
     }
 
-    
+
     function mdown_handle(evt) {
       x = evt.offsetX;
       y = evt.offsetY;
@@ -135,7 +135,7 @@
       if (state == "del")
           all_pts.splice(idx, 1);
     }
-    
+
     function mmove_handle(evt) {
       if (get_state() != "move")
           return;
@@ -146,7 +146,7 @@
         active_pt[1] = y;
       }
     }
-    
+
     function mup_handle(evt) {
       if (get_state() != "move")
           return;
@@ -160,13 +160,13 @@
         active_pt = null;
       }
     }
-    
+
     function clear_field() {
       active_pt = null;
       all_pts = [];
     }
   </script>
-  <canvas id="canvas" width="800" height="600" 
+  <canvas id="canvas" width="800" height="600"
     onmousedown="mdown_handle(event)"
     onmousemove="mmove_handle(event)"
     onmouseup="mup_handle(event)"></canvas>
