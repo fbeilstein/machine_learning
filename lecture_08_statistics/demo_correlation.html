@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src='https://www.gstatic.com/external_hosted/mathjax/latest/MathJax.js?config=default'></script>
 
   <script type="application/javascript">
@@ -74,7 +74,7 @@
             +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
             <= ptR*ptR;
     }
-  
+
     function circ(ctx, pos) {
       ctx.beginPath();
       if (pos[2] == 0) {
@@ -94,21 +94,21 @@
           ctx.fill();
       }
     }
-    
-    
+
+
     function draw() {
       var canvas = document.getElementById('canvas');
       if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
         ctx.drawImage(bg_image, 0, 0, 600, 600);
         ctx.strokeRect(0, 0, 600, 600); // field
-        
+
         ctx.font = '20px serif';
         ctx.fillStyle = 'black';
         ctx.fillText(debug_txt, 200, 200);
-        
+
         if (active_pt) {
           circ(ctx, active_pt);
         }
@@ -130,7 +130,7 @@
 
       }
     }
-    
+
     var timer
 
     function mdown_handle(evt) {
@@ -161,7 +161,7 @@
     active_pt = all_pts[idx];
     all_pts.splice(idx, 1);
     }
-    
+
     function mmove_handle(evt) {
       evt.stopPropagation();
       x = evt.offsetX;
@@ -204,12 +204,12 @@
             	active_pt[3] = active_pt[0] + u_y / R * r;
             	active_pt[4] = active_pt[1] - u_x / R * r;
 
-            }         
+            }
         }
-                
+
       }
     }
-    
+
     function mup_handle(evt) {
       evt.stopPropagation();
       x = evt.offsetX;
@@ -224,7 +224,7 @@
         regenerate();
       }
     }
-    
+
     function clear_field() {
       active_pt = null;
       var x = 300;
@@ -238,8 +238,8 @@
       var elem = document.getElementById("samples_val");
       var samples = elem.value;
       elem = document.getElementById("samples_label");
-      elem.innerHTML = samples;    
-      regenerate();  
+      elem.innerHTML = samples;
+      regenerate();
   	}
 
 
@@ -256,7 +256,7 @@
     </tr>
   </table>
 
-  <canvas id="canvas" width="600" height="600" 
+  <canvas id="canvas" width="600" height="600"
     onmousedown="mdown_handle(event)"
     onmousemove="mmove_handle(event)"
     onmouseup="mup_handle(event)"></canvas>
