@@ -1,7 +1,7 @@
 <html>
 
   <script type="application/javascript">
-  
+
     var active_pt = null;
     var all_pts = [];
     var classAbtn = [650, 100];
@@ -16,7 +16,7 @@
             +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
             <= ptR*ptR;
     }
-  
+
     function circ(ctx, pos, cls) {
       ctx.beginPath();
       ctx.arc(pos[0], pos[1], ptR, 0.0, 2.0 * Math.PI, 0);
@@ -54,10 +54,10 @@
         if (active_pt && in_rect(active_pt, [0, 350, 200, 250]))
           g2A[active_pt[2]] += 1;
         if (active_pt && in_rect(active_pt, [400, 350, 200, 250]))
-          g2B[active_pt[2]] += 1;      
-      return [g1A[0]/(g1A[0]+g1A[1]), 
-              g1B[0]/(g1B[0]+g1B[1]), 
-              g2A[0]/(g2A[0]+g2A[1]), 
+          g2B[active_pt[2]] += 1;
+      return [g1A[0]/(g1A[0]+g1A[1]),
+              g1B[0]/(g1B[0]+g1B[1]),
+              g2A[0]/(g2A[0]+g2A[1]),
               g2B[0]/(g2B[0]+g2B[1]),
               (g1A[0] + g2A[0])/(g1A[0]+g1A[1]+g2A[0]+g2A[1]),
               (g1B[0] + g2B[0])/(g1B[0]+g1B[1]+g2B[0]+g2B[1])];
@@ -67,7 +67,7 @@
       var canvas = document.getElementById('canvas');
       if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
         ctx.strokeRect(0, 0, 600, 600); // field
         ctx.strokeRect(0, 100, 200, 250);
@@ -75,7 +75,7 @@
         ctx.strokeRect(0, 350, 200, 250);
         ctx.strokeRect(400, 350, 200, 250);
 
-        
+
         ctx.font = '20px serif';
         ctx.fillStyle = 'black';
         ctx.fillText('Group 1', 50, 150);
@@ -123,22 +123,22 @@
         circ(ctx, classBbtn, 1);
         ctx.strokeRect(625, 75, 150, 50);
         ctx.strokeRect(625, 175, 150, 50);
-        
+
         if (active_pt) {
           circ(ctx, [active_pt[0], active_pt[1]], active_pt[2]);
         }
         all_pts.forEach(function (item, index) {
           circ(ctx, [item[0], item[1]], item[2]);
         });
-        
+
       }
     }
-    
+
     var timer
     function init() {
       timer = setInterval(draw, 10);
     }
-    
+
     function mdown_handle(evt) {
       x = evt.offsetX;
       y = evt.offsetY;
@@ -159,7 +159,7 @@
         all_pts.splice(idx, 1);
       }
     }
-    
+
     function mmove_handle(evt) {
       x = evt.offsetX;
       y = evt.offsetY;
@@ -168,21 +168,21 @@
         active_pt[1] = y;
       }
     }
-    
+
     function mup_handle(evt) {
       x = evt.offsetX;
       y = evt.offsetY;
       if (!in_rect([x,y], [0, 100, 200, 500]) && !in_rect([x,y], [400, 100, 200, 500])) {
         active_pt = null;
-      }      
+      }
       if (active_pt) {
         all_pts.push(active_pt);
         active_pt = null;
       }
     }
-    
+
   </script>
-  <canvas id="canvas" width="800" height="600" 
+  <canvas id="canvas" width="800" height="600"
     onmousedown="mdown_handle(event)"
     onmousemove="mmove_handle(event)"
     onmouseup="mup_handle(event)"></canvas>
