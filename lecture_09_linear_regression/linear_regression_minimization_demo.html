@@ -1,0 +1,317 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+
+
+<script type="application/javascript">
+
+
+//temporary
+var func = 'sin(x/3)*sin(y/4)';
+var iters = 50;
+
+function getMax(a){
+  return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+}
+function getMin(a){
+  return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
+}
+
+const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
+
+async function draw_static_image(data) {
+  let heatmap = {
+    x: data['plot_x'],
+    y: data['plot_y'],
+    z: data['plot_z_scaled'],
+    type: 'contour',
+    colorscale: 'RdBu',
+    opacity: 0.3,
+    showscale: false
+  }
+
+  let layout = {
+    width: 600,
+    height: 600,
+    autosize: false,
+    showlegend: false,
+    xaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [data['x_min'], data['x_max']]
+    },
+    yaxis1: {
+      'domain': [0.0, 1.0],
+      'range': [data['y_min'], data['y_max']]
+    },
+    title: '',
+    margin: {'t': 0, 'b': 0, 'l': 0, 'r': 0},
+    shapes: []
+  };
+
+  const url = await Plotly.toImage({
+      data: [heatmap],
+      layout: layout
+    }, {
+      height: 600,
+      width: 600
+    });
+  return url;
+}
+
+
+async function plot_graph(data) {
+  const cell_for_plot = document.getElementById("everything");
+  const url = await draw_static_image(data)
+
+  let layout = {
+    'width': 1200, 'height': 600, 'autosize': false, 'showlegend': false,
+    'scene': {'domain': { 'x': [0.0, 0.44], 'y': [0, 1] } },
+    'xaxis1': {'domain': [0.55, 1], 'range': [data['x_min'], data['x_max']], 'fixedrange': true},
+    'yaxis1': {'domain': [0.0, 1.0], 'range': [data['y_min'], data['y_max']], 'fixedrange': true},
+    'title': 'Minimization',
+    'margin': {'t': 50, 'b': 50, 'l': 50, 'r': 50},
+    'updatemenus': [{'buttons': [
+                      {'args': [[], {'frame': {'duration': 500.0, 'redraw': true},
+                                     'fromcurrent': false, 'transition': {'duration': 0, 'easing': 'linear'}}],
+                        'label': 'Play', 'method': 'animate'},
+                      {'args': [[null], {'frame': {'duration': 0, 'redraw': true},
+                       'mode': 'immediate', 'transition': {'duration': 0}} ],
+                        'label': 'Pause', 'method': 'animate'}
+                                ],
+                    'direction': 'left', 'pad': {'r': 10, 't': 85}, 'showactive': true,
+                    'type': 'buttons', 'x': 0.1, 'y': 0, 'xanchor': 'right', 'yanchor': 'top'}],
+    'sliders': [{'yanchor': 'top',
+                'xanchor': 'left',
+                'currentvalue': {'font': {'size': 16}, 'prefix': 'Step: ', 'visible': true, 'xanchor': 'right'},
+                'transition': {'duration': 0.0},
+                'pad': {'b': 10, 't': 50},
+                'len': 0.9,
+                'x': 0.1,
+                'y': 0,
+                'steps': []
+               }],
+     'images': [{'source': url,
+                 'xref': 'x', 'yref': 'y','sizing': 'stretch',
+                 'sizex': data['x_max'] - data['x_min'], 'sizey': data['y_max'] - data['y_min'],
+                 'layer': 'below', 'opacity':1.0,
+                 'x': data['x_min'], 'y': data['y_max']}]
+  };
+
+  const num_steps = data['iters_x'].length;
+  for (let i = 0; i < num_steps; ++i) {
+    layout['updatemenus'][0]['buttons'][0]['args'][0].push(i);
+    layout['sliders'][0]['steps'].push(
+      {'args': [[i], {'frame': {'duration': 500.0, 'easing': 'linear', 'redraw': true},
+                      'transition': {'duration': 0, 'easing': 'linear'}}], 'label': i, 'method': 'animate'}
+    );
+  }
+
+  const frame = (idx) => {
+    let pdata = [
+          {'type': 'scatter3d', 'name': 's3', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'z': data['iters_z'].slice(0, idx), 
+           'line': {'color': 'red', 'width': 2}, 'marker': {'size': 4, 'colorscale': 'Viridis'}},
+          {'type': 'surface', 'name': 'f2', 'x': data['plot_x'], 'y': data['plot_y'], 'z': data['plot_z'], 'opacity': 0.8, 'showscale': false},
+          {'type': 'scatter', 'name': 's2', 'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'line': {'color': 'red', 'width': 2}},
+    ];
+    if (data['trust_r'].length > 0) {
+      pdata.push({
+              'type': 'scatter', 'name': 'trust radii',
+              'x': data['iters_x'].slice(0, idx), 'y': data['iters_y'].slice(0, idx), 'mode': 'markers',
+              'marker': {'size': data['trust_r'],
+                         'sizeref': 0.05,
+                         'color': 'rgba(0, 0, 0, 0)',
+                         'line': {'color': 'red', 'width':2}},
+          });
+    }
+    return pdata;
+  }
+
+  let plot_data = frame(num_steps);
+
+  let frames = [];
+  for (let i = 0; i < num_steps; ++i) {
+    frames.push({'name': i, 'data': frame(i)});
+  }
+
+
+  //Plotly.newPlot(cell_for_plot, plot_data, layout);
+  Plotly.newPlot(cell_for_plot, {'data': plot_data, 'frames': frames, 'layout': layout});
+  cell_for_plot.on('plotly_relayout', function(data){layout = cell_for_plot.layout;});
+}
+
+
+var max_iters = 100;
+var canvas = document.getElementById("paint_here");
+var active_pt = [canvas.width / 2, canvas.height / 2];
+var do_move = false;
+var x_min = -10.0;
+var x_max = 10.0;
+var y_min = -10.0;
+var y_max = 10.0;
+
+
+
+function draw() {
+  let elements = document.getElementsByClassName("layer-subplot");
+  if (elements.length == 0)
+    return;
+  
+  let el = elements[0];
+  let rect = el.getBoundingClientRect();
+
+  canvas.style.cssText = "position:absolute; top:" + rect.top
+                      + "px; left: " + rect.left
+                      + "px; width:" + rect.width
+                      + "px; height:" + rect.height
+                      + "px; z-index:1000;";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  let ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // cleanup before start
+  //ctx.fillText("drawing: " + active_pt[0] + ";" + active_pt[1], 20, 20);
+
+  ctx.beginPath();
+  ctx.arc(active_pt[0], active_pt[1], 10, 0.0, 2.0 * Math.PI, 0);
+  ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
+  ctx.fill();
+}
+
+
+function is_close(pt1, pt2) {
+  return   (pt1[0] - pt2[0])*(pt1[0] - pt2[0])
+        +  (pt1[1] - pt2[1])*(pt1[1] - pt2[1])
+        <= 10*10;
+}
+
+function mdown_handle(evt) {
+  x = evt.offsetX;
+  y = evt.offsetY;
+  do_move = is_close(active_pt, [x, y]);
+}
+
+function mmove_handle(evt) {
+  if (!do_move)
+      return;
+  active_pt[0] = evt.offsetX;
+  active_pt[1] = evt.offsetY;
+  draw();
+}
+
+function mup_handle(evt) {
+  do_move = false;
+}
+
+function update_iters() {
+  let slider = document.getElementById('alpha_val');
+  iters  = parseFloat(slider.value);
+  let display = document.getElementById("alpha_label");
+  display.innerHTML = iters;
+}
+
+async function change_function() {
+  func = document.getElementById("func_input").value;
+  let method = document.getElementById("min_method").value;
+  let jacobian = document.getElementById("jacobian").value;
+  let hessian = document.getElementById("hessian").value;
+
+  let x_ini = (active_pt[0] / canvas.width) * (x_max - x_min) + x_min;
+  let y_ini = (1 - active_pt[1] / canvas.height) * (y_max - y_min) + y_min;
+
+  const result = await google.colab.kernel.invokeFunction('notebook.processMin', [], {'func': func, 'x_ini': x_ini, 'y_ini': y_ini,'iters': iters, 'method': method, 'jac': jacobian, 'hes': hessian});
+  x_min = result.data['application/json']['x_min'];
+  x_max = result.data['application/json']['x_max'];
+  y_min = result.data['application/json']['y_min'];
+  y_max = result.data['application/json']['y_max'];
+
+  active_pt[0] = (result.data['application/json']['iters_x'][0] - x_min) / (x_max - x_min) * canvas.width;
+  active_pt[1] = (1 - (result.data['application/json']['iters_y'][0] - y_min) / (y_max - y_min)) * canvas.height;
+
+  console.log(result);
+  plot_graph(result.data['application/json']);
+  draw();
+}
+
+  </script>
+</head>
+
+<body>
+
+
+<table><tr><td>
+  <button onclick="change_function();" style="margin:10px">Recalculate</button>
+</td><td>
+f(x,y) = </td><td>
+      <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+        <input type="text" name="displayValue" id="func_input" value="((x+y-1)**2+(x+2*y-4)**2+(x+4*y-5)**2)/3">
+      </div>
+</td>
+      <td>Max.Iters:</td>
+      <td><div id="alpha_label" >3</div></td>
+      <td><input type="range" class="slider" min = "0" max = "100" value="50" id="alpha_val" oninput="update_iters();"></td>
+      <td>Method:</td>
+      <td>
+        <select id="min_method">
+          <option value="Nelder-Mead">Nelder-Mead</option>
+          <option value="Powell">Powell</option>
+          <option value="CG">CG</option>
+          <option value="BFGS">BFGS</option>
+          <option value="Newton-CG" selected>Newton-CG</option>
+          <option value="L-BFGS-B">L-BFGS-B</option>
+          <option value="TNC">TNC</option>
+          <option value="COBYLA">COBYLA</option>
+          <option value="SLSQP">SLSQP</option>
+          <option value="trust-constr">trust-constr</option>
+          <option value="dogleg">dogleg</option>
+          <option value="trust-ncg">trust-ncg</option>
+          <option value="trust-exact">trust-exact</option>
+          <option value="trust-krylov">trust-krylov</option>
+        </select> 
+      </td>
+      <td>Jacobian:</td>
+      <td>
+        <select id="jacobian">
+          <option value="none">none</option>
+          <option value="2-point">2-point</option>
+          <option value="3-point">3-point</option>
+          <option value="cs">cs</option>
+          <option value="custom" selected>symbolic</option>
+        </select> 
+      </td>
+      <td>Hessian:</td>
+      <td>
+        <select id="hessian">
+          <option value="none">none</option>
+          <option value="2-point">2-point</option>
+          <option value="3-point">3-point</option>
+          <option value="cs">cs</option>
+          <option value="custom" selected>symbolic</option>
+        </select> 
+      </td>
+    </tr>
+  </table>
+
+
+<div id="everything" style="height:400px; width:800px; margin: 0px 0px 0px 0px;">
+  <canvas id="paint_here"
+          onmousedown="mdown_handle(event)"
+          onmousemove="mmove_handle(event)"
+          onmouseup="mup_handle(event)"></canvas>
+</div>
+
+</body>
+
+<script>
+function init()
+{
+  func = document.getElementById("func_input").value;
+  update_iters();
+  change_function();
+  timer = setInterval(draw, 100);
+}
+init();
+</script>
+
+</html>
