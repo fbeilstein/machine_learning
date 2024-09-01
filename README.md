@@ -4,12 +4,13 @@
 # Schedule
 
 <!-- Restart in September, stay tuned <br> -->
-Every Friday, 10:00 <br>
+Every Friday, 9:00 <br>
 
 ## Curriculum
 
 ### Tools of ML
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Introduction**
 
@@ -242,8 +243,6 @@ Every Friday, 10:00 <br>
   - Video
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=iPjOx6Bv8TY)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=cBKOv1fN05I)
-
-<!-- <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/> -->
 
 9.  **Gaussian Mixture Models**
   - Lecture
