@@ -24,8 +24,6 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=MxZULf38HRU)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=fme_nIv6Z-s)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
-
 2.  **Python**
 
   - Lecture
@@ -43,6 +41,8 @@ Every Friday, 9:00 <br>
   - Video
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=_IBdjLg-W6I)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Bx_TLOqSMbo)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **NumPy Arrays**
 
