@@ -56,7 +56,6 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=jJGiC_ccPg8) 
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=AOP9WjKHN-Y)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 4.  **Pandas**
 
@@ -73,6 +72,7 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=dKWPi5PfuEQ)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=2umiVugC6qM)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **MatPlotLib**
 
