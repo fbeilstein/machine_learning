@@ -117,7 +117,6 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=HNrAjs6QqiY)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
@@ -136,6 +135,7 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=46ev3LdbDZ4)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=H0NdSLwssMw)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 3.  **Statistics**
   - Lecture
