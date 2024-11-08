@@ -167,7 +167,6 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=MIfdv6VFLbo)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **Support Vector Machines**
   - Lecture
@@ -182,6 +181,8 @@ Every Friday, 9:00 <br>
   - Video
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=MbSDxuWJzjg)
     - українська: [[осінь 2020]](https://youtu.be/zGb77CmLQi8)
+
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 6.  **Decision Trees and Random Forests**
   - Lecture
