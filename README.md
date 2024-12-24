@@ -280,7 +280,7 @@ Every Friday, 9:00 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=E7vfay2tl4E)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=XMHNi1EWm1Q)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
+<!--<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>-->
 
 11.  **Manifold Learning**
   - Lecture
@@ -308,8 +308,8 @@ Every Friday, 9:00 <br>
   - Further Resources
     -  [[VIDEO LECTURES] CS231n (famous Stanford course)](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)
 
-<!--<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>-->
+<a href="https://www.youtube.com/watch?v=Y6ljFaKRTrI">
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/end.gif" width="900px"/></a>
 
 ## For the curious mind
 
