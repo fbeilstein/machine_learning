@@ -1,6 +1,7 @@
     
 <img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/caption.png" width="900px"/> 
 
+
 # Schedule
 
 <!-- Restart in September, stay tuned <br> -->
