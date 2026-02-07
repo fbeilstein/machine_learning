@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Ridge vs Lasso Regression</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 20px; user-select: none; }
+        
+        /* Control Bar Styles */
+        .controls { 
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+            background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 10px;
+        }
+        .control-group { display: flex; align-items: center; gap: 10px; }
+        
+        input[type=range] { width: 200px; cursor: pointer; }
+        select { padding: 5px; font-size: 14px; cursor: pointer; }
+        button { 
+            padding: 6px 12px; background: #ff4444; color: white; border: none; 
+            border-radius: 4px; cursor: pointer; font-size: 14px;
+        }
+        button:hover { background: #cc0000; }
+        
+        .instructions { font-size: 0.9em; color: #666; margin-top: 5px; margin-bottom: 10px; }
+        
+        #plot_container {
+            width: 800px; height: 600px; border: 1px solid #ddd; position: relative; 
+            cursor: crosshair; /* Default cursor */
+        }
+        
+        #debug_info { font-family: monospace; font-size: 12px; color: #888; margin-top: 5px;}
+    </style>
+</head>
+<body>
+
+    <h2>Interactive Regularization: Ridge vs Lasso</h2>
+    
+    <div class="controls">
+        <div class="control-group">
+            <label style="font-weight:bold;">Mode:</label>
+            <select id="reg_type" onchange="drawPlot()">
+                <option value="ridge">Ridge (L2)</option>
+                <option value="lasso">Lasso (L1)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label style="font-weight:bold;">Regularization (α):</label>
+            <input type="range" min="0" max="1000" step="10" value="0" id="alpha_slider" oninput="updateFromSlider()">
+            <span id="alpha_display" style="font-family: monospace; font-size: 1.2em; width: 60px;">0</span>
+        </div>
+
+        <button onclick="clearPoints()">Clear All Points</button>
+    </div>
+
+    <div class="instructions">
+        • <b>Click empty space</b> to Add  • <b>Drag points</b> to Move  • <b>Double-click points</b> to Remove
+    </div>
+
+    <div id="plot_container"></div>
+    <div id="debug_info">Status: Ready</div>
+
+<script>
+// --- STATE ---
+let points = [];
+// Initial random data
+for (let i = 0; i < 8; i++) {
+    let x = 1 + Math.random() * 8;
+    let y = 2 * x - 5 + (Math.random() - 0.5) * 8;
+    points.push({x: x, y: y});
+}
+
+let alpha = 0;
+let dragIndex = -1;
+let lastClickTime = 0; // For manual double-click detection
+
+const plotDiv = document.getElementById('plot_container');
+const debugDiv = document.getElementById('debug_info');
+
+// CONSTANTS: We define the axis ranges explicitly so our manual math is always 100% accurate
+const X_MIN = -1, X_MAX = 11;
+const Y_MIN = -10, Y_MAX = 20;
+
+// --- MATH LOGIC ---
+
+function calculateRegressions() {
+    let n = points.length;
+    if (n < 2) return { ols: null, reg: null };
+
+    // 1. Calculate Means
+    let sumX = 0, sumY = 0;
+    points.forEach(p => { sumX += p.x; sumY += p.y; });
+    let meanX = sumX / n;
+    let meanY = sumY / n;
+
+    // 2. Variance & Covariance
+    let SS_xx = 0;
+    let SS_xy = 0;
+    points.forEach(p => {
+        SS_xx += (p.x - meanX) ** 2;
+        SS_xy += (p.x - meanX) * (p.y - meanY);
+    });
+
+    // 3. OLS (Standard)
+    let m_ols = SS_xy / SS_xx;
+    let b_ols = meanY - m_ols * meanX;
+
+    // 4. Regularized (Ridge/Lasso)
+    let type = document.getElementById("reg_type").value;
+    let m_reg = 0;
+
+    if (type === "ridge") {
+        // Ridge (L2) formula
+        m_reg = SS_xy / (SS_xx + alpha);
+    } else {
+        // Lasso (L1) Soft Thresholding approximation
+        let threshold = alpha * 0.5; 
+        let numerator = 0;
+        if (Math.abs(SS_xy) > threshold) {
+            if (SS_xy > 0) numerator = SS_xy - threshold;
+            else numerator = SS_xy + threshold;
+        } else {
+            numerator = 0; // Snap to zero
+        }
+        m_reg = numerator / SS_xx;
+    }
+
+    let b_reg = meanY - m_reg * meanX;
+
+    return {
+        ols: { m: m_ols, b: b_ols },
+        reg: { m: m_reg, b: b_reg }
+    };
+}
+
+// --- PLOTTING ---
+
+function drawPlot() {
+    let regs = calculateRegressions();
+    let type = document.getElementById("reg_type").value;
+    let typeLabel = type === "ridge" ? "Ridge" : "Lasso";
+    
+    // Trace 1: Data Points
+    let tracePoints = {
+        x: points.map(p => p.x),
+        y: points.map(p => p.y),
+        mode: 'markers',
+        type: 'scatter',
+        marker: { size: 12, color: '#333', line: {color: 'white', width: 1} },
+        hoverinfo: 'none'
+    };
+
+    // Trace 2: Drag Highlight
+    let traceHighlight = {
+        x: dragIndex !== -1 ? [points[dragIndex].x] : [],
+        y: dragIndex !== -1 ? [points[dragIndex].y] : [],
+        mode: 'markers',
+        type: 'scatter',
+        marker: { size: 20, color: 'rgba(255,0,0,0.3)', line: {color: 'red', width: 2} },
+        hoverinfo: 'none'
+    };
+
+    let traces = [tracePoints, traceHighlight];
+    let lineX = [-2, 12]; 
+
+    // OLS Line
+    if (regs.ols) {
+        traces.push({
+            x: lineX,
+            y: lineX.map(x => regs.ols.m * x + regs.ols.b),
+            mode: 'lines',
+            line: { color: 'gray', dash: 'dash', width: 2 },
+            hoverinfo: 'none',
+            name: 'OLS'
+        });
+    }
+
+    // Regularized Line
+    if (regs.reg) {
+        traces.push({
+            x: lineX,
+            y: lineX.map(x => regs.reg.m * x + regs.reg.b),
+            mode: 'lines',
+            line: { color: type === "ridge" ? '#e74c3c' : '#3498db', width: 4 },
+            hoverinfo: 'none',
+            name: typeLabel
+        });
+    }
+
+    let layout = {
+        title: false,
+        xaxis: { range: [X_MIN, X_MAX], title: 'X', fixedrange: true, zeroline: false },
+        yaxis: { range: [Y_MIN, Y_MAX], title: 'Y', fixedrange: true, zeroline: false },
+        showlegend: false,
+        margin: { l: 50, r: 20, t: 20, b: 40 },
+        hovermode: false,
+        dragmode: false // Disable internal drag
+    };
+
+    Plotly.react(plotDiv, traces, layout, {displayModeBar: false});
+}
+
+function updateFromSlider() {
+    alpha = parseInt(document.getElementById('alpha_slider').value);
+    document.getElementById('alpha_display').innerText = alpha;
+    drawPlot();
+}
+
+function clearPoints() {
+    points = [];
+    drawPlot();
+    debugDiv.innerText = "Cleared all points";
+}
+
+// --- ROBUST COORDINATE SYSTEM (The Fix) ---
+
+// We calculate coordinates manually using percentages relative to the div.
+// This bypasses Plotly's internal 'layout.margin' which was causing the error.
+function getPlotCoordinates(event) {
+    const rect = plotDiv.getBoundingClientRect();
+    const layout = plotDiv._fullLayout;
+    
+    // Pixel relative to div
+    const x_px = event.clientX - rect.left;
+    const y_px = event.clientY - rect.top;
+    
+    // We assume standard margins if _fullLayout isn't ready, but usually it is.
+    // If _fullLayout fails, we fallback to our known config.
+    const margin = layout ? layout.margin : { l: 50, r: 20, t: 20, b: 40 };
+    
+    const plotWidth = rect.width - margin.l - margin.r;
+    const plotHeight = rect.height - margin.t - margin.b;
+
+    // Percentages (0.0 to 1.0)
+    const x_pct = (x_px - margin.l) / plotWidth;
+    const y_pct = (y_px - margin.t) / plotHeight;
+
+    // Map to Data Constants
+    const x_val = X_MIN + x_pct * (X_MAX - X_MIN);
+    // Invert Y (screen Y is down)
+    const y_val = Y_MAX - y_pct * (Y_MAX - Y_MIN);
+    
+    return { x: x_val, y: y_val };
+}
+
+function findNearestIndex(coords) {
+    // Hitbox size: 5% of screen width/height
+    const thresholdX = (X_MAX - X_MIN) * 0.05; 
+    const thresholdY = (Y_MAX - Y_MIN) * 0.05;
+    
+    let closest = -1;
+    let minDist = Infinity;
+
+    for (let i = 0; i < points.length; i++) {
+        let dx = Math.abs(points[i].x - coords.x);
+        let dy = Math.abs(points[i].y - coords.y);
+        
+        if (dx < thresholdX && dy < thresholdY) {
+            let dist = dx*dx + dy*dy;
+            if (dist < minDist) {
+                minDist = dist;
+                closest = i;
+            }
+        }
+    }
+    return closest;
+}
+
+// --- EVENT HANDLERS ---
+
+plotDiv.addEventListener('mousedown', function(e) {
+    const currentTime = new Date().getTime();
+    const coords = getPlotCoordinates(e);
+    const idx = findNearestIndex(coords);
+
+    // --- MANUAL DOUBLE CLICK DETECTION ---
+    // If clicked twice quickly (within 300ms) on the same point
+    if (currentTime - lastClickTime < 300) {
+        if (idx !== -1) {
+            // It's a double click on a point! Remove it.
+            points.splice(idx, 1);
+            dragIndex = -1; 
+            drawPlot();
+            debugDiv.innerText = "Removed Point (Double Click)";
+            lastClickTime = 0; // Reset
+            return; // Stop processing
+        }
+    }
+    lastClickTime = currentTime;
+    // -------------------------------------
+
+    if (idx !== -1) {
+        // HIT: Start dragging
+        dragIndex = idx;
+        debugDiv.innerText = `Dragging Point #${idx}`;
+        drawPlot();
+    } else {
+        // MISS: Add new point
+        if(coords.x > X_MIN && coords.x < X_MAX && coords.y > Y_MIN && coords.y < Y_MAX) {
+            points.push({ x: coords.x, y: coords.y });
+            dragIndex = points.length - 1; 
+            debugDiv.innerText = `Added Point #${dragIndex}`;
+            drawPlot();
+        }
+    }
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (dragIndex === -1) {
+        // Cursor Logic (Hover)
+        if(e.target === plotDiv || plotDiv.contains(e.target)) {
+             const coords = getPlotCoordinates(e);
+             const idx = findNearestIndex(coords);
+             plotDiv.style.cursor = (idx !== -1) ? 'pointer' : 'crosshair';
+        }
+        return;
+    }
+
+    // Drag Logic
+    const coords = getPlotCoordinates(e);
+    points[dragIndex].x = Math.max(X_MIN, Math.min(X_MAX, coords.x));
+    points[dragIndex].y = Math.max(Y_MIN, Math.min(Y_MAX, coords.y));
+    drawPlot();
+});
+
+document.addEventListener('mouseup', function() {
+    if (dragIndex !== -1) {
+        dragIndex = -1;
+        debugDiv.innerText = "Ready";
+        drawPlot(); 
+    }
+});
+
+// Initial Draw
+setTimeout(drawPlot, 100);
+
+</script>
+</body>
+</html>
