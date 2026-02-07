@@ -1,0 +1,567 @@
+<html>
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
+
+
+<script type="application/javascript">
+
+// --- Linear Algebra Helpers ---
+const Vec = {
+    add: (v1, v2) => [v1[0] + v2[0], v1[1] + v2[1]],
+    sub: (v1, v2) => [v1[0] - v2[0], v1[1] - v2[1]],
+    scale: (v, s) => [v[0] * s, v[1] * s],
+    dot: (v1, v2) => v1[0] * v2[0] + v1[1] * v2[1],
+    norm: (v) => Math.sqrt(v[0]*v[0] + v[1]*v[1]),
+    matVec: (m, v) => [
+        m[0][0]*v[0] + m[0][1]*v[1],
+        m[1][0]*v[0] + m[1][1]*v[1]
+    ]
+};
+
+//temporary
+var func = 'sin(x/3)*sin(y/4)';
+
+function getMax(a){
+  return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+}
+function getMin(a){
+  return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
+}
+
+const x_min = -10.0
+const x_max =  10.0
+const y_min = -10.0
+const y_max =  10.0
+const range = (start, stop, num) => Array.from({ length: num+1}, (_, i) => start + (i * (stop-start)/num));
+const xs = range(x_min, x_max, 30);
+const ys = range(y_min, y_max, 30);
+
+var func_obj = null;
+var gx_obj  = null;
+var gy_obj  = null;
+var hxx_obj = null;
+var hxy_obj = null;
+var hyy_obj = null;
+var F = [];
+var F2D = F;
+var z_min = 0.0;
+var z_max = 0.0;
+
+function parse_func(func) {
+  try {
+    func_obj = math.compile(func);
+    gx_obj = math.derivative(func, 'x');
+    gy_obj = math.derivative(func, 'y');
+    hxx_obj = math.derivative(gx_obj, 'x');
+    hxy_obj = math.derivative(gx_obj, 'y');
+    hyy_obj = math.derivative(gy_obj, 'y');
+  } catch (e) {
+      console.error("Error parsing function:", e);
+      return;
+  }
+
+  F = [];
+  for (var i = 0; i < ys.length; i++) {
+    var row = [];
+    for (var j = 0; j < xs.length; j++) {
+      row.push(func_obj.evaluate({x:xs[j], y:ys[i]}));
+    }
+    F.push(row);
+  }
+  z_min = getMin(F);
+  z_max = getMax(F);
+  F2D = [];
+  if (z_max - z_min > 100) {
+    for (var i = 0; i < F.length; i++) {
+      var row = [];
+      for (var j = 0; j < F[0].length; j++) {
+        const f = F[i][j];
+        row.push(math.log(math.abs(f) + 1.0) * math.sign(f));
+      }
+      F2D.push(row);
+    }
+  } else {
+    F2D = F;
+  }
+}
+
+function plot_left_func() {
+  var cell_for_plot = document.getElementById("for_left_plot");
+
+  var data = [{
+    x: xs,
+    y: ys,
+    z: F2D, 
+    showscale: false, 
+    opacity: 0.9, 
+    type: 'contour'
+  },{
+    type: 'scatter',
+  }];
+
+  var layout = {
+      xaxis: {title: 'x'},
+      yaxis: {title: 'y'},
+      autosize: false,
+      xaxis: {'domain': [0.0, 1.0], 'range': [x_min, x_max], 'fixedrange': true},
+      yaxis: {'domain': [0.0, 1.0], 'range': [y_min, y_max], 'fixedrange': true},
+      width: 400,
+      height: 400,
+      showlegend: false,
+      margin: {l: 0, r: 0, b: 0, t: 0}
+    };
+  Plotly.newPlot(cell_for_plot, data, layout);
+}
+
+function plot_right_func() {
+  var data = [{
+    type: 'surface', 
+    x: xs,
+    y: ys, 
+    z: F, 
+    opacity: 0.8, 
+    showscale: false,
+    scene: 'scene',
+    colorscale: 'Bluered'
+  },{
+    type: 'scatter3d',
+  }];
+   
+  var cell_for_plot = document.getElementById("for_right_plot");
+  var layout = {
+      width: 400,
+      height: 400,
+      autosize: false,
+      margin: {l: 0, r: 0, b: 0, t: 0, pad: 0},
+      scene: {
+        xaxis: {title: 'x', range: [x_min, x_max]},
+        yaxis: {title: 'y', range: [y_min, y_max]},
+        aspectratio: {x: 1, y: 1, z: 0.7},
+        showlegend: false
+      },
+      showlegend: false,
+    };
+    Plotly.newPlot(cell_for_plot, data, layout);
+}
+
+// --- ROBUST NEWTON-CG IMPLEMENTATION WITH MULTIPLE METHODS ---
+
+function solve_cg_direction(g, H) {
+    const TOLERANCE = 1e-6;
+    const method = document.getElementById("cg_method").value;
+    
+    // Damping to ensure visualization works even on hills (concave)
+    let damping = 0.0;
+    if (H[0][0] < 0.1 || H[1][1] < 0.1 || (H[0][0]*H[1][1] - H[0][1]*H[1][0] < 0)) {
+       damping = 1.0; 
+    }
+    
+    let H_damped = [
+        [H[0][0] + damping, H[0][1]], 
+        [H[1][0], H[1][1] + damping]
+    ];
+
+    let d = [0.0, 0.0];
+    let r = Vec.scale(g, -1.0); // Residual r = -g
+    let p = [...r];             // Search direction p = r (initially)
+    let rsold = Vec.dot(r, r);
+    
+    let inner_path = []; 
+    inner_path.push([...d]); 
+
+    // Keep track of previous residual and direction for advanced formulas
+    let r_prev = [...r]; 
+    let p_prev = [...p]; // Not strictly needed for p but good for clarity
+
+    for (let i = 0; i < 2; i++) { 
+        let Hp = Vec.matVec(H_damped, p);
+        let pHp = Vec.dot(p, Hp);
+        
+        if (pHp <= 1e-10) break;
+        
+        // Alpha calculation is same for all methods (exact line search on quadratic)
+        let alpha = rsold / pHp;
+        
+        let d_new = Vec.add(d, Vec.scale(p, alpha));
+        inner_path.push([...d_new]); 
+
+        let r_new = Vec.sub(r, Vec.scale(Hp, alpha));
+        let rsnew = Vec.dot(r_new, r_new);
+        
+        if (Math.sqrt(rsnew) < TOLERANCE) {
+            d = d_new;
+            break;
+        }
+
+        // --- BETA CALCULATION (The Switch) ---
+        let beta = 0.0;
+        
+        if (method === "FR") {
+             // Fletcher-Reeves: (r_k . r_k) / (r_{k-1} . r_{k-1})
+             beta = rsnew / rsold;
+             
+        } else if (method === "PR") {
+             // Polak-Ribiere: (r_k . (r_k - r_{k-1})) / (r_{k-1} . r_{k-1})
+             // Note: In linear CG (solving Hx=b), r corresponds to gradient
+             let r_diff = Vec.sub(r_new, r);
+             let num = Vec.dot(r_new, r_diff);
+             beta = Math.max(0, num / rsold); // Max(0,...) is a common restart heuristic
+             
+        } else if (method === "HS") {
+             // Hestenes-Stiefel: (r_k . (r_k - r_{k-1})) / (p_{k-1} . (r_k - r_{k-1}))
+             // Note: Often written using 'y' where y = g_k - g_{k-1}. 
+             // In linear CG, residual r is equivalent to negative gradient steps.
+             let r_diff = Vec.sub(r_new, r);
+             let num = Vec.dot(r_new, r_diff);
+             let den = Vec.dot(p, r_diff);
+             if (Math.abs(den) > 1e-10) beta = num / den;
+             
+        } else if (method === "DY") {
+             // Dai-Yuan: (r_k . r_k) / (p_{k-1} . (r_k - r_{k-1}))
+             let r_diff = Vec.sub(r_new, r);
+             let den = Vec.dot(p, r_diff);
+             if (Math.abs(den) > 1e-10) beta = rsnew / den;
+        }
+
+        // Update direction
+        p = Vec.add(r_new, Vec.scale(p, beta));
+        
+        // Update variables for next loop
+        r_prev = [...r];
+        r = r_new;
+        rsold = rsnew;
+        d = d_new;
+    }
+    return { d: d, path: inner_path };
+}
+
+// 2. Armijo Line Search
+function line_search(x_curr, d, g, f_curr) {
+    let alpha = 1.0;
+    const c1 = 1e-4;
+    const rho = 0.5; 
+    const gd = Vec.dot(g, d);
+    if (gd > 0) return 0.0; 
+
+    for(let i=0; i<20; i++) { 
+        let x_next = Vec.add(x_curr, Vec.scale(d, alpha));
+        if (x_next[0] < x_min || x_next[0] > x_max || x_next[1] < y_min || x_next[1] > y_max) {
+             alpha *= rho; continue;
+        }
+        let f_next = func_obj.evaluate({x: x_next[0], y: x_next[1]});
+        if (f_next <= f_curr + c1 * alpha * gd) return alpha;
+        alpha *= rho;
+    }
+    return 0.0;
+}
+/*
+// 2. Strong Wolfe Line Search (Real-world standard)
+function line_search(x_curr, d, g, f_curr) {
+    // Constants for Wolfe conditions
+    const c1 = 1e-4;
+    const c2 = 0.9;
+    
+    let alpha = 1.0; // Always try Newton step first
+    let alpha_min = 0.0;
+    let alpha_max = 10.0;
+    
+    let f_prev = f_curr;
+    let g_dot_d_prev = Vec.dot(g, d);
+    let g_dot_d_curr = g_dot_d_prev;
+    
+    // Safety check: descent direction?
+    if (g_dot_d_curr > 0) return 0.0;
+
+    let i = 0;
+    const max_ls_iters = 10;
+    
+    // Zoom phase variables
+    let lo = 0.0, hi = 0.0, f_lo = 0.0, f_hi = 0.0;
+    
+    // 1. Bracketing Phase: Find a range [lo, hi] that contains the minimum
+    while (i < max_ls_iters) {
+        let x_next = Vec.add(x_curr, Vec.scale(d, alpha));
+        
+        // Out of bounds check
+        if (x_next[0] < x_min || x_next[0] > x_max || x_next[1] < y_min || x_next[1] > y_max) {
+             alpha *= 0.5; i++; continue;
+        }
+
+        let f_next = func_obj.evaluate({x: x_next[0], y: x_next[1]});
+        
+        // Check Armijo (Sufficient Decrease)
+        if (f_next > f_curr + c1 * alpha * g_dot_d_curr || (i > 0 && f_next >= f_prev)) {
+            // We went too far (or curve went up), minimum is between prev alpha and this one
+            return zoom(alpha_min, alpha, f_prev, f_next, g_dot_d_curr, x_curr, d, f_curr, g);
+        }
+
+        // Calculate gradient at new point for Curvature check
+        let gx_next = gx_obj.evaluate({x:x_next[0], y:x_next[1]});
+        let gy_next = gy_obj.evaluate({x:x_next[0], y:x_next[1]});
+        let g_next = [gx_next, gy_next];
+        let g_dot_d_next = Vec.dot(g_next, d);
+
+        // Check Curvature (Strong Wolfe)
+        if (Math.abs(g_dot_d_next) <= -c2 * g_dot_d_curr) {
+            return alpha; // Found a good step!
+        }
+
+        // If slope is positive, minimum is behind us
+        if (g_dot_d_next >= 0) {
+             return zoom(alpha, alpha_min, f_next, f_prev, g_dot_d_curr, x_curr, d, f_curr, g);
+        }
+
+        // Keep moving forward
+        alpha_min = alpha;
+        f_prev = f_next;
+        alpha = alpha * 2.0; // simple expansion
+        i++;
+    }
+    
+    return alpha; // Fallback
+}
+
+// Helper: Zoom into the range [lo, hi] to find specific step
+function zoom(lo, hi, f_lo, f_hi, g0, x_curr, d, f_rec, g_rec) {
+    // Simple bisection for teaching clarity (real libs use cubic interpolation)
+    for (let j=0; j<5; j++) {
+        let alpha = (lo + hi) / 2;
+        let x_next = Vec.add(x_curr, Vec.scale(d, alpha));
+        let f_next = func_obj.evaluate({x:x_next[0], y:x_next[1]});
+        
+        // Re-check Armijo
+        if (f_next > f_rec + 1e-4 * alpha * g0 || f_next >= f_lo) {
+            hi = alpha;
+        } else {
+            let gx_next = gx_obj.evaluate({x:x_next[0], y:x_next[1]});
+            let gy_next = gy_obj.evaluate({x:x_next[0], y:x_next[1]});
+            let g_dot_d = Vec.dot([gx_next, gy_next], d);
+            
+            // Re-check Curvature
+            if (Math.abs(g_dot_d) <= -0.9 * g0) return alpha;
+            
+            if (g_dot_d * (hi - lo) >= 0) hi = lo;
+            lo = alpha;
+            f_lo = f_next;
+        }
+    }
+    return lo;
+}
+*/
+
+var max_iters = 50; 
+
+function update_3d() {
+  var canvas = document.getElementById("paint_left");
+  var w = canvas.width; var h = canvas.height;
+  var start_x = x_min + middle_point[0] / w * (x_max - x_min);
+  var start_y = y_min + (h - middle_point[1]) / h * (y_max - y_min);
+
+  var Gx = []; var Gy = []; var Z_ = [];
+  var curr_pos = [start_x, start_y];
+
+  const showInnerSteps = true;
+
+  Gx.push(curr_pos[0]); 
+  Gy.push(curr_pos[1]);
+  Z_.push(func_obj.evaluate({x:curr_pos[0], y:curr_pos[1]}));
+
+  for (var k = 0; k < max_iters; ++k) {
+    let x = curr_pos[0]; let y = curr_pos[1];
+    let f_curr = func_obj.evaluate({x:x, y:y});
+
+    let gx_val = gx_obj.evaluate({x:x, y:y});
+    let gy_val = gy_obj.evaluate({x:x, y:y});
+    let g = [gx_val, gy_val];
+    if (Vec.norm(g) < 1e-4) break;
+
+    let hxx = hxx_obj.evaluate({x:x, y:y});
+    let hxy = hxy_obj.evaluate({x:x, y:y});
+    let hyy = hyy_obj.evaluate({x:x, y:y});
+    let H = [[hxx, hxy], [hxy, hyy]];
+
+    let cg_result = solve_cg_direction(g, H);
+    let final_d = cg_result.d;
+    let inner_path_dirs = cg_result.path;
+
+    let alpha = line_search(curr_pos, final_d, g, f_curr);
+    
+    if (alpha == 0) break;
+
+    if (showInnerSteps) {
+        for (let i = 1; i < inner_path_dirs.length; i++) {
+            let scaled_dir = Vec.scale(inner_path_dirs[i], alpha);
+            let inner_pos = Vec.add(curr_pos, scaled_dir);
+            Gx.push(inner_pos[0]);
+            Gy.push(inner_pos[1]);
+            Z_.push(func_obj.evaluate({x:inner_pos[0], y:inner_pos[1]}));
+        }
+    } else {
+        let final_step = Vec.scale(final_d, alpha);
+        let next_pos = Vec.add(curr_pos, final_step);
+        Gx.push(next_pos[0]);
+        Gy.push(next_pos[1]);
+        Z_.push(func_obj.evaluate({x:next_pos[0], y:next_pos[1]}));
+    }
+    curr_pos = Vec.add(curr_pos, Vec.scale(final_d, alpha));
+  }
+
+  var data_3d = [{
+    type: 'scatter3d',
+    mode: 'markers+lines',
+    x: Gx,
+    y: Gy,
+    z: Z_,
+    color: 'rgba(0,160,0,0.8)',
+    line: {color: 'rgba(0,160,0,0.8)', width: 4},
+    marker: {size: 4, opacity: 0.8}
+  }];
+  var cell_3d = document.getElementById("for_right_plot");
+  Plotly.deleteTraces(cell_3d, [1]);
+  Plotly.addTraces(cell_3d, data_3d);
+
+  var data_2d = [{
+    type: 'scatter',
+    mode: 'markers+lines',
+    x: Gx,
+    y: Gy,
+    color: 'rgba(0,160,0,0.8)',
+    line: {color: 'rgba(0,160,0,0.8)', width: 4},
+    marker: {size: 4, opacity: 0.8}
+  }];
+  var cell_2d = document.getElementById("for_left_plot");
+  Plotly.deleteTraces(cell_2d, [1]);
+  Plotly.addTraces(cell_2d, data_2d);
+}
+
+    var active_state = 0; 
+    var middle_point = [0.0, 0.0];
+
+function draw() {
+  var plt_div = document.getElementById('for_left_plot');
+  var el = plt_div.getElementsByClassName('nsewdrag')[0];
+  if (!el) return;
+  var rect = el.getBoundingClientRect();
+  var canvas = document.getElementById("paint_left");
+  
+  canvas.style.top = rect.top + "px";
+  canvas.style.left = rect.left + "px";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  ctx.beginPath();
+  ctx.arc(middle_point[0], middle_point[1], 10, 0.0, 2.0 * Math.PI, 0);
+  ctx.fillStyle = "rgba(210, 0, 0, 0.75)";
+  ctx.fill();
+  ctx.strokeStyle = "rgb(0,120,0)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+  function mdown_handle(evt) {
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    var dm = [x - middle_point[0], y - middle_point[1]];
+    if (dm[0]*dm[0] + dm[1]*dm[1] < 100) {
+      active_state = 3;
+    }
+    draw();
+  }
+
+  function mmove_handle(evt) {
+    if (active_state == 0) return;
+    var x = evt.offsetX;
+    var y = evt.offsetY;
+    if (active_state == 3) {
+      middle_point = [x, y];
+    }
+    update_3d();  
+    draw();
+  }
+      
+  function mup_handle(evt) {
+    active_state = 0;
+    draw();
+  }
+
+
+function change_function() {
+  func = document.getElementById("func_input").value;
+  parse_func(func);
+  plot_left_func();
+  plot_right_func();
+  update_3d();
+  draw();
+}
+
+</script>
+</head>
+
+<body>
+
+<table><tr><td>
+f(x,y) = </td><td>
+      <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+        <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0px;padding:0px;"
+                onchange="document.getElementById('func_input').value=this.options[this.selectedIndex].text; change_function();">
+          <option></option>
+          <option>(1-x/5)^2+10*(y/5-x^2/25)^2</option>
+          <option>x^2 + y^2</option>
+          <option>x^2 + y^2 + 1.7*x*y</option>
+          <option>sin(x/3)*cos(y/4)</option>
+        </select>
+        <input type="text" name="displayValue" id="func_input" value="sin(x/3)*cos(y/4)"
+               placeholder="add/select a value" onfocus="this.select()"
+               onkeydown="if(event.key === 'Enter') change_function();"
+               style="position:absolute;top:0px;left:0px;width:183px; height:21px; border:1px solid #556;"  >
+      </div>
+</td><td>
+<button onclick="change_function();" style="margin:10px">Recalculate</button>
+</td>
+<td>
+        <label for="cg_method">Update Method:</label>
+        <select id="cg_method" onchange="update_3d(); draw();">
+            <option value="FR">Fletcher-Reeves</option>
+            <option value="PR">Polak-Ribière</option>
+            <option value="HS">Hestenes-Stiefel</option>
+            <option value="DY">Dai-Yuan</option>
+        </select>
+</td>
+</tr>
+</table>
+
+<div id="everything" style="height:400px; width:800px; margin: 0px;">
+    <div id="for_left_plot" > </div>
+    <div id="for_right_plot" style="height:400px; position:absolute; top:50px; left:420px;"> </div>
+    <canvas id="paint_left" style="position:absolute; z-index:1000;"
+    onmousedown="mdown_handle(event)"
+    onmousemove="mmove_handle(event)"
+    onmouseup="mup_handle(event)"></canvas>
+</div>
+
+</body>
+
+<script>
+function init()
+{
+  func = document.getElementById("func_input").value;
+  parse_func(func);
+  plot_left_func();
+  plot_right_func();
+  
+  middle_point = [200, 200];
+  
+  setTimeout(() => {
+      draw();
+      update_3d();
+  }, 500);
+}
+init();
+</script>
+
+</html>
