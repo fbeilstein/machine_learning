@@ -98,7 +98,6 @@ Every Friday, 14:30 <br>
 
 ### Methods of ML
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 1.  **Mathematical optimization**
   - Lecture
@@ -120,6 +119,7 @@ Every Friday, 14:30 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=HNrAjs6QqiY)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=SAq2QFYS1GA)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 2.  **Naive Bayes Classification**
   - Lecture
