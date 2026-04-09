@@ -150,7 +150,6 @@ Every Friday, 14:30 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=ZVz-M-QwJsc)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=vuHjbustZYs)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 4.  **Linear Regression**
   - Lecture
@@ -170,6 +169,7 @@ Every Friday, 14:30 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=MIfdv6VFLbo)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=Ky7Cf7PTi44)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 5.  **Support Vector Machines**
   - Lecture
