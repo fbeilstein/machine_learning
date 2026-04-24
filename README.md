@@ -200,7 +200,6 @@ Every Friday, 14:30 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=Y_R-S63X0pA)
     - українська: [[осінь 2020]](https://www.youtube.com/watch?v=aJMC8tKWnDQ)
 
-<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 <hr />
 
@@ -228,6 +227,7 @@ Every Friday, 14:30 <br>
     - English: [[autumn 2023]](https://www.youtube.com/watch?v=-h8JcHFO6x0)
     - українська: [[осінь 2020]](https://youtu.be/MlK5oLx9jYc)
 
+<img src="https://raw.githubusercontent.com/fbeilstein/machine_learning/master/geotag.png" width="250px"/>
 
 8.  **K-Means Clustering**
   - Lecture
